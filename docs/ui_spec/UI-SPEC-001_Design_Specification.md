@@ -745,3 +745,167 @@ Unsigned slot: dashed border, ghost avatar with "+" symbol, "Awaiting signature"
 | REJECTED | Coral | Rejected in review |
 | EXECUTING | Blue pulsing | Protocol actively being run |
 
+
+---
+
+## 3. Modal System — Complete Specification
+
+### Modal Types
+
+**Type 1: Create Record Modal (560px)**
+Used for creating any new record: protocol, CAPA, deviation, user, workspace.
+- Header: icon + action title ("New Validation Protocol")
+- Body: form fields with type-appropriate inputs
+- Footer: Cancel (left) + Create [Record Type] (right, teal gradient)
+- Tab key navigates between fields
+- Enter submits when in last field
+
+**Type 2: Destructive Confirmation Modal (400px)**
+For void, delete, archive, retire actions.
+- Header: dark red-tinted background to signal danger
+- Body: warning box with icon + title "This action cannot be undone" + explanation
+- Confirmation input: user must type the record reference to confirm
+- Footer: Cancel + [Destructive Action] (red button, right)
+- Escape ALWAYS cancels, never confirms
+
+**Type 3: Electronic Signature Modal (560px)**
+For all electronic signature actions (21 CFR Part 11).
+- Header: teal accent header
+- Body: signed record summary (read-only) + signature meaning (pre-selected) + password field + TOTP field + acknowledgment checkbox
+- Footer: Cancel + Sign Record (teal gradient, disabled until checkbox checked)
+- Failed auth increments counter, locks after 5 attempts
+
+**Type 4: Success State Modal (400px)**
+Replaces toast for significant actions (signing, approvals, major saves).
+- Header: green-tinted background, green checkmark icon
+- Body: success icon + title + what was done + list of automated actions triggered
+- Footer: Close + View Record (primary action)
+- Auto-dismiss available but optional (default: user dismisses)
+
+**Type 5: Detail Preview Panel (50% screen width, right slide-in)**
+Opened by single-clicking any table row. Not a full modal — slides in from right.
+- Header: record ref + type + close button
+- Body: key fields in a clean two-column layout
+- Footer: quick action buttons (Open Full Record, Approve, Execute)
+- Does not block the table (can still scroll/interact with table)
+- Double-click or "Open" button navigates to full record page
+
+**Type 6: Large Form Modal (720px)**
+For complex forms: edit system details, configure workflow, build template.
+- Two-column layout for dense forms
+- Scrollable body (header and footer sticky)
+- Section headers within modal body
+- "Save Draft" secondary action alongside primary "Save"
+
+### Modal Rules (hard standards)
+
+```
+✓ USE MODAL FOR              ✗ NEVER TOAST FOR
+─────────────────────        ───────────────────
+Create any record             Record saved/created → use success modal
+Delete / void / retire        Validation errors → inline field errors
+Electronic signature          Warning about action → confirmation modal
+Bulk action confirmation      Any action needing user decision
+Approve / reject             
+Upload a file                TOAST IS ONLY FOR
+Configure a module            Background task complete
+View record details           Nightly audit verification result
+Any irreversible action       License expiry (once/session)
+                              Network reconnection
+```
+
+---
+
+## 4. Navigation Architecture
+
+### Top Navigation Dropdowns
+
+The charcoal header contains a top navigation bar with 4 dropdown menus for quick access:
+
+**Validation ▾**
+- Validation Projects (all active work)
+- Protocols (IQ/OQ/PQ/UAT/MAV)
+- Test Executions (running and completed)
+- ─────
+- Validation Wizard (build a project in 15 min)
+- Test Case Library (EE)
+- Traceability Matrix
+
+**Quality ▾**
+- CAPA
+- Change Control
+- Deviations
+- OOS / OOT (EE)
+- Complaints (EE)
+- Periodic Reviews
+- Audit Management
+
+**Documents ▾**
+- Document Library
+- Templates
+- Pending Approvals (with count badge)
+- Drawing Management (EE)
+- Validation Packages
+
+**Reports ▾**
+- Standard Reports
+- Dashboards
+- Inspection Readiness (EE)
+- Validation Debt (EE)
+- Custom Reports (EE)
+
+**+ Create ▾** (always visible, right side of header)
+Dropdown of quick-create options for any record type.
+Keyboard shortcut: `N` (new) when not in a text field.
+
+### Breadcrumb Bar
+
+Below the header, a persistent breadcrumb shows exact location:
+```
+MATC Madison / IT Validation / SAP Suite / SAP ERP 2026 / OQ-0043 · Execution
+```
+Every segment is clickable. Clicking navigates to that level.
+
+---
+
+## 5. Folder/Tree Architecture for Validation Plans
+
+### Hierarchy
+
+```
+🏢 Site
+└── 📁 Workspace (data isolation scope, team assignment)
+    └── 📂 Portfolio (compliance score aggregation)
+        └── 🗂 Validation Project (one system's full lifecycle)
+            ├── 📋 Validation Plan
+            ├── ⚠  Risk Assessment
+            ├── 📝 URS / FS / DS / CS
+            ├── 🧪 IQ Protocol
+            │   ├── Protocol Document (authored)
+            │   └── Execution Record(s)
+            ├── 🧪 OQ Protocol
+            │   ├── Protocol Document
+            │   └── Execution Records
+            ├── 🧪 PQ Protocol
+            ├── 🔗 Traceability Matrix (auto-generated)
+            └── 📊 Validation Summary Report
+```
+
+### Tree Behavior
+
+- **Expand/collapse**: click triangle toggle
+- **Status badges**: every item shows its current lifecycle status
+- **Selection**: click item → loads in main content area
+- **Right-click context menu**: open, create child, rename, move, export, archive
+- **Drag to reorder**: within same parent only
+- **Search within tree**: filter nodes by name or reference
+- **Persistent state**: expanded/collapsed state saved to user preference
+- **Document + Execution together**: protocol node shows both the authored document and execution records as sub-items
+
+### Status Visual Language in Tree
+
+- ✓ Green badge = Passed/Approved/Effective
+- ◉ Blue badge = In Review/In Progress
+- ⚠ Gold badge = In Progress / Pending Action
+- — Gray badge = Not Started
+- ✗ Red badge = Failed/Rejected
