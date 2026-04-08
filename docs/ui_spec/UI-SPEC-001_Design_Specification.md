@@ -909,3 +909,59 @@ Every segment is clickable. Clicking navigates to that level.
 - ⚠ Gold badge = In Progress / Pending Action
 - — Gray badge = Not Started
 - ✗ Red badge = Failed/Rejected
+
+---
+
+## 2.4 Color Refinements — v2.4 (Final)
+
+### Removing Harsh Cyan as Text Color
+
+`#5EEADF` (--teal-300) was being overused as text color. It is too high-contrast
+(cyan against dark = eye strain on extended use). Replace all teal-300 text with:
+
+| Was | Now | Why |
+|---|---|---|
+| Active nav label (#5EEADF) | White #fff | Clean, legible, professional |
+| Record reference in table (#5EEADF) | Off-white monospace #B2CCD6 | Softer, still distinct |
+| "Approved" badge text | Teal-400 #00D4C4 | Still teal, 30% less aggressive |
+| Success checkmarks | Lime #86C140 | Semantically correct (pass = green) |
+| Active state indicators | Gold #E2A837 | Warmer, more premium |
+
+Keep teal-300 ONLY for: left border on active nav item, focus ring glow, teal callout border.
+
+### Lighter Input Fields in Dark Mode
+
+Old: `background: #1E2837` (almost invisible against dark cards)
+New: `background: #243040` (slate-blue — clearly a fillable field)
+New border: `#2E4055` (visible against field background)
+Focus border: `rgba(0,160,144, 0.6)` (teal-600 with slight transparency)
+Text: `#E8EDF2` (warm off-white, not pure white, not harsh)
+
+### Callout Box Color Personality (7 Types)
+
+All callouts have: tinted background + matching left border (3px) + matching text.
+
+| Type | Background | Left Border | Text Color | Usage |
+|---|---|---|---|---|
+| Teal/Info | rgba(0,160,144,.10) | #00A090 | #00D4C4 | Regulatory note, reference |
+| Blue | rgba(59,130,246,.10) | #3B82F6 | #93C5FD | In-progress, scheduled |
+| Gold | rgba(226,168,55,.10) | #E2A837 | #F0C040 | Action required, due soon |
+| Orange | rgba(249,115,22,.10) | #F97316 | #FDBA74 | Deviation, flag, warning |
+| Red/Coral | rgba(229,75,46,.10) | #E54B2E | #FCA5A5 | Blocking error, critical |
+| Green/Pass | rgba(134,193,64,.08) | #86C140 | #BEF264 | All criteria met, complete |
+| Purple | rgba(139,92,246,.10) | #8B5CF6 | #C4B5FD | AI suggestion, EE feature |
+
+Light theme versions: same borders but light tinted backgrounds (e.g., #EFF6FF for blue).
+
+### Modal Header Variants by Action Type
+
+| Modal Type | Header Treatment |
+|---|---|
+| Standard / Create | Charcoal #141414 |
+| Signature (approved) | Teal gradient overlay on charcoal |
+| Success | Lime-green gradient overlay |
+| Destructive | Dark red tint (#1A0808) |
+| Warning / Flag | Orange tint overlay |
+| AI-assisted | Purple tint overlay |
+| Gold / Priority | Gold tint overlay |
+
