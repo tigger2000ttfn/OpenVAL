@@ -1,0 +1,41 @@
+[Unit]
+Description=OpenVAL Celery Worker
+Documentation=https://github.com/YOUR_ORG/openval
+After=network.target redis.service
+Requires=redis.service
+
+[Service]
+Type=forking
+User=openval
+Group=openval
+WorkingDirectory=/opt/openval/src/backend
+EnvironmentFile=/opt/openval/.env
+
+ExecStart=/opt/openval/venv/bin/celery \
+    -A app.core.celery_app worker \
+    --loglevel=info \
+    --concurrency=4 \
+    --max-tasks-per-child=1000 \
+    --logfile=/opt/openval/logs/celery-worker.log \
+    --pidfile=/opt/openval/logs/celery-worker.pid \
+    --hostname=worker@%%h
+
+ExecStop=/bin/kill -s TERM $MAINPID
+KillMode=mixed
+TimeoutStopSec=30
+
+PrivateTmp=true
+NoNewPrivileges=true
+ReadWritePaths=/opt/openval/logs /opt/openval/media /opt/openval/backups
+
+Restart=on-failure
+RestartSec=10
+StartLimitInterval=60
+StartLimitBurst=3
+
+StandardOutput=append:/opt/openval/logs/celery-worker-stdout.log
+StandardError=append:/opt/openval/logs/celery-worker-stderr.log
+SyslogIdentifier=openval-worker
+
+[Install]
+WantedBy=multi-user.target

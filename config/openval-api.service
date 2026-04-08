@@ -1,0 +1,55 @@
+[Unit]
+Description=OpenVAL API Server (Gunicorn + Uvicorn)
+Documentation=https://github.com/YOUR_ORG/openval
+After=network.target postgresql.service redis.service
+Requires=postgresql.service redis.service
+Wants=openval-worker.service openval-beat.service
+
+[Service]
+Type=notify
+User=openval
+Group=openval
+WorkingDirectory=/opt/openval/src/backend
+EnvironmentFile=/opt/openval/.env
+
+ExecStart=/opt/openval/venv/bin/gunicorn \
+    app.main:app \
+    --workers 4 \
+    --worker-class uvicorn.workers.UvicornWorker \
+    --worker-connections 1000 \
+    --bind 127.0.0.1:8000 \
+    --timeout 120 \
+    --keepalive 5 \
+    --max-requests 1000 \
+    --max-requests-jitter 50 \
+    --preload \
+    --access-logfile /opt/openval/logs/api-access.log \
+    --error-logfile /opt/openval/logs/api-error.log \
+    --log-level info \
+    --capture-output
+
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+# Security hardening
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=full
+ProtectHome=true
+NoNewPrivileges=true
+ReadWritePaths=/opt/openval/logs /opt/openval/media /opt/openval/backups
+
+Restart=on-failure
+RestartSec=5
+StartLimitInterval=60
+StartLimitBurst=3
+
+# Logging
+StandardOutput=append:/opt/openval/logs/api-stdout.log
+StandardError=append:/opt/openval/logs/api-stderr.log
+SyslogIdentifier=openval-api
+
+[Install]
+WantedBy=multi-user.target

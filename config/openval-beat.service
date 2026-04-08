@@ -1,0 +1,38 @@
+[Unit]
+Description=OpenVAL Celery Beat Scheduler
+Documentation=https://github.com/YOUR_ORG/openval
+After=network.target redis.service
+Requires=redis.service
+After=openval-worker.service
+
+[Service]
+Type=simple
+User=openval
+Group=openval
+WorkingDirectory=/opt/openval/src/backend
+EnvironmentFile=/opt/openval/.env
+
+ExecStart=/opt/openval/venv/bin/celery \
+    -A app.core.celery_app beat \
+    --loglevel=info \
+    --logfile=/opt/openval/logs/celery-beat.log \
+    --pidfile=/opt/openval/logs/celery-beat.pid \
+    --schedule=/opt/openval/logs/celerybeat-schedule
+
+ExecStop=/bin/kill -s TERM $MAINPID
+KillMode=mixed
+TimeoutStopSec=15
+
+PrivateTmp=true
+NoNewPrivileges=true
+ReadWritePaths=/opt/openval/logs
+
+Restart=on-failure
+RestartSec=10
+
+StandardOutput=append:/opt/openval/logs/celery-beat-stdout.log
+StandardError=append:/opt/openval/logs/celery-beat-stderr.log
+SyslogIdentifier=openval-beat
+
+[Install]
+WantedBy=multi-user.target
