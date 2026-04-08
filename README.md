@@ -30,7 +30,7 @@ No vendor lock-in. Your data, your server.
 
 ## Editions at a Glance
 
-| | Community (Free) | Enterprise (from $4,800/yr) |
+| | Community (Free) | 
 |---|:---:|:---:|
 | Full CSV lifecycle (IQ/OQ/PQ/UAT) | ✓ | ✓ |
 | Document control and templates | ✓ | ✓ |
