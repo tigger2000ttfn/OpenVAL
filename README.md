@@ -32,6 +32,10 @@
 
 </div>
 
+
+> **🎨 Design System & Live Preview:** [**openval.design →**](https://tigger2000ttfn.github.io/OpenVAL/) — Full interactive design showcase with dark/light themes, component library, and interface preview.
+
+
 ---
 
 ## What is OpenVAL?
