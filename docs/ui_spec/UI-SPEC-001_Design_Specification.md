@@ -682,3 +682,66 @@ First approver (QA): green teal gradient avatar + green checkmark + green name
 Second reviewer: gold gradient avatar + gold checkmark + gold name
 Unsigned slot: dashed border + "Awaiting signature" placeholder text
 
+
+---
+
+## 2.2 Final Agreed Design System (v2.2 — April 2026 Moodboard Sign-off)
+
+### Warm Accent Pass/Fail System
+
+```css
+/* PASS — warm lime-green (not cool emerald) */
+--pass:        #86C140;
+--pass-dark:   #4A7A18;
+--pass-light:  #D4EDAA;
+
+/* FAIL — warm coral-red (not pure red) */
+--fail:        #E54B2E;
+--fail-dark:   #9A2114;
+--fail-light:  #FAC5BA;
+
+/* DEVIATION — orange (warm, attention without alarm) */
+--orange:      #F97316;
+--orange-dark: #C2510D;
+--orange-light:#FED7AA;
+```
+
+### Sidebar Collapse Behavior
+
+**Expanded state:** 192px wide — icon + full label text
+**Collapsed state:** 52px wide — icon only
+**Toggle:** header hamburger button (◁ / ▷ direction indicates action)
+**Transition:** 200ms ease slide — sidebar collapses left, content area expands
+**Collapsed icons:** centered, 36×36px rounded squares, tooltip on hover
+**Active state in collapsed:** same teal-600 background on the icon square
+**Badge dots in collapsed:** small circle overlaid top-right of icon (gold = action needed, red = critical)
+**User preference saved:** localStorage + user_preferences.sidebar_collapsed
+
+### Signature Color Hierarchy
+
+Three signatories each get a distinct warm accent:
+1. QA Approver — **Green** (#86C140) avatar, name, checkmark
+2. Reviewer/Validator — **Gold** (#E2A837) avatar, name, checkmark
+3. Author/Originator — **Orange** (#F97316) avatar, name, checkmark
+
+Unsigned slot: dashed border, ghost avatar with "+" symbol, "Awaiting signature" text
+
+### Complete Status Badge Library
+
+| Badge | Color | Use |
+|---|---|---|
+| PASSED | Warm green #86C140 | Protocol/step passed |
+| FAILED | Warm coral #E54B2E | Protocol/step failed |
+| DEVIATION | Orange #F97316 | Deviation flagged during execution |
+| IN REVIEW | Blue #60A5FA | Awaiting reviewer action |
+| OVERDUE | Gold #E2A837 | Past due date |
+| APPROVED | Teal #00D4C4 | Approved and current |
+| EFFECTIVE | Teal filled | Approved and in effect |
+| DRAFT | Muted slate #94A3B8 | Being authored |
+| AI ASSISTED | Purple #A78BFA | AI generated content |
+| EE / ENTERPRISE | Teal outline | Enterprise feature |
+| PRIORITY | Gold star | Starred / priority flag |
+| SUPERSEDED | Gray | Replaced by newer version |
+| REJECTED | Coral | Rejected in review |
+| EXECUTING | Blue pulsing | Protocol actively being run |
+
