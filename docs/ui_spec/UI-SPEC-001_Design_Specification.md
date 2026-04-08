@@ -621,3 +621,64 @@ OpenVAL NCE          ↔  ServiceNow Incident
 
 ---
 *UI-SPEC-001 v2.0.0 — Dark Teal. Modal-first. Light + Dark. OpenVAL's own identity.*
+
+## 2.1 Design System Refinements (v2.1 — April 2026)
+
+### Confirmed Design Decisions
+
+**Header treatment (both themes):**
+Dark theme header: `#141414` (pure charcoal — NOT teal)
+Light theme header: `#141414` (same charcoal — less teal, unified identity)
+Both: white text, gold notification bell, teal logo mark gradient
+
+Rationale: the user found "too much teal on the header for light theme."
+Charcoal header with teal sidebar = strong, premium chrome without teal overload.
+
+**Gold accent system:**
+```css
+--gold-400: #F0C040;   /* Bright gold — active glow */
+--gold-500: #E2A837;   /* Primary gold — notification bell, priority, milestones */
+--gold-600: #C9981A;   /* Rich gold — text on light, second reviewer signatures */
+--gold-700: #A87E14;   /* Deep gold — borders, EE indicator borders */
+```
+
+Gold is used for:
+- Notification bell icon (always, both themes)
+- Unread notification count badge (number on bell)
+- Priority / action-required indicators
+- Milestone markers and star bookmarks
+- Overdue status indicators (instead of plain amber)
+- EE Enterprise tier chip
+- Second-level reviewer signatures (first reviewer = green, second = gold)
+- Left-border accent on urgent KPI cards
+- Pending approval count badges in sidebar
+
+**Light theme page background: #c1c1c1**
+Cards/surfaces: #FFFFFF (white cards on medium gray — strong contrast, premium feel)
+Secondary surface: #F5F5F5
+Not the white/off-white generic SaaS look
+
+**Text rules (fixed):**
+- ALL text on dark surfaces (header, sidebar, dark cards): use rgba(255,255,255,N)
+- Primary text on dark: #FFFFFF / rgba(255,255,255,1.0)
+- Secondary text on dark: rgba(255,255,255,0.55)
+- Tertiary / meta on dark: rgba(255,255,255,0.35)
+- NEVER use dark hex like #333, #555 on dark backgrounds
+- Teal brand text on dark: var(--teal-300) = #5EEADF
+
+**Icon treatment (Font Awesome-inspired):**
+Use Lucide React icons (similar FA feel) in implementation.
+In mockups: clean geometric unicode symbols at consistent weight.
+Icon color on dark sidebar: rgba(255,255,255,0.4) for inactive, #5EEADF for active.
+Gold icons: notification bell, star/bookmark, priority indicators.
+
+**Status badge system (more creative, less gray):**
+Every status has a distinct semantic color — avoid monochromatic gray overuse.
+PASSED = emerald green · FAILED = red · IN REVIEW = blue · OVERDUE = gold (not gray amber)
+APPROVED = teal · DRAFT = subtle gray · AI ASSISTED = purple · ENTERPRISE = teal outline
+
+**Signature display:**
+First approver (QA): green teal gradient avatar + green checkmark + green name
+Second reviewer: gold gradient avatar + gold checkmark + gold name
+Unsigned slot: dashed border + "Awaiting signature" placeholder text
+
