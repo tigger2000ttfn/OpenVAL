@@ -415,7 +415,7 @@ before any module-specific pages are built.
 
 **Design Tokens:**
 ```
-Primary:       #1B4F8A  (deep regulatory blue — trust, authority)
+Primary:     #00A090  (dark teal)  (deep regulatory blue — trust, authority)
 Primary-Lt:    #2D6BB5
 Primary-Dk:    #0F3060
 Accent-Green:  #00875A  (pass, approved, active)
