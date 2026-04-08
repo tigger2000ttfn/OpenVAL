@@ -1766,3 +1766,101 @@ Everything in CE plus:
 *Supersedes: MASTER_PLAN.md v1.0.0, MASTER_PLAN_ADDENDUM_001.md*
 *Next review: After Phase 0 completion*
 
+
+---
+
+## ADDENDUM A: Workspace / Portfolio / Team Architecture
+
+### Workspace Hierarchy
+
+```
+Organisation (AstraZeneca Global)
+└── Region (North America)
+    ├── Site: Madison MATC              ← sites table (existing)
+    │   ├── Workspace: IT Validation   ← workspaces table (NEW)
+    │   │   ├── Portfolio: SAP Suite   ← portfolios table (NEW)
+    │   │   └── Portfolio: Lab Systems
+    │   └── Workspace: Manufacturing Qual
+    │       └── Portfolio: Fill/Finish Line 3
+    └── Site: Chicago R&D
+        └── Workspace: Drug Development CSV
+```
+
+**Data Isolation Levels (per workspace):**
+- `shared` — members see all data in their site (default, most common)
+- `restricted` — members only see data explicitly assigned to this workspace
+- `strict` — full segregation, no cross-workspace visibility without explicit grant
+
+**Use Cases:**
+- Department A and Department B at same site never see each other's protocols
+- CDMO client A and client B have completely isolated data on same server
+- Corporate QA can see all sites; site teams see only their own
+- External auditor access to exactly one collection, nothing else
+
+### Team Workflow Integration
+
+Teams receive workflow task assignments. The workflow engine supports:
+- Assign to: specific user | role at site | team | workspace lead
+- When assigned to a team: task appears in team queue; any eligible team member can claim it
+- Team workload dashboard: how many open tasks per team member
+- Delegation within teams: if user is unavailable → routes to backup_user_id
+
+---
+
+## ADDENDUM B: WP Bakery-Style Configuration System
+
+The "WP Bakery style" principle applied to OpenVAL means:
+
+**1. Configurable Dashboards (drag-and-drop)**
+- 16 pre-built widgets in the widget_library table (seeded in Part 9)
+- Users drag widgets into a 12-column grid layout
+- Each widget has a "config panel" — click the gear icon → no-code options appear
+- Example: Deviation Trend widget → configure: months to show, severity filter, site filter
+- Layout saved in user_dashboards.personal_layout (JSON)
+- System default dashboards per role (qa_manager, validation_engineer, executive)
+
+**2. No-Code Module Configuration**
+Every EE module is activated from a single Admin → Modules page:
+- Toggle switch to enable/disable
+- Click "Configure" → fills form (not editing JSON or YAML)
+- Example: Environmental Monitoring → configure alert limits, sample point types, escalation paths
+
+**3. Site Settings as Forms (not config files)**
+- All site settings in workspace_settings and document_numbering_configs
+- Admin pages present these as well-designed forms with help text
+- Changes are audit-logged (who changed what setting, when)
+- No SSH, no server access, no config file editing ever required post-install
+
+**4. Template Builder (block palette)**
+Exactly like WP Bakery's "Add Element" palette:
+- Left panel: block library organized by category
+- Drag a block type onto the canvas
+- Block appears and can be configured inline
+- Reorder by drag-and-drop
+- Entire template can be cloned with one click
+
+---
+
+## ADDENDUM C: Complete Schema Summary — 362 Tables
+
+| Part | Tables | Domain |
+|---|---|---|
+| 1 | 130 | Core: auth, audit trail, systems, protocols, documents, workflows, CAPA, change control |
+| 2 | 0 | Indexes, sequences, RLS policies, seed data |
+| 3 | 31 | Quality: OOS/OOT, EM, stability, batch, complaints, inspection, SPC, AI |
+| 4 | 4 | License management |
+| 5 | 33 | Validation workflows: projects, plans, sign-offs, amendments, lifecycle state machines |
+| 6 | 16 | Gap closure: access reviews, DR tests, method validation, supplier controls |
+| 7 | 37 | Disciplines: logbooks, drawings, tech transfer, cleaning, cold chain, CQV, process val, sterilization, CSA, test case library, audit war rooms, VMP, validation debt, QbD |
+| 8 | 20 | Document system: block model, form fields, flowcharts, validation packages, AI assistance |
+| 9 | 91 | Complete gap fill: workspaces, teams, calendar, training, equipment, eBR, regulatory submissions, integrations, dashboards/widgets, quality KPIs, AI registry, inspection findings, signature delegation, audit management, data retention, template library, numbering, distribution groups, risk controls, process monitoring, system health, onboarding, reference data, project templates, access requests, license snapshots |
+
+**DBA Notes:**
+- All PKs are UUID (gen_random_uuid()) — no sequential integers exposed to application
+- All timestamps are TIMESTAMPTZ stored as UTC
+- JSON fields are TEXT for portability across PostgreSQL/Oracle/MySQL
+- Audit trail: append-only enforced at DB layer; every table has created_by/updated_by
+- No hard deletes anywhere — status fields control lifecycle; delete = status change
+- Foreign keys are defined but enforcement strategy depends on DB (PostgreSQL enforces; Oracle/MySQL configurable)
+- Seed data: lookup tables, widget library, template step library, glossary seeded at install
+- Sequence strategy: PostgreSQL uses gen_random_uuid(); Oracle uses sequences; MySQL uses id_sequences table
