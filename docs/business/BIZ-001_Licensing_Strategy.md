@@ -448,7 +448,7 @@ This is the correct approach. Tying schema to license tier creates upgrade pain.
 
 | Tier | Users | Sites | Price | Notes |
 |---|---|---|---|---|
-| EE Starter | Up to 25 | 1 | $4,800/year | Ideal for small sites or clinical biotechs |
+| EE Starter | Up to 25 | 1 | TBD | Ideal for small sites or clinical biotechs |
 | EE Growth | Up to 100 | Up to 3 | $14,400/year | Mid-size single-company operations |
 | EE Scale | Up to 300 | Up to 10 | $36,000/year | Multi-site pharmaceutical networks |
 | EE Enterprise | Unlimited | Unlimited | Custom | Global pharmaceutical companies |
@@ -477,7 +477,7 @@ Kneat and Valgenesis pricing is not public but based on industry knowledge:
 - Kneat: approximately $30,000-80,000/year for mid-size sites
 - Valgenesis: approximately $60,000-200,000/year for enterprise
 
-OpenVAL EE Starter at $4,800/year is approximately 6-16x cheaper than
+OpenVAL EE is significantly cheaper than
 Kneat for comparable functionality. The value proposition is real.
 
 The goal is not to maximize price. The goal is to maximize adoption by

@@ -190,7 +190,7 @@ Three data isolation levels: `shared` · `restricted` · `strict`
 
 Full CSV lifecycle · E-signatures · Immutable audit trail · RTM · Change control · CAPA · NCE · Deviations · Controlled documents · Low-code workflows · Periodic review · 15 standard reports · Bare metal installer · **Bundled validation package**
 
-**Enterprise Edition (Commercial, from $4,800/year)**
+**Enterprise Edition (Commercial)**
 
 Everything in CE plus: OOS/OOT · Complaints · EM · Stability · Electronic logbooks · Drawings/P&ID · Tech transfer · Cleaning validation · Cold chain · CQV · Process validation · Sterilization · CSA mode · Test case library · Audit war rooms · Multi-site · SPC · AI assistance · Jira/Zephyr/Veeva/ServiceNow integrations · SAML/SSO · Custom reports
 
@@ -281,7 +281,7 @@ OpenVAL is built for the validation community, by the validation community.
 
 The AGPL ensures that if you run OpenVAL as a service, modifications must also be open source. This protects the community from proprietary forks.
 
-**Enterprise Edition:** Commercial license. Contact for pricing.
+**Enterprise Edition:** Commercial license. [Contact us](https://github.com/tigger2000ttfn/OpenVAL/discussions) to learn more.
 
 ---
 
