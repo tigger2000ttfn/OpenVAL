@@ -1864,3 +1864,106 @@ Exactly like WP Bakery's "Add Element" palette:
 - Foreign keys are defined but enforcement strategy depends on DB (PostgreSQL enforces; Oracle/MySQL configurable)
 - Seed data: lookup tables, widget library, template step library, glossary seeded at install
 - Sequence strategy: PostgreSQL uses gen_random_uuid(); Oracle uses sequences; MySQL uses id_sequences table
+
+---
+
+## ADDENDUM D: SOP Visualizer + Validation Package Visualizer
+
+### SOP Visualizer — Competitive Differentiator
+
+**What no other pharma validation platform does:**
+Parse any SOP, work instruction, or procedure document and render it
+as an interactive, navigable process flowchart automatically.
+
+**How it works:**
+1. User links any document in the system (SOP, process flow, WI)
+2. AI extraction engine parses the text and identifies:
+   - Process steps (rectangular nodes)
+   - Decision gates (diamond nodes)
+   - Roles / swimlane ownership
+   - Document references
+   - GxP-critical steps (highlighted in teal)
+   - Regulatory citations
+3. Rendered as interactive swimlane or flowchart diagram
+4. Users can manually adjust, annotate, or correct nodes
+5. Published visualizations can be shared via token link
+6. PDF export for training materials and inspection evidence
+
+**Why this wins inspections:**
+- Inspectors love visual process maps — easier to follow than text SOPs
+- During walkthroughs, show the flowchart on screen instead of reading paragraphs
+- Instantly shows: who does what, when, what decisions are made
+- Regulatory citation overlays prove the process is tied to the regulation
+
+**Visualization types:**
+- Swimlane (by role — default)
+- Top-down flowchart
+- Decision tree
+- Responsibility matrix (RACI)
+- Process map (simplified, for training)
+
+**Pre-built templates seeded:**
+- CSV Lifecycle (System Implementation path)
+- CSV Lifecycle (Operational Change path)
+- Change Control Workflow
+- CAPA Workflow
+- Deviation Management Process
+- Periodic Review Process
+- Document Approval Workflow
+- Astellas SLC (two-path: implementation vs operational change)
+- APS Execution and Disposition
+
+**Schema:**
+- `sop_visualizations` — visualization metadata and render data
+- `sop_viz_nodes` — individual nodes with position, type, regulatory data
+- `sop_viz_edges` — connections between nodes with branch labels
+- `sop_viz_templates` — 9 seeded templates
+
+---
+
+### Validation Package Visualizer
+
+**What it shows:**
+Every validation project has a living visual representation showing
+exactly where the project stands at any moment.
+
+**Views available:**
+1. **Lifecycle Map** — The deliverable chain with visual pass/fail/active/pending status
+   Shows: RASC → Val Plan → URS → BFRA → IQ → OQ → PQ → UAT → RTM → VSR
+   Each node shows status with the warm color system (green=passed, teal=active, gray=pending)
+
+2. **RTM Heat Map** — Requirements × Test coverage grid
+   Instantly shows: which requirements are not yet tested, which protocols cover what
+   Color coded: covered (green), partial (gold), uncovered (coral), N/A (gray)
+   Zoom: click any cell to see the specific test steps
+
+3. **Protocol Completion Cards** — Per-protocol progress bars
+   Shows: steps completed / total, current step, any open deviations
+
+4. **Gantt View** — Timeline with dependencies
+   Shows: who is blocking whom, which items are on the critical path
+
+**The key insight:**
+The Validation Package Visualizer turns what is normally a collection of
+documents in a folder into a living, queryable status board. A QA manager
+can see the entire project status in 5 seconds without opening a single document.
+An inspector can understand where the project stands before they ask a question.
+
+---
+
+## ADDENDUM E: Complete Schema Summary — 428 Tables
+
+| Part | Tables | Domain |
+|---|---|---|
+| 1 | 130 | Core: auth, audit trail, systems, protocols, documents, workflows, CAPA, change control |
+| 3 | 31 | Quality: OOS/OOT, EM, stability, batch, complaints, inspection, SPC |
+| 4 | 4 | License management |
+| 5 | 33 | Validation workflows: projects, plans, sign-offs, lifecycle state machines |
+| 6 | 16 | Gap closure: access reviews, DR testing, method validation, supplier controls |
+| 7 | 37 | Disciplines: logbooks, drawings, tech transfer, cleaning, cold chain, CQV, process val, sterilization |
+| 8 | 20 | Document system: block model, form fields, flowcharts, validation packages |
+| 9 | 91 | Complete: workspaces, teams, calendar, training, equipment, eBR, regulatory submissions, integrations, dashboards, quality KPIs, AI registry, 483 tracking |
+| 10 | 11 | Astellas gap fill: RASC, SMM, SRP, EOL, SRS, vendor releases, EHSA |
+| 11 | $p11 | All remaining gaps: QMSR design control, Annex 1 (CCS/APS/PUPSIT), ATMP COI/COC, DCS/SCADA, GDP, data integrity, SOP visualizer, validation package visualizer |
+| **TOTAL** | **$total** | |
+
