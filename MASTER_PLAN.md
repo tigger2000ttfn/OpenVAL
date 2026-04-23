@@ -1967,3 +1967,91 @@ An inspector can understand where the project stands before they ask a question.
 | 11 | $p11 | All remaining gaps: QMSR design control, Annex 1 (CCS/APS/PUPSIT), ATMP COI/COC, DCS/SCADA, GDP, data integrity, SOP visualizer, validation package visualizer |
 | **TOTAL** | **$total** | |
 
+
+---
+
+## ADDENDUM F: Brand Name — OpenVAL® Trademark Conflict Resolution
+
+**Problem:** OpenVAL® is registered USPTO #97737837 by Atorus Research, Inc.
+(validated R packages for statistical analysis). Registered May 27, 2025.
+
+**Candidate Names — All Researched, No Pharma Software Conflicts Found:**
+
+| Name | Etymology | Strength |
+|---|---|---|
+| **VERIX** | VERIfy + -IX suffix (tech-native) | V anchors to existing logo. Clean, global, memorable. |
+| **QUALINEX** | QUALity + INtelligence + NEXt | Enterprise weight. 3 syllables. Works for full vertical stack. |
+| **VALIDUM** | VALIDation + Latin -um (material) | Latin authority. "As solid as validum." |
+| **PHAROS** | PHARma + Pharos (ancient lighthouse) | Story: guides pharma through regulatory seas. |
+| **CERTIMA** | Latin certus (certain) + -ima superlative | Elegant. "The most certain." |
+| **NEXLID** | NEXt + Lifecycle Intelligence Dashboard | Compact acronym embedded. |
+| **VALINEX** | VALIdation + NEXUS + valine (amino acid) | Pharma science resonance. |
+| **COMPLIX** | COMPliance + IX | Risk: "complex" connotation. |
+
+**Recommendation:** VERIX or QUALINEX. Both are clean, pronounceable globally,
+work as a company name for future IPO or acquisition, and scale across
+Validation + LIMS + QMS + ATMP vertical stack.
+
+**GitHub repos to rename once decided:**
+- `tigger2000ttfn/OpenVAL` → `tigger2000ttfn/VERIX` (or chosen name)
+- `openval.github.io` → `verix.io` (or chosen name)
+
+---
+
+## ADDENDUM G: Oracle 19c+ Full Compatibility
+
+See: `docs/architecture/ADR-016_Oracle_Full_Compatibility.md`
+
+**Key decisions:**
+- UUIDs stored as VARCHAR2(36) using generate_uuid() function (not RAW(16))
+- TEXT → CLOB (19c) or native JSON type (21c+)
+- BOOLEAN → NUMBER(1,0) with CHECK constraint
+- RLS (PostgreSQL) → VPD Virtual Private Database (Oracle)
+- SHA-256 audit chain → DBMS_CRYPTO.HASH (requires EXECUTE grant)
+- JSON → CLOB+IS JSON constraint (19c) or JSON native (21c)
+- Audit trail → range-partitioned by month
+- Wallet-based connection (zero plaintext credentials in config)
+- Alembic migrations: dialect-detected DDL per migration
+
+**Oracle versions supported:**
+Oracle 19c (LTR, primary), 21c (preferred JSON), 23ai, Oracle Autonomous Database
+
+---
+
+## ADDENDUM H: Complete Vertical Stack — The Quality Platform Vision
+
+```
+VALIDATION SUITE (Building now — 418 tables, 11 schema parts)
+    ↓
+LIMS MODULE (Phase 18-20)
+    Sample registration → Testing assignment → Result capture
+    OOS/OOT investigation → CoA generation → Stability scheduling
+    Integrates: LabWare, LabVantage, STARLIMS (via Integration Infrastructure)
+    Native lightweight LIMS for companies without enterprise LIMS
+    ↓
+QMS MODULE (Already built into core)
+    CAPA · Change Control · Complaints · Audits · Training
+    ↓
+MES / eBR MODULE (Future EE — schema in Part 9)
+    Electronic Batch Records · Manufacturing Execution
+    ↓
+ELN MODULE (Future EE)
+    Electronic Lab Notebook · Experiment tracking
+    ↓
+REGULATORY AFFAIRS MODULE (Future EE)
+    CTD dossier · Submission tracking · Agency commitments
+    ↓
+ATMP MODULE (Future EE — schema in Part 11)
+    Chain of Identity · Chain of Custody · Donor eligibility
+    Patient-specific manufacturing records
+
+AI INTELLIGENCE LAYER — runs across every module
+    Gap analysis · Draft generation · Anomaly detection · RTM automation
+```
+
+The LIMS module key insight: validation data and lab data are deeply interconnected.
+An OQ test step that measures pH needs to know the instrument calibration date.
+A stability sample result feeds directly into the CPV module.
+A deviation in the LIMS triggers a CAPA in the QMS.
+
+The platform IS the integration. That's the competitive moat.
