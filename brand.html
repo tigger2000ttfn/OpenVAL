@@ -72,9 +72,10 @@ body{background:#08080E;font-family:'DM Mono',monospace;color:rgba(232,237,242,.
 .mc-body strong{color:rgba(226,168,55,.5);font-weight:400;}
 
 /* pH display */
-.ph-display{font-family:'Syne',sans-serif;font-weight:800;font-size:100px;letter-spacing:0;line-height:1;display:flex;align-items:baseline;}
-.ph-p{font-family:'Syne',sans-serif;font-weight:800;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.ph-h{font-family:'Syne',sans-serif;font-weight:800;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ph-display,.ph-display span{font-family:'Syne',sans-serif;font-weight:800;font-size:96px;letter-spacing:-.02em;line-height:1;}
+.ph-display{display:flex;align-items:baseline;gap:0;}
+.ph-p{font-family:'Syne',sans-serif;font-weight:800;font-style:normal;display:inline-block;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ph-h{font-family:'Syne',sans-serif;font-weight:800;font-style:normal;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
 /* palette */
 .pal-row{display:flex;gap:3px;margin-bottom:3px;}
@@ -111,7 +112,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 .icon-box::before{content:'';position:absolute;inset:0;border-radius:44px;background:linear-gradient(145deg,rgba(255,255,255,.04),transparent 60%);pointer-events:none;}
 .wm-shadow{filter:drop-shadow(0 1px 4px rgba(0,0,0,.3));}
 </style>
-<meta name="pharolon:build" content="2e5a883"/><meta name="pharolon:built-at" content="2026-04-24T01:58:44Z"/></head>
+<meta name="pharolon:build" content="a66fc0e"/><meta name="pharolon:built-at" content="2026-04-24T02:01:26Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -283,8 +284,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
       <div style="position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:radial-gradient(circle,rgba(0,160,144,.12),transparent 65%);pointer-events:none;"></div>
       <div style="position:absolute;bottom:-40px;left:-40px;width:120px;height:120px;background:radial-gradient(circle,rgba(0,160,144,.08),transparent 65%);pointer-events:none;"></div>
       <!-- pH in logo font -->
-      <div class="ph-display" style="position:relative;z-index:1;">
-        <span class="ph-p">p</span><span class="ph-h">H</span>
+      <div style="position:relative;z-index:1;display:flex;align-items:baseline;gap:0;line-height:1;">
+        <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:96px;letter-spacing:0;display:inline-block;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">p</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:96px;letter-spacing:0;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">H</span>
       </div>
       <!-- Labels -->
       <div style="position:relative;z-index:1;text-align:center;">
