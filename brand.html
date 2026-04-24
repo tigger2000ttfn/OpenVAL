@@ -183,7 +183,7 @@ to{transform:rotate(360deg);}}
   }
 }
 </style>
-<meta name="pharolon:build" content="093dd0f"/><meta name="pharolon:built-at" content="2026-04-24T02:36:30Z"/></head>
+<meta name="pharolon:build" content="eae26e8"/><meta name="pharolon:built-at" content="2026-04-24T02:41:52Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -342,7 +342,7 @@ to{transform:rotate(360deg);}}
 <section class="section">
   <div class="sec-label">The Acronym — pH</div>
   <div style="display:flex;justify-content:center;padding:40px 0;">
-    <div id="ph-box" style="width:280px;height:280px;background:linear-gradient(145deg,#1A1A1A,#0A0A0A);border-radius:40px;border:1px solid rgba(0,160,144,.2);box-shadow:0 0 0 1px rgba(255,255,255,.04),0 24px 64px rgba(0,0,0,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;overflow:hidden;">
+    <div style="width:280px;height:280px;background:linear-gradient(145deg,#1A1A1A,#0A0A0A);border-radius:40px;border:1px solid rgba(0,160,144,.2);box-shadow:0 0 0 1px rgba(255,255,255,.04),0 24px 64px rgba(0,0,0,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;overflow:hidden;">
       <canvas id="ph-canvas" width="280" height="280" style="position:absolute;inset:0;width:100%;height:100%;border-radius:40px;z-index:1;"></canvas>
       <div style="position:absolute;top:-40px;right:-40px;width:130px;height:130px;background:radial-gradient(circle,rgba(0,160,144,.1),transparent 65%);pointer-events:none;z-index:2;"></div>
       <div style="position:absolute;bottom:-40px;left:-40px;width:120px;height:120px;background:radial-gradient(circle,rgba(0,160,144,.07),transparent 65%);pointer-events:none;z-index:2;"></div>
@@ -355,203 +355,230 @@ to{transform:rotate(360deg);}}
 
   <script>
   (function(){
-    var cv = document.getElementById('ph-canvas');
-    if(!cv) return;
-    var ctx = cv.getContext('2d');
-    var W=280, H=280;
+    var cv=document.getElementById('ph-canvas');
+    if(!cv)return;
+    var ctx=cv.getContext('2d');
+    var W=280,H=280;
 
-    // Pyramid vertices
-    var A = {x:140, y:48};   // apex
-    var BL= {x:34,  y:232};  // base left
-    var BR= {x:246, y:232};  // base right
+    // Pyramid
+    var A={x:140,y:48},BL={x:34,y:232},BR={x:246,y:232};
+    var CX=140,CY=160; // centroid-ish
 
-    // Point inside triangle test
     function inTri(px,py){
       var d1=(px-BL.x)*(A.y-BL.y)-(A.x-BL.x)*(py-BL.y);
       var d2=(px-A.x)*(BR.y-A.y)-(BR.x-A.x)*(py-A.y);
       var d3=(px-BR.x)*(BL.y-BR.y)-(BL.x-BR.x)*(py-BR.y);
-      var has_neg=(d1<0)||(d2<0)||(d3<0);
-      var has_pos=(d1>0)||(d2>0)||(d3>0);
-      return !(has_neg&&has_pos);
+      return !((d1<0||d2<0||d3<0)&&(d1>0||d2>0||d3>0));
     }
 
-    // Barycentric t value (0=apex, 1=base) for vertical position
-    function depthT(py){
-      return Math.max(0,Math.min(1,(py-A.y)/(BL.y-A.y)));
+    function depthT(py){return Math.max(0,Math.min(1,(py-A.y)/(BL.y-A.y)));}
+
+    // Random point inside triangle (barycentric)
+    function randInTri(){
+      var r1=Math.sqrt(Math.random()),r2=Math.random();
+      return {
+        x:(1-r1)*A.x+r1*(1-r2)*BL.x+r1*r2*BR.x,
+        y:(1-r1)*A.y+r1*(1-r2)*BL.y+r1*r2*BR.y
+      };
     }
 
-    // Generate filled particles — nested layers top to bottom
-    var particles=[];
-    var rng=Math.random;
+    // Random spawn outside box
+    function randOut(){
+      var side=Math.floor(Math.random()*4);
+      if(side===0)return{x:Math.random()*W,y:-8};
+      if(side===1)return{x:W+8,y:Math.random()*H};
+      if(side===2)return{x:Math.random()*W,y:H+8};
+      return{x:-8,y:Math.random()*H};
+    }
 
-    // Dense interior fill: sample uniformly inside triangle
-    for(var i=0;i<220;i++){
-      // Random barycentric
-      var r1=Math.sqrt(rng()), r2=rng();
-      var px=((1-r1)*A.x + r1*(1-r2)*BL.x + r1*r2*BR.x);
-      var py=((1-r1)*A.y + r1*(1-r2)*BL.y + r1*r2*BR.y);
+    // Colour by depth
+    function getCol(py,jitter){
       var t=depthT(py);
-      // Colour: apex=gold, mid=blend, base=purple/teal mix
-      var col;
-      if(t<0.35)      col=[201,152,26];          // gold
-      else if(t<0.6)  col=[0,160,144];            // teal
-      else if(t<0.82) col=[100,160,100];           // teal→purple
-      else             col=[139,92,246];            // purple
+      var j=jitter||0;
+      if(t<0.3) return [201+j,152+j,26];
+      if(t<0.58)return [0,Math.min(255,160+j),Math.min(255,144+j)];
+      if(t<0.8) return [Math.min(255,80+j),Math.min(255,130+j),Math.min(255,100+j)];
+      return [Math.min(255,139+j),Math.min(255,92+j),Math.min(255,246+j)];
+    }
 
-      // Slight random tint variation
-      col=col.map(function(v){return Math.max(0,Math.min(255,v+Math.floor((rng()-0.5)*30)));} );
-
+    // Build particle list
+    var NUM=260;
+    var particles=[];
+    for(var i=0;i<NUM;i++){
+      var home=randInTri();
+      var edge=(i>220);
+      var j=(Math.random()-0.5)*25;
       particles.push({
-        tx:px, ty:py,
-        x: rng()*W, y: rng()*H,
-        col:col,
-        t:t,
-        delay: rng()*5000,          // staggered 0-5s arrival
-        size: 0.7+rng()*1.1,
-        wobble: rng()*Math.PI*2,
-        ws: 0.003+rng()*0.005,
-        alpha:0
+        hx:home.x, hy:home.y,        // home inside pyramid
+        x:randOut().x, y:randOut().y, // start outside
+        vx:0, vy:0,
+        col:getCol(home.y,j),
+        size: edge?1.5:0.6+Math.random()*1.0,
+        alpha:0,
+        phase:'arriving',
+        driftAngle:Math.random()*Math.PI*2,
+        driftSpeed:0.12+Math.random()*0.18,
+        wobble:Math.random()*Math.PI*2,
+        ws:0.004+Math.random()*0.005
       });
     }
 
-    // Edge particles — slightly brighter to define the silhouette
-    function edgePts(p1,p2,n,col){
-      for(var i=0;i<=n;i++){
-        var t=i/n;
-        particles.push({
-          tx:p1.x+(p2.x-p1.x)*t, ty:p1.y+(p2.y-p1.y)*t,
-          x:rng()*W, y:rng()*H,
-          col:col, t:depthT(p1.y+(p2.y-p1.y)*t),
-          delay:rng()*3500,
-          size:1.4+rng()*0.6,
-          wobble:rng()*Math.PI*2, ws:0.002+rng()*0.004,
-          alpha:0, edge:true
-        });
-      }
-    }
-    edgePts(A,BL,20,[201,152,26]);
-    edgePts(A,BR,20,[0,160,144]);
-    edgePts(BL,BR,24,[139,92,246]);
+    // Global cycle phases: assemble → live → dissolve → wait → assemble
+    var CYCLE={
+      assemble: 5500,
+      live:     8000,
+      dissolve: 3500,
+      wait:     1200
+    };
+    var totalCycle=CYCLE.assemble+CYCLE.live+CYCLE.dissolve+CYCLE.wait;
+    var t0=performance.now();
 
-    // ── FLARE STATE ───────────────────────────────────────────
-    var flare={intensity:0, cooling:false};
-    var nextFlare=3000+rng()*5000;  // first flash 3-8s in
+    // Flare
+    var flare={i:0,cooling:false};
+    var nextFlare=t0+4000+Math.random()*5000;
 
-    function scheduleFlare(){
-      nextFlare=performance.now()+(6000+rng()*10000); // 6-16s between flashes
-    }
+    function scheduleFlare(){nextFlare=performance.now()+7000+Math.random()*11000;}
 
     function updateFlare(now){
-      if(!flare.cooling && now>=nextFlare){
-        flare.intensity=1.0;
-        flare.cooling=true;
-        scheduleFlare();
+      if(!flare.cooling&&now>=nextFlare){
+        flare.i=1.0;flare.cooling=true;scheduleFlare();
       }
       if(flare.cooling){
-        // Fast initial drop, then long slow cool-down
-        var drop = flare.intensity>0.3 ? 0.018 : 0.004;
-        flare.intensity=Math.max(0,flare.intensity-drop);
-        if(flare.intensity===0) flare.cooling=false;
+        flare.i=Math.max(0,flare.i-(flare.i>0.28?0.016:0.003));
+        if(flare.i===0)flare.cooling=false;
       }
     }
 
     function drawFlare(){
-      var I=flare.intensity;
-      if(I<0.01) return;
+      var I=flare.i;
+      if(I<0.01)return;
+      var halo=ctx.createRadialGradient(A.x,A.y,0,A.x,A.y,60+I*35);
+      halo.addColorStop(0,'rgba(255,248,180,'+(I*0.7)+')');
+      halo.addColorStop(0.25,'rgba(240,192,64,'+(I*0.4)+')');
+      halo.addColorStop(0.7,'rgba(226,168,55,'+(I*0.08)+')');
+      halo.addColorStop(1,'rgba(226,168,55,0)');
+      ctx.beginPath();ctx.arc(A.x,A.y,60+I*35,0,Math.PI*2);
+      ctx.fillStyle=halo;ctx.fill();
 
-      // Big outer halo
-      var halo=ctx.createRadialGradient(A.x,A.y,0,A.x,A.y,55+I*30);
-      halo.addColorStop(0,  'rgba(255,248,180,'+(I*0.65)+')');
-      halo.addColorStop(0.3,'rgba(240,192,64,' +(I*0.35)+')');
-      halo.addColorStop(0.7,'rgba(226,168,55,' +(I*0.08)+')');
-      halo.addColorStop(1,  'rgba(226,168,55,0)');
-      ctx.beginPath();
-      ctx.arc(A.x,A.y,55+I*30,0,Math.PI*2);
-      ctx.fillStyle=halo;
-      ctx.fill();
+      var sL=100+I*90;
+      var sg=ctx.createLinearGradient(A.x-sL,A.y,A.x+sL,A.y);
+      sg.addColorStop(0,'rgba(255,255,255,0)');
+      sg.addColorStop(0.28,'rgba(255,248,200,'+(I*0.28)+')');
+      sg.addColorStop(0.5,'rgba(255,255,255,'+(I*0.75)+')');
+      sg.addColorStop(0.72,'rgba(255,248,200,'+(I*0.28)+')');
+      sg.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=sg;ctx.fillRect(A.x-sL,A.y-1.8,sL*2,3.6);
 
-      // Anamorphic horizontal streak — wide, bleaches white at peak
-      var sLen=90+I*80;
-      var sg=ctx.createLinearGradient(A.x-sLen,A.y,A.x+sLen,A.y);
-      sg.addColorStop(0,  'rgba(255,255,255,0)');
-      sg.addColorStop(0.3,'rgba(255,248,200,'+(I*0.3)+')');
-      sg.addColorStop(0.5,'rgba(255,255,255,'+(I*0.7)+')');
-      sg.addColorStop(0.7,'rgba(255,248,200,'+(I*0.3)+')');
-      sg.addColorStop(1,  'rgba(255,255,255,0)');
-      ctx.fillStyle=sg;
-      ctx.fillRect(A.x-sLen, A.y-1.5, sLen*2, 3);
-
-      // Secondary thinner streak
-      var sg2=ctx.createLinearGradient(A.x-sLen*0.6,A.y,A.x+sLen*0.6,A.y);
-      sg2.addColorStop(0,  'rgba(255,255,255,0)');
+      var sg2=ctx.createLinearGradient(A.x-sL*0.55,A.y,A.x+sL*0.55,A.y);
+      sg2.addColorStop(0,'rgba(255,255,255,0)');
       sg2.addColorStop(0.5,'rgba(255,255,255,'+(I*0.5)+')');
-      sg2.addColorStop(1,  'rgba(255,255,255,0)');
-      ctx.fillStyle=sg2;
-      ctx.fillRect(A.x-sLen*0.6, A.y-0.7, sLen*1.2, 1.4);
+      sg2.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=sg2;ctx.fillRect(A.x-sL*0.55,A.y-0.8,sL*1.1,1.6);
 
-      // Diagonal streaks
-      [[-0.4,0.6],[0.4,0.5],[-0.9,0.3],[0.9,0.25]].forEach(function(d){
-        var angle=d[0], str=d[1];
-        var len=35+I*30;
-        ctx.save();
-        ctx.translate(A.x,A.y);
-        ctx.rotate(angle);
+      [[-0.38,0.65],[0.38,0.5],[-0.85,0.3],[0.85,0.25]].forEach(function(d){
+        ctx.save();ctx.translate(A.x,A.y);ctx.rotate(d[0]);
+        var len=40+I*32;
         var dg=ctx.createLinearGradient(-len,0,len,0);
-        dg.addColorStop(0,  'rgba(200,230,255,0)');
-        dg.addColorStop(0.5,'rgba(220,240,255,'+(I*0.2*str)+')');
-        dg.addColorStop(1,  'rgba(200,230,255,0)');
-        ctx.fillStyle=dg;
-        ctx.fillRect(-len,-0.8,len*2,1.6);
+        dg.addColorStop(0,'rgba(210,235,255,0)');
+        dg.addColorStop(0.5,'rgba(225,240,255,'+(I*0.22*d[1])+')');
+        dg.addColorStop(1,'rgba(210,235,255,0)');
+        ctx.fillStyle=dg;ctx.fillRect(-len,-0.9,len*2,1.8);
         ctx.restore();
       });
 
-      // Prismatic secondary dot
-      var ox=A.x+28*I, oy=A.y+10*I;
-      var pg=ctx.createRadialGradient(ox,oy,0,ox,oy,7);
-      pg.addColorStop(0,'rgba(167,139,250,'+(I*0.6)+')');
+      var ox=A.x+30*I,oy=A.y+12*I;
+      var pg=ctx.createRadialGradient(ox,oy,0,ox,oy,8);
+      pg.addColorStop(0,'rgba(167,139,250,'+(I*0.65)+')');
       pg.addColorStop(1,'rgba(167,139,250,0)');
-      ctx.beginPath(); ctx.arc(ox,oy,7,0,Math.PI*2);
-      ctx.fillStyle=pg; ctx.fill();
-
-      // Core white dot
-      ctx.beginPath(); ctx.arc(A.x,A.y,2+I*2,0,Math.PI*2);
-      ctx.fillStyle='rgba(255,255,255,'+(I*0.9)+')';
-      ctx.fill();
+      ctx.beginPath();ctx.arc(ox,oy,8,0,Math.PI*2);ctx.fillStyle=pg;ctx.fill();
+      ctx.beginPath();ctx.arc(A.x,A.y,1.8+I*2.2,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,'+(I*0.95)+')';ctx.fill();
     }
-
-    var t0=performance.now();
 
     function draw(now){
       ctx.clearRect(0,0,W,H);
-      var elapsed=now-t0;
       updateFlare(now);
 
-      particles.forEach(function(p){
-        if(elapsed<p.delay) return;
-        var age=elapsed-p.delay;
-        var prog=Math.min(age/4500,1);
-        var ease=1-Math.pow(1-prog,3);
+      var elapsed=(now-t0)%totalCycle;
+      var phase,phaseT;
 
-        // Drift toward target
-        p.x+=( p.tx-p.x)*0.013;
-        p.y+=( p.ty-p.y)*0.013;
+      if(elapsed<CYCLE.assemble){
+        phase='assemble'; phaseT=elapsed/CYCLE.assemble;
+      } else if(elapsed<CYCLE.assemble+CYCLE.live){
+        phase='live'; phaseT=(elapsed-CYCLE.assemble)/CYCLE.live;
+      } else if(elapsed<CYCLE.assemble+CYCLE.live+CYCLE.dissolve){
+        phase='dissolve'; phaseT=(elapsed-CYCLE.assemble-CYCLE.live)/CYCLE.dissolve;
+      } else {
+        phase='wait'; phaseT=(elapsed-CYCLE.assemble-CYCLE.live-CYCLE.dissolve)/CYCLE.wait;
+      }
 
-        // Wobble
-        p.wobble+=p.ws;
-        var wx=Math.sin(p.wobble)*(p.edge?0.5:0.8);
-        var wy=Math.cos(p.wobble*0.8)*(p.edge?0.3:0.6);
+      // On cycle start, reset particles
+      if(phase==='assemble'&&phaseT<0.02){
+        particles.forEach(function(p){
+          var o=randOut();
+          p.x=o.x; p.y=o.y;
+          p.vx=(Math.random()-0.5)*0.5;
+          p.vy=(Math.random()-0.5)*0.5;
+          p.alpha=0;
+          p.driftAngle=Math.random()*Math.PI*2;
+          // New random home each cycle
+          var h=randInTri();
+          p.hx=h.x; p.hy=h.y;
+          p.col=getCol(h.y,(Math.random()-0.5)*25);
+        });
+      }
 
-        // Alpha
-        p.alpha=Math.min(p.alpha+0.007, ease*(p.edge?0.9:0.55)+0.03);
+      particles.forEach(function(p,idx){
+        var stagger=idx/NUM;
 
-        // Flare brightens nearby particles
-        var dx=p.tx-A.x, dy=p.ty-A.y;
-        var dist=Math.sqrt(dx*dx+dy*dy);
-        var flareBoost=flare.intensity*Math.max(0,1-dist/160)*0.5;
+        if(phase==='assemble'){
+          // Drift toward home, staggered start
+          var t=Math.max(0,(phaseT-stagger*0.35)/(1-stagger*0.35));
+          var ease=1-Math.pow(1-Math.min(t,1),3);
+          p.x+=(p.hx-p.x)*0.025;
+          p.y+=(p.hy-p.y)*0.025;
+          p.alpha=Math.min(p.alpha+0.012, ease*0.72+0.04);
 
-        var a=Math.min(1, p.alpha+flareBoost);
+        } else if(phase==='live'){
+          // Drift freely inside triangle
+          p.driftAngle+=0.008+(Math.random()-0.5)*0.004;
+          var speed=p.driftSpeed*(0.7+Math.sin(phaseT*Math.PI*2+idx)*0.3);
+          var nx=p.x+Math.cos(p.driftAngle)*speed;
+          var ny=p.y+Math.sin(p.driftAngle)*speed;
+          // Bounce off pyramid walls
+          if(!inTri(nx,p.y)){p.driftAngle=Math.PI-p.driftAngle; nx=p.x;}
+          if(!inTri(p.x,ny)){p.driftAngle=-p.driftAngle; ny=p.y;}
+          if(inTri(nx,ny)){p.x=nx;p.y=ny;}
+          // Keep alpha steady
+          p.alpha=Math.min(p.alpha+0.008, 0.72);
+
+        } else if(phase==='dissolve'){
+          // Swirl outward
+          var ease=Math.pow(phaseT,1.6);
+          var dx=p.x-CX, dy=p.y-CY;
+          var dist=Math.sqrt(dx*dx+dy*dy)||1;
+          // Outward + tangential swirl
+          var swirl=0.6;
+          p.vx+=(dx/dist)*0.4+(-dy/dist)*swirl;
+          p.vy+=(dy/dist)*0.4+(dx/dist)*swirl;
+          p.vx*=0.94; p.vy*=0.94;
+          p.x+=p.vx; p.y+=p.vy;
+          p.alpha=Math.max(0, p.alpha*(1-ease*0.035));
+
+        } else {
+          p.alpha=0;
+        }
+
+        if(p.alpha<0.01)return;
+
+        // Flare brightens particles near apex
+        var fdx=p.x-A.x,fdy=p.y-A.y;
+        var fd=Math.sqrt(fdx*fdx+fdy*fdy);
+        var fb=flare.i*Math.max(0,1-fd/140)*0.6;
+        var a=Math.min(1,p.alpha+fb);
+
         ctx.beginPath();
-        ctx.arc(p.x+wx, p.y+wy, p.size*(1+flareBoost*0.5), 0, Math.PI*2);
+        ctx.arc(p.x,p.y,p.size*(1+fb*0.6),0,Math.PI*2);
         ctx.fillStyle='rgba('+p.col[0]+','+p.col[1]+','+p.col[2]+','+a+')';
         ctx.fill();
       });
