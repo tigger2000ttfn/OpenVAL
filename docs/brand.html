@@ -530,7 +530,7 @@ to{transform:rotate(360deg);}}
             var prog=easeOut(pElapsed/ARRIVE_DUR);
             tx=p.sx+(p.ox-p.sx)*prog;
             ty=p.sy+(p.oy-p.sy)*prog;
-            targetAlpha=prog*0.85;
+            targetAlpha=prog*0.6;
           }
         } else {
           // LEAVE phase — drift back toward spawn
@@ -538,13 +538,13 @@ to{transform:rotate(360deg);}}
           var prog=easeIn(leaveT);
           tx=p.ox+(p.sx-p.ox)*prog;
           ty=p.oy+(p.sy-p.oy)*prog;
-          targetAlpha=(1-prog)*0.85;
+          targetAlpha=(1-prog)*0.6;
         }
 
         // Breathe only during hold
         if(elapsed>=LAST_ARRIVE_APPROX&&elapsed<CYCLE_HOLD_END){
           var breathe=0.5+0.5*Math.sin(elapsed/p.breatheP*Math.PI*2+p.breathePh);
-          targetAlpha=0.35+breathe*0.5;
+          targetAlpha=0.2+breathe*0.35;
         }
 
         p.x+=(tx-p.x)*0.06;
