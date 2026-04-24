@@ -195,9 +195,9 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
     <line x1="5"  y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
     <line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
     <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/>
-    <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-    <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-    <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+    <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+    <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+    <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
     <circle class="lh-core" cx="55" cy="14" r="2.5" fill="#F5D060"/>
   </svg>
   <div class="nav-wm">PHAROLON</div>
@@ -272,13 +272,13 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
 
       <!-- ── The three nested pyramids ── -->
       <polygon points="55,14  11,82  99,82"
-        stroke="#C9981A" stroke-width="5"
+        stroke="#C9981A" stroke-width="8"
         stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
       <polygon points="55,27  22,82  88,82"
-        stroke="#00A090" stroke-width="3"
+        stroke="#00A090" stroke-width="5"
         stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
       <polygon points="55,40  33,82  77,82"
-        stroke="#8B5CF6" stroke-width="1.8"
+        stroke="#8B5CF6" stroke-width="3.2"
         stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
       <!-- Subtle purple fill for depth -->
       <polygon points="55,40  33,82  77,82" fill="rgba(139,92,246,.04)"/>
@@ -453,15 +453,31 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
     <div class="wm-a" style="justify-content:center;">
       <span class="ch ch-p" style="font-size:clamp(48px,10vw,80px);">P</span>
       <span class="ch"      style="font-size:clamp(48px,10vw,80px);">H</span>
-      <span style="display:inline-flex;align-items:flex-end;margin:0 3px;">
-        <svg style="display:block;" width="clamp(42px,8.5vw,70px)" height="clamp(48px,10vw,80px)"
-          viewBox="0 0 110 128" fill="none" overflow="visible">
-          <polygon points="55,14 11,110 99,110" stroke="#C9981A" stroke-width="7"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <polygon points="55,32 22,110 88,110" stroke="#00A090" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <polygon points="55,50 33,110 77,110" stroke="#8B5CF6" stroke-width="2.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <circle class="lh-halo" cx="55" cy="16" r="7"   fill="rgba(245,208,96,.1)" filter="url(#glow-lg)"/>
-          <circle class="lh-core" cx="55" cy="16" r="2.5" fill="#F5D060"/>
-          <circle cx="55" cy="16" r="1.1" fill="#fff" opacity=".9"/>
+      <span style="display:inline-flex;align-items:center;width:clamp(120px,17vw,170px);height:clamp(120px,17vw,170px);margin:0 clamp(-10px,-1.5vw,-14px);flex-shrink:0;">
+        <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+          <circle cx="55" cy="55" r="43" stroke="rgba(226,168,55,.1)"  stroke-width=".7" fill="none"/>
+          <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+            <line x1="55" y1="5"   x2="55" y2="20"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="55" y1="90"  x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="5"  y1="55"  x2="20" y2="55"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="90" y1="55"  x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+          </g>
+          <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.25)" stroke-width="1.2" stroke-dasharray="3.5 4.5"/>
+          <polygon style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;" filter="url(#glow)" points="55,7 5,87 105,87" stroke="rgba(240,192,64,.22)" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,14  11,82  99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27  22,82  88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40  33,82  77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40  33,82  77,82" fill="rgba(139,92,246,.06)"/>
+          <circle style="animation:lh-halo 4.5s ease-in-out infinite;" cx="55" cy="14" r="12" fill="rgba(245,208,96,.09)" filter="url(#glow-lg)"/>
+          <circle style="animation:lh-halo 4.5s ease-in-out infinite;" cx="55" cy="14" r="6"  fill="rgba(245,208,96,.18)" filter="url(#glow)"/>
+          <circle style="animation:lh-flash 4.5s ease-in-out infinite;" cx="55" cy="14" r="3.5" fill="#F5D060"/>
+          <circle cx="55" cy="14" r="1.5" fill="#fff" opacity=".9"/>
         </svg>
       </span>
       <span class="ch" style="font-size:clamp(48px,10vw,80px);">ROLON</span>
@@ -480,9 +496,9 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
           <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
           <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
           <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/>
-          <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
           <circle class="lh-core" cx="55" cy="14" r="2.3" fill="#F5D060"/>
         </svg>
         <div class="lk-sep lk-sep-dk"></div>
@@ -500,8 +516,8 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
           <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
           <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.14)" stroke-width=".75" stroke-dasharray="3 5"/>
           <polygon points="55,14 11,82 99,82" stroke="#E2A837" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <polygon points="55,27 22,82 88,82" stroke="#00C4B4" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <polygon points="55,40 33,82 77,82" stroke="#A78BFA" stroke-width="2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27 22,82 88,82" stroke="#00C4B4" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" stroke="#A78BFA" stroke-width="3.2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
           <circle class="lh-core" cx="55" cy="14" r="2.3" fill="#F5D060"/>
         </svg>
         <div class="lk-sep lk-sep-dk"></div>
@@ -519,8 +535,8 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
           <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/>
           <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(120,90,10,.13)" stroke-width=".75" stroke-dasharray="3 5"/>
           <polygon points="55,14 11,82 99,82" stroke="#A87E14" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <polygon points="55,27 22,82 88,82" stroke="#006B61" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <polygon points="55,40 33,82 77,82" stroke="#5B21B6" stroke-width="2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27 22,82 88,82" stroke="#006B61" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" stroke="#5B21B6" stroke-width="3.2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
           <circle cx="55" cy="14" r="2.3" fill="#A87E14"/>
         </svg>
         <div class="lk-sep lk-sep-lt"></div>
@@ -537,9 +553,9 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
           <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/>
           <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/>
           <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(120,90,10,.1)" stroke-width=".75" stroke-dasharray="3 5"/>
-          <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <polygon points="55,27 22,82 88,82" stroke="#007A6E" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <polygon points="55,40 33,82 77,82" stroke="#6D28D9" stroke-width="2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27 22,82 88,82" stroke="#007A6E" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" stroke="#6D28D9" stroke-width="3.2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
           <circle cx="55" cy="14" r="2.3" fill="#C9981A"/>
         </svg>
         <div class="lk-sep lk-sep-lt"></div>
@@ -562,9 +578,9 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
             <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
             <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
             <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/>
-            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
             <circle cx="55" cy="14" r="7" fill="rgba(245,208,96,.09)" filter="url(#glow-lg)"/>
             <circle class="lh-core" cx="55" cy="14" r="2.8" fill="#F5D060"/>
             <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
@@ -581,9 +597,9 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
             <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
             <line x1="5" y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
             <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
-            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
             <circle class="lh-core" cx="55" cy="14" r="2.8" fill="#F5D060"/>
           </svg>
         </div>
@@ -595,8 +611,8 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
             <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.04)" stroke-width="10" fill="none"/>
             <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.16)" stroke-width="1" fill="none"/>
             <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="7"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="4"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
             <circle cx="55" cy="14" r="3" fill="#F5D060"/>
           </svg>
         </div>
