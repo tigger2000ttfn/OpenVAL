@@ -387,117 +387,91 @@ to{transform:rotate(360deg);}}
     var ctx=cv.getContext('2d');
     var W=280,H=280,CX=140,CY=148;
 
-    // Three nested triangles matching PHAROLON icon
+    // Three nested triangles
     var tris=[
       {apex:{x:140,y:26},bl:{x:16,y:218},br:{x:264,y:218},col:[201,152,26]},
       {apex:{x:140,y:54},bl:{x:50,y:218}, br:{x:230,y:218},col:[0,160,144]},
       {apex:{x:140,y:82},bl:{x:84,y:218}, br:{x:196,y:218},col:[139,92,246]}
     ];
 
-    // Dense band along edge: particle every ~3px, 5 rows perpendicular
-    function denseEdge(p1,p2,rowOffsets){
+    // Dense band: particle every 2.5px along edge, N rows perpendicular
+    function denseBand(p1,p2,rowOffsets){
       var dx=p2.x-p1.x,dy=p2.y-p1.y;
-      var edgeLen=Math.sqrt(dx*dx+dy*dy);
-      var ux=dx/edgeLen,uy=dy/edgeLen; // unit along edge
-      var nx=-uy,ny=ux;               // unit perpendicular
-      var pts=[];
-      var step=3.2;
-      var count=Math.floor(edgeLen/step);
+      var len=Math.sqrt(dx*dx+dy*dy);
+      var ux=dx/len,uy=dy/len;
+      var nx=-uy,ny=ux;
+      var pts=[],step=2.5,count=Math.floor(len/step);
       for(var i=0;i<=count;i++){
         var t=i/count;
-        var bx=p1.x+dx*t, by=p1.y+dy*t;
-        rowOffsets.forEach(function(off,ri){
-          pts.push({
-            ox: bx+nx*off,
-            oy: by+ny*off,
-            edgeT: t,          // position along edge 0–1
-            row:   ri,
-            edgeU: {x:ux,y:uy}, // edge direction (for undulation)
-            edgeN: {x:nx,y:ny}  // perpendicular direction
-          });
+        var bx=p1.x+dx*t,by=p1.y+dy*t;
+        rowOffsets.forEach(function(off){
+          pts.push({ox:bx+nx*off, oy:by+ny*off, t:t});
         });
       }
       return pts;
     }
 
-    var BUILD_DELAY=[0,4500,8500];
+    // Build delays — gold first, then teal, then purple
+    var BUILD_START=[0,4200,7800];
     var particles=[];
 
     tris.forEach(function(tri,ti){
-      // Outer gets widest band, inner gets narrower
-      var rows=ti===0?[-5,-2.5,0,2.5,5]:ti===1?[-3.5,-1.5,0,1.5,3.5]:[-2.5,0,2.5];
+      // Row offsets — thick bands, all on inner side to nest properly
+      var rows=ti===0?[0,2,4,6,8,10]:ti===1?[0,2,4,6,8]:ti===2?[0,2,4,6]:[];
       var edges=[
         [tri.apex,tri.bl],
         [tri.apex,tri.br],
-        [tri.bl,  tri.br]
+        [tri.bl,tri.br]
       ];
       edges.forEach(function(e,ei){
-        var pts=denseEdge(e[0],e[1],rows);
+        var pts=denseBand(e[0],e[1],rows);
         pts.forEach(function(pt,pi){
+          // Spawn outside box in random direction
           var angle=Math.random()*Math.PI*2;
-          var dist=90+Math.random()*100;
+          var dist=130+Math.random()*80;
+          var sx=CX+Math.cos(angle)*dist;
+          var sy=CY+Math.sin(angle)*dist;
           particles.push({
-            ox:pt.ox, oy:pt.oy,
-            x: CX+Math.cos(angle)*dist,
-            y: CY+Math.sin(angle)*dist,
-            col: tri.col.slice(),
-            triIdx: ti, edgeIdx: ei,
-            edgeT: pt.edgeT,
-            edgeN: pt.edgeN,
-            alpha: 0, arrived: false,
-            delay: BUILD_DELAY[ti] + pi*8 + Math.random()*300,
-            breathePeriod: 10000+Math.random()*8000,
-            breatheOffset: Math.random()*Math.PI*2,
-            undulateOffset: pt.edgeT*Math.PI*4 + Math.random()*0.5, // wave phase
-            size: 1.2+Math.random()*0.8
+            ox:pt.ox, oy:pt.oy,   // home (rigid target)
+            sx:sx, sy:sy,          // spawn position (for mirrored exit)
+            x:sx, y:sy,
+            col:tri.col.slice(),
+            triIdx:ti,
+            alpha:0,
+            delay: BUILD_START[ti] + pi*6 + Math.random()*180,
+            breatheP:9000+Math.random()*7000,
+            breathePh:Math.random()*Math.PI*2,
+            size:1.4+Math.random()*0.6,
+            state:'waiting' // waiting→arriving→hold→leaving
           });
         });
       });
     });
 
-    var totalP=particles.length;
-    console.log('Particles:',totalP);
-
-    // Build a spatial grid for fast neighbour lookup
-    var CELL=14;
-    var COLS=Math.ceil(W/CELL), ROWS=Math.ceil(H/CELL);
-    var grid=[];
-    function buildGrid(){
-      grid=[];
-      for(var i=0;i<COLS*ROWS;i++) grid.push([]);
-      particles.forEach(function(p,i){
-        var cx=Math.floor(p.x/CELL),cy=Math.floor(p.y/CELL);
-        if(cx>=0&&cx<COLS&&cy>=0&&cy<ROWS) grid[cy*COLS+cx].push(i);
-      });
-    }
-    function neighbours(px,py,maxDist){
-      var cx0=Math.max(0,Math.floor((px-maxDist)/CELL));
-      var cx1=Math.min(COLS-1,Math.floor((px+maxDist)/CELL));
-      var cy0=Math.max(0,Math.floor((py-maxDist)/CELL));
-      var cy1=Math.min(ROWS-1,Math.floor((py+maxDist)/CELL));
-      var result=[];
-      for(var cy=cy0;cy<=cy1;cy++)
-        for(var cx=cx0;cx<=cx1;cx++)
-          Array.prototype.push.apply(result,grid[cy*COLS+cx]);
-      return result;
-    }
-
-    var BUILD_END=11500;
-    var t0=performance.now();
+    // Cycle timing
+    var ARRIVE_DUR=2500;  // each particle takes this long to drift in
+    var HOLD=8000;        // hold after last particle arrives (~11.5s)
+    var LEAVE_DUR=3500;   // drift back out
+    var WAIT=1200;
+    // Last particle arrives at: BUILD_START[2] + longest delay ≈ 7800+pts*6+300
+    var LAST_ARRIVE_APPROX=12000;
+    var CYCLE_HOLD_START=LAST_ARRIVE_APPROX; // when hold phase begins
+    var CYCLE_HOLD_END=CYCLE_HOLD_START+HOLD;
+    var CYCLE_LEAVE_END=CYCLE_HOLD_END+LEAVE_DUR;
+    var CYCLE_TOTAL=CYCLE_LEAVE_END+WAIT;
 
     // Flare
     var flare={i:0,cooling:false};
-    var nextFlare=t0+5000+Math.random()*7000;
-    function schedFlare(){nextFlare=performance.now()+9000+Math.random()*13000;}
+    var t0=performance.now();
+    var nextFlare=t0+5000+Math.random()*6000;
+    function schedFlare(){nextFlare=performance.now()+9000+Math.random()*12000;}
     function updateFlare(now){
       if(!flare.cooling&&now>=nextFlare){flare.i=1;flare.cooling=true;schedFlare();}
       if(flare.cooling){flare.i=Math.max(0,flare.i-(flare.i>0.3?0.016:0.003));if(!flare.i)flare.cooling=false;}
     }
-    function drawFlare(spinA){
-      var I=flare.i; if(I<0.01)return;
-      var a0=tris[0].apex,dx=a0.x-CX,dy=a0.y-CY;
-      var ax=CX+dx*Math.cos(spinA)-dy*Math.sin(spinA);
-      var ay=CY+dx*Math.sin(spinA)+dy*Math.cos(spinA);
+    function drawFlare(){
+      var I=flare.i;if(I<0.01)return;
+      var ax=tris[0].apex.x,ay=tris[0].apex.y;
       var h=ctx.createRadialGradient(ax,ay,0,ax,ay,65+I*35);
       h.addColorStop(0,'rgba(255,248,180,'+(I*.7)+')');h.addColorStop(.25,'rgba(240,192,64,'+(I*.4)+')');
       h.addColorStop(.7,'rgba(226,168,55,'+(I*.07)+')');h.addColorStop(1,'rgba(226,168,55,0)');
@@ -520,71 +494,64 @@ to{transform:rotate(360deg);}}
       ctx.beginPath();ctx.arc(ax,ay,1.8+I*2.2,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,'+(I*.95)+')';ctx.fill();
     }
 
-    var frameCount=0;
+    function easeOut(t){return 1-Math.pow(1-Math.min(t,1),3);}
+    function easeIn(t){return Math.pow(Math.min(t,1),2);}
+
+    var t0=performance.now();
+
     function draw(now){
       ctx.clearRect(0,0,W,H);
       updateFlare(now);
-      var elapsed=now-t0;
-      var spinA=0.14*Math.sin(elapsed*0.000052); // ±8° gentle rock
+      var elapsed=(now-t0)%CYCLE_TOTAL;
 
-      // Rebuild grid every 4 frames for performance
-      if(frameCount%4===0) buildGrid();
-      frameCount++;
+      // Reset on new cycle start
+      if(elapsed<50){
+        particles.forEach(function(p){
+          var angle=Math.random()*Math.PI*2;
+          var dist=130+Math.random()*80;
+          p.sx=CX+Math.cos(angle)*dist;
+          p.sy=CY+Math.sin(angle)*dist;
+          p.x=p.sx; p.y=p.sy;
+          p.alpha=0;
+        });
+      }
 
-      particles.forEach(function(p,pi){
-        if(elapsed<p.delay)return;
+      particles.forEach(function(p){
+        var pElapsed=elapsed-p.delay;
 
-        // Spin home
-        var dox=p.ox-CX,doy=p.oy-CY;
-        var hx=CX+dox*Math.cos(spinA)-doy*Math.sin(spinA);
-        var hy=CY+dox*Math.sin(spinA)+doy*Math.cos(spinA);
+        var tx=p.ox,ty=p.oy; // rigid target
+        var targetAlpha=0;
 
-        // Undulation: perpendicular sine wave travelling along the edge
-        // amplitude increases where adjacent triangles are close (boundary zones)
-        var undulAmp=p.arrived?1.8:0.5;
-        var undulWave=Math.sin(elapsed*0.0012+p.undulateOffset)*undulAmp;
-        // spin the normal too
-        var sn_x=p.edgeN.x*Math.cos(spinA)-p.edgeN.y*Math.sin(spinA);
-        var sn_y=p.edgeN.x*Math.sin(spinA)+p.edgeN.y*Math.cos(spinA);
-        var tx=hx+sn_x*undulWave;
-        var ty=hy+sn_y*undulWave;
-
-        // Cross-colour interaction — particles near adjacent colour edges
-        if(p.arrived && p.triIdx<2){
-          var idxList=neighbours(p.x,p.y,12);
-          var pullX=0,pullY=0,cnt=0;
-          for(var ni=0;ni<idxList.length;ni++){
-            var np=particles[idxList[ni]];
-            if(!np||np.triIdx!==p.triIdx+1||!np.arrived)continue;
-            var ndx=np.x-p.x,ndy=np.y-p.y;
-            var nd=Math.sqrt(ndx*ndx+ndy*ndy);
-            if(nd<12&&nd>1){
-              // Oscillating attraction/repulsion — creates undulation at boundary
-              var phase=elapsed*0.0009+p.undulateOffset;
-              var force=Math.sin(phase)*0.9; // alternates push/pull
-              pullX+=ndx/nd*force;
-              pullY+=ndy/nd*force;
-              cnt++;
-            }
+        if(elapsed<CYCLE_HOLD_END){
+          // ARRIVE phase — individual particle
+          if(pElapsed<0){
+            tx=p.sx;ty=p.sy;targetAlpha=0;
+          } else {
+            var prog=easeOut(pElapsed/ARRIVE_DUR);
+            tx=p.sx+(p.ox-p.sx)*prog;
+            ty=p.sy+(p.oy-p.sy)*prog;
+            targetAlpha=prog*0.85;
           }
-          if(cnt>0){tx+=pullX/cnt;ty+=pullY/cnt;}
+        } else {
+          // LEAVE phase — drift back toward spawn
+          var leaveT=(elapsed-CYCLE_HOLD_END)/LEAVE_DUR;
+          var prog=easeIn(leaveT);
+          tx=p.ox+(p.sx-p.ox)*prog;
+          ty=p.oy+(p.sy-p.oy)*prog;
+          targetAlpha=(1-prog)*0.85;
         }
 
-        p.x+=(tx-p.x)*(p.arrived?0.04:0.028);
-        p.y+=(ty-p.y)*(p.arrived?0.04:0.028);
-
-        // Alpha
-        if(!p.arrived){
-          var age=elapsed-p.delay;
-          p.alpha=Math.min(p.alpha+0.015,Math.min(1,age/2000)*0.88);
-          if(p.alpha>0.6)p.arrived=true;
-        }else{
-          var breathe=0.5+0.5*Math.sin(elapsed/p.breathePeriod*Math.PI*2+p.breatheOffset);
-          p.alpha+=(0.3+breathe*0.58-p.alpha)*0.006;
+        // Breathe only during hold
+        if(elapsed>=LAST_ARRIVE_APPROX&&elapsed<CYCLE_HOLD_END){
+          var breathe=0.5+0.5*Math.sin(elapsed/p.breatheP*Math.PI*2+p.breathePh);
+          targetAlpha=0.35+breathe*0.5;
         }
+
+        p.x+=(tx-p.x)*0.06;
+        p.y+=(ty-p.y)*0.06;
+        p.alpha+=(targetAlpha-p.alpha)*0.06;
 
         if(p.alpha<0.01)return;
-
         var fb=flare.i*Math.max(0,1-Math.sqrt((p.x-tris[0].apex.x)**2+(p.y-tris[0].apex.y)**2)/160)*.5;
         var a=Math.min(1,p.alpha+fb);
         ctx.beginPath();
@@ -593,7 +560,7 @@ to{transform:rotate(360deg);}}
         ctx.fill();
       });
 
-      drawFlare(spinA);
+      drawFlare();
       requestAnimationFrame(draw);
     }
     requestAnimationFrame(draw);
