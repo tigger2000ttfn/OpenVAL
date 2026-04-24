@@ -125,6 +125,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+@keyframes apex-shimmer{0%,100%{opacity:.04;}50%{opacity:.18;}}
+@keyframes apex-beam{0%,100%{opacity:0;}40%{opacity:.12;}60%{opacity:.08;}}
+@keyframes ph-shimmer{0%,100%{opacity:.7;}50%{opacity:1;}}
 </style>
 </head>
 <body>
@@ -292,9 +296,61 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
       border:1px solid rgba(0,160,144,.2);
       display:flex;flex-direction:column;align-items:center;justify-content:center;
       gap:14px;
+      position:relative;overflow:hidden;
     ">
-      <div style="display:flex;align-items:baseline;"><span class="ph-acro" style="display:inline-block;transform:translateY(0.14em);">P</span><span class="ph-acro">H</span></div>
-      <span style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(0,212,196,.45);text-transform:uppercase;">The beacon for validation</span>
+      <!-- Ghost pyramid — absolutely behind everything -->
+      <svg viewBox="0 0 280 280" fill="none"
+           style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;">
+
+        <!-- Outer ghost pyramid -->
+        <polygon points="140,24 20,230 260,230"
+          stroke="rgba(201,152,26,.07)" stroke-width="1.2"
+          fill="none" stroke-linejoin="miter"/>
+
+        <!-- Mid ghost pyramid -->
+        <polygon points="140,60 44,230 236,230"
+          stroke="rgba(0,160,144,.05)" stroke-width=".8"
+          fill="none" stroke-linejoin="miter"/>
+
+        <!-- Horizon line -->
+        <line x1="20" y1="230" x2="260" y2="230"
+          stroke="rgba(201,152,26,.06)" stroke-width=".8"
+          stroke-dasharray="4 8"/>
+
+        <!-- Apex glow — the lighthouse moment -->
+        <circle cx="140" cy="24" r="32"
+          fill="rgba(245,208,96,.0)"
+          style="animation:apex-shimmer 4s ease-in-out infinite;"/>
+        <circle cx="140" cy="24" r="16"
+          fill="rgba(245,208,96,.04)"
+          style="animation:apex-shimmer 4s ease-in-out infinite;animation-delay:.3s;"/>
+        <circle cx="140" cy="24" r="6"
+          fill="rgba(245,208,96,.08)"
+          style="animation:apex-shimmer 4s ease-in-out infinite;animation-delay:.6s;"/>
+
+        <!-- Apex dot -->
+        <circle cx="140" cy="24" r="2.5"
+          fill="rgba(245,208,96,.35)"
+          style="animation:apex-shimmer 4s ease-in-out infinite;"/>
+
+        <!-- Beam of light from apex downward — very subtle -->
+        <polygon points="140,26 120,200 160,200"
+          fill="url(#beam-grad)"
+          style="animation:apex-beam 4s ease-in-out infinite;"/>
+
+        <defs>
+          <linearGradient id="beam-grad" x1="140" y1="26" x2="140" y2="200" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#F5D060" stop-opacity=".12"/>
+            <stop offset="100%" stop-color="#F5D060" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- PH text above the pyramid centrepoint -->
+      <div style="position:relative;z-index:1;display:flex;align-items:baseline;animation:ph-shimmer 4s ease-in-out infinite;">
+        <span class="ph-acro" style="display:inline-block;transform:translateY(0.14em);">P</span><span class="ph-acro">H</span>
+      </div>
+      <span style="position:relative;z-index:1;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(0,212,196,.45);text-transform:uppercase;">The beacon for validation</span>
     </div>
   </div>
   <div style="text-align:center;font-family:'DM Mono',monospace;font-size:9px;color:rgba(226,168,55,.3);letter-spacing:1px;">The acronym within the name · Always rendered pH in text</div>
