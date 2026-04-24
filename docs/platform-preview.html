@@ -1785,6 +1785,451 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 </section>
 
 
+
+<!-- ══ VIEW 14: PHIZZLE CONNECTOR ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Live Instrument Intelligence · Enterprise Edition</div>
+  <h2 class="section-title">Phizzle Data Connector — Validated State from Real Data</h2>
+  <p class="section-sub">Connect directly to instruments, historians, and lab systems. PHAROLON pulls live telemetry — calibration status, maintenance cycles, usage logs, software versions — and automatically flags when an instrument's validated state is at risk. No manual updates.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div>
+    <div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">Phizzle Connector · Live Instrument Feed</div></div>
+    <div style="display:flex;height:490px;">
+      <div class="sidebar">
+        <div class="nav-grp">Connections</div>
+        <div class="nav-item active">All Instruments <span style="margin-left:auto;font-size:7px;color:#86C140;">●</span></div>
+        <div class="nav-item">HPLC Systems</div>
+        <div class="nav-item">GC Systems</div>
+        <div class="nav-item">Balances</div>
+        <div class="nav-item">Dissolution</div>
+        <div class="nav-item">Bioreactors</div>
+        <div class="nav-grp">Data Sources</div>
+        <div class="nav-item">Empower 3 CDS</div>
+        <div class="nav-item">OSIsoft PI</div>
+        <div class="nav-item">DeltaV Historian</div>
+        <div class="nav-item">LabWare LIMS</div>
+        <div class="nav-grp">Alerts</div>
+        <div class="nav-item">Cal Expiring <span style="margin-left:auto;background:#F97316;color:#fff;font-size:7px;padding:1px 5px;border-radius:8px;">3</span></div>
+        <div class="nav-item">State Risk <span style="margin-left:auto;background:var(--fail);color:#fff;font-size:7px;padding:1px 5px;border-radius:8px;">1</span></div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:14px;">
+
+        <!-- Connection health banner -->
+        <div style="background:rgba(0,160,144,.07);border:1px solid rgba(0,160,144,.2);border-radius:6px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
+          <span style="font-size:8px;color:#86C140;">●</span>
+          <span style="font-size:9px;color:#fff;">Phizzle connector active · 47 instruments streaming · last sync 12s ago</span>
+          <div style="flex:1;"></div>
+          <span style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">API v3.1 · TLS 1.3 · ISO 27001</span>
+        </div>
+
+        <!-- Instrument grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+
+          <!-- HPLC — healthy -->
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-left:3px solid #86C140;border-radius:6px;padding:12px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;">
+              <div>
+                <div style="font-size:9px;font-weight:600;color:#fff;">Waters HPLC e2695 · LAB-04</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">INSTR-0042 · Empower 3.7.2</div>
+              </div>
+              <span style="font-size:7px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 8px;border-radius:8px;font-family:'DM Mono',monospace;flex-shrink:0;">Validated ✓</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+              <div style="background:var(--ch3);border-radius:3px;padding:5px 6px;text-align:center;">
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Calibration</div>
+                <div style="font-size:10px;font-weight:700;color:#86C140;margin-top:1px;">Valid</div>
+                <div style="font-size:6px;color:rgba(232,237,242,.3);">Due 2026-07-14</div>
+              </div>
+              <div style="background:var(--ch3);border-radius:3px;padding:5px 6px;text-align:center;">
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">PM Due</div>
+                <div style="font-size:10px;font-weight:700;color:#86C140;margin-top:1px;">94 days</div>
+                <div style="font-size:6px;color:rgba(232,237,242,.3);">Annual cycle</div>
+              </div>
+              <div style="background:var(--ch3);border-radius:3px;padding:5px 6px;text-align:center;">
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Injections</div>
+                <div style="font-size:10px;font-weight:700;color:var(--t400);margin-top:1px;">2,847</div>
+                <div style="font-size:6px;color:rgba(232,237,242,.3);">Since last PM</div>
+              </div>
+            </div>
+            <!-- Mini sparkline -->
+            <div style="margin-top:8px;">
+              <div style="font-size:6px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);margin-bottom:3px;">Column back-pressure (psi) · last 24h</div>
+              <svg viewBox="0 0 200 30" style="width:100%;height:20px;">
+                <polyline points="0,22 20,20 40,21 60,18 80,20 100,15 120,17 140,19 160,14 180,16 200,15" fill="none" stroke="rgba(0,160,144,.5)" stroke-width="1.5"/>
+                <polyline points="0,22 20,20 40,21 60,18 80,20 100,15 120,17 140,19 160,14 180,16 200,15 200,30 0,30" fill="rgba(0,160,144,.06)"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Empower CDS — ALERT -->
+          <div style="background:var(--ch2);border:1px solid rgba(229,75,46,.3);border-left:3px solid var(--fail);border-radius:6px;padding:12px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;">
+              <div>
+                <div style="font-size:9px;font-weight:600;color:#fff;">Empower 3 CDS · Server</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">SYS-0011 · Version 3.7.2</div>
+              </div>
+              <span style="font-size:7px;background:rgba(229,75,46,.12);color:var(--fail);padding:2px 8px;border-radius:8px;font-family:'DM Mono',monospace;flex-shrink:0;">🔴 Alert</span>
+            </div>
+            <div style="background:rgba(229,75,46,.08);border:1px solid rgba(229,75,46,.2);border-radius:4px;padding:7px 8px;margin-bottom:8px;">
+              <div style="font-size:8px;color:var(--fail);font-weight:600;margin-bottom:2px;">Unplanned restart detected · 08:22:14</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.6);">Service recovered but audit trail gap 08:22—08:31 (9 min). Validated state integrity at risk. Change control required before use.</div>
+            </div>
+            <div style="display:flex;gap:6px;">
+              <button style="flex:1;font-size:7px;background:var(--fail);color:#fff;border:none;padding:5px;border-radius:3px;cursor:pointer;font-family:'DM Mono',monospace;">Raise Deviation</button>
+              <button style="flex:1;font-size:7px;background:transparent;color:var(--fail);border:1px solid rgba(229,75,46,.3);padding:5px;border-radius:3px;cursor:pointer;font-family:'DM Mono',monospace;">Quarantine</button>
+            </div>
+          </div>
+
+          <!-- Balance — cal expiring -->
+          <div style="background:var(--ch2);border:1px solid rgba(249,115,22,.25);border-left:3px solid #F97316;border-radius:6px;padding:12px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;">
+              <div>
+                <div style="font-size:9px;font-weight:600;color:#fff;">Mettler XP205 Balance · LAB-02</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">INSTR-0018 · Class I analytical</div>
+              </div>
+              <span style="font-size:7px;background:rgba(249,115,22,.12);color:#F97316;padding:2px 8px;border-radius:8px;font-family:'DM Mono',monospace;flex-shrink:0;">⚠ Cal Due</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+              <div style="background:var(--ch3);border-radius:3px;padding:5px 6px;text-align:center;">
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Cal Expires</div>
+                <div style="font-size:10px;font-weight:700;color:#F97316;margin-top:1px;">7 days</div>
+                <div style="font-size:6px;color:rgba(232,237,242,.3);">2026-05-01</div>
+              </div>
+              <div style="background:var(--ch3);border-radius:3px;padding:5px 6px;text-align:center;">
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Daily Checks</div>
+                <div style="font-size:10px;font-weight:700;color:#86C140;margin-top:1px;">✓ Pass</div>
+                <div style="font-size:6px;color:rgba(232,237,242,.3);">Today 07:30</div>
+              </div>
+              <div style="background:var(--ch3);border-radius:3px;padding:5px 6px;text-align:center;">
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Drift</div>
+                <div style="font-size:10px;font-weight:700;color:#86C140;margin-top:1px;">±0.02mg</div>
+                <div style="font-size:6px;color:rgba(232,237,242,.3);">Within spec</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bioreactor — healthy, streaming -->
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-left:3px solid var(--pur);border-radius:6px;padding:12px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;">
+              <div>
+                <div style="font-size:9px;font-weight:600;color:#fff;">Sartorius Biostat 200L · BIO-01</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">INSTR-0031 · Batch 2026-B14 running</div>
+              </div>
+              <span style="font-size:7px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 8px;border-radius:8px;font-family:'DM Mono',monospace;flex-shrink:0;">Validated ✓</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px;">
+              <div style="background:var(--ch3);border-radius:3px;padding:5px 6px;text-align:center;">
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">pH Live</div>
+                <div style="font-size:10px;font-weight:700;color:var(--t400);margin-top:1px;">7.14</div>
+                <div style="font-size:6px;color:rgba(232,237,242,.3);">Spec 7.0–7.4</div>
+              </div>
+              <div style="background:var(--ch3);border-radius:3px;padding:5px 6px;text-align:center;">
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">DO %</div>
+                <div style="font-size:10px;font-weight:700;color:#86C140;margin-top:1px;">38.4</div>
+                <div style="font-size:6px;color:rgba(232,237,242,.3);">Spec 30–50%</div>
+              </div>
+              <div style="background:var(--ch3);border-radius:3px;padding:5px 6px;text-align:center;">
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Temp °C</div>
+                <div style="font-size:10px;font-weight:700;color:#86C140;margin-top:1px;">37.01</div>
+                <div style="font-size:6px;color:rgba(232,237,242,.3);">Spec 36.5–37.5</div>
+              </div>
+            </div>
+            <div style="font-size:6px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.25);">Live parameters streamed from Biostat via OPC-UA · Auto-logged to batch record · Signed by DCS</div>
+          </div>
+
+        </div>
+
+        <!-- Phizzle integration map -->
+        <div style="background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);border-radius:6px;padding:12px;">
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--pur);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">✦ Phizzle Integration Topology</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span style="font-size:7px;font-family:'DM Mono',monospace;background:var(--ch3);color:rgba(232,237,242,.6);padding:3px 8px;border-radius:2px;">OPC-UA</span>
+            <span style="font-size:7px;font-family:'DM Mono',monospace;background:var(--ch3);color:rgba(232,237,242,.6);padding:3px 8px;border-radius:2px;">OSIsoft PI</span>
+            <span style="font-size:7px;font-family:'DM Mono',monospace;background:var(--ch3);color:rgba(232,237,242,.6);padding:3px 8px;border-radius:2px;">HL7 FHIR</span>
+            <span style="font-size:7px;font-family:'DM Mono',monospace;background:var(--ch3);color:rgba(232,137,242,.6);padding:3px 8px;border-radius:2px;">MQTT IoT</span>
+            <span style="font-size:7px;font-family:'DM Mono',monospace;background:var(--ch3);color:rgba(232,237,242,.6);padding:3px 8px;border-radius:2px;">REST / SOAP</span>
+            <span style="font-size:7px;font-family:'DM Mono',monospace;background:var(--ch3);color:rgba(232,237,242,.6);padding:3px 8px;border-radius:2px;">SFTP file watch</span>
+            <span style="font-size:7px;font-family:'DM Mono',monospace;background:var(--ch3);color:rgba(232,237,242,.6);padding:3px 8px;border-radius:2px;">CDS direct driver</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 15: MARKETPLACE ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Revenue Platform · Module Store</div>
+  <h2 class="section-title">PHAROLON Marketplace</h2>
+  <p class="section-sub">Browse, purchase, and deploy validated modules instantly. From specialist regulatory frameworks to pre-configured instrument validation packages — one click to deploy, zero re-validation required. Third-party developers welcome.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div>
+    <div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">Marketplace · 847 modules available</div></div>
+    <div style="display:flex;height:520px;">
+      <div class="sidebar">
+        <div class="nav-grp">Browse</div>
+        <div class="nav-item active">All Modules</div>
+        <div class="nav-item">Installed <span style="margin-left:auto;font-size:7px;color:#86C140;">12</span></div>
+        <div class="nav-item">Updates <span style="margin-left:auto;background:#F97316;color:#fff;font-size:7px;padding:1px 5px;border-radius:8px;">3</span></div>
+        <div class="nav-grp">Categories</div>
+        <div class="nav-item">Validation Packs</div>
+        <div class="nav-item">Regulatory</div>
+        <div class="nav-item">LIMS Add-ons</div>
+        <div class="nav-item">Connectors</div>
+        <div class="nav-item">Report Templates</div>
+        <div class="nav-item">AI Models</div>
+        <div class="nav-grp">Publisher</div>
+        <div class="nav-item" style="color:var(--g500);">★ PHAROLON Official</div>
+        <div class="nav-item">Expert Partners</div>
+        <div class="nav-item">Community</div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:14px;">
+
+        <!-- Search + filter -->
+        <div style="display:flex;gap:8px;margin-bottom:14px;align-items:center;">
+          <div style="flex:1;background:var(--ch2);border:1px solid var(--ch3);border-radius:4px;padding:7px 10px;font-size:9px;color:rgba(232,237,242,.3);font-family:'DM Mono',monospace;">Search modules...</div>
+          <span style="font-size:8px;background:var(--ch3);color:rgba(232,237,242,.5);padding:6px 10px;border-radius:3px;font-family:'DM Mono',monospace;">Sort: Popular ▾</span>
+          <span style="font-size:8px;background:var(--ch3);color:rgba(232,237,242,.5);padding:6px 10px;border-radius:3px;font-family:'DM Mono',monospace;">Price ▾</span>
+        </div>
+
+        <!-- Featured banner -->
+        <div style="background:linear-gradient(135deg,rgba(201,152,26,.12),rgba(0,160,144,.08));border:1px solid rgba(226,168,55,.25);border-radius:8px;padding:14px;margin-bottom:14px;display:flex;align-items:center;gap:14px;">
+          <div style="flex:1;">
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--g500);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">★ Featured · Expert-Reviewed</div>
+            <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;">FDA 21 CFR Part 11 Complete Validation Pack</div>
+            <div style="font-size:9px;color:rgba(232,237,242,.6);">Pre-written IQ/OQ/PQ, URS, FRS, risk assessment, and test scripts for a generic SaaS GxP system. Expert-reviewed by ex-FDA inspector. Ready in 48 hours.</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div style="font-size:20px;font-weight:700;color:var(--g500);">$2,400</div>
+            <div style="font-size:7px;color:rgba(232,237,242,.4);margin-bottom:8px;">one-time · incl. expert review</div>
+            <button style="font-size:8px;background:var(--g600);color:#fff;border:none;padding:7px 16px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;font-weight:600;">Purchase</button>
+          </div>
+        </div>
+
+        <!-- Module grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+
+          <!-- Installed -->
+          <div style="background:var(--ch2);border:1px solid rgba(134,193,64,.2);border-radius:6px;padding:11px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <span style="font-size:8px;background:rgba(134,193,64,.1);color:#86C140;padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">✓ Installed</span>
+              <span style="font-size:9px;color:rgba(232,237,242,.3);">v2.1</span>
+            </div>
+            <div style="font-size:10px;font-weight:600;color:#fff;margin-bottom:4px;">GDP Cold Chain Module</div>
+            <div style="font-size:8px;color:rgba(232,237,242,.5);margin-bottom:8px;line-height:1.5;">EU GDP 2013/C 343/01. Lane qualification, MKT, excursions, FMD.</div>
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="font-size:8px;color:var(--g500);">★ 4.9</span>
+              <span style="font-size:7px;color:rgba(232,237,242,.3);">(142)</span>
+              <div style="flex:1;"></div>
+              <span style="font-size:8px;color:rgba(232,237,242,.4);">PHAROLON</span>
+            </div>
+          </div>
+
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:11px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <span style="font-size:8px;background:rgba(139,92,246,.1);color:var(--pur);padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">✦ Expert</span>
+              <span style="font-size:9px;font-weight:700;color:var(--g500);">$1,800</span>
+            </div>
+            <div style="font-size:10px;font-weight:600;color:#fff;margin-bottom:4px;">GCP / eTMF Module</div>
+            <div style="font-size:8px;color:rgba(232,237,242,.5);margin-bottom:8px;line-height:1.5;">ICH E6(R3) compliant. TMF zones per DIA RM v3. SAE/SUSAR workflows.</div>
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="font-size:8px;color:var(--g500);">★ 4.8</span>
+              <span style="font-size:7px;color:rgba(232,237,242,.3);">(88)</span>
+              <div style="flex:1;"></div>
+              <button style="font-size:7px;background:var(--t600);color:#fff;border:none;padding:3px 8px;border-radius:2px;cursor:pointer;font-family:'DM Mono',monospace;">Buy</button>
+            </div>
+          </div>
+
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:11px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <span style="font-size:8px;background:rgba(249,115,22,.1);color:#F97316;padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">New</span>
+              <span style="font-size:9px;font-weight:700;color:var(--g500);">$890</span>
+            </div>
+            <div style="font-size:10px;font-weight:600;color:#fff;margin-bottom:4px;">ISO 17025 Accreditation Pack</div>
+            <div style="font-size:8px;color:rgba(232,237,242,.5);margin-bottom:8px;line-height:1.5;">Proficiency testing, MU budgets, scope management. UKAS/A2LA ready.</div>
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="font-size:8px;color:var(--g500);">★ 4.7</span>
+              <span style="font-size:7px;color:rgba(232,237,242,.3);">(31)</span>
+              <div style="flex:1;"></div>
+              <button style="font-size:7px;background:var(--t600);color:#fff;border:none;padding:3px 8px;border-radius:2px;cursor:pointer;font-family:'DM Mono',monospace;">Buy</button>
+            </div>
+          </div>
+
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:11px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <span style="font-size:8px;background:rgba(139,92,246,.1);color:var(--pur);padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">✦ Expert</span>
+              <span style="font-size:9px;font-weight:700;color:var(--g500);">$3,200</span>
+            </div>
+            <div style="font-size:10px;font-weight:600;color:#fff;margin-bottom:4px;">Annex 1 Sterile Pack</div>
+            <div style="font-size:8px;color:rgba(232,237,242,.5);margin-bottom:8px;line-height:1.5;">EU GMP Annex 1 (2022). Media fills, AVI, CCS, lyophilisation, PUPSIT.</div>
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="font-size:8px;color:var(--g500);">★ 5.0</span>
+              <span style="font-size:7px;color:rgba(232,237,242,.3);">(19)</span>
+              <div style="flex:1;"></div>
+              <button style="font-size:7px;background:var(--t600);color:#fff;border:none;padding:3px 8px;border-radius:2px;cursor:pointer;font-family:'DM Mono',monospace;">Buy</button>
+            </div>
+          </div>
+
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:11px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <span style="font-size:8px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">Connector</span>
+              <span style="font-size:9px;font-weight:700;color:var(--g500);">$480/yr</span>
+            </div>
+            <div style="font-size:10px;font-weight:600;color:#fff;margin-bottom:4px;">SAP ERP Connector</div>
+            <div style="font-size:8px;color:rgba(232,237,242,.5);margin-bottom:8px;line-height:1.5;">Bi-directional SAP S/4 HANA sync. Material master, batch, PO, QM module.</div>
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="font-size:8px;color:var(--g500);">★ 4.6</span>
+              <span style="font-size:7px;color:rgba(232,237,242,.3);">(67)</span>
+              <div style="flex:1;"></div>
+              <button style="font-size:7px;background:var(--t600);color:#fff;border:none;padding:3px 8px;border-radius:2px;cursor:pointer;font-family:'DM Mono',monospace;">Subscribe</button>
+            </div>
+          </div>
+
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:11px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <span style="font-size:8px;background:rgba(249,115,22,.1);color:#F97316;padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">Community</span>
+              <span style="font-size:9px;font-weight:700;color:#86C140;">Free</span>
+            </div>
+            <div style="font-size:10px;font-weight:600;color:#fff;margin-bottom:4px;">ICH Q3D Elemental Report</div>
+            <div style="font-size:8px;color:rgba(232,237,242,.5);margin-bottom:8px;line-height:1.5;">Auto-generate ICH Q3D compliant elemental impurity report from LIMS data.</div>
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="font-size:8px;color:var(--g500);">★ 4.3</span>
+              <span style="font-size:7px;color:rgba(232,237,242,.3);">(204)</span>
+              <div style="flex:1;"></div>
+              <button style="font-size:7px;background:var(--ch3);color:#86C140;border:1px solid rgba(134,193,64,.3);padding:3px 8px;border-radius:2px;cursor:pointer;font-family:'DM Mono',monospace;">Install</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 16: VALIDATION PACKAGES ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Expert-Reviewed · Instant Deploy</div>
+  <h2 class="section-title">Pre-Configured Validation Packages</h2>
+  <p class="section-sub">Like Rocket Lawyer for GxP. Complete, expert-reviewed validation packages for specific instruments and systems. Purchase, answer a short questionnaire, and receive a fully populated IQ/OQ/PQ ready for execution. Expert review included. Cut validation cost by 70%.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div>
+    <div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">Validation Packages · 340 instruments covered</div></div>
+    <div style="display:flex;height:540px;">
+      <div class="sidebar">
+        <div class="nav-grp">Browse By</div>
+        <div class="nav-item active">Instrument Type</div>
+        <div class="nav-item">Manufacturer</div>
+        <div class="nav-item">Regulation</div>
+        <div class="nav-item">Company Size</div>
+        <div class="nav-grp">My Packages</div>
+        <div class="nav-item">Purchased <span style="margin-left:auto;font-size:7px;color:#86C140;">4</span></div>
+        <div class="nav-item">In Progress</div>
+        <div class="nav-item">Completed</div>
+        <div class="nav-grp">Expert Review</div>
+        <div class="nav-item" style="color:var(--g500);">Submit for Review</div>
+        <div class="nav-item">Review Queue</div>
+        <div class="nav-item">My Reviewers</div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:14px;">
+
+        <!-- Value prop strip -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:14px;">
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:5px;padding:10px;text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:var(--t400);">340</div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Instruments Covered</div>
+          </div>
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:5px;padding:10px;text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:var(--t400);">48h</div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Avg Delivery Time</div>
+          </div>
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:5px;padding:10px;text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:#86C140;">70%</div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Cost Reduction</div>
+          </div>
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:5px;padding:10px;text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:var(--pur);">✦ Expert</div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Every Package</div>
+          </div>
+        </div>
+
+        <!-- Package detail — selected -->
+        <div style="background:linear-gradient(135deg,rgba(0,160,144,.05),rgba(139,92,246,.04));border:1px solid rgba(0,160,144,.2);border-radius:8px;padding:14px;margin-bottom:14px;">
+          <div style="display:flex;align-items:flex-start;gap:12px;">
+            <div style="flex:1;">
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--pur);margin-bottom:4px;">✦ Expert-Reviewed · Waters Alliance HPLC</div>
+              <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;">Waters 2695/e2695 HPLC — Complete Validation Package</div>
+              <div style="font-size:9px;color:rgba(232,237,242,.65);margin-bottom:10px;">Full IQ/OQ/PQ for the Waters Alliance HPLC family. Pre-written to 21 CFR Part 211, USP &lt;621&gt;, and EU GMP. Reviewed by former FDA analytical chemistry inspector. Covers solvent system, detector, pump, column oven, and autosampler. Includes risk assessment, 47 test scripts, and acceptance criteria.</div>
+              <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;">
+                <span style="font-size:7px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">IQ · OQ · PQ</span>
+                <span style="font-size:7px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">URS included</span>
+                <span style="font-size:7px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">47 test scripts</span>
+                <span style="font-size:7px;background:rgba(139,92,246,.1);color:var(--pur);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">✦ Expert reviewed</span>
+                <span style="font-size:7px;background:rgba(226,168,55,.1);color:var(--g500);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">FDA inspector · 12yr exp</span>
+              </div>
+              <!-- Whats included -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                <div style="font-size:8px;color:#86C140;">✓ IQ — Installation Qualification</div>
+                <div style="font-size:8px;color:#86C140;">✓ OQ — Operational Qualification</div>
+                <div style="font-size:8px;color:#86C140;">✓ PQ — Performance Qualification</div>
+                <div style="font-size:8px;color:#86C140;">✓ Risk Assessment (GAMP 5)</div>
+                <div style="font-size:8px;color:#86C140;">✓ URS + FRS templates</div>
+                <div style="font-size:8px;color:#86C140;">✓ Calibration acceptance criteria</div>
+                <div style="font-size:8px;color:#86C140;">✓ Requalification trigger matrix</div>
+                <div style="font-size:8px;color:var(--pur);">✦ 1-hour expert Q&amp;A included</div>
+              </div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;width:140px;">
+              <div style="font-size:9px;line-height:1.6;color:rgba(232,237,242,.4);text-decoration:line-through;">Consultant: ~$15,000</div>
+              <div style="font-size:28px;font-weight:700;color:var(--g500);line-height:1;">$1,890</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.4);margin-bottom:12px;">one-time · instant download</div>
+              <button style="width:100%;font-size:9px;font-weight:700;background:var(--g600);color:#fff;border:none;padding:10px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;margin-bottom:6px;">Purchase Package</button>
+              <button style="width:100%;font-size:8px;background:transparent;color:var(--t400);border:1px solid rgba(0,160,144,.3);padding:7px;border-radius:4px;cursor:pointer;font-family:'DM Mono',monospace;">Preview Contents</button>
+              <div style="margin-top:8px;font-size:7px;color:rgba(232,237,242,.3);">★ 4.9 · 76 purchases · FDA-ready</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Package list -->
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">More HPLC / Chromatography Packages</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border:1px solid var(--ch3);border-radius:5px;padding:9px 12px;">
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:600;color:#fff;">Agilent 1260/1290 Infinity HPLC</div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">IQ/OQ/PQ · OpenLAB CDS integration · 21 CFR Part 11</div>
+            </div>
+            <div style="font-size:9px;font-weight:700;color:var(--g500);flex-shrink:0;">$1,690</div>
+            <button style="font-size:7px;background:var(--t600);color:#fff;border:none;padding:4px 10px;border-radius:2px;cursor:pointer;font-family:'DM Mono',monospace;">Buy</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border:1px solid var(--ch3);border-radius:5px;padding:9px 12px;">
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:600;color:#fff;">Waters Acquity UPLC System</div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">IQ/OQ/PQ · Ultra-performance · Empower 3 · USP &lt;621&gt;</div>
+            </div>
+            <div style="font-size:9px;font-weight:700;color:var(--g500);flex-shrink:0;">$2,100</div>
+            <button style="font-size:7px;background:var(--t600);color:#fff;border:none;padding:4px 10px;border-radius:2px;cursor:pointer;font-family:'DM Mono',monospace;">Buy</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border:1px solid var(--ch3);border-radius:5px;padding:9px 12px;">
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:600;color:#fff;">Shimadzu Prominence HPLC</div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">IQ/OQ · LabSolutions validated · JP/USP/Ph Eur coverage</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+              <span style="font-size:7px;background:rgba(249,115,22,.1);color:#F97316;padding:1px 5px;border-radius:2px;font-family:'DM Mono',monospace;">Coming soon</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ══ PALETTE ══ -->
 <section class="palette-section">
   <div class="palette-inner">
