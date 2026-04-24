@@ -126,16 +126,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
   background-clip: text;
 }
 
-50%{opacity:.18;}}
-40%{opacity:.12;}60%{opacity:.08;}}
-50%{opacity:1;}}
-
-@keyframes pur-pulse{0%,100%{opacity:.12;transform:scale(1);}50%{opacity:.28;transform:scale(1.08);}}
-@keyframes pur-sweep{0%{transform:translateX(-100%) rotate(25deg);}100%{transform:translateX(200%) rotate(25deg);}}
-@keyframes pur-orbit{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-@keyframes apex-glow{0%,100%{opacity:.3;}50%{opacity:.9;}}
+@keyframes pur-pulse{0%,100%{opacity:.1;}50%{opacity:.25;}}
+@keyframes pur-sweep{0%{left:-80px;}100%{left:calc(100% + 80px);}}
+@keyframes pur-orbit{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes apex-dot{0%,100%{opacity:.3;box-shadow:0 0 6px 2px rgba(167,139,250,.3);}50%{opacity:.9;box-shadow:0 0 12px 5px rgba(167,139,250,.5);}}
 </style>
-<meta name="pharolon:build" content="5b7fecd"/><meta name="pharolon:built-at" content="2026-04-24T02:21:07Z"/></head>
+<meta name="pharolon:build" content="7a9758a"/><meta name="pharolon:built-at" content="2026-04-24T02:23:20Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -300,251 +296,33 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
       border-radius:40px;
       border:1px solid rgba(0,160,144,.2);
       display:flex;flex-direction:column;align-items:center;justify-content:center;
-      gap:14px;
-      position:relative;overflow:hidden;
+      gap:14px;position:relative;overflow:hidden;
     ">
-      <!-- Purple shimmer layers — CSS only -->
+      <!-- shimmer layers -->
+      <div style="position:absolute;inset:-20px;border-radius:50%;opacity:.6;
+        background:conic-gradient(from 0deg,transparent 0%,rgba(139,92,246,.1) 20%,rgba(167,139,250,.2) 30%,transparent 45%,rgba(139,92,246,.07) 65%,rgba(167,139,250,.15) 75%,transparent 90%);
+        animation:pur-orbit 9s linear infinite;pointer-events:none;"></div>
 
-      <!-- Rotating conic shimmer ring -->
-      <div style="position:absolute;inset:-20px;border-radius:50%;
-        background:conic-gradient(from 0deg, transparent 0%, rgba(139,92,246,.08) 15%, rgba(167,139,250,.18) 25%, transparent 40%, rgba(139,92,246,.06) 60%, rgba(167,139,250,.14) 72%, transparent 85%);
-        animation:pur-orbit 8s linear infinite;pointer-events:none;"></div>
+      <div style="position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+        width:200px;height:200px;border-radius:50%;pointer-events:none;
+        background:radial-gradient(circle,rgba(167,139,250,.2) 0%,rgba(139,92,246,.06) 40%,transparent 70%);
+        animation:pur-pulse 4s ease-in-out infinite;"></div>
 
-      <!-- Apex radial pulse — top-center -->
-      <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);
-        width:180px;height:180px;border-radius:50%;
-        background:radial-gradient(circle, rgba(167,139,250,.22) 0%, rgba(139,92,246,.08) 35%, transparent 70%);
-        animation:pur-pulse 3.5s ease-in-out infinite;pointer-events:none;"></div>
-
-      <!-- Sweep shimmer — the mirage light -->
-      <div style="position:absolute;inset:0;border-radius:40px;overflow:hidden;pointer-events:none;">
-        <div style="position:absolute;top:0;bottom:0;width:60px;
-          background:linear-gradient(90deg,transparent,rgba(167,139,250,.12),rgba(200,180,255,.08),transparent);
-          animation:pur-sweep 4s ease-in-out infinite;animation-delay:.5s;"></div>
+      <div style="position:absolute;inset:0;overflow:hidden;border-radius:40px;pointer-events:none;">
+        <div style="position:absolute;top:0;bottom:0;width:50px;
+          background:linear-gradient(90deg,transparent,rgba(167,139,250,.15),transparent);
+          animation:pur-sweep 3.5s ease-in-out infinite;"></div>
+        <div style="position:absolute;top:0;bottom:0;width:30px;
+          background:linear-gradient(90deg,transparent,rgba(167,139,250,.09),transparent);
+          animation:pur-sweep 3.5s ease-in-out infinite;animation-delay:1.8s;"></div>
       </div>
 
-      <!-- Second sweep — offset timing -->
-      <div style="position:absolute;inset:0;border-radius:40px;overflow:hidden;pointer-events:none;">
-        <div style="position:absolute;top:0;bottom:0;width:40px;
-          background:linear-gradient(90deg,transparent,rgba(139,92,246,.08),transparent);
-          animation:pur-sweep 4s ease-in-out infinite;animation-delay:2.2s;"></div>
-      </div>
+      <div style="position:absolute;top:26px;left:50%;transform:translateX(-50%);
+        width:7px;height:7px;border-radius:50%;background:#A78BFA;pointer-events:none;
+        animation:apex-dot 4s ease-in-out infinite;"></div>
 
-      <!-- Apex dot — the lighthouse point -->
-      <div style="position:absolute;top:28px;left:50%;transform:translateX(-50%);
-        width:6px;height:6px;border-radius:50%;
-        background:#A78BFA;
-        box-shadow:0 0 8px 3px rgba(167,139,250,.4), 0 0 20px 8px rgba(139,92,246,.2);
-        animation:apex-glow 3.5s ease-in-out infinite;pointer-events:none;"></div>
-
-      <!-- Base horizon glow -->
-      <div style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
-        width:160px;height:1px;
-        background:linear-gradient(90deg,transparent,rgba(139,92,246,.15),rgba(167,139,250,.25),rgba(139,92,246,.15),transparent);
-        pointer-events:none;"></div>
-    </span>
-    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;background:linear-gradient(180deg,#F5D060,#E2A837 50%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ROLON</span>
-  </div>
-  <div class="nav-sp"></div>
-  <div class="nav-links">
-    <a class="nav-a" href="index.html">Home</a>
-    <a class="nav-a" href="index.html#story">Story</a>
-    <a class="nav-a active" href="brand.html" style="color:#00D4C4;">Brand</a>
-    <a class="nav-a" href="platform-preview.html">Preview</a>
-  </div>
-  <a class="nav-gh" href="https://github.com/tigger2000ttfn/OpenVAL">GitHub →</a>
-</nav>
-
-
-<svg width="0" height="0" style="position:absolute;">
-  <defs>
-    <filter id="glow"   x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="glow-lg" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  </defs>
-</svg>
-
-<div class="page">
-
-<!-- ── HERO ICON ── -->
-<section style="padding:80px 0 60px;text-align:center;">
-  <div style="font-size:9px;letter-spacing:2px;color:rgba(226,168,55,.22);text-transform:uppercase;margin-bottom:32px;">Brand Identity · 2026</div>
-
-  <div class="icon-hero" style="margin-bottom:32px;"><div class="icon-box">
-    <svg width="160" height="160" viewBox="0 0 110 110" fill="none" overflow="visible" style="overflow:visible;display:block;">
-          <!-- compass halo band -->
-          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="11" fill="none"/>
-          <!-- precision ring -->
-          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.45)" stroke-width="1" fill="none"/>
-          <!-- inner instrument ring -->
-          <circle cx="55" cy="55" r="43" stroke="rgba(226,168,55,.07)" stroke-width=".6" fill="none"/>
-          <!-- rotating ticks -->
-          <g style="transform-origin:55px 55px;animation:compass-rot 100s linear infinite;">
-            <line x1="55" y1="5"   x2="55" y2="20"  stroke="rgba(226,168,55,.55)" stroke-width="2"/>
-            <line x1="55" y1="90"  x2="55" y2="105" stroke="rgba(226,168,55,.55)" stroke-width="2"/>
-            <line x1="5"  y1="55"  x2="20" y2="55"  stroke="rgba(226,168,55,.55)" stroke-width="2"/>
-            <line x1="90" y1="55"  x2="105" y2="55" stroke="rgba(226,168,55,.55)" stroke-width="2"/>
-            <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
-            <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
-            <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
-            <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
-          </g>
-          <!-- horizon: the sea the lighthouse stands above -->
-          <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3 5"/>
-          <!-- ghost outer pyramid — draws itself in, glowing -->
-          <polygon points="55,7 5,87 105,87"
-            stroke="rgba(240,192,64,.2)" stroke-width="1.8"
-            stroke-linejoin="miter" stroke-miterlimit="30" fill="none"
-            style="stroke-dasharray:268;stroke-dashoffset:268;animation:ghost-draw 11s ease-in-out infinite;"/>
-          <!-- outer △ — gold -->
-          <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="7" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <!-- mid △ — teal -->
-          <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <!-- inner △ — purple -->
-          <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.4" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-          <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.05)"/>
-          <!-- apex beacon halo -->
-          <circle cx="55" cy="14" r="13" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
-          <circle cx="55" cy="14" r="7"  fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
-          <!-- lighthouse flash -->
-          <circle cx="55" cy="14" r="3.2" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
-          <circle cx="55" cy="14" r="1.4" fill="#fff" opacity=".9"/>
-        </svg>
-    </div>
-  </div>
-
-  <div style="width:180px;height:1px;background:linear-gradient(90deg,transparent,rgba(226,168,55,.25),transparent);margin:0 auto 24px;"></div>
-
-  <div style="display:flex;align-items:center;justify-content:center;overflow:visible;padding:0 16px 0.14em;flex-wrap:nowrap;margin-bottom:10px;">
-    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,9vw,96px);letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span>
-    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,9vw,96px);letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span>
-    <span style="display:inline-flex;align-items:center;flex-shrink:0;width:clamp(80px,13vw,150px);height:clamp(80px,13vw,150px);margin:0 clamp(-6px,-1vw,-12px);">
-      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
-        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
-        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
-        <circle cx="55" cy="55" r="43" stroke="rgba(226,168,55,.08)" stroke-width=".6" fill="none"/>
-        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
-          <line x1="55" y1="5"   x2="55" y2="20"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
-          <line x1="55" y1="90"  x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
-          <line x1="5"  y1="55"  x2="20" y2="55"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
-          <line x1="90" y1="55"  x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
-          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
-          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
-          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
-          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
-        </g>
-        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.22)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
-        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.18)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
-        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.05)"/>
-        <circle cx="55" cy="14" r="12" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
-        <circle cx="55" cy="14" r="6.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
-        <circle cx="55" cy="14" r="3.2" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
-        <circle cx="55" cy="14" r="1.4" fill="#fff" opacity=".9"/>
-      </svg>
-    </span>
-    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,9vw,96px);letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
-  </div>
-  <div style="font-size:9px;letter-spacing:2px;color:rgba(226,168,55,.18);text-transform:uppercase;">Quality Intelligence for Regulated Industries</div>
-</section>
-
-<!-- ── THE STORY ── -->
-<section class="section">
-  <div class="sec-label">The Hidden References</div>
-  <div class="pull">"Two of the Seven Wonders of the Ancient World — hidden inside a single mark."</div>
-  <div class="rule"></div>
-  <p class="body">
-    The <strong>Pharos of Alexandria</strong> guided every vessel for over a thousand years. Not one industry — every industry. <strong>PHAROLON</strong> carries that lighthouse inside its name: PHAROS + LON. The ancient beacon, extended forward into the age of regulated industry.<br/><br/>
-    The pyramid inside the compass ring encodes the <strong>Great Pyramid of Giza</strong> — another Egyptian Wonder, standing on the same soil, still standing today. The only ancient Wonder that survived. And the acronym — <strong>pH</strong> — is the universal chemistry notation for potential of Hydrogen. Fundamental to pharmaceutical manufacturing, biotech, food safety, and every regulated science this platform serves.<br/><br/>
-    <strong>Four hidden references. One mark.</strong>
-  </p>
-  <div class="mc-grid">
-    <div class="mc"><div class="mc-title mc-gold">🏛 PHAROS — The Lighthouse</div><div class="mc-body">Hidden in the name. The Pharos of Alexandria guided every vessel for 1,000+ years. <strong>Not one trade. Every trade.</strong> PHAROLON is the fixed reference point for any regulated industry navigating compliance complexity.</div></div>
-    <div class="mc"><div class="mc-title mc-gold">△ The Pyramid — Built to Last</div><div class="mc-body">Hidden in the icon. The nested triangles reference the <strong>Great Pyramid of Giza</strong> — the only ancient Wonder still standing. Gold outer, teal mid, purple inner. Three layers of quality, precision, and integrity. Enduring. Immutable.</div></div>
-    <div class="mc"><div class="mc-title mc-gold">pH — The Chemistry</div><div class="mc-body">Hidden in the acronym. <strong>pH = potential of Hydrogen</strong> — the universal chemistry notation fundamental to pharma, biotech, food safety, and every regulated science. The descending P in the wordmark was always referencing this. The brand is in the letterform.</div></div>
-    <div class="mc"><div class="mc-title mc-gold">◎ The Compass — Navigate</div><div class="mc-body">Hidden in the ring. The compass with cardinal and intercardinal ticks represents <strong>navigation through regulatory complexity</strong>. The dashed horizon is the sea — the danger the lighthouse stands above. The ring rotates. Always finding true north.</div></div>
-  </div>
-</section>
-
-<!-- ── pH ACRONYM ── -->
-<section class="section"><!-- ── THE ACRONYM ── -->
-<section class="section">
-  <div class="sec-label">The Acronym — pH</div>
-  <div style="display:flex;justify-content:center;padding:40px 0;">
-    <div style="
-      width:280px;height:280px;
-      background:linear-gradient(145deg,#1A1A1A,#0A0A0A);
-      border-radius:40px;
-      border:1px solid rgba(0,160,144,.2);
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      gap:14px;
-      position:relative;overflow:hidden;
-    ">
-      <!-- Apex light — feathered, particle-like -->
-      <svg viewBox="0 0 280 280" fill="none"
-           style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;">
-        <defs>
-          <!-- Soft apex glow gradient -->
-          <radialGradient id="apex-glow" cx="50%" cy="8%" r="45%" gradientUnits="objectBoundingBox">
-            <stop offset="0%"   stop-color="#F5D060" stop-opacity=".18"/>
-            <stop offset="35%"  stop-color="#E2A837" stop-opacity=".06"/>
-            <stop offset="100%" stop-color="#C9981A" stop-opacity="0"/>
-          </radialGradient>
-          <!-- Beam gradient — tight cone from apex -->
-          <linearGradient id="beam-g" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stop-color="#F5D060" stop-opacity=".1"/>
-            <stop offset="70%"  stop-color="#E2A837" stop-opacity=".02"/>
-            <stop offset="100%" stop-color="#C9981A" stop-opacity="0"/>
-          </linearGradient>
-          <!-- Blur filter for feathering -->
-          <filter id="blur-heavy" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="8"/>
-          </filter>
-          <filter id="blur-med" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="3"/>
-          </filter>
-          <filter id="blur-soft" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="1.2"/>
-          </filter>
-        </defs>
-
-        <!-- Wide ambient glow from apex -->
-        <ellipse cx="140" cy="30" rx="90" ry="60"
-          fill="url(#apex-glow)"
-          filter="url(#blur-heavy)"
-          style="animation:apex-shimmer 5s ease-in-out infinite;"/>
-
-        <!-- Pyramid filled shape — blurred into nothingness -->
-        <polygon points="140,22 30,240 250,240"
-          fill="rgba(201,152,26,.06)"
-          filter="url(#blur-heavy)"
-          style="animation:apex-shimmer 5s ease-in-out infinite;animation-delay:.5s;"/>
-
-        <!-- Tight light beam — blurred soft cone -->
-        <polygon points="140,22 118,220 162,220"
-          fill="rgba(245,208,96,.08)"
-          filter="url(#blur-med)"
-          style="animation:apex-beam 5s ease-in-out infinite;"/>
-
-        <!-- Particle cluster near apex — scattered micro dots -->
-        <g filter="url(#blur-soft)" style="animation:apex-shimmer 5s ease-in-out infinite;animation-delay:.2s;">
-          <circle cx="140" cy="22" r="1.5" fill="rgba(245,208,96,.6)"/>
-          <circle cx="136" cy="28" r=".8"  fill="rgba(245,208,96,.3)"/>
-          <circle cx="144" cy="26" r=".8"  fill="rgba(245,208,96,.3)"/>
-          <circle cx="133" cy="36" r=".6"  fill="rgba(245,208,96,.15)"/>
-          <circle cx="148" cy="34" r=".5"  fill="rgba(245,208,96,.15)"/>
-          <circle cx="140" cy="42" r=".5"  fill="rgba(245,208,96,.1)"/>
-        </g>
-
-        <!-- Horizon ambient — very faint base glow -->
-        <ellipse cx="140" cy="232" rx="80" ry="8"
-          fill="rgba(0,160,144,.04)"
-          filter="url(#blur-med)"/>
-      </svg>
-
-      <!-- PH text above the pyramid centrepoint -->
-      <div style="position:relative;z-index:1;display:flex;align-items:baseline;animation:ph-shimmer 4s ease-in-out infinite;">
+      <!-- PH text -->
+      <div style="position:relative;z-index:1;display:flex;align-items:baseline;">
         <span class="ph-acro" style="display:inline-block;transform:translateY(0.14em);">P</span><span class="ph-acro">H</span>
       </div>
       <span style="position:relative;z-index:1;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(0,212,196,.45);text-transform:uppercase;">The beacon for validation</span>
