@@ -26,7 +26,7 @@ body{background:#0C1117;font-family:'Inter',system-ui,sans-serif;color:var(--tex
 .hero-bg-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,160,144,.08) 0%,transparent 70%);pointer-events:none;}
 .logo-mark{width:64px;height:64px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
 .hero-badge{background:rgba(0,160,144,.12);border:1px solid rgba(0,160,144,.3);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--t400);letter-spacing:.5px;display:inline-block;margin-bottom:20px;}
-.hero h1{font-size:clamp(36px,6vw,72px);font-weight:700;letter-spacing:-1.5px;margin-bottom:16px;background:linear-gradient(135deg,#fff 30%,var(--t400) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero h1{font-size:clamp(36px,6vw,72px);font-weight:700;letter-spacing:-1.5px;margin-bottom:16px;background:linear-gradient(180deg,#F5D060 0%,#E2A837 45%,#A87E14 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .hero-sub{font-size:clamp(16px,2.5vw,20px);color:var(--text2);max-width:580px;margin:0 auto 12px;}
 .hero-tagline{font-size:14px;color:var(--text3);margin-bottom:40px;}
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
@@ -51,7 +51,7 @@ body{background:#0C1117;font-family:'Inter',system-ui,sans-serif;color:var(--tex
 .frame-dot{width:10px;height:10px;border-radius:50%;}
 .frame-header{background:var(--ch);height:48px;display:flex;align-items:center;padding:0 16px;gap:10px;border-bottom:1px solid var(--ch3);}
 .frame-logo{width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.frame-wordmark{color:#fff;font-size:13px;font-weight:500;letter-spacing:.3px;}
+.frame-wordmark{font-size:13px;font-weight:800;letter-spacing:0;font-family:'Syne',sans-serif;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent;}
 .frame-wordmark em{color:var(--t400);font-style:normal;}
 .frame-site{background:rgba(0,160,144,.15);border:1px solid rgba(0,160,144,.3);color:var(--t400);font-size:10px;padding:3px 9px;border-radius:20px;}
 .frame-spacer{flex:1;}
@@ -148,7 +148,7 @@ body{background:#0C1117;font-family:'Inter',system-ui,sans-serif;color:var(--tex
 
 /* ── CTA ── */
 .cta{padding:100px 24px;text-align:center;background:linear-gradient(160deg,#0C1117 0%,var(--t950) 100%);border-top:1px solid var(--dkb);}
-.cta h2{font-size:clamp(28px,5vw,52px);font-weight:700;letter-spacing:-1px;margin-bottom:12px;background:linear-gradient(135deg,#fff 30%,var(--t400) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cta h2{font-size:clamp(28px,5vw,52px);font-weight:700;letter-spacing:-1px;margin-bottom:12px;background:linear-gradient(180deg,#F5D060 0%,#E2A837 45%,#A87E14 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .cta p{font-size:16px;color:var(--text2);margin-bottom:36px;}
 
 /* ── FOOTER ── */
@@ -235,7 +235,7 @@ footer a{color:var(--t400);text-decoration:none;}
   <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
   <circle cx="55" cy="14" r="2.5" fill="#F5D060"/>
 </svg>
-      <span class="frame-wordmark" style="font-family:'Syne',sans-serif;font-weight:800;letter-spacing:0;background:linear-gradient(135deg,#F0C040,#C9981A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">PHAROLON</span>
+      <span class="frame-wordmark">PHAROLON</span>
       <span class="frame-site">◈ MATC · Madison</span>
       <div class="frame-spacer"></div>
       <div class="frame-search">⌘K  Search everything...</div>
@@ -472,7 +472,7 @@ footer a{color:var(--t400);text-decoration:none;}
   <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
   <circle cx="55" cy="14" r="2.5" fill="#F5D060"/>
 </svg>
-    <span style="color:#fff;font-size:13px;font-weight:500;">OPEN<em style="color:#00D4C4;font-style:normal;">VAL</em></span>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:0;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">PHAROLON</span>
   </div>
   <p>Open Source GxP Validation Platform · <a href="https://github.com/tigger2000ttfn/PHAROLON">GitHub</a> · AGPL-3.0 · Built for pharma, biotech, and medical devices.</p>
 </footer>
