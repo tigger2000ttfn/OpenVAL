@@ -389,9 +389,9 @@ to{transform:rotate(360deg);}}
 
     // Three nested triangles
     var tris=[
-      {apex:{x:140,y:26},bl:{x:16,y:218},br:{x:264,y:218},col:[201,152,26]},
-      {apex:{x:140,y:54},bl:{x:50,y:218}, br:{x:230,y:218},col:[0,160,144]},
-      {apex:{x:140,y:82},bl:{x:84,y:218}, br:{x:196,y:218},col:[139,92,246]}
+      {apex:{x:140,y:50},bl:{x:50,y:196},br:{x:230,y:196},col:[201,152,26]},
+      {apex:{x:140,y:70},bl:{x:74,y:196}, br:{x:206,y:196},col:[0,160,144]},
+      {apex:{x:140,y:92},bl:{x:98,y:196}, br:{x:182,y:196},col:[139,92,246]}
     ];
 
     // Dense band: particle every 2.5px along edge, N rows perpendicular
@@ -441,7 +441,7 @@ to{transform:rotate(360deg);}}
             delay: BUILD_START[ti] + pi*6 + Math.random()*180,
             breatheP:9000+Math.random()*7000,
             breathePh:Math.random()*Math.PI*2,
-            size:1.4+Math.random()*0.6,
+            size:1.1+Math.random()*0.5,
             state:'waiting' // waiting→arriving→hold→leaving
           });
         });
@@ -530,7 +530,7 @@ to{transform:rotate(360deg);}}
             var prog=easeOut(pElapsed/ARRIVE_DUR);
             tx=p.sx+(p.ox-p.sx)*prog;
             ty=p.sy+(p.oy-p.sy)*prog;
-            targetAlpha=prog*0.6;
+            targetAlpha=prog*0.38;
           }
         } else {
           // LEAVE phase — drift back toward spawn
@@ -538,13 +538,13 @@ to{transform:rotate(360deg);}}
           var prog=easeIn(leaveT);
           tx=p.ox+(p.sx-p.ox)*prog;
           ty=p.oy+(p.sy-p.oy)*prog;
-          targetAlpha=(1-prog)*0.6;
+          targetAlpha=(1-prog)*0.38;
         }
 
         // Breathe only during hold
         if(elapsed>=LAST_ARRIVE_APPROX&&elapsed<CYCLE_HOLD_END){
           var breathe=0.5+0.5*Math.sin(elapsed/p.breatheP*Math.PI*2+p.breathePh);
-          targetAlpha=0.2+breathe*0.35;
+          targetAlpha=0.12+breathe*0.22;
         }
 
         p.x+=(tx-p.x)*0.06;
