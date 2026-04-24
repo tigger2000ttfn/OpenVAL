@@ -112,8 +112,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 .icon-box{width:200px;height:200px;background:linear-gradient(145deg,#1C1C1C,#0A0A0A);border-radius:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(0,0,0,.5),0 4px 16px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.08);position:relative;margin:0 auto 32px;}
 .icon-box::before{content:'';position:absolute;inset:0;border-radius:44px;background:linear-gradient(145deg,rgba(255,255,255,.04),transparent 60%);pointer-events:none;}
 .wm-shadow{filter:drop-shadow(0 1px 4px rgba(0,0,0,.3));}
+
+/* pH Acronym Display — fresh class */
+.ph-acro {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 96px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  background: linear-gradient(180deg, #F5D060, #E2A837 45%, #B8820E 85%, #8A5F08);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 </style>
-<meta name="pharolon:build" content="3023836"/><meta name="pharolon:built-at" content="2026-04-24T02:07:23Z"/></head>
+<meta name="pharolon:build" content="2333075"/><meta name="pharolon:built-at" content="2026-04-24T02:08:35Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -280,7 +293,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
       display:flex;flex-direction:column;align-items:center;justify-content:center;
       gap:14px;
     ">
-      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:96px;color:#E2A837;line-height:1;letter-spacing:-.02em;">pH</span>
+      <span class="ph-acro">pH</span>
       <span style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(0,212,196,.45);text-transform:uppercase;">The beacon for validation</span>
     </div>
   </div>
