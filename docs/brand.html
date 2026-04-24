@@ -128,18 +128,59 @@ to{transform:rotate(360deg);}}
 .nav-burger.open span:nth-child(2){opacity:0;}
 .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
-
+.nav-drawer{display:none;}
 
 @media(max-width:680px){
   .nav-links{display:none;}
   .nav-gh{display:none;}
   .nav-burger{display:flex;}
 
-  
-  
-  
-  
-  
+  .nav-drawer{
+    display:block;
+    position:fixed;top:50px;left:0;right:0;
+    background:rgba(8,8,14,.97);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(0,160,144,.2);
+    padding:0;
+    max-height:0;overflow:hidden;
+    transition:max-height .3s ease, padding .3s ease;
+    z-index:99;
+  }
+  .nav-drawer.open{
+    max-height:320px;
+    padding:16px 0 20px;
+  }
+  .nav-drawer a{
+    display:block;
+    padding:13px 28px;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:rgba(0,212,196,.6);
+    text-decoration:none;
+    border-left:2px solid transparent;
+    transition:all .15s;
+  }
+  .nav-drawer a:hover,
+  .nav-drawer a.active{
+    color:#00D4C4;
+    border-left-color:var(--t400,#00D4C4);
+    background:rgba(0,160,144,.06);
+  }
+  .nav-drawer .drawer-gh{
+    margin:12px 24px 0;
+    display:block;
+    text-align:center;
+    padding:10px;
+    border:1px solid rgba(0,160,144,.3);
+    border-radius:4px;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:1px;
+    color:#00D4C4;
+    text-decoration:none;
+  }
 }
 
 /* ── MOBILE NAV ── */
@@ -151,14 +192,15 @@ to{transform:rotate(360deg);}}
 .nav-drawer{position:fixed;top:50px;left:0;right:0;background:rgba(8,8,14,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,160,144,.2);max-height:0;overflow:hidden;transition:max-height .32s cubic-bezier(.4,0,.2,1);z-index:99;}
 .nav-drawer.open{max-height:340px;}
 .nav-drawer a{display:flex;align-items:center;padding:14px 28px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(0,212,196,.55);text-decoration:none;border-left:2px solid transparent;transition:all .15s;min-height:44px;}
-
-
+.nav-drawer a:hover,.nav-drawer a.active{color:#00D4C4;border-left-color:#00D4C4;background:rgba(0,160,144,.06);}
+.nav-drawer .drawer-gh{margin:8px 24px 0;display:flex;align-items:center;justify-content:center;padding:12px;border:1px solid rgba(0,160,144,.3);border-radius:4px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:#00D4C4;text-decoration:none;min-height:44px;}
 @media(max-width:768px){
   .nav-links{display:none!important;}
   .nav-gh{display:none!important;}
   .nav-burger{display:flex!important;}
+  .grid2,.grid3,.mc-grid{grid-template-columns:1fr;}
+  .hero{padding:90px 20px 60px;}
 }
-@media(max-width:768px){.grid2,.grid3,.mc-grid{grid-template-columns:1fr;}.hero{padding:90px 20px 60px;}}
 </style>
 </head>
 <body>
@@ -338,30 +380,854 @@ to{transform:rotate(360deg);}}
   </div>
   <div style="text-align:center;margin-top:8px;font-family:'DM Mono',monospace;font-size:9px;color:rgba(226,168,55,.25);letter-spacing:1px;">Never PH. Never Ph. Always pH.</div>
 
-  
+  <script>
+  (function(){
+    var cv=document.getElementById('ph-canvas');
+    if(!cv)return;
+    var ctx=cv.getContext('2d');
+    var W=280,H=280;
 
+    // Pyramid
+    var A={x:140,y:48},BL={x:34,y:232},BR={x:246,y:232};
+    var CX=140,CY=160; // centroid-ish
+
+    function inTri(px,py){
+      var d1=(px-BL.x)*(A.y-BL.y)-(A.x-BL.x)*(py-BL.y);
+      var d2=(px-A.x)*(BR.y-A.y)-(BR.x-A.x)*(py-A.y);
+      var d3=(px-BR.x)*(BL.y-BR.y)-(BL.x-BR.x)*(py-BR.y);
+      return !((d1<0||d2<0||d3<0)&&(d1>0||d2>0||d3>0));
+    }
+
+    function depthT(py){return Math.max(0,Math.min(1,(py-A.y)/(BL.y-A.y)));}
+
+    // Random point inside triangle (barycentric)
+    function randInTri(){
+      var r1=Math.sqrt(Math.random()),r2=Math.random();
+      return {
+        x:(1-r1)*A.x+r1*(1-r2)*BL.x+r1*r2*BR.x,
+        y:(1-r1)*A.y+r1*(1-r2)*BL.y+r1*r2*BR.y
+      };
+    }
+
+    // Random spawn outside box
+    function randOut(){
+      var side=Math.floor(Math.random()*4);
+      if(side===0)return{x:Math.random()*W,y:-8};
+      if(side===1)return{x:W+8,y:Math.random()*H};
+      if(side===2)return{x:Math.random()*W,y:H+8};
+      return{x:-8,y:Math.random()*H};
+    }
+
+    // Colour by depth
+    function getCol(py,jitter){
+      var t=depthT(py);
+      var j=jitter||0;
+      if(t<0.3) return [201+j,152+j,26];
+      if(t<0.58)return [0,Math.min(255,160+j),Math.min(255,144+j)];
+      if(t<0.8) return [Math.min(255,80+j),Math.min(255,130+j),Math.min(255,100+j)];
+      return [Math.min(255,139+j),Math.min(255,92+j),Math.min(255,246+j)];
+    }
+
+    // Build particle list
+    var NUM=260;
+    var particles=[];
+    for(var i=0;i<NUM;i++){
+      var home=randInTri();
+      var edge=(i>220);
+      var j=(Math.random()-0.5)*25;
+      particles.push({
+        hx:home.x, hy:home.y,        // home inside pyramid
+        x:randOut().x, y:randOut().y, // start outside
+        vx:0, vy:0,
+        col:getCol(home.y,j),
+        size: edge?1.5:0.6+Math.random()*1.0,
+        alpha:0,
+        phase:'arriving',
+        driftAngle:Math.random()*Math.PI*2,
+        driftSpeed:0.12+Math.random()*0.18,
+        wobble:Math.random()*Math.PI*2,
+        ws:0.004+Math.random()*0.005
+      });
+    }
+
+    // Global cycle phases: assemble → live → dissolve → wait → assemble
+    var CYCLE={
+      assemble: 5500,
+      live:     8000,
+      dissolve: 3500,
+      wait:     1200
+    };
+    var totalCycle=CYCLE.assemble+CYCLE.live+CYCLE.dissolve+CYCLE.wait;
+    var t0=performance.now();
+
+    // Flare
+    var flare={i:0,cooling:false};
+    var nextFlare=t0+4000+Math.random()*5000;
+
+    function scheduleFlare(){nextFlare=performance.now()+7000+Math.random()*11000;}
+
+    function updateFlare(now){
+      if(!flare.cooling&&now>=nextFlare){
+        flare.i=1.0;flare.cooling=true;scheduleFlare();
+      }
+      if(flare.cooling){
+        flare.i=Math.max(0,flare.i-(flare.i>0.28?0.016:0.003));
+        if(flare.i===0)flare.cooling=false;
+      }
+    }
+
+    function drawFlare(){
+      var I=flare.i;
+      if(I<0.01)return;
+      var halo=ctx.createRadialGradient(A.x,A.y,0,A.x,A.y,60+I*35);
+      halo.addColorStop(0,'rgba(255,248,180,'+(I*0.7)+')');
+      halo.addColorStop(0.25,'rgba(240,192,64,'+(I*0.4)+')');
+      halo.addColorStop(0.7,'rgba(226,168,55,'+(I*0.08)+')');
+      halo.addColorStop(1,'rgba(226,168,55,0)');
+      ctx.beginPath();ctx.arc(A.x,A.y,60+I*35,0,Math.PI*2);
+      ctx.fillStyle=halo;ctx.fill();
+
+      var sL=100+I*90;
+      var sg=ctx.createLinearGradient(A.x-sL,A.y,A.x+sL,A.y);
+      sg.addColorStop(0,'rgba(255,255,255,0)');
+      sg.addColorStop(0.28,'rgba(255,248,200,'+(I*0.28)+')');
+      sg.addColorStop(0.5,'rgba(255,255,255,'+(I*0.75)+')');
+      sg.addColorStop(0.72,'rgba(255,248,200,'+(I*0.28)+')');
+      sg.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=sg;ctx.fillRect(A.x-sL,A.y-1.8,sL*2,3.6);
+
+      var sg2=ctx.createLinearGradient(A.x-sL*0.55,A.y,A.x+sL*0.55,A.y);
+      sg2.addColorStop(0,'rgba(255,255,255,0)');
+      sg2.addColorStop(0.5,'rgba(255,255,255,'+(I*0.5)+')');
+      sg2.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=sg2;ctx.fillRect(A.x-sL*0.55,A.y-0.8,sL*1.1,1.6);
+
+      [[-0.38,0.65],[0.38,0.5],[-0.85,0.3],[0.85,0.25]].forEach(function(d){
+        ctx.save();ctx.translate(A.x,A.y);ctx.rotate(d[0]);
+        var len=40+I*32;
+        var dg=ctx.createLinearGradient(-len,0,len,0);
+        dg.addColorStop(0,'rgba(210,235,255,0)');
+        dg.addColorStop(0.5,'rgba(225,240,255,'+(I*0.22*d[1])+')');
+        dg.addColorStop(1,'rgba(210,235,255,0)');
+        ctx.fillStyle=dg;ctx.fillRect(-len,-0.9,len*2,1.8);
+        ctx.restore();
+      });
+
+      var ox=A.x+30*I,oy=A.y+12*I;
+      var pg=ctx.createRadialGradient(ox,oy,0,ox,oy,8);
+      pg.addColorStop(0,'rgba(167,139,250,'+(I*0.65)+')');
+      pg.addColorStop(1,'rgba(167,139,250,0)');
+      ctx.beginPath();ctx.arc(ox,oy,8,0,Math.PI*2);ctx.fillStyle=pg;ctx.fill();
+      ctx.beginPath();ctx.arc(A.x,A.y,1.8+I*2.2,0,Math.PI*2);
+      ctx.fillStyle='rgba(255,255,255,'+(I*0.95)+')';ctx.fill();
+    }
+
+    function draw(now){
+      ctx.clearRect(0,0,W,H);
+      updateFlare(now);
+
+      var elapsed=(now-t0)%totalCycle;
+      var phase,phaseT;
+
+      if(elapsed<CYCLE.assemble){
+        phase='assemble'; phaseT=elapsed/CYCLE.assemble;
+      } else if(elapsed<CYCLE.assemble+CYCLE.live){
+        phase='live'; phaseT=(elapsed-CYCLE.assemble)/CYCLE.live;
+      } else if(elapsed<CYCLE.assemble+CYCLE.live+CYCLE.dissolve){
+        phase='dissolve'; phaseT=(elapsed-CYCLE.assemble-CYCLE.live)/CYCLE.dissolve;
+      } else {
+        phase='wait'; phaseT=(elapsed-CYCLE.assemble-CYCLE.live-CYCLE.dissolve)/CYCLE.wait;
+      }
+
+      // On cycle start, reset particles
+      if(phase==='assemble'&&phaseT<0.02){
+        particles.forEach(function(p){
+          var o=randOut();
+          p.x=o.x; p.y=o.y;
+          p.vx=(Math.random()-0.5)*0.5;
+          p.vy=(Math.random()-0.5)*0.5;
+          p.alpha=0;
+          p.driftAngle=Math.random()*Math.PI*2;
+          // New random home each cycle
+          var h=randInTri();
+          p.hx=h.x; p.hy=h.y;
+          p.col=getCol(h.y,(Math.random()-0.5)*25);
+        });
+      }
+
+      particles.forEach(function(p,idx){
+        var stagger=idx/NUM;
+
+        if(phase==='assemble'){
+          // Drift toward home, staggered start
+          var t=Math.max(0,(phaseT-stagger*0.35)/(1-stagger*0.35));
+          var ease=1-Math.pow(1-Math.min(t,1),3);
+          p.x+=(p.hx-p.x)*0.025;
+          p.y+=(p.hy-p.y)*0.025;
+          p.alpha=Math.min(p.alpha+0.012, ease*0.72+0.04);
+
+        } else if(phase==='live'){
+          // Drift freely inside triangle
+          p.driftAngle+=0.008+(Math.random()-0.5)*0.004;
+          var speed=p.driftSpeed*(0.7+Math.sin(phaseT*Math.PI*2+idx)*0.3);
+          var nx=p.x+Math.cos(p.driftAngle)*speed;
+          var ny=p.y+Math.sin(p.driftAngle)*speed;
+          // Bounce off pyramid walls
+          if(!inTri(nx,p.y)){p.driftAngle=Math.PI-p.driftAngle; nx=p.x;}
+          if(!inTri(p.x,ny)){p.driftAngle=-p.driftAngle; ny=p.y;}
+          if(inTri(nx,ny)){p.x=nx;p.y=ny;}
+          // Keep alpha steady
+          p.alpha=Math.min(p.alpha+0.008, 0.72);
+
+        } else if(phase==='dissolve'){
+          // Swirl outward
+          var ease=Math.pow(phaseT,1.6);
+          var dx=p.x-CX, dy=p.y-CY;
+          var dist=Math.sqrt(dx*dx+dy*dy)||1;
+          // Outward + tangential swirl
+          var swirl=0.6;
+          p.vx+=(dx/dist)*0.4+(-dy/dist)*swirl;
+          p.vy+=(dy/dist)*0.4+(dx/dist)*swirl;
+          p.vx*=0.94; p.vy*=0.94;
+          p.x+=p.vx; p.y+=p.vy;
+          p.alpha=Math.max(0, p.alpha*(1-ease*0.035));
+
+        } else {
+          p.alpha=0;
+        }
+
+        if(p.alpha<0.01)return;
+
+        // Flare brightens particles near apex
+        var fdx=p.x-A.x,fdy=p.y-A.y;
+        var fd=Math.sqrt(fdx*fdx+fdy*fdy);
+        var fb=flare.i*Math.max(0,1-fd/140)*0.6;
+        var a=Math.min(1,p.alpha+fb);
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size*(1+fb*0.6),0,Math.PI*2);
+        ctx.fillStyle='rgba('+p.col[0]+','+p.col[1]+','+p.col[2]+','+a+')';
+        ctx.fill();
+      });
+
+      drawFlare();
+      requestAnimationFrame(draw);
+    }
+
+    requestAnimationFrame(draw);
+  })();
+  </script>
+
+</section>
+
+<!-- ── ICON-AS-A ── -->
+<section class="section">
+  <div class="sec-label">The Pyramid as the A</div>
+  <div style="text-align:center;padding:32px 0;">
+    <div style="font-size:8px;letter-spacing:1px;color:rgba(226,168,55,.18);text-transform:uppercase;margin-bottom:20px;">PH△ROLON — pyramid replaces the A</div>
+    <div style="display:flex;align-items:center;justify-content:center;padding:20px 0;overflow:visible;line-height:1;">
+      <span class="ch ch-p" style="font-size:clamp(22px,8vw,80px);">P</span>
+      <span class="ch"      style="font-size:clamp(22px,8vw,80px);">H</span>
+      <span style="display:inline-flex;align-items:center;width:clamp(120px,17vw,170px);height:clamp(120px,17vw,170px);margin:0 clamp(-10px,-1.5vw,-14px);flex-shrink:0;">
+        <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+          <circle cx="55" cy="55" r="43" stroke="rgba(226,168,55,.1)"  stroke-width=".7" fill="none"/>
+          <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+            <line x1="55" y1="5"   x2="55" y2="20"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="55" y1="90"  x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="5"  y1="55"  x2="20" y2="55"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="90" y1="55"  x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+          </g>
+          <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.25)" stroke-width="1.2" stroke-dasharray="3.5 4.5"/>
+          <polygon style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;" filter="url(#glow)" points="55,7 5,87 105,87" stroke="rgba(240,192,64,.22)" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,14  11,82  99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27  22,82  88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40  33,82  77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40  33,82  77,82" fill="rgba(139,92,246,.06)"/>
+          <circle style="animation:lh-halo 4.5s ease-in-out infinite;" cx="55" cy="14" r="12" fill="rgba(245,208,96,.09)" filter="url(#glow-lg)"/>
+          <circle style="animation:lh-halo 4.5s ease-in-out infinite;" cx="55" cy="14" r="6"  fill="rgba(245,208,96,.18)" filter="url(#glow)"/>
+          <circle style="animation:lh-flash 4.5s ease-in-out infinite;" cx="55" cy="14" r="3.5" fill="#F5D060"/>
+          <circle cx="55" cy="14" r="1.5" fill="#fff" opacity=".9"/>
+        </svg>
+      </span>
+      <span class="ch" style="font-size:clamp(22px,8vw,80px);">ROLON</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── BACKGROUND VARIANTS ── -->
+<section class="section">
+  <div class="sec-label">Background Variants</div>
+  <div class="label" style="margin-bottom:20px;opacity:.6;">Classic lockup — icon beside wordmark</div>
+  <div class="grid2" style="border-radius:8px;overflow:hidden;">
+    <!-- INK -->
+    <div class="cell bg-ink"><div class="lbl lbl-lt">Pure ink</div>
+      <div class="lk-h">
+        <svg width="68" height="68" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.18)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle class="lh-core" cx="55" cy="14" r="2.3" fill="#F5D060"/></svg>
+        <div class="sep-dk"></div>
+        <div class="wm"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+    <!-- TEAL -->
+    <div class="cell bg-teal"><div class="lbl lbl-lt">Deep teal</div>
+      <div class="lk-h">
+        <svg width="68" height="68" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.22)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.14)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#E2A837" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00C4B4" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#A78BFA" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle class="lh-core" cx="55" cy="14" r="2.3" fill="#F5D060"/></svg>
+        <div class="sep-dk"></div>
+        <div class="wm"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+    <!-- MID GREY -->
+    <div class="cell bg-mid"><div class="lbl lbl-dk">Mid grey</div>
+      <div class="lk-h">
+        <svg width="68" height="68" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(100,75,10,.06)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(120,90,10,.2)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(120,90,10,.13)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#006B61" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#5B21B6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.3" fill="#E2A837"/></svg>
+        <div class="sep-lt"></div>
+        <div class="wm wm-dk"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+    <!-- WHITE -->
+    <div class="cell bg-white"><div class="lbl lbl-dk">White</div>
+      <div class="lk-h">
+        <svg width="68" height="68" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(100,75,10,.05)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(120,90,10,.16)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(120,90,10,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#007A6E" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#6D28D9" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.3" fill="#C9981A"/></svg>
+        <div class="sep-lt"></div>
+        <div class="wm wm-dk"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COLOUR ── -->
+<section class="section">
+  <div class="sec-label">Colour System</div>
+  <div class="pal-row">
+    <div class="sw" style="background:#F5D060;"><span class="sw-n" style="color:#7A5A0A;">Gold 300</span></div>
+    <div class="sw" style="background:#F0C040;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#3A2000;">Gold 400 ★</span><span class="sw-h" style="color:rgba(58,32,0,.5);">#F0C040</span></div>
+    <div class="sw" style="background:#E2A837;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#fff;">Gold 500 ★</span><span class="sw-h">#E2A837</span></div>
+    <div class="sw" style="background:#C9981A;"><span class="sw-n" style="color:#fff;">Gold 600</span><span class="sw-h">#C9981A</span></div>
+    <div class="sw" style="background:#A87E14;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#FDE68A;">Gold 700 ★</span><span class="sw-h" style="color:rgba(253,230,138,.4);">#A87E14</span></div>
+    <div class="sw" style="background:#7A5A0A;"><span class="sw-n" style="color:#FDE68A;">Gold 800</span></div>
+  </div>
+  <div class="pal-row">
+    <div class="sw" style="background:#002A25;"><span class="sw-n" style="color:#5EEADF;">Teal 950</span></div>
+    <div class="sw" style="background:#004D45;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#5EEADF;">Teal 900 ★</span><span class="sw-h" style="color:rgba(94,234,223,.3);">#004D45</span></div>
+    <div class="sw" style="background:#00A090;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#fff;">Teal 600 ★</span><span class="sw-h">#00A090</span></div>
+    <div class="sw" style="background:#00D4C4;"><span class="sw-n" style="color:#002A25;">Teal 400</span></div>
+    <div class="sw" style="background:#86C140;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#fff;">Pass ★</span><span class="sw-h">#86C140</span></div>
+    <div class="sw" style="background:#E54B2E;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#fff;">Fail ★</span><span class="sw-h">#E54B2E</span></div>
+    <div class="sw" style="background:#8B5CF6;"><span class="sw-n" style="color:#fff;">AI / EE</span></div>
+    <div class="sw" style="background:#141414;border:1px solid #222;"><span class="sw-n" style="color:#666;">Header</span><span class="sw-h" style="color:#444;">#141414</span></div>
+  </div>
+</section>
+
+<!-- ── APP ICONS ── -->
+
+<!-- ══ INTEGRATED WORDMARK SYSTEM ══ -->
+<section class="section">
+  <div class="sec-label">Integrated Wordmark — PH△ROLON</div>
+
+  <!-- Size family -->
+  <div style="margin-bottom:52px;">
+    <div class="label" style="margin-bottom:24px;">Size Family</div>
+    <div style="background:#0D0D18;border-radius:10px;padding:40px 32px;display:flex;flex-direction:column;gap:32px;align-items:flex-start;overflow:hidden;">
+      <div style="opacity:0.95;"><div style="display:flex;align-items:center;justify-content:left;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:88px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:88px;letter-spacing:-.02em;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:140px;height:140px;margin:0 -12px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:88px;letter-spacing:-.02em;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div></div>
+      <div style="opacity:0.85;"><div style="display:flex;align-items:center;justify-content:left;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:64px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:64px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:104px;height:104px;margin:0 -9px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:64px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div></div>
+      <div style="opacity:0.75;"><div style="display:flex;align-items:center;justify-content:left;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:80px;height:80px;margin:0 -7px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div></div>
+      <div style="opacity:0.65;"><div style="display:flex;align-items:center;justify-content:left;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:36px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:36px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:60px;height:60px;margin:0 -5px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:36px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div></div>
+      <div style="opacity:0.55;"><div style="display:flex;align-items:center;justify-content:left;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:24px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:24px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:40px;height:40px;margin:0 -3px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:24px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div></div>
+      <div style="opacity:0.45;"><div style="display:flex;align-items:center;justify-content:left;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:28px;height:28px;margin:0 -2px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div></div>
+    </div>
+    <div class="label" style="margin-top:8px;opacity:.5;">88px · 64px · 48px · 36px · 24px · 16px</div>
+  </div>
+
+  <!-- Background variants — integrated mark -->
+  <div class="label" style="margin-bottom:20px;">Integrated Mark · All Backgrounds</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;border-radius:10px;overflow:hidden;margin-bottom:40px;">
+
+    <div style="background:#08080E;padding:40px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      <div style="display:flex;align-items:center;justify-content:center;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:78px;height:78px;margin:0 -7px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div>
+    </div>
+    <div style="background:#002A25;padding:40px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      <div style="display:flex;align-items:center;justify-content:center;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:78px;height:78px;margin:0 -7px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div>
+    </div>
+    <div style="background:#0D0D18;padding:40px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      <div style="display:flex;align-items:center;justify-content:center;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:78px;height:78px;margin:0 -7px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div>
+    </div>
+    <div style="background:#1C1C1C;padding:40px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      <div style="display:flex;align-items:center;justify-content:center;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:78px;height:78px;margin:0 -7px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div>
+    </div>
+    <div style="background:#c1c1c1;padding:40px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      <div style="display:flex;align-items:center;justify-content:center;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:78px;height:78px;margin:0 -7px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div>
+    </div>
+    <div style="background:#ffffff;padding:40px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      <div style="display:flex;align-items:center;justify-content:center;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:78px;height:78px;margin:0 -7px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div>
+    </div>
+
+  </div>
+
+  <!-- Stacked / centred treatment -->
+  <div class="label" style="margin-bottom:20px;">Hero Treatment — Centred</div>
+  <div style="background:#08080E;border-radius:10px;padding:56px 32px;text-align:center;overflow:hidden;margin-bottom:40px;">
+    <div style="display:flex;align-items:center;justify-content:center;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:72px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:72px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:116px;height:116px;margin:0 -10px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:72px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div>
+    <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(0,212,196,.4);text-transform:uppercase;margin-top:16px;">Quality Intelligence for Regulated Industries</div>
+  </div>
+
+  <!-- Compact nav treatment -->
+  <div class="label" style="margin-bottom:20px;">Compact — Navigation Scale</div>
+  <div style="background:#0A0A10;border-radius:8px;padding:0;overflow:hidden;">
+    <div style="height:50px;background:rgba(8,8,14,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,160,144,.15);display:flex;align-items:center;padding:0 24px;gap:16px;">
+      <div style="display:flex;align-items:center;overflow:visible;padding-bottom:3px;">
+        <div style="display:flex;align-items:center;justify-content:left;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:32px;height:32px;margin:0 -2px;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.15)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+        <circle cx="55" cy="14" r="10" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="5.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </div>
+      </div>
+      <div style="flex:1;"></div>
+      <span style="font-size:9px;letter-spacing:.5px;color:rgba(0,212,196,.55);text-transform:uppercase;">Home</span>
+      <span style="font-size:9px;letter-spacing:.5px;color:rgba(0,212,196,.55);text-transform:uppercase;">Story</span>
+      <span style="font-size:9px;letter-spacing:.5px;color:#00D4C4;text-transform:uppercase;">Brand</span>
+      <span style="font-size:9px;letter-spacing:.5px;color:rgba(0,212,196,.55);text-transform:uppercase;">Preview</span>
+      <span style="font-size:9px;letter-spacing:.5px;color:#00D4C4;border:1px solid rgba(0,160,144,.35);border-radius:3px;padding:5px 14px;">GitHub →</span>
+    </div>
+  </div>
+
+</section>
+
+<section class="section">
+  <div class="sec-label">App Icon Family</div>
+  <div class="icon-row">
+    <div class="ico-item"><div class="app-ico" style="width:88px;height:88px;"><svg width="60" height="60" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.2)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="6" fill="rgba(245,208,96,.09)" filter="url(#glow-lg)"/><circle class="lh-core" cx="55" cy="14" r="2.8" fill="#F5D060"/><circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/></svg></div><div class="ico-sz">1024</div></div>
+    <div class="ico-item"><div class="app-ico" style="width:64px;height:64px;"><svg width="44" height="44" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.18)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle class="lh-core" cx="55" cy="14" r="2.8" fill="#F5D060"/></svg></div><div class="ico-sz">512</div></div>
+    <div class="ico-item"><div class="app-ico" style="width:46px;height:46px;"><svg width="30" height="30" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.04)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.16)" stroke-width="1" fill="none"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="7" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="3" fill="#F5D060"/></svg></div><div class="ico-sz">256</div></div>
+    <div class="ico-item"><div class="app-ico" style="width:34px;height:34px;"><svg width="22" height="22" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.14)" stroke-width="1" fill="none"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="9" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/></svg></div><div class="ico-sz">64</div></div>
+    <div class="ico-item"><div class="app-ico" style="width:24px;height:24px;"><svg width="16" height="16" viewBox="0 0 110 110" fill="none"><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="7.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/></svg></div><div class="ico-sz">32</div></div>
+    <div class="ico-item"><div class="app-ico" style="width:18px;height:18px;"><svg width="12" height="12" viewBox="0 0 110 110" fill="none"><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="18" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/></svg></div><div class="ico-sz">16</div></div>
+  </div>
+</section>
+
+</div><!-- /page -->
+
+<footer>
+  <div class="ft">PHAROLON</div>
+  <div class="ft-sub">
+    Quality Intelligence for Regulated Industries<br/>
+    pH · Two Ancient Wonders · One Mark · Built to Last
+  </div>
+</footer>
+
+
+<script>
+document.fonts.load("800 1em Syne").then(function() {
+  var el = document.getElementById("ph-box");
+  if (el) { el.style.opacity = "1"; }
+});
+// Hide until font confirmed
+var box = document.getElementById("ph-box");
+if (box) { box.style.opacity = "0"; box.style.transition = "opacity .3s"; }
+</script>
+<script>
+(function(){
+  var burger = document.querySelector('.nav-burger');
+  var drawer = document.querySelector('.nav-drawer');
+  if(!burger||!drawer)return;
+  burger.addEventListener('click',function(){
+    burger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+  drawer.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      burger.classList.remove('open');
+      drawer.classList.remove('open');
+    });
+  });
+})();
+</script>
 <script>
 (function(){
   var b=document.querySelector('.nav-burger');
   var d=document.querySelector('.nav-drawer');
   if(!b||!d)return;
-  b.addEventListener('click',function(e){
-    e.stopPropagation();
-    var o=b.classList.toggle('open');
-    d.classList.toggle('open',o);
-  });
-  d.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){
-      b.classList.remove('open');
-      d.classList.remove('open');
-    });
-  });
-  document.addEventListener('click',function(e){
-    if(!b.contains(e.target)&&!d.contains(e.target)){
-      b.classList.remove('open');
-      d.classList.remove('open');
-    }
-  });
+  b.addEventListener('click',function(e){e.stopPropagation();var o=b.classList.toggle('open');d.classList.toggle('open',o);});
+  d.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){b.classList.remove('open');d.classList.remove('open');});});
+  document.addEventListener('click',function(e){if(!b.contains(e.target)&&!d.contains(e.target)){b.classList.remove('open');d.classList.remove('open');}});
 })();
 </script>
 </body>
