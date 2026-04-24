@@ -202,7 +202,7 @@ to{transform:rotate(360deg);}}
   .hero{padding:90px 20px 60px;}
 }
 </style>
-<meta name="pharolon:build" content="6fd8e56"/><meta name="pharolon:built-at" content="2026-04-24T02:58:33Z"/></head>
+<meta name="pharolon:build" content="8c1a616"/><meta name="pharolon:built-at" content="2026-04-24T03:02:26Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -386,115 +386,109 @@ to{transform:rotate(360deg);}}
     if(!cv)return;
     var ctx=cv.getContext('2d');
     var W=280,H=280;
-    var CX=140,CY=148;  // spin centre
+    var CX=140,CY=148;
 
-    // Three nested triangles — matching the PHAROLON icon geometry
-    // scaled to fit the canvas with the PH text in mind
     var tris=[
-      { // Outer — Gold
-        apex:{x:140,y:26}, bl:{x:16,y:218}, br:{x:264,y:218},
-        col:[201,152,26], strokeW:2.2, n:52, name:'gold'
-      },
-      { // Mid — Teal
-        apex:{x:140,y:54}, bl:{x:50,y:218}, br:{x:230,y:218},
-        col:[0,160,144], strokeW:1.6, n:38, name:'teal'
-      },
-      { // Inner — Purple
-        apex:{x:140,y:82}, bl:{x:84,y:218}, br:{x:196,y:218},
-        col:[139,92,246], strokeW:1.2, n:26, name:'purple'
-      }
+      {apex:{x:140,y:26},bl:{x:16,y:218},br:{x:264,y:218},col:[201,152,26],name:'gold',n:6},
+      {apex:{x:140,y:54},bl:{x:50,y:218},br:{x:230,y:218},col:[0,160,144],name:'teal',n:5},
+      {apex:{x:140,y:82},bl:{x:84,y:218},br:{x:196,y:218},col:[139,92,246],name:'purple',n:4}
     ];
 
-    // Sample N particles along edges of a triangle
-    function triEdgePoints(tri, n){
+    // Sample points along edge with perpendicular band thickness
+    function bandEdge(p1,p2,count,offsets){
       var pts=[];
-      var perEdge=Math.floor(n/3);
-      var extra=n-perEdge*3;
-      // Left edge (apex→bl), right edge (apex→br), base (bl→br)
-      var edges=[
-        [tri.apex,tri.bl,perEdge+(extra>0?1:0)],
-        [tri.apex,tri.br,perEdge+(extra>1?1:0)],
-        [tri.bl,  tri.br,perEdge]
-      ];
-      edges.forEach(function(e){
-        var p1=e[0],p2=e[1],cnt=e[2];
-        for(var i=0;i<=cnt;i++){
-          var t=i/cnt;
+      // perpendicular direction to edge
+      var dx=p2.x-p1.x, dy=p2.y-p1.y;
+      var len=Math.sqrt(dx*dx+dy*dy)||1;
+      var nx=-dy/len, ny=dx/len; // normal
+
+      for(var i=0;i<=count;i++){
+        var t=i/count;
+        var bx=p1.x+(p2.x-p1.x)*t;
+        var by=p1.y+(p2.y-p1.y)*t;
+        offsets.forEach(function(off){
           pts.push({
-            ox: p1.x+(p2.x-p1.x)*t,   // original x (before spin)
-            oy: p1.y+(p2.y-p1.y)*t    // original y
+            ox: bx+nx*off + (Math.random()-.5)*1.2,
+            oy: by+ny*off + (Math.random()-.5)*1.2
           });
-        }
-      });
+        });
+      }
       return pts;
     }
 
-    // Build all particles
+    var BUILD_DELAY=[0,4500,8200];
     var particles=[];
-    // Build delay offsets per triangle — gold first, then teal, then purple
-    var BUILD_OFFSETS=[0, 4200, 7800]; // ms when each tri starts building
 
     tris.forEach(function(tri,ti){
-      var pts=triEdgePoints(tri,tri.n);
-      pts.forEach(function(pt,pi){
-        // Scatter spawn position
-        var angle=Math.random()*Math.PI*2;
-        var dist=120+Math.random()*80;
-        particles.push({
-          // home = original triangle position
-          ox:pt.ox, oy:pt.oy,
-          // spawn outside
-          x:CX+Math.cos(angle)*dist,
-          y:CY+Math.sin(angle)*dist,
-          vx:0, vy:0,
-          col:tri.col,
-          size:0.9+Math.random()*1.0,
-          triIdx:ti,
-          alpha:0,
-          // stagger within triangle
-          delay: BUILD_OFFSETS[ti] + pi*(60+Math.random()*40),
-          wobble:Math.random()*Math.PI*2,
-          ws:0.003+Math.random()*0.004,
-          spinOffset:Math.random()*0.02   // slight phase variation in spin
+      var n=tri.n;
+      // 3-5 rows of particles per edge (band width ~8px)
+      var offsets=ti===0?[-4,-2,0,2,4]:ti===1?[-3,-1,0,1,3]:[-2,0,2];
+      var edges=[
+        [tri.apex,tri.bl],
+        [tri.apex,tri.br],
+        [tri.bl,tri.br]
+      ];
+      edges.forEach(function(e,ei){
+        var pts=bandEdge(e[0],e[1],n,offsets);
+        pts.forEach(function(pt,pi){
+          var angle=Math.random()*Math.PI*2;
+          var dist=100+Math.random()*90;
+          particles.push({
+            ox:pt.ox,oy:pt.oy,
+            x:CX+Math.cos(angle)*dist,
+            y:CY+Math.sin(angle)*dist,
+            vx:0,vy:0,
+            col:tri.col.slice(),
+            triIdx:ti,
+            edgeIdx:ei,
+            alpha:0,
+            targetAlpha:0,
+            // staggered arrival
+            delay: BUILD_DELAY[ti]+(pi+ei*pts.length)*18+Math.random()*200,
+            // individual breathe cycle
+            breathePeriod:12000+Math.random()*8000,
+            breatheOffset:Math.random()*Math.PI*2,
+            // subtle drift
+            driftAngle:Math.random()*Math.PI*2,
+            driftAmt:0.8+Math.random()*0.6,
+            size:0.8+Math.random()*1.1,
+            arrived:false
+          });
         });
       });
     });
 
-    // Global cycle
-    var ASSEMBLE=10000;  // longer build — 10s (gold 0-4.2s, teal 4.2-7.8s, purple 7.8-10s)
-    var LIVE=    8000;
-    var DISSOLVE=3500;
-    var WAIT=    1000;
-    var TOTAL=ASSEMBLE+LIVE+DISSOLVE+WAIT;
+    // Group particles by triIdx for interaction
+    var byTri=[[],[],[]];
+    particles.forEach(function(p){byTri[p.triIdx].push(p);});
 
-    // Spin state — very slow rotation
-    var spinAngle=0;
-    var SPIN_RATE=0.00025; // radians per frame (~1 full rotation per 7 min)
+    // Oscillating spin — gentle rock, not continuous
+    // ±10° over ~40 seconds, then reverse
+    function getSpinAngle(t){
+      return 0.175*Math.sin(t*0.000055); // ±10° very slowly
+    }
 
     // Flare
     var flare={i:0,cooling:false};
-    var nextFlare=performance.now()+5000+Math.random()*6000;
-    function scheduleFlare(){nextFlare=performance.now()+8000+Math.random()*12000;}
+    var nextFlare=performance.now()+5000+Math.random()*7000;
+    function scheduleFlare(){nextFlare=performance.now()+9000+Math.random()*13000;}
     function updateFlare(now){
       if(!flare.cooling&&now>=nextFlare){flare.i=1;flare.cooling=true;scheduleFlare();}
       if(flare.cooling){flare.i=Math.max(0,flare.i-(flare.i>0.3?0.016:0.003));if(!flare.i)flare.cooling=false;}
     }
-
-    var apex0=tris[0].apex; // gold apex for flare
-
-    function drawFlare(){
+    function drawFlare(spinA){
       var I=flare.i; if(I<0.01)return;
-      // Rotate apex position with spin
-      var dx=apex0.x-CX, dy=apex0.y-CY;
-      var ax=CX+dx*Math.cos(spinAngle)-dy*Math.sin(spinAngle);
-      var ay=CY+dx*Math.sin(spinAngle)+dy*Math.cos(spinAngle);
+      var ap0=tris[0].apex;
+      var dx=ap0.x-CX,dy=ap0.y-CY;
+      var ax=CX+dx*Math.cos(spinA)-dy*Math.sin(spinA);
+      var ay=CY+dx*Math.sin(spinA)+dy*Math.cos(spinA);
 
-      var halo=ctx.createRadialGradient(ax,ay,0,ax,ay,65+I*35);
-      halo.addColorStop(0,'rgba(255,248,180,'+(I*.7)+')');
-      halo.addColorStop(.25,'rgba(240,192,64,'+(I*.4)+')');
-      halo.addColorStop(.7,'rgba(226,168,55,'+(I*.07)+')');
-      halo.addColorStop(1,'rgba(226,168,55,0)');
-      ctx.beginPath();ctx.arc(ax,ay,65+I*35,0,Math.PI*2);ctx.fillStyle=halo;ctx.fill();
+      var h=ctx.createRadialGradient(ax,ay,0,ax,ay,65+I*35);
+      h.addColorStop(0,'rgba(255,248,180,'+(I*.7)+')');
+      h.addColorStop(.25,'rgba(240,192,64,'+(I*.4)+')');
+      h.addColorStop(.7,'rgba(226,168,55,'+(I*.07)+')');
+      h.addColorStop(1,'rgba(226,168,55,0)');
+      ctx.beginPath();ctx.arc(ax,ay,65+I*35,0,Math.PI*2);ctx.fillStyle=h;ctx.fill();
 
       var sL=100+I*90;
       var sg=ctx.createLinearGradient(ax-sL,ay,ax+sL,ay);
@@ -506,111 +500,95 @@ to{transform:rotate(360deg);}}
       ctx.fillStyle=sg;ctx.fillRect(ax-sL,ay-1.8,sL*2,3.6);
 
       var sg2=ctx.createLinearGradient(ax-sL*.5,ay,ax+sL*.5,ay);
-      sg2.addColorStop(0,'rgba(255,255,255,0)');
-      sg2.addColorStop(.5,'rgba(255,255,255,'+(I*.5)+')');
-      sg2.addColorStop(1,'rgba(255,255,255,0)');
+      sg2.addColorStop(0,'rgba(255,255,255,0)');sg2.addColorStop(.5,'rgba(255,255,255,'+(I*.5)+')');sg2.addColorStop(1,'rgba(255,255,255,0)');
       ctx.fillStyle=sg2;ctx.fillRect(ax-sL*.5,ay-.8,sL,1.6);
-
       [[-0.38,.65],[0.38,.5],[-0.85,.3],[0.85,.25]].forEach(function(d){
         ctx.save();ctx.translate(ax,ay);ctx.rotate(d[0]);
-        var len=42+I*32;
-        var dg=ctx.createLinearGradient(-len,0,len,0);
-        dg.addColorStop(0,'rgba(210,235,255,0)');
-        dg.addColorStop(.5,'rgba(225,240,255,'+(I*.2*d[1])+')');
-        dg.addColorStop(1,'rgba(210,235,255,0)');
-        ctx.fillStyle=dg;ctx.fillRect(-len,-.9,len*2,1.8);
-        ctx.restore();
+        var len=42+I*32,dg=ctx.createLinearGradient(-len,0,len,0);
+        dg.addColorStop(0,'rgba(210,235,255,0)');dg.addColorStop(.5,'rgba(225,240,255,'+(I*.2*d[1])+')');dg.addColorStop(1,'rgba(210,235,255,0)');
+        ctx.fillStyle=dg;ctx.fillRect(-len,-.9,len*2,1.8);ctx.restore();
       });
-
-      var ox2=ax+30*I, oy2=ay+12*I;
+      var ox2=ax+30*I,oy2=ay+12*I;
       var pg=ctx.createRadialGradient(ox2,oy2,0,ox2,oy2,8);
-      pg.addColorStop(0,'rgba(167,139,250,'+(I*.65)+')');
-      pg.addColorStop(1,'rgba(167,139,250,0)');
+      pg.addColorStop(0,'rgba(167,139,250,'+(I*.65)+')');pg.addColorStop(1,'rgba(167,139,250,0)');
       ctx.beginPath();ctx.arc(ox2,oy2,8,0,Math.PI*2);ctx.fillStyle=pg;ctx.fill();
       ctx.beginPath();ctx.arc(ax,ay,1.8+I*2.2,0,Math.PI*2);
       ctx.fillStyle='rgba(255,255,255,'+(I*.95)+')';ctx.fill();
     }
 
     var t0=performance.now();
+    var BUILD_END=11500; // all 3 triangles fully arrived
 
     function draw(now){
       ctx.clearRect(0,0,W,H);
       updateFlare(now);
-
-      var elapsed=(now-t0)%TOTAL;
-      var phase,phaseT;
-      if(elapsed<ASSEMBLE)      {phase='assemble';phaseT=elapsed/ASSEMBLE;}
-      else if(elapsed<ASSEMBLE+LIVE)   {phase='live';   phaseT=(elapsed-ASSEMBLE)/LIVE;}
-      else if(elapsed<ASSEMBLE+LIVE+DISSOLVE){phase='dissolve';phaseT=(elapsed-ASSEMBLE-LIVE)/DISSOLVE;}
-      else                      {phase='wait';   phaseT=(elapsed-ASSEMBLE-LIVE-DISSOLVE)/WAIT;}
-
-      // Advance spin (only during live/assemble to pause during dissolve/wait)
-      if(phase==='live'||phase==='assemble') spinAngle+=SPIN_RATE;
-
-      // Reset on new cycle
-      if(phase==='assemble'&&phaseT<0.015){
-        particles.forEach(function(p){
-          var a=Math.random()*Math.PI*2, d=110+Math.random()*80;
-          p.x=CX+Math.cos(a)*d; p.y=CY+Math.sin(a)*d;
-          p.vx=0; p.vy=0; p.alpha=0;
-        });
-      }
+      var elapsed=now-t0;
+      var spinA=getSpinAngle(elapsed);
 
       particles.forEach(function(p){
-        // Spin the home position around CX,CY
-        var dx=p.ox-CX, dy=p.oy-CY;
-        var s=spinAngle+p.spinOffset;
-        var hx=CX+dx*Math.cos(s)-dy*Math.sin(s);
-        var hy=CY+dx*Math.sin(s)+dy*Math.cos(s);
+        if(elapsed<p.delay)return;
 
-        var particleElapsed=elapsed-p.delay;
+        // Spin home position
+        var dox=p.ox-CX, doy=p.oy-CY;
+        var hx=CX+dox*Math.cos(spinA)-doy*Math.sin(spinA);
+        var hy=CY+dox*Math.sin(spinA)+doy*Math.cos(spinA);
 
-        if(phase==='assemble'){
-          if(particleElapsed<0)return;
-          var prog=Math.min(particleElapsed/3500,1);
-          var ease=1-Math.pow(1-prog,3);
-          p.x+=(hx-p.x)*0.022;
-          p.y+=(hy-p.y)*0.022;
-          p.alpha=Math.min(p.alpha+0.01,ease*.85+.02);
+        // Drift offset — gentle movement in a circle, limited radius
+        p.driftAngle+=0.004+Math.random()*0.002;
+        var driftR=(elapsed<BUILD_END)?1.2:2.5;
+        var tx=hx+Math.cos(p.driftAngle)*p.driftAmt*driftR;
+        var ty=hy+Math.sin(p.driftAngle)*p.driftAmt*driftR;
 
-        } else if(phase==='live'){
-          // Drift slightly, staying near spinning home
-          p.wobble+=p.ws;
-          var wx=Math.sin(p.wobble)*1.2;
-          var wy=Math.cos(p.wobble*.75)*1.0;
-          p.x+=(hx+wx-p.x)*.015;
-          p.y+=(hy+wy-p.y)*.015;
-          p.alpha=Math.min(p.alpha+.008,.85);
+        // Boundary softening — particles near adjacent triangle edge
+        // pull slightly toward neighbours but damped
+        if(elapsed>BUILD_END&&p.triIdx<2){
+          var neighbour=byTri[p.triIdx+1];
+          var pullX=0,pullY=0,count=0;
+          for(var ni=0;ni<neighbour.length;ni+=8){
+            var np=neighbour[ni];
+            var ndx=np.x-p.x,ndy=np.y-p.y;
+            var ndist=Math.sqrt(ndx*ndx+ndy*ndy);
+            if(ndist<14&&ndist>2){ // only very close neighbours
+              pullX+=ndx/ndist; pullY+=ndy/ndist; count++;
+            }
+          }
+          if(count>0){
+            tx+=pullX/count*0.8; // subtle pull — won't cross over
+            ty+=pullY/count*0.8;
+          }
+        }
 
-        } else if(phase==='dissolve'){
-          var ease2=Math.pow(phaseT,1.5);
-          var dx2=p.x-CX, dy2=p.y-CY;
-          var dist=Math.sqrt(dx2*dx2+dy2*dy2)||1;
-          var swirl=0.7;
-          p.vx+=(dx2/dist)*.45+(-dy2/dist)*swirl;
-          p.vy+=(dy2/dist)*.45+(dx2/dist)*swirl;
-          p.vx*=.93; p.vy*=.93;
-          p.x+=p.vx; p.y+=p.vy;
-          p.alpha=Math.max(0,p.alpha*(1-ease2*.038));
+        // Ease toward target
+        p.x+=(tx-p.x)*0.025;
+        p.y+=(ty-p.y)*0.025;
 
+        // Alpha — build in, then breathe slowly
+        if(!p.arrived){
+          var age=elapsed-p.delay;
+          p.alpha=Math.min(p.alpha+0.013,Math.min(1,age/2500)*0.82);
+          if(p.alpha>0.5)p.arrived=true;
         } else {
-          p.alpha=0;return;
+          // Individual breathe: slow sine fade, min 0.25 max 0.82
+          var breathe=0.5+0.5*Math.sin((elapsed/p.breathePeriod)*Math.PI*2+p.breatheOffset);
+          var target=0.25+breathe*0.57;
+          p.alpha+=(target-p.alpha)*0.008;
         }
 
         if(p.alpha<0.01)return;
 
-        // Flare brightens particles near apex
-        var fadx=p.x-apex0.x, fady=p.y-apex0.y;
-        var fb=flare.i*Math.max(0,1-Math.sqrt(fadx*fadx+fady*fady)/150)*.55;
+        // Flare boost
+        var fap=tris[0].apex;
+        var fdx=p.x-fap.x,fdy=p.y-fap.y;
+        var fb=flare.i*Math.max(0,1-Math.sqrt(fdx*fdx+fdy*fdy)/160)*.5;
         var a=Math.min(1,p.alpha+fb);
 
         ctx.beginPath();
-        ctx.arc(p.x,p.y,p.size*(1+fb*.5),0,Math.PI*2);
+        ctx.arc(p.x,p.y,p.size*(1+fb*.4),0,Math.PI*2);
         ctx.fillStyle='rgba('+p.col[0]+','+p.col[1]+','+p.col[2]+','+a+')';
         ctx.fill();
       });
 
-      drawFlare();
+      drawFlare(spinA);
       requestAnimationFrame(draw);
     }
 
