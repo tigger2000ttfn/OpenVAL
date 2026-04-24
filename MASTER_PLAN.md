@@ -2124,3 +2124,99 @@ Variant:        PH△ROLON — pyramid icon replaces the A
 > the lighthouse stands above. And the apex beacon? It flashes like a real lighthouse.
 > Triple-flash, then dark. The signal that guides you safely home.
 
+
+
+---
+
+## Addendum I — Native LIMS + MES: Comprehensive Pharma Manufacturing Solution
+
+### Strategic Vision
+
+PHAROLON is not a validation tool with LIMS bolted on. It is the **comprehensive pharmaceutical manufacturing quality intelligence platform** — validation, laboratory, and manufacturing execution on a single schema, sharing a single database.
+
+**The core competitive advantage:** A failed OOS result in the LIMS triggers a manufacturing deviation in the MES and a CAPA in the QMS. Not via API. Via a JOIN.
+
+```sql
+-- This query is impossible in any competitor's product.
+-- In PHAROLON it's a single query.
+SELECT b.batch_number, r.result_numeric, d.deviation_number, c.capa_number
+FROM lims_test_results r
+JOIN mes_batch_records b ON r.source_reference = b.batch_number
+JOIN mes_manufacturing_deviations d ON d.batch_id = b.id
+JOIN capa c ON c.source_id = d.id
+WHERE r.out_of_spec = TRUE
+  AND b.status = 'in_progress';
+```
+
+### Target Markets
+
+**All levels of pharma and regulated manufacturing:**
+- Small biotech (10-100 employees, single product, clinical stage)
+- Mid-size specialty pharma (100-500 employees, 3-10 products, commercial)
+- Large enterprise CMO/CDMO (500+ employees, multi-client, multi-site)
+- Cell & Gene Therapy manufacturers (bespoke, patient-specific)
+- Vaccine manufacturers (large-scale bioprocess)
+- Medical device manufacturers (QMSR/ISO 13485)
+
+### Platform Integration Strategy
+
+**Integrations to external systems (not replace, integrate):**
+- **LabVantage** LIMS — bidirectional sample/result sync
+- **Sapio Sciences** — low-code/no-code LIMS connector (roadmap)
+- **LabWare** — sample login and result import
+- **STARLIMS** — data exchange API
+- **SAP ERP** — production orders, goods movements, batch management
+- **Oracle ECC/Cloud** — materials, inventory, batch records
+- **Emerson DeltaV / Siemens PCS7 / Honeywell PKS** — DCS parameter feeds
+- **OSIsoft PI / AspenTech IP.21** — process historian integration
+- **Empower / Chromeleon / OpenLab** — chromatography data systems
+- **Jira / ServiceNow** — deviation and CAPA ticketing
+- **Veeva Vault** — document management
+
+### Schema Overview
+
+| Part | Tables | Domain |
+|---|---|---|
+| 1–11 | 418 | Validation Suite + QMS (existing) |
+| 12 | 72 | **Native LIMS** |
+| 13 | 70 | **Native MES** |
+| **Total** | **560+** | **Complete pharma platform** |
+
+### Part 12 — Native LIMS (72 tables)
+
+Sample management (matrices, containers, chain of custody, storage, disposal),
+test methods (versioned, compendial refs USP/EP/JP/BP), test requests and assignments,
+test results (data points, calculations, attachments, worksheets), OOS/OOT full
+21 CFR 211.192 two-phase workflow, reference standards (primary/secondary/working/CRS),
+stability studies (ICH Q1A-Q1E, trending, ICH Q1E statistical analysis),
+environmental monitoring (EU GMP Grade A/B/C/D, ISO 5-8, organism library,
+exceedance workflow), instruments (calibration, reservations, analytical runs),
+reagents and prepared solutions, water systems (PW/WFI/clean steam, USP/EP),
+microbiology (sterility, endotoxin LAL/rFC, growth promotion), CoA generation,
+workload and turnaround tracking, external LIMS integration connectors.
+
+### Part 13 — Native MES (70 tables)
+
+Products and material lots, master batch records (phases, steps, BOM, CPP, CQA, IPC,
+equipment requirements, version control), electronic batch records (step execution,
+e-signatures, parameter recording), dispensing and weighing, material reconciliation,
+equipment management (logbooks, cleaning records, maintenance, line clearance),
+facilities and cleanrooms (rooms, HVAC, room logs), in-process controls, SPC/control charts
+(Xbar-R, EWMA, CUSUM, Nelson rules, Cpk/Ppk), yield and reconciliation, batch release
+workflow and checklist, manufacturing deviations, serialization and track/trace (DSCSA,
+FMD, SSCC), bioprocess (bioreactor runs, seed train, cell culture parameters,
+harvest, downstream processing, viral clearance, cell banks), solid dosage
+(granulation, blending, compression, coating), continuous manufacturing (ICH Q13,
+RTRT, diversion events), cell and gene therapy manufacturing (patient orders,
+collection, transduction, expansion, cryopreservation), packaging and labelling,
+PAT instruments and models, ERP/DCS/historian integration connectors.
+
+### Phasing
+
+- **Phase 18-20:** Native LIMS — sample management, test requests, results, OOS/OOT
+- **Phase 21-22:** Native LIMS — stability, EM, instruments, CoA, water
+- **Phase 23-25:** Native MES — MBR, eBR, dispensing, equipment, IPC, yield
+- **Phase 26-27:** Native MES — bioprocess, CGT, continuous manufacturing, PAT
+- **Phase 28:** Full integration layer — LabVantage, SAP, DCS connectors
+- **Phase 29:** LIMS+MES AI layer — OOS prediction, yield optimisation, process trending
+
