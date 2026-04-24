@@ -1,9 +1,9 @@
-# PHARION GitHub Repository Setup Guide
+# PHAROLON GitHub Repository Setup Guide
 
 ## Step 1: Create the GitHub Repository
 
 1. Go to https://github.com/new
-2. Repository name: `pharion`
+2. Repository name: `pharolon`
 3. Description: `Open Source Enterprise Computer System Validation Platform for Pharmaceutical and Process Engineering`
 4. Set to **Public**
 5. Initialize with a README: **No** (we already have one)
@@ -17,8 +17,8 @@
 
 ```bash
 # Clone the empty repo
-git clone https://github.com/YOUR_USERNAME/pharion.git
-cd pharion
+git clone https://github.com/YOUR_USERNAME/pharolon.git
+cd pharolon
 
 # Copy all project files from wherever you have them
 # Then initialize the project structure
@@ -107,10 +107,10 @@ secrets/
 
 ```toml
 [tool.poetry]
-name = "pharion"
+name = "pharolon"
 version = "0.1.0"
 description = "Open Source Computer System Validation Platform"
-authors = ["PHARION Contributors"]
+authors = ["PHAROLON Contributors"]
 license = "AGPL-3.0"
 
 [tool.poetry.dependencies]
@@ -176,7 +176,7 @@ warn_unused_configs = true
 
 ```json
 {
-  "name": "pharion-frontend",
+  "name": "pharolon-frontend",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -233,7 +233,7 @@ warn_unused_configs = true
 ## Step 6: Initial Commit
 
 ```bash
-cd pharion
+cd pharolon
 
 git add .
 git commit -m "chore: initial project structure
@@ -316,7 +316,7 @@ Create the following issues to begin Phase 0:
 ## Repository Structure After Setup
 
 ```
-pharion/                        <- GitHub repo root
+pharolon/                        <- GitHub repo root
   README.md                     <- Project overview
   MASTER_PLAN.md                <- Living development document
   CHANGELOG.md                  <- Version history with validation impact
@@ -326,8 +326,8 @@ pharion/                        <- GitHub repo root
   pyproject.toml                <- Backend Python dependencies
   package.json                  <- Frontend Node dependencies
   schema/
-    pharion_schema_part1.sql    <- All DDL table definitions
-    pharion_schema_part2.sql    <- Indexes, sequences, RLS, seed data
+    pharolon_schema_part1.sql    <- All DDL table definitions
+    pharolon_schema_part2.sql    <- Indexes, sequences, RLS, seed data
   backend/
     app/
       main.py                   <- FastAPI app entry point
@@ -349,7 +349,7 @@ pharion/                        <- GitHub repo root
       store/                    <- Zustand state
       utils/                    <- API client, formatters
   docs/
-    validation_package/         <- Bundled IQ/OQ/PQ for PHARION
+    validation_package/         <- Bundled IQ/OQ/PQ for PHAROLON
     compliance/                 <- CFR mapping, ALCOA matrix
     architecture/               <- Architecture decision records
   templates/
@@ -361,8 +361,8 @@ pharion/                        <- GitHub repo root
     upgrade.sh                  <- Upgrade script
   config/
     nginx.conf                  <- Nginx template
-    pharion-api.service         <- systemd unit
-    pharion-worker.service      <- Celery worker systemd unit
-    pharion-beat.service        <- Celery beat systemd unit
+    pharolon-api.service         <- systemd unit
+    pharolon-worker.service      <- Celery worker systemd unit
+    pharolon-beat.service        <- Celery beat systemd unit
     .env.example                <- Environment variable template
 ```

@@ -26,7 +26,7 @@ compliance on any supported database.
 
 **SQLAlchemy ORM is the primary database abstraction layer.**
 
-PHARION does not write raw SQL in application code. All database interactions
+PHAROLON does not write raw SQL in application code. All database interactions
 go through SQLAlchemy 2.0 ORM models and Core expressions with parameterized
 queries. SQLAlchemy handles dialect translation automatically for PostgreSQL,
 Oracle, and MySQL.
@@ -77,7 +77,7 @@ def uuid_pk():
 | Oracle | `DateTime(timezone=True)` → `TIMESTAMP WITH TIME ZONE` | Native TZ storage |
 | MySQL | `DateTime(timezone=True)` → `DATETIME` | UTC normalized at app layer |
 
-**MySQL note:** MySQL `DATETIME` does not store timezone info. PHARION normalizes
+**MySQL note:** MySQL `DATETIME` does not store timezone info. PHAROLON normalizes
 all timestamps to UTC before writing on MySQL. The application layer enforces this.
 Audit trail timestamps are always UTC. This satisfies 21 CFR 11.10(e) because
 the timestamp is unambiguous even without stored timezone.
@@ -88,7 +88,7 @@ JSON data is stored as `TEXT`/`LONGTEXT`/`CLOB` across all databases.
 No database-native JSON column type is used. This is already implemented
 in the schema (all JSON fields are `TEXT` with `-- JSON` comment).
 
-PHARION validates JSON structure at the application layer (Pydantic).
+PHAROLON validates JSON structure at the application layer (Pydantic).
 This is more portable and equally safe.
 
 ### Sequences / Auto-increment
@@ -141,7 +141,7 @@ This is the most critical difference across databases for 21 CFR Part 11.
 
 ### PostgreSQL (Tier 1 — strongest)
 - Row Level Security policies block UPDATE and DELETE at the database layer
-- The application database user (`pharion_app`) physically cannot modify
+- The application database user (`pharolon_app`) physically cannot modify
   `audit_log` or `electronic_signatures` rows regardless of application code
 - Hash chain verification provides tamper detection
 - **Assessment:** Strongest possible protection. Exceeds 21 CFR 11.10(e).
@@ -170,7 +170,7 @@ This is the most critical difference across databases for 21 CFR Part 11.
 - MySQL 8.0 has no native row-level security equivalent
 - Append-only is enforced at the **application layer** via:
   1. The SQLAlchemy event listener never emits UPDATE/DELETE on audit tables
-  2. The `pharion_app` MySQL user is granted only `SELECT, INSERT` on
+  2. The `pharolon_app` MySQL user is granted only `SELECT, INSERT` on
      `audit_log` and `electronic_signatures` (no UPDATE, no DELETE)
   3. Hash chain verification detects any out-of-band tampering
   4. MySQL binary log (binlog) provides additional tamper evidence
@@ -310,7 +310,7 @@ Both are defensible to FDA and EMA inspectors when properly documented.
 
 ## Conclusion
 
-PHARION supports PostgreSQL, Oracle, and MySQL through SQLAlchemy ORM abstraction.
+PHAROLON supports PostgreSQL, Oracle, and MySQL through SQLAlchemy ORM abstraction.
 PostgreSQL remains the recommended database for new deployments due to native RLS.
 Oracle is the preferred option for enterprise sites with existing Oracle infrastructure.
 MySQL is supported for smaller sites.

@@ -28,7 +28,7 @@
 [![21 CFR Part 11](https://img.shields.io/badge/21_CFR_Part_11-Compliant-brightgreen.svg)](docs/)
 [![Tables](https://img.shields.io/badge/Database-418_tables-009688.svg)](schema/)
 
-> **🎨 Brand Identity & Design Preview:** [**pharion.design →**](https://tigger2000ttfn.github.io/OpenVAL/) — Full design showcase with dark/light themes, component library, and interface preview.
+> **🎨 Brand Identity & Design Preview:** [**pharolon.design →**](https://tigger2000ttfn.github.io/OpenVAL/) — Full design showcase with dark/light themes, component library, and interface preview.
 
 <br/>
 
@@ -36,11 +36,11 @@
 
 ---
 
-## What is PHARION?
+## What is PHAROLON?
 
 The Pharos of Alexandria — one of the Seven Wonders of the Ancient World — guided every vessel through dangerous waters for over a thousand years. Not just one trade. Not just one kingdom. Every ship, every cargo, every destination.
 
-**PHARION** carries that mission into the age of regulated industry. The quality intelligence platform that guides any organisation through the complexity of compliance, validation, and quality management — wherever regulatory waters run dangerous.
+**PHAROLON** carries that mission into the age of regulated industry. The quality intelligence platform that guides any organisation through the complexity of compliance, validation, and quality management — wherever regulatory waters run dangerous.
 
 Not just pharmaceutical. Not just validation. **The complete quality intelligence platform for every regulated industry.**
 
@@ -52,9 +52,9 @@ Authoring → Review → Approval → Execution → Deviation → Closure → Pe
 
 ---
 
-## Why PHARION?
+## Why PHAROLON?
 
-| Pain | PHARION |
+| Pain | PHAROLON |
 |---|---|
 | Kneat / ValGenesis cost $30K–$200K/year | Free Community Edition — no per-user fees |
 | Paper and SharePoint fail audits | Immutable audit trail, SHA-256 hash chain verified nightly |
@@ -69,7 +69,7 @@ Authoring → Review → Approval → Execution → Deviation → Closure → Pe
 
 ## Industries Served
 
-PHARION is designed for **any** regulated industry, with deep specialisation in:
+PHAROLON is designed for **any** regulated industry, with deep specialisation in:
 
 **Pharmaceutical & Biotech** — CSV, process validation, cleaning, sterilization, stability  
 **Medical Device** — QMSR/ISO 13485 design control, DHF, MDSAP, combination products  
@@ -138,7 +138,7 @@ Completeness scoring · Regulatory citation mapping
 
 ## Design System
 
-PHARION has a purpose-built design language — dark, premium, and instantly distinctive.
+PHAROLON has a purpose-built design language — dark, premium, and instantly distinctive.
 
 - **Gold `#E2A837`** primary identity — the lighthouse gold, not another tech teal
 - **Dark Teal `#00A090`** secondary — validated systems, quality assurance
@@ -187,7 +187,7 @@ PHARION has a purpose-built design language — dark, premium, and instantly dis
 
 ## Oracle Full Support
 
-PHARION provides genuine first-class Oracle support — not a degraded compatibility mode.
+PHAROLON provides genuine first-class Oracle support — not a degraded compatibility mode.
 
 | Oracle Version | Status |
 |---|---|
@@ -245,8 +245,8 @@ Jira/Zephyr/Veeva/ServiceNow integrations · SAML/SSO · Custom reports
 
 ```bash
 # Requires Ubuntu 22.04+ or RHEL 9 · PostgreSQL 15+ · Redis 7+ · Node.js 20+ · Python 3.11+
-git clone https://github.com/tigger2000ttfn/OpenVAL.git pharion
-cd pharion && sudo ./scripts/install.sh
+git clone https://github.com/tigger2000ttfn/PHAROLON.git pharolon
+cd pharolon && sudo ./scripts/install.sh
 ```
 
 **Development:**
@@ -271,7 +271,7 @@ cd frontend && npm install && npm run dev
 |---|---|
 | Schema (418 tables, 11 parts) | ✅ Complete |
 | Master Plan (26 phases, 30+ disciplines) | ✅ Complete |
-| Design System — PHARION brand identity | ✅ Complete |
+| Design System — PHAROLON brand identity | ✅ Complete |
 | URS-DOC-001 (69 document requirements) | ✅ Complete |
 | Astellas SLC gap analysis (97% coverage) | ✅ Complete |
 | Oracle full compatibility (ADR-016) | ✅ Complete |
@@ -279,7 +279,7 @@ cd frontend && npm install && npm run dev
 | Validation Package Visualizer | ✅ Designed |
 | Phase 0: Foundation (audit trail, e-sig, auth) | 🔨 Starting |
 | Phase 1: ORM Layer (418 models) | ⏳ Upcoming |
-| Phase 2: App Shell (React + PHARION design) | ⏳ Upcoming |
+| Phase 2: App Shell (React + PHAROLON design) | ⏳ Upcoming |
 
 ---
 
@@ -288,7 +288,7 @@ cd frontend && npm install && npm run dev
 | | |
 |---|---|
 | [MASTER_PLAN.md](MASTER_PLAN.md) | 26-phase roadmap, all 30+ disciplines, complete addendums |
-| [UI-SPEC-001](docs/ui_spec/UI-SPEC-001_Design_Specification.md) | Complete design system — PHARION brand |
+| [UI-SPEC-001](docs/ui_spec/UI-SPEC-001_Design_Specification.md) | Complete design system — PHAROLON brand |
 | [ADR-016](docs/architecture/ADR-016_Oracle_Full_Compatibility.md) | Oracle 19c+ full compatibility |
 | [ADR-015](docs/architecture/ADR-015_Multi_Database_Support.md) | Multi-database architecture |
 | [BIZ-001](docs/business/BIZ-001_Licensing_Strategy.md) | CE/EE licensing strategy |
@@ -310,7 +310,7 @@ cd frontend && npm install && npm run dev
 
 ## Contributing
 
-PHARION is built for the regulated industry community, by regulated industry professionals.
+PHAROLON is built for the regulated industry community, by regulated industry professionals.
 
 **All contributions must be GxP-aware.** Changes affecting regulated functionality require audit trail coverage and compliance test cases. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -333,9 +333,9 @@ PHARION is built for the regulated industry community, by regulated industry pro
 <div align="center">
 
 *The Pharos stood for a thousand years.*  
-*PHARION is built to last.*
+*PHAROLON is built to last.*
 
-**PHARION · Quality Intelligence for Regulated Industries**
+**PHAROLON · Quality Intelligence for Regulated Industries**
 
 [Design Preview](https://tigger2000ttfn.github.io/OpenVAL/) · [Docs](docs/) · [Issues](https://github.com/tigger2000ttfn/OpenVAL/issues) · [Discussions](https://github.com/tigger2000ttfn/OpenVAL/discussions)
 

@@ -1,4 +1,4 @@
-# PHARION Modular Architecture Specification
+# PHAROLON Modular Architecture Specification
 
 **Document Reference:** ARCH-MOD-001
 **Version:** 1.0
@@ -9,7 +9,7 @@
 
 ## 1. Architecture Philosophy
 
-PHARION is built as a **modular monolith**. This is intentional.
+PHAROLON is built as a **modular monolith**. This is intentional.
 
 A modular monolith has the organizational cleanliness of microservices
 (clear module boundaries, no cross-cutting dependencies) with the operational
@@ -29,7 +29,7 @@ EE modules load conditionally based on license state.
 ## 2. Directory Structure
 
 ```
-pharion/
+pharolon/
 ├── backend/
 │   └── app/
 │       ├── main.py                    # App factory, conditional module loading
@@ -113,9 +113,9 @@ pharion/
 │           ├── ai/
 │           └── multi_site/
 └── schema/
-    ├── pharion_schema_part1.sql       # All DDL (CE + EE tables)
-    ├── pharion_schema_part2.sql       # Indexes, sequences, seed data
-    └── pharion_schema_part3.sql       # New module tables
+    ├── pharolon_schema_part1.sql       # All DDL (CE + EE tables)
+    ├── pharolon_schema_part2.sql       # Indexes, sequences, seed data
+    └── pharolon_schema_part3.sql       # New module tables
 ```
 
 ---
@@ -180,7 +180,7 @@ A license key is a base64-encoded JSON payload signed with RSA-2048.
   ],
   "issued_at": "2026-04-01T00:00:00Z",
   "expires_at": "2027-04-01T00:00:00Z",
-  "issued_by": "pharion_team",
+  "issued_by": "pharolon_team",
   "signature": "RSA_SIGNATURE_HEX"
 }
 ```
@@ -197,9 +197,9 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from app.core.config import settings
 
-PHARION_PUBLIC_KEY = """
+PHAROLON_PUBLIC_KEY = """
 -----BEGIN PUBLIC KEY-----
-[PHARION RSA-2048 public key embedded in application]
+[PHAROLON RSA-2048 public key embedded in application]
 -----END PUBLIC KEY-----
 """
 
@@ -223,7 +223,7 @@ class License:
 
             # Verify signature
             public_key = serialization.load_pem_public_key(
-                PHARION_PUBLIC_KEY.encode()
+                PHAROLON_PUBLIC_KEY.encode()
             )
             public_key.verify(
                 signature_bytes,
@@ -339,7 +339,7 @@ def require_feature(feature_code: str):
                         "code": "FEATURE_NOT_LICENSED",
                         "message": f"The '{feature_code}' feature requires an Enterprise license.",
                         "feature": feature_code,
-                        "upgrade_url": "https://pharion.io/upgrade",
+                        "upgrade_url": "https://pharolon.io/upgrade",
                     }
                 )
             return await func(*args, **kwargs)
@@ -377,7 +377,7 @@ async def check_user_limit(db: AsyncSession, site_id: str):
                 "message": f"Your {license.tier} edition allows up to {license.max_users} users.",
                 "current_count": count,
                 "limit": license.max_users,
-                "upgrade_url": "https://pharion.io/upgrade"
+                "upgrade_url": "https://pharolon.io/upgrade"
             }
         )
 ```
@@ -407,7 +407,7 @@ async def lifespan(app: FastAPI):
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="PHARION",
+        title="PHAROLON",
         version=settings.APP_VERSION,
         docs_url="/api/docs" if settings.DEBUG else None,
         redoc_url="/api/redoc" if settings.DEBUG else None,
@@ -674,7 +674,7 @@ The Celery beat task `validate_license` runs hourly:
 The Administration > License page shows:
 
 ```
-PHARION Enterprise License
+PHAROLON Enterprise License
 ─────────────────────────────────────────────────────────
 Organization:    Astellas Pharma US
 Edition:         Enterprise Scale
@@ -719,7 +719,7 @@ LICENSED FEATURES
 #!/bin/bash
 set -e
 
-echo "Building PHARION Community Edition..."
+echo "Building PHAROLON Community Edition..."
 
 # Backend: exclude enterprise modules from distribution
 rsync -av --exclude='enterprise/' backend/ dist_ce/backend/
@@ -728,9 +728,9 @@ rsync -av --exclude='enterprise/' backend/ dist_ce/backend/
 npm --prefix frontend run build:community
 
 # Package
-tar -czf pharion-ce-${VERSION}.tar.gz dist_ce/
+tar -czf pharolon-ce-${VERSION}.tar.gz dist_ce/
 
-echo "CE build complete: pharion-ce-${VERSION}.tar.gz"
+echo "CE build complete: pharolon-ce-${VERSION}.tar.gz"
 ```
 
 ### EE Build (Private, Customer Distribution)
@@ -741,7 +741,7 @@ echo "CE build complete: pharion-ce-${VERSION}.tar.gz"
 #!/bin/bash
 set -e
 
-echo "Building PHARION Enterprise Edition..."
+echo "Building PHAROLON Enterprise Edition..."
 
 # Full backend including enterprise modules
 cp -r backend/ dist_ee/backend/
@@ -753,8 +753,8 @@ npm --prefix frontend run build:enterprise
 python scripts/generate_ee_docs.py
 
 # Package with checksums
-tar -czf pharion-ee-${VERSION}.tar.gz dist_ee/
-sha256sum pharion-ee-${VERSION}.tar.gz > pharion-ee-${VERSION}.sha256
+tar -czf pharolon-ee-${VERSION}.tar.gz dist_ee/
+sha256sum pharolon-ee-${VERSION}.tar.gz > pharolon-ee-${VERSION}.sha256
 
 echo "EE build complete"
 ```
@@ -765,10 +765,10 @@ echo "EE build complete"
 # The installer detects which edition it is installing
 if [ -d "backend/app/modules/enterprise" ]; then
     EDITION="Enterprise"
-    echo "Installing PHARION Enterprise Edition"
+    echo "Installing PHAROLON Enterprise Edition"
 else
     EDITION="Community"
-    echo "Installing PHARION Community Edition"
+    echo "Installing PHAROLON Community Edition"
 fi
 ```
 
@@ -831,4 +831,4 @@ async def test_oos_endpoint_returns_402_without_license(client_ce, db):
 
 ---
 
-*ARCH-MOD-001 v1.0 - PHARION Modular Architecture Specification*
+*ARCH-MOD-001 v1.0 - PHAROLON Modular Architecture Specification*

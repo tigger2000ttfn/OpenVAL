@@ -1,4 +1,4 @@
-# PHARION Module Extensions and Enhancements
+# PHAROLON Module Extensions and Enhancements
 ## Informed by Competitive Research: DCP, MasterControl, TrackWise, Veeva Vault, ETQ Reliance, LabWare ELN
 
 **Document Reference:** MODULE-EXT-001
@@ -13,7 +13,7 @@
 This document captures all module extensions, new modules, and enhancements
 identified through analysis of the competitive landscape and open source
 ecosystem. Each item includes its source of inspiration, the gap it fills in
-the current PHARION plan, and its target phase.
+the current PHAROLON plan, and its target phase.
 
 ---
 
@@ -23,7 +23,7 @@ the current PHARION plan, and its target phase.
 **Gap:** Current plan treats modules as independent. Commercial leaders
 differentiate on automated linkages between quality events.
 
-### What This Means for PHARION
+### What This Means for PHAROLON
 
 The system must automatically initiate downstream actions when upstream events occur.
 This is not a separate module. It is a cross-cutting enhancement to the workflow
@@ -85,7 +85,7 @@ engine that adds trigger-based automation rules.
 requirement sets, and protocols separately. MasterControl's wizard cuts this setup
 time dramatically for non-expert users.
 
-### What This Means for PHARION
+### What This Means for PHAROLON
 
 A step-by-step guided wizard that walks a user through setting up a complete
 validation project for a new system, starting from nothing and generating a full
@@ -645,10 +645,10 @@ of the system or data they are receiving.
 Add a standard header to all API responses:
 
 ```
-X-PHARION-System-Validated: true
-X-PHARION-GxP-Context: true
-X-PHARION-Site-Code: MATC
-X-PHARION-API-Version: 1.0
+X-PHAROLON-System-Validated: true
+X-PHAROLON-GxP-Context: true
+X-PHAROLON-Site-Code: MATC
+X-PHAROLON-API-Version: 1.0
 ```
 
 For data endpoints, include in response envelope:
@@ -675,7 +675,7 @@ For data endpoints, include in response envelope:
 
 ### Module Purpose
 
-Apply statistical process control to any numeric data series tracked in PHARION:
+Apply statistical process control to any numeric data series tracked in PHAROLON:
 EM results, OOS trends, CAPA cycle times, deviation rates, stability data.
 
 ### Chart Types
@@ -743,7 +743,7 @@ EM results, OOS trends, CAPA cycle times, deviation rates, stability data.
 
 ### Guiding Principle
 
-AI in PHARION is always **human-in-the-loop**. AI makes suggestions.
+AI in PHAROLON is always **human-in-the-loop**. AI makes suggestions.
 Humans make decisions. Every AI-generated suggestion that a human acts on
 is attributed to the human, not the AI, in the audit trail. AI suggestions
 themselves are logged separately with their confidence score.
@@ -837,7 +837,7 @@ made the regulated decision.
 
 ### Scope
 
-This is an optional extension module that bridges PHARION's quality/validation
+This is an optional extension module that bridges PHAROLON's quality/validation
 world with manufacturing process data. It is non-GxP unless explicitly validated.
 The GxP/non-GxP boundary is clearly labeled in the UI (DCP pattern).
 
@@ -859,7 +859,7 @@ The GxP/non-GxP boundary is clearly labeled in the UI (DCP pattern).
 - Control chart generation for process parameters
 - Automated report generation for batch review meetings
 
-### Integration with PHARION Quality Modules
+### Integration with PHAROLON Quality Modules
 
 - Process parameter exceedance auto-creates a deviation
 - Batch-to-batch trending feeding into SPC module

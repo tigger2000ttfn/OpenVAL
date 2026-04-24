@@ -1,7 +1,7 @@
-# PHARION Complete Gap Analysis — Remaining 3%
+# PHAROLON Complete Gap Analysis — Remaining 3%
 **Date:** 2026-04-09
 **Research Basis:** Live regulatory research, current FDA/EMA/ICH/PIC/S guidance
-**Analyst:** Head of Global QA, PHARION Project
+**Analyst:** Head of Global QA, PHAROLON Project
 
 ---
 
@@ -35,7 +35,7 @@ date was February 2, 2026 — this is already law.
 
 ### Critical New Requirements vs Old QSR
 
-| Area | Old QSR | New QMSR | PHARION Gap |
+| Area | Old QSR | New QMSR | PHAROLON Gap |
 |---|---|---|---|
 | Design Control traceability | Best practice | **Mandatory** — design inputs must trace to outputs | ❌ No design control module |
 | Management Review records | Protected from FDA inspection | **NOW INSPECTABLE** | 🟡 No management review module |
@@ -46,10 +46,10 @@ date was February 2, 2026 — this is already law.
 | Design History File (DHF) | Required | Maintained but design traceability now mandatory | ❌ No DHF structure |
 | ISO 14971 alignment | Not referenced | ISO 13485 incorporates ISO 14971 principles | ❌ No formal ISO 14971 risk management workflow |
 
-### PHARION Impact — What Must Be Added
+### PHAROLON Impact — What Must Be Added
 
 **🔴 Design Control Module (New EE Module)**
-Any PHARION customer making a medical device or combination product now needs:
+Any PHAROLON customer making a medical device or combination product now needs:
 - Design History File (DHF) structure — a folder that holds ALL design records
 - Design Input capture (functional requirements, performance specs, safety requirements)
 - Design Output linkage (drawings, DMF/MDF, specifications)
@@ -149,7 +149,7 @@ Now a default regulatory requirement (with exceptions requiring strong justifica
 
 ### What ICH Q12 Introduces
 ICH Q12 (finalized 2019, still being implemented globally as of 2025) introduces
-three concepts that PHARION's change control module doesn't capture:
+three concepts that PHAROLON's change control module doesn't capture:
 
 **3.1 Established Conditions (ECs) 🟡**
 Regulatory commitments embedded in the marketing authorization dossier.
@@ -158,7 +158,7 @@ An EC is a specific manufacturing parameter or characteristic that is:
 - Only changeable through a formal variation procedure
 - Tracked throughout the product lifecycle
 
-PHARION has no concept of "this change requires a regulatory submission" vs
+PHAROLON has no concept of "this change requires a regulatory submission" vs
 "this is just an internal change."
 
 **3.2 Post-Approval Change Management Protocol (PACMP) 🟢**
@@ -183,13 +183,13 @@ the change management philosophy for that product across its entire lifecycle.
 
 ## Gap 4: ICH Q13 — Continuous Manufacturing
 
-### What This Means for PHARION
+### What This Means for PHAROLON
 Continuous manufacturing (CM) is fundamentally different from batch manufacturing.
 The process validation approach, the batch definition, and the CPV approach all change:
 
 **4.1 Batch Definition Problem 🟡**
 In CM, a "batch" can be defined by time, quantity, or process parameters — not
-by a single discrete production run. PHARION's current batch/lot model assumes
+by a single discrete production run. PHAROLON's current batch/lot model assumes
 discrete batches. CM requires flexible batch definition with justification.
 
 **4.2 Residence Time Distribution (RTD) 🟡**
@@ -226,7 +226,7 @@ events must be documented.
 FDA's October 2024 guidance clarified Part 11 enforcement for clinical systems.
 ICH E6(R3) finalization significantly updated electronic systems expectations.
 
-### What Clinical Trial Systems Need That PHARION Doesn't Have
+### What Clinical Trial Systems Need That PHAROLON Doesn't Have
 
 **5.1 GCP-Specific System Categories 🟡**
 Clinical trial systems have different validation requirements from GMP systems:
@@ -265,7 +265,7 @@ FDA finalized DCT guidance in 2024. New validation requirements for:
 ### Why This Is Fundamentally Different
 ATMPs (Advanced Therapy Medicinal Products) — including CAR-T, gene therapy,
 and tissue-engineered products — require validation capabilities that do not
-exist anywhere in PHARION and are unlike any other pharmaceutical product.
+exist anywhere in PHAROLON and are unlike any other pharmaceutical product.
 
 **6.1 Chain of Identity (COI) 🟡**
 The most critical unique requirement for autologous therapies.
@@ -347,9 +347,9 @@ have documented rationalization.
 
 ## Gap 8: GDP — Good Distribution Practice
 
-### What PHARION Has vs. What's Needed
+### What PHAROLON Has vs. What's Needed
 
-PHARION has cold chain / temperature mapping (Part 7 schema). What's missing:
+PHAROLON has cold chain / temperature mapping (Part 7 schema). What's missing:
 
 **8.1 Qualified Distribution Lane Records 🟡**
 GDP requires that transport routes be qualified:
@@ -385,7 +385,7 @@ EU FMD (Falsified Medicines Directive) compliance:
 
 ## Gap 9: PIC/S PI 041-1 — Data Integrity
 
-### What PI 041-1 Requires That PHARION Doesn't Explicitly Document
+### What PI 041-1 Requires That PHAROLON Doesn't Explicitly Document
 
 PIC/S PI 041-1 is written "by inspectors, for inspectors." It raises expectations
 above and beyond what 21 CFR Part 11 requires:
@@ -397,7 +397,7 @@ PI 041-1 explicitly requires a documented data governance framework covering:
 - Procedures for data review and verification
 - Self-inspection program specifically for data integrity
 
-PHARION has the audit trail engine but no "data governance document" type.
+PHAROLON has the audit trail engine but no "data governance document" type.
 
 **9.2 Hybrid Systems Management 🟡**
 When paper and electronic records coexist for the same data (hybrid systems),
@@ -413,14 +413,14 @@ PI 041-1 section specifically addresses security patches and application upgrade
 - Old data must still be readable after software updates
 - If data format changes, migration validation is required
 
-PHARION's vendor release assessment covers this partially but not explicitly
+PHAROLON's vendor release assessment covers this partially but not explicitly
 with the data migration/readability angle.
 
 **9.4 Retrospective Data Review 🟡**
 PI 041-1 expects periodic retrospective review of electronic audit trails
 to detect anomalies — not just preserving the trail but actively reviewing it.
 
-This maps to PHARION's planned periodic review module but must explicitly
+This maps to PHAROLON's planned periodic review module but must explicitly
 include audit trail anomaly detection as a review item.
 
 **New Tables Required:**

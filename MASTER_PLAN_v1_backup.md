@@ -1,4 +1,4 @@
-# OpenVAL Master Plan
+# PHAROLON Master Plan
 
 **Living Development Document - All Phases, Features, Database, and Architecture**
 
@@ -1173,7 +1173,7 @@ These are the most critical tables in the system. They are append-only. No UPDAT
 - category (varchar 100) -- software, equipment, process, infrastructure, laboratory
 - industry (varchar 100) -- pharmaceutical, biotech, medical_device, cmo
 - regulatory_scope (text) -- JSON array: 21cfr211, 21cfr820, annex11
-- is_system_template (boolean, default false) -- ships with OpenVAL
+- is_system_template (boolean, default false) -- ships with PHAROLON
 - is_active (boolean, default true)
 - version (varchar 20, not null)
 - sections (text) -- JSON array of section templates
@@ -2682,7 +2682,7 @@ These are the most critical tables in the system. They are append-only. No UPDAT
 - [ ] VP-001: Software Description
 - [ ] VP-002: GAMP 5 Category Assessment and Justification
 - [ ] VP-003: Software Development Lifecycle (SDL) Description
-- [ ] VP-004: User Requirements Specification (URS) for OpenVAL
+- [ ] VP-004: User Requirements Specification (URS) for PHAROLON
 - [ ] VP-005: Risk Assessment (FMEA)
 - [ ] VP-006: Validation Plan
 - [ ] VP-007: Installation Qualification (IQ) Protocol

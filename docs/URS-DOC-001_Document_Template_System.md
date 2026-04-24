@@ -1,18 +1,18 @@
-# PHARION Document and Template System
+# PHAROLON Document and Template System
 # User Requirements Specification
 
 **Document Reference:** URS-DOC-001
 **Version:** 1.0.0
 **Status:** Approved
 **Date:** 2026-04-08
-**Author:** Head of Global Quality Assurance, PHARION Project
+**Author:** Head of Global Quality Assurance, PHAROLON Project
 **Regulatory Basis:** 21 CFR Part 11, 21 CFR 211.68, EU Annex 11, GAMP 5 2nd Ed., ICH Q10
 
 ---
 
 ## Executive Summary
 
-This document defines the complete user requirements for the PHARION Document
+This document defines the complete user requirements for the PHAROLON Document
 and Template System. This system is the backbone of the entire platform. Every
 validation protocol, every controlled SOP, every risk assessment, every sign-off
 record is a document. The document system is not a bolt-on feature — it is the
@@ -556,7 +556,7 @@ The designer shall support swim lanes:
 **URS-DOC-038** [W]
 A flowchart shape may be linked to a workflow engine stage.
 When viewing the SOP flowchart, clicking a process shape shows the
-corresponding workflow stage in the PHARION workflow engine.
+corresponding workflow stage in the PHAROLON workflow engine.
 This creates a live connection between documented procedures and executable workflows.
 
 **URS-DOC-039** [S]
@@ -708,15 +708,15 @@ The Validation Package shall have **Release Notes** for each version:
 The Validation Package shall support a **Transmission Record**:
 - Who the package was sent to (name, role, organization)
 - When it was sent
-- How it was sent (electronic distribution from PHARION, email, printed copy)
+- How it was sent (electronic distribution from PHAROLON, email, printed copy)
 - For printed copies: copy number and recipient
 This supports regulatory submission tracking and controlled copy management.
 
 **URS-DOC-054** [W]
-The system shall support an **PHARION System Validation Package** — a
-pre-built validation package for PHARION itself:
+The system shall support an **PHAROLON System Validation Package** — a
+pre-built validation package for PHAROLON itself:
 - VP-001 through VP-015 (already specified in MASTER_PLAN Phase 16)
-- Automatically linked to the installed PHARION version
+- Automatically linked to the installed PHAROLON version
 - Pre-executed execution records (to be completed by the site)
 - This package validates the tool you're using to validate your systems
 
@@ -801,7 +801,7 @@ This ensures consistency across the document library without forcing unwanted ch
 
 **URS-DOC-064** [S]
 Library blocks shall support **site-level and global-level** scope:
-- Global library blocks: available across all sites (PHARION-shipped standard blocks)
+- Global library blocks: available across all sites (PHAROLON-shipped standard blocks)
 - Site library blocks: created by a site, available only to that site
 - Cross-site library blocks (EE): corporate-level blocks shared across all sites in an organization
 
@@ -852,10 +852,10 @@ within 2 seconds.
 
 33 mandatory requirements that must be implemented to be 21 CFR Part 11 compliant.
 26 should-have requirements expected by FDA/EMA inspectors.
-10 would-be-nice features that differentiate PHARION in the market.
+10 would-be-nice features that differentiate PHAROLON in the market.
 
 ---
 
-*URS-DOC-001 v1.0.0 — Written by Head of Global QA, PHARION Project*
+*URS-DOC-001 v1.0.0 — Written by Head of Global QA, PHAROLON Project*
 *Every requirement traced to a regulatory citation. Every requirement has a priority.*
 *This URS shall be tested in OQ-DOC-001 and tracked in RTM-001.*

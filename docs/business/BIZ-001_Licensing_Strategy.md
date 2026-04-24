@@ -1,4 +1,4 @@
-# PHARION Licensing Strategy and Business Model
+# PHAROLON Licensing Strategy and Business Model
 
 **Document Reference:** BIZ-001
 **Version:** 1.0
@@ -9,7 +9,7 @@
 
 ## 1. Model: Open Core
 
-PHARION follows the **Open Core** model, the same model used by GitLab,
+PHAROLON follows the **Open Core** model, the same model used by GitLab,
 Metabase, Mattermost, Posthog, Airbyte, and many other successful open
 source infrastructure companies.
 
@@ -48,7 +48,7 @@ for the majority of single-site validation programs.
 
 ### Enterprise Edition (EE)
 
-**License:** PHARION Enterprise License (commercial, proprietary for EE features)
+**License:** PHAROLON Enterprise License (commercial, proprietary for EE features)
 **Price:** See Section 7
 **Hosting:** Self-hosted (bare metal or Docker) — same deployment as CE
 **Support:** Standard or Premium tier (see Section 8)
@@ -67,7 +67,7 @@ EE is the right choice for:
 
 ### Cloud Edition (Future — Phase 25+)
 
-A managed cloud offering of PHARION EE, hosted by the PHARION team.
+A managed cloud offering of PHAROLON EE, hosted by the PHAROLON team.
 For organizations that prefer SaaS over self-hosting.
 Pricing: per-user per-month with annual commitment option.
 
@@ -79,7 +79,7 @@ The guiding principle for the CE/EE boundary:
 
 > CE contains everything needed to replace paper and SharePoint
 > for a complete CSV program at a single site.
-> EE contains everything that makes PHARION an enterprise platform.
+> EE contains everything that makes PHAROLON an enterprise platform.
 
 ### Community Edition Features (free, AGPL)
 
@@ -237,7 +237,7 @@ The guiding principle for the CE/EE boundary:
 
 ## 4. What Is Never Paywalled
 
-The following are core to PHARION's regulatory value proposition
+The following are core to PHAROLON's regulatory value proposition
 and will never be moved to EE:
 
 - Audit trail (immutable, hash-chain integrity)
@@ -250,7 +250,7 @@ and will never be moved to EE:
 - API access for read operations
 - The SDL and architecture documentation
 
-PHARION will never hold a site's validation data hostage behind a license.
+PHAROLON will never hold a site's validation data hostage behind a license.
 Any site can export all their data at any time regardless of edition.
 
 ---
@@ -268,7 +268,7 @@ The license key encodes:
 - Licensed user count
 - Licensed site count
 - Expiry date
-- Issued by (PHARION team signature)
+- Issued by (PHAROLON team signature)
 - Cryptographic signature (RSA-2048) to prevent tampering
 
 License keys are validated:
@@ -326,7 +326,7 @@ Users understand the value before being asked to pay.
 ### Repository Structure
 
 ```
-pharion/                          Single repository (monorepo)
+pharolon/                          Single repository (monorepo)
   backend/
     app/
       modules/
@@ -466,7 +466,7 @@ All EE tiers include:
 - Beta feature access
 
 **Implementation Services** (optional):
-- PHARION Setup and Configuration: $3,500 (remote, up to 3 days)
+- PHAROLON Setup and Configuration: $3,500 (remote, up to 3 days)
 - Validation Package Execution Support: $2,500 (remote, up to 2 days)
 - Integration Development: custom quote
 - Training (for validation/QA teams): $1,500/day
@@ -477,7 +477,7 @@ Kneat and Valgenesis pricing is not public but based on industry knowledge:
 - Kneat: approximately $30,000-80,000/year for mid-size sites
 - Valgenesis: approximately $60,000-200,000/year for enterprise
 
-PHARION EE is significantly cheaper than
+PHAROLON EE is significantly cheaper than
 Kneat for comparable functionality. The value proposition is real.
 
 The goal is not to maximize price. The goal is to maximize adoption by
@@ -488,7 +488,7 @@ that has faced a regulatory finding about their CSV program.
 
 ## 8. Open Source Sustainability Model
 
-PHARION's sustainability depends on:
+PHAROLON's sustainability depends on:
 
 1. **EE license revenue** — Primary revenue source
 2. **Implementation services** — One-time revenue from new deployments
@@ -512,7 +512,7 @@ PHARION's sustainability depends on:
 
 ## 9. Competitive Moat
 
-PHARION's sustainable advantage over commercial competitors:
+PHAROLON's sustainable advantage over commercial competitors:
 
 **vs Kneat and Valgenesis:**
 - Free CE removes the "we can't afford it" objection
@@ -527,7 +527,7 @@ PHARION's sustainable advantage over commercial competitors:
 - No GxP gap analysis required — it was designed for GxP from the start
 
 **vs another CSV tool building on the same model:**
-- First-mover advantage in open source GxP CSV space
+- First-mover advantage in open-source quality intelligence CSV space
 - Community network effects (shared templates, shared validation packages)
 - Growing template library that gets better with every contributor
 
@@ -563,9 +563,9 @@ Sites naturally outgrow CE when they:
 
 ---
 
-## 11. License Compliance for PHARION Itself
+## 11. License Compliance for PHAROLON Itself
 
-PHARION must be validated like any other GxP system. The validation package
+PHAROLON must be validated like any other GxP system. The validation package
 covers CE features. EE features require:
 
 - EE Feature Addendum to the Validation Plan
@@ -577,4 +577,4 @@ These documents are provided to EE licensees as part of the license.
 
 ---
 
-*BIZ-001 v1.0 - PHARION Licensing Strategy and Business Model*
+*BIZ-001 v1.0 - PHAROLON Licensing Strategy and Business Model*

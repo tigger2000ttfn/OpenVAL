@@ -1,4 +1,4 @@
-# PHARION UI/UX Design Specification
+# PHAROLON UI/UX Design Specification
 
 **Document Reference:** UI-SPEC-001
 **Version:** 2.0.0
@@ -9,30 +9,74 @@
 
 ## 1. Brand Identity
 
-### PHARION Is Its Own Platform
+### PHAROLON — Two Ancient Wonders, One Mark
 
-PHARION is not Kneat (navy/purple). Not Veeva (corporate blue). Not SWARE (generic SaaS light).
+**Name:** PHAROLON = PHAROS (the Pharos of Alexandria lighthouse) + -LON  
+**Version:** UI-SPEC-001 v2.4 — updated for PHAROLON brand finalisation  
+**Icon locked:** 2026-04-23
 
-**Identity:** Dark Teal. Open. Precise. Trusted.
+PHAROLON is not Kneat (navy/purple). Not Veeva (corporate blue). Not SWARE (generic SaaS light).
+The brand references two of the Seven Wonders of the Ancient World — both Egyptian, both eternal.
 
-Teal reads as: pharmaceutical precision, clean environments, scientific accuracy,
-and technology — without the stale corporate-blue that every other pharma vendor uses.
-The dark chrome (header + sidebar always dark) creates an authoritative frame around
-content that feels like professional tooling, not a marketing website.
+---
+
+### The Icon
+
+The PHAROLON mark is a **upward pyramid (△) inside a compass ring (◎)**.
+
+| Element | Meaning |
+|---|---|
+| Nested triangles (gold/teal/purple) | The Great Pyramid of Giza — built to last |
+| Compass ring + cardinal ticks | Navigation through regulatory complexity |
+| Dashed horizon line | The sea — the regulatory danger the lighthouse stands above |
+| Apex beacon (triple-flash) | The Pharos lighthouse — guiding every vessel |
+| Ghost pyramid (draws itself in) | The form that only appears when you look closely enough |
+| Beam rays from apex | Light emanating from the lighthouse tip |
+
+**Outer △:** `#C9981A` gold — monumental, primary  
+**Mid △:** `#00A090` teal — quality, precision  
+**Inner △:** `#8B5CF6` purple — AI, enterprise intelligence  
+**Apex dot:** `#F5D060` warm gold — the lighthouse beacon  
+
+The compass ring ticks rotate slowly (100s full rotation). The apex triple-flashes like a real
+lighthouse (4.5s cycle). The ghost outer pyramid draws itself in transparently every 11s.
+Beam rays originate precisely from the apex tip (cx=55 cy=14 in the 110×110 viewBox).
+
+---
+
+### Wordmark
+
+```
+Font:           Syne 800
+Letter-spacing: 0  (no stretch — Syne 800 is naturally wide)
+P treatment:    translateY(0.14em) — drops like a lowercase descender
+Gradient:       180deg · #F5D060 → #E2A837 → #B8820E → #8A5F08
+```
+
+The P descends below the baseline of the remaining letters, echoing the lighthouse
+standing below the horizon line in the icon. Deliberate. Precise. Not accidental.
+
+**Icon-as-A variant:** The pyramid icon replaces the A in PHAROLON — PH△ROLON.
+Available as a secondary wordmark for contexts where the icon and letterform are unified.
+
+---
 
 ### Typography
 
 ```
-Primary:    Inter (Google Fonts)
-Monospace:  JetBrains Mono (for ref numbers, protocol steps, code)
+Wordmark:   Syne 800
+UI/Nav:     Syne 700
+Body:       DM Mono 400
+References: DM Mono 500 (protocol IDs, record refs, metadata)
+Display:    Cormorant Garamond 300 (editorial, pull quotes, hero text)
 ```
 
 ### Personality
 
-- Serious but not sterile
-- Dense but not cluttered
-- Professional but not gray-corporate-boring
-- Clear but never dumbed-down
+- Ancient but precise — the weight of millennia, the accuracy of a calibrated instrument
+- Serious but not sterile — pharmaceutical rigour without corporate grey
+- Dense but not cluttered — 418 tables, rendered with clarity
+- Mysterious but trustworthy — the lighthouse you navigate by, not admire from a distance
 
 ---
 
@@ -194,7 +238,7 @@ type Theme = 'light' | 'dark' | 'system';
 
 export function useTheme() {
   const [preference, setPreference] = useState<Theme>(
-    () => (localStorage.getItem('pharion-theme') as Theme) ?? 'system'
+    () => (localStorage.getItem('pharolon-theme') as Theme) ?? 'system'
   );
   
   const resolved = useMediaQuery('(prefers-color-scheme: dark)')
@@ -204,7 +248,7 @@ export function useTheme() {
   
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', active);
-    localStorage.setItem('pharion-theme', preference);
+    localStorage.setItem('pharolon-theme', preference);
   }, [active, preference]);
   
   return { preference, active, setPreference };
@@ -262,12 +306,12 @@ export function useTheme() {
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
-│  [≡]  PHARION          [◆ MATC Madison ▼]     [⌘K Search...]  [🔔3][👤] │
+│  [≡]  PHAROLON          [◆ MATC Madison ▼]     [⌘K Search...]  [🔔3][👤] │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
 - Always dark background (`--bg-header`)
-- PHARION wordmark: white, Inter SemiBold
+- PHAROLON wordmark: white, Inter SemiBold
 - Site selector dropdown: shows user's sites, switch with click (logs site change in audit)
 - Global search: ⌘K / Ctrl+K opens full overlay
 - Notification bell: badge count; click opens right-drawer panel (not dropdown)
@@ -496,9 +540,9 @@ gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker -
 #    - GET/POST /api/*   → proxied to localhost:8000 (FastAPI)
 
 # Managed by systemd:
-# pharion-api.service      → Gunicorn
-# pharion-worker.service   → Celery
-# pharion-beat.service     → Celery Beat
+# pharolon-api.service      → Gunicorn
+# pharolon-worker.service   → Celery
+# pharolon-beat.service     → Celery Beat
 ```
 
 ### Supported Platforms
@@ -536,7 +580,7 @@ Orange:         ⚡ ACTION REQUIRED
 
 ## 11. Project Management Module
 
-Validation is project work. PHARION needs a project management layer.
+Validation is project work. PHAROLON needs a project management layer.
 
 ### Project Board (Kanban)
 
@@ -558,39 +602,39 @@ Who is overloaded? Who has capacity?
 ### Integration: Jira (EE)
 
 ```
-PHARION Project    ↔  Jira Project
-PHARION Protocol   ↔  Jira Epic
-PHARION Test Step  ↔  Jira Task
-PHARION Deviation  ↔  Jira Bug
-PHARION CAPA Task  ↔  Jira Story
+PHAROLON Project    ↔  Jira Project
+PHAROLON Protocol   ↔  Jira Epic
+PHAROLON Test Step  ↔  Jira Task
+PHAROLON Deviation  ↔  Jira Bug
+PHAROLON CAPA Task  ↔  Jira Story
 ```
-PHARION is GxP system of record. Jira reflects status.
-Jira closure does not auto-close PHARION (requires e-signature).
+PHAROLON is GxP system of record. Jira reflects status.
+Jira closure does not auto-close PHAROLON (requires e-signature).
 
 ### Integration: Zephyr Scale (EE)
 
 ```
-PHARION Test Case Template  ↔  Zephyr Test Case
-PHARION Protocol            ↔  Zephyr Test Cycle
-PHARION Execution Results   ↔  Zephyr Execution
+PHAROLON Test Case Template  ↔  Zephyr Test Case
+PHAROLON Protocol            ↔  Zephyr Test Cycle
+PHAROLON Execution Results   ↔  Zephyr Execution
 ```
 For orgs using Jira/Zephyr as central test repository.
 
 ### Integration: Veeva Vault (EE)
 
 ```
-PHARION Deviation    → Vault Quality Event
-PHARION CAPA         ↔  Vault CAPA (status sync)
-PHARION Change Req   ↔  Vault Change Control
-PHARION Document     → Vault Document (publish)
+PHAROLON Deviation    → Vault Quality Event
+PHAROLON CAPA         ↔  Vault CAPA (status sync)
+PHAROLON Change Req   ↔  Vault Change Control
+PHAROLON Document     → Vault Document (publish)
 ```
 
 ### Integration: ServiceNow (EE)
 
 ```
-PHARION System       ↔  ServiceNow CMDB CI
-PHARION Change Req   ↔  ServiceNow RFC
-PHARION NCE          ↔  ServiceNow Incident
+PHAROLON System       ↔  ServiceNow CMDB CI
+PHAROLON Change Req   ↔  ServiceNow RFC
+PHAROLON NCE          ↔  ServiceNow Incident
 ```
 
 ---
@@ -620,7 +664,7 @@ PHARION NCE          ↔  ServiceNow Incident
 **The plan is comprehensive. Phase 0 code can begin.**
 
 ---
-*UI-SPEC-001 v2.0.0 — Dark Teal. Modal-first. Light + Dark. PHARION's own identity.*
+*UI-SPEC-001 v2.0.0 — Dark Teal. Modal-first. Light + Dark. PHAROLON's own identity.*
 
 ## 2.1 Design System Refinements (v2.1 — April 2026)
 

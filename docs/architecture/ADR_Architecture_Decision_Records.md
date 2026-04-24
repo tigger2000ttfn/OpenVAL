@@ -1,4 +1,4 @@
-# PHARION Architecture Decision Records (ADRs)
+# PHAROLON Architecture Decision Records (ADRs)
 
 **Location:** `docs/architecture/`
 **Format:** Each ADR is a numbered decision record. Once accepted, ADRs are never deleted, only superseded.
@@ -11,7 +11,7 @@
 **Status:** Accepted
 
 ### Context
-PHARION needs a Python backend framework. The primary candidates were Django REST Framework (DRF) and FastAPI.
+PHAROLON needs a Python backend framework. The primary candidates were Django REST Framework (DRF) and FastAPI.
 
 ### Decision
 FastAPI with SQLAlchemy 2.0 async and Pydantic v2.
@@ -80,7 +80,7 @@ CREATE POLICY audit_log_insert ON audit_log FOR INSERT WITH CHECK (true);
 -- No DELETE policy = DELETE fails
 ```
 
-The application connects as a dedicated PostgreSQL user `pharion_app` that does not have SUPERUSER privileges and cannot bypass RLS.
+The application connects as a dedicated PostgreSQL user `pharolon_app` that does not have SUPERUSER privileges and cannot bypass RLS.
 
 ---
 
@@ -176,7 +176,7 @@ TOTP (RFC 6238) using authenticator apps (Google Authenticator, Authy, Microsoft
 **Status:** Accepted
 
 ### Context
-Several PHARION functions require asynchronous or scheduled execution: email notifications, report generation, audit chain verification, periodic review reminders, SLA escalations.
+Several PHAROLON functions require asynchronous or scheduled execution: email notifications, report generation, audit chain verification, periodic review reminders, SLA escalations.
 
 ### Decision
 Celery 5 with Redis as both the message broker and result backend.
@@ -213,7 +213,7 @@ Frontend framework selection.
 React 18 + TypeScript + Vite. No Next.js, no SSR.
 
 ### Rationale
-- PHARION is a single-page application (SPA). Users authenticate once and work within the app. SSR provides no SEO benefit (it is a private, authenticated tool) and adds deployment complexity.
+- PHAROLON is a single-page application (SPA). Users authenticate once and work within the app. SSR provides no SEO benefit (it is a private, authenticated tool) and adds deployment complexity.
 - Vite provides significantly faster development build times than Create React App or Webpack
 - TypeScript catches interface mismatches between frontend and backend at build time, reducing runtime errors in production
 - React 18's concurrent features (useTransition, Suspense) improve perceived performance in complex UIs like the protocol execution engine
@@ -264,7 +264,7 @@ Rich text editor for protocol descriptions, document body content, requirement d
 TipTap (ProseMirror-based).
 
 ### Rationale
-- TipTap is headless (no default styling), allowing it to match PHARION's design system exactly
+- TipTap is headless (no default styling), allowing it to match PHAROLON's design system exactly
 - Supports tables, which are needed in protocol steps and documents
 - JSON-based document model serializes cleanly to the database (no raw HTML stored for content, only rendered HTML cached)
 - Collaborative editing extension available for future roadmap item
@@ -333,8 +333,8 @@ Open source license selection.
 GNU Affero General Public License v3.0 (AGPL-3.0).
 
 ### Rationale
-- AGPL requires that anyone who runs a modified version of PHARION over a network must release their modifications under AGPL. This prevents commercial entities from taking the codebase, modifying it, and offering it as a competing SaaS product without contributing back.
-- Sites that use PHARION without modification for their own internal use are not required to publish anything.
+- AGPL requires that anyone who runs a modified version of PHAROLON over a network must release their modifications under AGPL. This prevents commercial entities from taking the codebase, modifying it, and offering it as a competing SaaS product without contributing back.
+- Sites that use PHAROLON without modification for their own internal use are not required to publish anything.
 - Sites that modify the source code for internal use only are not required to publish their modifications (the network-distribution trigger does not apply to internal tools).
 - Commercial support licensing can coexist with AGPL through a dual-licensing arrangement if needed in future.
 
