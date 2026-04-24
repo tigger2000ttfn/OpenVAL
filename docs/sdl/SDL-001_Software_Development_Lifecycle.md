@@ -1,19 +1,19 @@
-# OpenVAL Software Development Lifecycle (SDL)
+# PHARION Software Development Lifecycle (SDL)
 
 **Document Reference:** SDL-001
 **Version:** 1.0
 **Status:** Approved
 **Effective Date:** 2026-04-06
-**Author:** OpenVAL Core Team
+**Author:** PHARION Core Team
 **Review Cycle:** Annual or upon major release
 
 ---
 
 ## 1. Purpose
 
-This document describes the Software Development Lifecycle (SDL) for OpenVAL, an open source computer system validation platform intended for use in GMP-regulated pharmaceutical, biotech, and medical device environments.
+This document describes the Software Development Lifecycle (SDL) for PHARION, an open source computer system validation platform intended for use in GMP-regulated pharmaceutical, biotech, and medical device environments.
 
-This SDL is a foundational document for the OpenVAL validation package. Sites deploying OpenVAL will reference this document as evidence that the software was developed under a controlled, documented process consistent with GAMP 5 Category 4 requirements.
+This SDL is a foundational document for the PHARION validation package. Sites deploying PHARION will reference this document as evidence that the software was developed under a controlled, documented process consistent with GAMP 5 Category 4 requirements.
 
 ---
 
@@ -21,7 +21,7 @@ This SDL is a foundational document for the OpenVAL validation package. Sites de
 
 This SDL applies to:
 
-- All source code in the OpenVAL repository
+- All source code in the PHARION repository
 - Database schema and migration files
 - Configuration templates and installer scripts
 - Bundled protocol and document templates
@@ -35,7 +35,7 @@ This SDL does not govern site-specific configuration, custom templates, or integ
 
 | Reference | Relevance |
 |---|---|
-| GAMP 5 (2nd Edition) | Primary framework. OpenVAL is classified Category 4 (configured software). |
+| GAMP 5 (2nd Edition) | Primary framework. PHARION is classified Category 4 (configured software). |
 | 21 CFR Part 11 | Electronic records and signatures compliance built into core architecture. |
 | EU Annex 11 | Computerised systems requirements inform audit trail and access control design. |
 | ICH Q10 | Pharmaceutical Quality System principles applied to release process. |
@@ -45,18 +45,18 @@ This SDL does not govern site-specific configuration, custom templates, or integ
 
 ## 4. GAMP 5 Software Category Assessment
 
-OpenVAL is classified as **GAMP 5 Category 4 - Configured Software**.
+PHARION is classified as **GAMP 5 Category 4 - Configured Software**.
 
 **Rationale:**
 
-OpenVAL is a standard software product (open source, publicly available, with a defined architecture and feature set) that is configured by implementing sites to meet their specific requirements. Configuration occurs through the administration interface, database seed data, workflow definitions, template customization, and LDAP/SSO integration. No modification of source code is required or expected for standard deployment.
+PHARION is a standard software product (open source, publicly available, with a defined architecture and feature set) that is configured by implementing sites to meet their specific requirements. Configuration occurs through the administration interface, database seed data, workflow definitions, template customization, and LDAP/SSO integration. No modification of source code is required or expected for standard deployment.
 
 Sites that modify source code to add custom functionality should reassess the classification of their instance as GAMP 5 Category 5 for those modifications.
 
 **Validation Approach:**
 
 Consistent with GAMP 5 Category 4:
-- The software developer (OpenVAL community) maintains SDL documentation and a controlled release process
+- The software developer (PHARION community) maintains SDL documentation and a controlled release process
 - The implementing site performs Installation Qualification (IQ) and Operational Qualification (OQ)
 - Performance Qualification (PQ) is performed using site-specific business scenarios
 - The pre-authored validation package in `docs/validation_package/` supports this approach
@@ -85,7 +85,7 @@ Responsible for: security-sensitive pull requests, dependency vulnerability revi
 
 ## 6. Development Environment Requirements
 
-All developers working on OpenVAL must use:
+All developers working on PHARION must use:
 
 - Python 3.11+ for backend development
 - Node.js 20 LTS for frontend development
@@ -309,7 +309,7 @@ All user-supplied input is validated via Pydantic schemas before reaching busine
 
 ### Version Numbering
 
-OpenVAL uses Semantic Versioning (SemVer): `MAJOR.MINOR.PATCH`
+PHARION uses Semantic Versioning (SemVer): `MAJOR.MINOR.PATCH`
 
 - **MAJOR**: Breaking changes or significant architectural changes. Sites should treat as a major revalidation trigger.
 - **MINOR**: New features, backward compatible. Sites should assess validation impact; OQ re-execution may be required.
@@ -356,7 +356,7 @@ Hotfixes for critical security or data integrity issues bypass the normal releas
 
 ## 14. Change Control
 
-Changes to OpenVAL source code are managed through GitHub Pull Requests. Every merged PR constitutes a controlled change with:
+Changes to PHARION source code are managed through GitHub Pull Requests. Every merged PR constitutes a controlled change with:
 
 - Unique identifier (PR number)
 - Description of change
@@ -365,9 +365,9 @@ Changes to OpenVAL source code are managed through GitHub Pull Requests. Every m
 - Validation impact classification
 - Link to issue(s)
 
-This GitHub PR record serves as the change control record for OpenVAL development. The CHANGELOG.md is the human-readable summary of all changes per version.
+This GitHub PR record serves as the change control record for PHARION development. The CHANGELOG.md is the human-readable summary of all changes per version.
 
-Sites implementing OpenVAL manage upgrades under their own site-level change control procedure, referencing the OpenVAL release notes and validation impact classification.
+Sites implementing PHARION manage upgrades under their own site-level change control procedure, referencing the PHARION release notes and validation impact classification.
 
 ---
 
@@ -376,7 +376,7 @@ Sites implementing OpenVAL manage upgrades under their own site-level change con
 All defects are tracked as GitHub Issues using the `bug` label.
 
 Bug report template requires:
-- OpenVAL version affected
+- PHARION version affected
 - Environment (OS, PostgreSQL version, deployment type)
 - Steps to reproduce
 - Actual behavior
@@ -405,7 +405,7 @@ All features must be documented before or alongside code release:
 ## 17. SDL Review and Maintenance
 
 This SDL is reviewed:
-- Annually as part of the OpenVAL periodic review cycle
+- Annually as part of the PHARION periodic review cycle
 - Upon any major release
 - Upon any significant change to the development process, tools, or regulatory guidance
 
@@ -433,4 +433,4 @@ The following table maps SDL sections to regulatory requirements:
 
 ---
 
-*SDL-001 v1.0 - OpenVAL Software Development Lifecycle*
+*SDL-001 v1.0 - PHARION Software Development Lifecycle*

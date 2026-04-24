@@ -1,4 +1,4 @@
-# OpenVAL API Specification
+# PHARION API Specification
 
 **Document Reference:** API-SPEC-001
 **Version:** 1.0
@@ -221,7 +221,7 @@ Initiate MFA setup for the authenticated user.
   "data": {
     "secret": "BASE32SECRET...",
     "qr_code_url": "data:image/png;base64,...",
-    "otpauth_url": "otpauth://totp/OpenVAL:mescamilla?..."
+    "otpauth_url": "otpauth://totp/PHARION:mescamilla?..."
   }
 }
 ```
@@ -1164,10 +1164,10 @@ Outbound webhook payloads follow this structure:
 
 Payloads are signed with HMAC-SHA256 using the webhook secret:
 ```
-X-OpenVAL-Signature: sha256=<hex_digest>
+X-PHARION-Signature: sha256=<hex_digest>
 ```
 
 ---
 
-*API-SPEC-001 v1.0 - This specification governs all OpenVAL API development.*
+*API-SPEC-001 v1.0 - This specification governs all PHARION API development.*
 *All endpoints will be auto-documented via FastAPI at `/api/docs`.*

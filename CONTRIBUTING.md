@@ -1,6 +1,6 @@
-# Contributing to OpenVAL
+# Contributing to PHARION
 
-Thank you for your interest in contributing to OpenVAL. This guide explains how
+Thank you for your interest in contributing to PHARION. This guide explains how
 to contribute effectively while maintaining the quality and compliance standards
 that regulated pharmaceutical environments demand.
 
@@ -10,7 +10,7 @@ that regulated pharmaceutical environments demand.
 
 ### Understand the Regulatory Context
 
-OpenVAL is software used in GMP-regulated environments. Code changes can affect
+PHARION is software used in GMP-regulated environments. Code changes can affect
 validated systems at pharmaceutical and medical device companies. This means:
 
 - **Every change has a validation impact classification.** You must assess whether
@@ -23,12 +23,12 @@ validated systems at pharmaceutical and medical device companies. This means:
   integrity of the audit trail. Never add shortcuts around electronic signature
   re-authentication.
 - **Your name is on it.** Every contributor's changes are traceable through Git
-  history, which is referenced in the OpenVAL SDL. Regulated sites may audit
+  history, which is referenced in the PHARION SDL. Regulated sites may audit
   this history during inspections.
 
 ### Sign the Contributor License Agreement (CLA)
 
-Before your first pull request is merged, you must sign the OpenVAL CLA. This is
+Before your first pull request is merged, you must sign the PHARION CLA. This is
 handled automatically via the CLA bot on your first PR.
 
 ---
@@ -48,8 +48,8 @@ handled automatically via the CLA bot on your first PR.
 
 ```bash
 # 1. Fork and clone
-git clone https://github.com/YOUR_USERNAME/openval.git
-cd openval
+git clone https://github.com/YOUR_USERNAME/pharion.git
+cd pharion
 
 # 2. Set up backend
 cd backend
@@ -58,9 +58,9 @@ cp ../.env.example ../.env
 # Edit .env with your local DB credentials
 
 # 3. Initialize local database
-createdb openval_dev
-psql openval_dev -f ../schema/openval_schema_part1.sql
-psql openval_dev -f ../schema/openval_schema_part2.sql
+createdb pharion_dev
+psql pharion_dev -f ../schema/pharion_schema_part1.sql
+psql pharion_dev -f ../schema/pharion_schema_part2.sql
 poetry run alembic upgrade head
 poetry run python ../scripts/seed_database.py
 
@@ -325,4 +325,4 @@ Impact: additive | modifying | data_migrating | audit_touching
 
 ---
 
-*Thank you for helping build OpenVAL. Every contribution makes GMP compliance more accessible.*
+*Thank you for helping build PHARION. Every contribution makes GMP compliance more accessible.*

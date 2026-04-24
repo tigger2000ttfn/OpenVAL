@@ -1,4 +1,4 @@
-# OpenVAL Master Plan
+# PHARION Master Plan
 
 **The Definitive Open Source GxP Computer System Validation Platform**
 *Kneat Gx + SWARE Res_Q + ValGenesis VLMS — Open Source, Self-Hosted, AI-Ready*
@@ -11,7 +11,7 @@
 
 ## How to Use This Document
 
-This is the single living document for all OpenVAL development. Every
+This is the single living document for all PHARION development. Every
 feature, every table, every phase, every workflow is defined here.
 The addendum documents (MASTER_PLAN_ADDENDUM_001.md, MODULE_EXTENSIONS_001.md)
 feed into this document. If there is a conflict, this document wins.
@@ -50,7 +50,7 @@ The leading commercial platforms (Kneat Gx, ValGenesis VLMS, SWARE Res_Q)
 charge $30,000 to $200,000 per year. Paper-and-SharePoint is still the
 reality at hundreds of pharmaceutical sites globally.
 
-OpenVAL is the open source answer. Not a simplified version. The complete
+PHARION is the open source answer. Not a simplified version. The complete
 platform.
 
 ### Market Research Basis
@@ -240,7 +240,7 @@ backend/app/modules/
 
 ## 3. Complete Feature Set — All 30 Validation Disciplines
 
-OpenVAL covers every validation discipline Kneat, ValGenesis, and SWARE cover.
+PHARION covers every validation discipline Kneat, ValGenesis, and SWARE cover.
 
 ### Core Validation Platform (CSV + CSA)
 1. **Computer System Validation (CSV)** — Full IQ/OQ/PQ lifecycle
@@ -340,7 +340,7 @@ on day one. Compliance architecture correct before a single feature is built.
 - [ ] Database connection health checks on startup
 - [ ] Base ORM model with UUID PK, created_at, updated_at, created_by, updated_by
 - [ ] Settings management via pydantic-settings (loads from .env)
-- [ ] GxP API flag middleware: add X-OpenVAL-GxP-Context header to all responses
+- [ ] GxP API flag middleware: add X-PHARION-GxP-Context header to all responses
 
 **Audit Trail Engine (must be perfect — regulators inspect this):**
 - [ ] SQLAlchemy `before_flush` event listener on every session
@@ -370,7 +370,7 @@ on day one. Compliance architecture correct before a single feature is built.
 - [ ] Session idle timeout (30 min) and absolute timeout (8 hours), both configurable
 
 **Seed Data:**
-- [ ] Execute openval_schema_part1.sql through openval_schema_part7.sql
+- [ ] Execute pharion_schema_part1.sql through pharion_schema_part7.sql
 - [ ] Default system roles seeded: system_admin, qa_manager, qa_associate, validation_engineer, technical_reviewer, business_owner, read_only, auditor (read-only external)
 - [ ] Default signature meanings seeded
 - [ ] Lookup categories and values seeded (regulations, GAMP categories, risk matrices)
@@ -1132,16 +1132,16 @@ It must be automatic, real-time, and impossible to fake.
 
 ---
 
-### Phase 16: Validation Package for OpenVAL Itself (Months 25-26)
+### Phase 16: Validation Package for PHARION Itself (Months 25-26)
 
-**Goal:** OpenVAL ships with its own validation package. This is the ultimate
+**Goal:** PHARION ships with its own validation package. This is the ultimate
 credibility statement: we trust this platform enough to validate itself with it.
 
 **Documents to author** (in docs/validation_package/):
-- [ ] VP-001: Software Description (what OpenVAL is, what it does, how it is classified)
+- [ ] VP-001: Software Description (what PHARION is, what it does, how it is classified)
 - [ ] VP-002: GAMP 5 Category Assessment (Category 4, configured product, with justification)
 - [ ] VP-003: Software Development Lifecycle (references SDL-001, public in repo)
-- [ ] VP-004: User Requirements Specification for OpenVAL (what users need from it)
+- [ ] VP-004: User Requirements Specification for PHARION (what users need from it)
 - [ ] VP-005: Risk Assessment FMEA (risks of the system, controls)
 - [ ] VP-006: Validation Plan (scope, approach, exclusions, team, schedule)
 - [ ] VP-007: Installation Qualification (IQ) Protocol — Ubuntu/RHEL specific
@@ -1151,7 +1151,7 @@ credibility statement: we trust this platform enough to validate itself with it.
 - [ ] VP-011: Traceability Matrix (URS → Risk → OQ/PQ steps)
 - [ ] VP-012: Validation Summary Report template
 - [ ] VP-013: Periodic Review SOP template
-- [ ] VP-014: Change Control SOP for OpenVAL upgrades (when and how to revalidate)
+- [ ] VP-014: Change Control SOP for PHARION upgrades (when and how to revalidate)
 - [ ] VP-015: EE Feature Addendum (for sites licensing EE features)
 
 ---
@@ -1422,10 +1422,10 @@ for any of these scenarios.
 
 ### Phase 26: Community and Ecosystem (Ongoing)
 
-- [ ] OpenVAL marketplace concept (community-contributed templates)
+- [ ] PHARION marketplace concept (community-contributed templates)
 - [ ] Partner validation services directory
 - [ ] Integration library (community-built connectors)
-- [ ] Kneat Academy equivalent: OpenVAL Academy (free online training)
+- [ ] Kneat Academy equivalent: PHARION Academy (free online training)
 - [ ] Annual "State of Validation" community survey
 - [ ] ISPE/PDA community engagement
 - [ ] Public case studies (anonymized customer implementations)
@@ -1562,7 +1562,7 @@ When a system is set to CSA mode (vs the default CSV mode), the following change
 
 ### 21 CFR Part 11 Controls
 
-| Requirement | CFR Citation | OpenVAL Implementation |
+| Requirement | CFR Citation | PHARION Implementation |
 |---|---|---|
 | System validation | 11.10(a) | Bundled validation package VP-001 through VP-015 |
 | Accurate/complete copies | 11.10(b) | PDF export, audit trail export, bulk data export (EE) |
@@ -1582,7 +1582,7 @@ When a system is set to CSA mode (vs the default CSV mode), the following change
 
 ### ALCOA+ Data Integrity Matrix
 
-| Principle | OpenVAL Implementation |
+| Principle | PHARION Implementation |
 |---|---|
 | **A**ttributable | user_id, created_by, updated_by on all records; audit trail user |
 | **L**egible | Structured database; standardized formats; PDF export |
@@ -1596,7 +1596,7 @@ When a system is set to CSA mode (vs the default CSV mode), the following change
 
 ### CSA Compliance (FDA Final Guidance Sept 24, 2025)
 
-| CSA Requirement | OpenVAL Implementation |
+| CSA Requirement | PHARION Implementation |
 |---|---|
 | Identify Intended Use | csa_intended_use_items table; structured per-feature assessment |
 | Determine Risk | csa_intended_use_items risk fields; links to risk_assessments |
@@ -1612,13 +1612,13 @@ When a system is set to CSA mode (vs the default CSV mode), the following change
 ## 8. Validation Package Specification
 
 The bundled validation package in `docs/validation_package/` follows GAMP 5
-Category 4 approach. OpenVAL is classified as a configured commercial product.
+Category 4 approach. PHARION is classified as a configured commercial product.
 
 **Classification Basis:**
-- OpenVAL is built from a framework (FastAPI, SQLAlchemy, React) and configured for GxP use
+- PHARION is built from a framework (FastAPI, SQLAlchemy, React) and configured for GxP use
 - Configuration includes: workflow definitions, document templates, risk matrices, roles, permissions
 - The framework components (PostgreSQL, Nginx, Celery) are Category 1-3 infrastructure
-- The OpenVAL application itself is Category 4
+- The PHARION application itself is Category 4
 
 **Site Responsibilities:**
 1. Execute IQ against their installed instance (confirms installation is correct)
@@ -1651,7 +1651,7 @@ Category 4 approach. OpenVAL is classified as a configured commercial product.
 - Rate limiting: 60 req/min standard, 10 req/min auth endpoints
 - Versioning: `/api/v1/` maintained for 2 major releases after breaking change
 - EE endpoints: return 402 with `FEATURE_NOT_LICENSED` code if not licensed
-- GxP headers: every response includes `X-OpenVAL-GxP-Context: true`
+- GxP headers: every response includes `X-PHARION-GxP-Context: true`
 
 ---
 
@@ -1678,8 +1678,8 @@ Category 4 approach. OpenVAL is classified as a configured commercial product.
 ### Infrastructure Security
 - All inter-service communication: localhost only (no external exposure of Redis, PostgreSQL, Celery)
 - Nginx: TLS 1.2+, HSTS, full security header set (CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy)
-- Application: runs as dedicated non-root system user `openval`
-- PostgreSQL: dedicated application user `openval_app` with minimum permissions; no superuser
+- Application: runs as dedicated non-root system user `pharion`
+- PostgreSQL: dedicated application user `pharion_app` with minimum permissions; no superuser
 - Redis: password protected, bound to localhost only
 
 ---
@@ -1690,14 +1690,14 @@ Category 4 approach. OpenVAL is classified as a configured commercial product.
 
 ```
 /etc/systemd/system/
-  openval-api.service       # Gunicorn + Uvicorn: FastAPI (4 workers default)
-  openval-worker.service    # Celery worker: background tasks (4 concurrency default)
-  openval-beat.service      # Celery beat: scheduled tasks (single instance)
+  pharion-api.service       # Gunicorn + Uvicorn: FastAPI (4 workers default)
+  pharion-worker.service    # Celery worker: background tasks (4 concurrency default)
+  pharion-beat.service      # Celery beat: scheduled tasks (single instance)
 
 /etc/nginx/sites-available/
-  openval                   # Virtual host with TLS, gzip, security headers
+  pharion                   # Virtual host with TLS, gzip, security headers
 
-/opt/openval/
+/opt/pharion/
   src/                      # Application source code
   venv/                     # Python virtual environment
   media/                    # Uploaded files (outside web root)
@@ -1761,7 +1761,7 @@ Everything in CE plus:
 
 ---
 
-*OpenVAL Master Plan v2.0.0*
+*PHARION Master Plan v2.0.0*
 *Updated: 2026-04-08*
 *Supersedes: MASTER_PLAN.md v1.0.0, MASTER_PLAN_ADDENDUM_001.md*
 *Next review: After Phase 0 completion*
@@ -1809,7 +1809,7 @@ Teams receive workflow task assignments. The workflow engine supports:
 
 ## ADDENDUM B: WP Bakery-Style Configuration System
 
-The "WP Bakery style" principle applied to OpenVAL means:
+The "WP Bakery style" principle applied to PHARION means:
 
 **1. Configurable Dashboards (drag-and-drop)**
 - 16 pre-built widgets in the widget_library table (seeded in Part 9)
@@ -1970,9 +1970,9 @@ An inspector can understand where the project stands before they ask a question.
 
 ---
 
-## ADDENDUM F: Brand Name — OpenVAL® Trademark Conflict Resolution
+## ADDENDUM F: Brand Name — PHARION Trademark Conflict Resolution
 
-**Problem:** OpenVAL® is registered USPTO #97737837 by Atorus Research, Inc.
+**Problem:** PHARION is registered USPTO #97737837 by Atorus Research, Inc.
 (validated R packages for statistical analysis). Registered May 27, 2025.
 
 **Candidate Names — All Researched, No Pharma Software Conflicts Found:**
@@ -1993,8 +1993,8 @@ work as a company name for future IPO or acquisition, and scale across
 Validation + LIMS + QMS + ATMP vertical stack.
 
 **GitHub repos to rename once decided:**
-- `tigger2000ttfn/OpenVAL` → `tigger2000ttfn/VERIX` (or chosen name)
-- `openval.github.io` → `verix.io` (or chosen name)
+- `tigger2000ttfn/PHARION` → `tigger2000ttfn/VERIX` (or chosen name)
+- `pharion.github.io` → `verix.io` (or chosen name)
 
 ---
 

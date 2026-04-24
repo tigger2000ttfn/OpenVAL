@@ -1,6 +1,6 @@
-# OpenVAL Changelog
+# PHARION Changelog
 
-All changes to OpenVAL are documented here. Each release includes a validation impact
+All changes to PHARION are documented here. Each release includes a validation impact
 classification to help implementing sites determine the appropriate site-level response.
 
 ## Validation Impact Classification
@@ -52,7 +52,7 @@ classification to help implementing sites determine the appropriate site-level r
 - `[MINOR]` Notification center (in-app)
 - `[NONE]`  User profile page (name, title, MFA setup, password change, preferences)
 - `[NONE]`  Bare metal install.sh for Ubuntu 22.04 and RHEL 9
-- `[NONE]`  systemd unit files for openval-api, openval-worker, openval-beat
+- `[NONE]`  systemd unit files for pharion-api, pharion-worker, pharion-beat
 - `[NONE]`  Nginx configuration template with TLS, security headers, reverse proxy
 - `[NONE]`  Backup and restore scripts
 - `[NONE]`  Environment variable template (.env.example)

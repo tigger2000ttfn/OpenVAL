@@ -1,4 +1,4 @@
-# OpenVAL Integration Specification
+# PHARION Integration Specification
 
 **Document Reference:** INT-SPEC-001
 **Version:** 1.0
@@ -9,14 +9,14 @@
 
 ## 1. Integration Philosophy
 
-OpenVAL is the system of record for validation lifecycle management.
+PHARION is the system of record for validation lifecycle management.
 It is not an island. Pharmaceutical sites run LIMS, MES, ERP, QMS, and
-ticketing systems. OpenVAL must connect to them bidirectionally.
+ticketing systems. PHARION must connect to them bidirectionally.
 
 **Design Principles:**
-- All integrations are optional. OpenVAL functions fully without any of them.
+- All integrations are optional. PHARION functions fully without any of them.
 - All data crossing integration boundaries is logged in the audit trail.
-- Integrations do not bypass OpenVAL's access controls or audit requirements.
+- Integrations do not bypass PHARION's access controls or audit requirements.
 - Data received from external systems is attributed to the integration source in the audit trail.
 - No integration writes directly to audit_log or electronic_signatures tables.
 - Integration failures are logged, alerted, and never silently swallowed.
@@ -28,11 +28,11 @@ ticketing systems. OpenVAL must connect to them bidirectionally.
 ### Standard Integration Patterns
 
 **Pattern A: REST API (Outbound)**
-OpenVAL calls external system APIs to push or pull data.
+PHARION calls external system APIs to push or pull data.
 Used for: ERP, LIMS, MES, ticketing systems.
 
 **Pattern B: Webhook (Inbound)**
-External systems call OpenVAL APIs when events occur.
+External systems call PHARION APIs when events occur.
 Used for: LIMS result feeds, MES batch events, instrument data.
 
 **Pattern C: File-Based ETL**
@@ -40,7 +40,7 @@ Scheduled file import/export for systems without APIs.
 Used for: legacy LIMS, older ERP systems, CSV-based data exchange.
 
 **Pattern D: Database-to-Database (Read-Only)**
-OpenVAL reads from external database views (never writes to external DB).
+PHARION reads from external database views (never writes to external DB).
 Used for: read-only reporting integration with LIMS or MES.
 
 **Pattern E: LDAP/AD (Identity)**
@@ -48,7 +48,7 @@ User identity and group membership synchronization.
 Used for: Active Directory, OpenLDAP.
 
 **Pattern F: SSO (Authentication)**
-Delegated authentication. OpenVAL does not hold passwords for SSO users.
+Delegated authentication. PHARION does not hold passwords for SSO users.
 Used for: SAML 2.0, OIDC, Azure AD.
 
 ---
@@ -63,7 +63,7 @@ Used for: SAML 2.0, OIDC, Azure AD.
 ```
 Server URL:           ldaps://dc01.yoursite.com:636
 Base DN:              OU=Users,DC=yoursite,DC=com
-Bind DN:              CN=openval_svc,OU=Service,DC=yoursite,DC=com
+Bind DN:              CN=pharion_svc,OU=Service,DC=yoursite,DC=com
 User Search Filter:   (&(objectClass=person)(sAMAccountName={username}))
 Group Search Base:    OU=Groups,DC=yoursite,DC=com
 Username Attribute:   sAMAccountName
@@ -72,9 +72,9 @@ Full Name Attribute:  displayName
 ```
 
 **Role Mapping:**
-AD groups map to OpenVAL roles via configurable mapping table.
+AD groups map to PHARION roles via configurable mapping table.
 ```
-AD Group                    → OpenVAL Role
+AD Group                    → PHARION Role
 MTS_Admins                 → system_admin
 QA_Managers                → qa_manager
 QA_Associates              → qa_associate
@@ -86,7 +86,7 @@ All_Staff                  → read_only
 - Nightly sync: creates new users, deactivates removed users, updates role assignments
 - Manual sync: available via Admin > Integrations > LDAP > Sync Now
 - New users created via LDAP sync must_change_password = false (no local password)
-- Users removed from AD are deactivated in OpenVAL, not deleted (preserves audit trail)
+- Users removed from AD are deactivated in PHARION, not deleted (preserves audit trail)
 - Users can still be authenticated locally if AD is unavailable (configurable)
 
 **Audit Trail:**
@@ -105,9 +105,9 @@ reason_code = LDAP_SYNC.
 
 **SAML Configuration:**
 ```
-Entity ID:            https://openval.yoursite.com/auth/saml/metadata
-ACS URL:              https://openval.yoursite.com/auth/saml/callback
-SLO URL:              https://openval.yoursite.com/auth/saml/logout
+Entity ID:            https://pharion.yoursite.com/auth/saml/metadata
+ACS URL:              https://pharion.yoursite.com/auth/saml/callback
+SLO URL:              https://pharion.yoursite.com/auth/saml/logout
 Attribute Mapping:
   email:              http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress
   full_name:          http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
@@ -124,33 +124,33 @@ or fall back to a local PIN set specifically for signature purposes.
 
 ## 4. LabWare LIMS Integration
 
-**Purpose:** Bidirectional integration between OpenVAL (validation/quality) and
+**Purpose:** Bidirectional integration between PHARION (validation/quality) and
 LabWare LIMS (laboratory operations). Relevant to Michael's direct environment.
 
 ### 4.1 System Record Synchronization
 
-OpenVAL is the system of record for the LabWare system record, validation status,
+PHARION is the system of record for the LabWare system record, validation status,
 and all CSV documentation. LabWare does not hold validation records.
 
-**From OpenVAL to LabWare (informational):**
+**From PHARION to LabWare (informational):**
 - Validation status (validated / in qualification / requires revalidation)
 - Active change requests affecting LabWare
 - Upcoming periodic review dates
 
-**From LabWare to OpenVAL:**
+**From LabWare to PHARION:**
 - LabWare version/build number (triggers revalidation assessment if changed)
 - Active users list (for access control audit comparison)
 - Instrument calibration status (feeds equipment module)
 
 ### 4.2 Environmental Monitoring Results
 
-LabWare manages EM sample results. OpenVAL manages the EM program and excursion workflow.
+LabWare manages EM sample results. PHARION manages the EM program and excursion workflow.
 
 **Data Flow:**
 ```
 LabWare records EM result →
-  If OOS/exceedance: LabWare sends result to OpenVAL via webhook →
-    OpenVAL creates em_excursion record automatically →
+  If OOS/exceedance: LabWare sends result to PHARION via webhook →
+    PHARION creates em_excursion record automatically →
     Notification sent to EM Coordinator →
     Investigation workflow initiated
 ```
@@ -176,25 +176,25 @@ LabWare records EM result →
 **Data Flow:**
 ```
 LabWare OOS result recorded →
-  LabWare sends event to OpenVAL webhook →
-    OpenVAL creates oos_oot_record →
+  LabWare sends event to PHARION webhook →
+    PHARION creates oos_oot_record →
     Phase 1 investigation assigned to analyst's supervisor →
     If Phase 2: CAPA created automatically
 ```
 
 ### 4.4 Audit Trail Comparison
 
-OpenVAL can pull LabWare audit trail exports (CSV or API) for comparison
+PHARION can pull LabWare audit trail exports (CSV or API) for comparison
 during periodic review. The review checklist item "audit trail review completed"
-links to the imported LabWare audit trail snapshot stored in OpenVAL file_store.
+links to the imported LabWare audit trail snapshot stored in PHARION file_store.
 
 ### 4.5 Configuration
 
 ```
 Integration Type:  REST API + Webhook
-Authentication:    API key (OpenVAL sends X-API-Key header to LabWare)
+Authentication:    API key (PHARION sends X-API-Key header to LabWare)
 LabWare Endpoint:  https://lims.yoursite.com/api/
-OpenVAL Webhook:   https://openval.yoursite.com/api/v1/integrations/labware/inbound
+PHARION Webhook:   https://pharion.yoursite.com/api/v1/integrations/labware/inbound
 Sync Frequency:    Real-time (webhook) + Nightly reconciliation
 ```
 
@@ -202,27 +202,27 @@ Sync Frequency:    Real-time (webhook) + Nightly reconciliation
 
 ## 5. TrackWise Integration
 
-**Purpose:** Bidirectional integration between OpenVAL and TrackWise (Sparta/Honeywell).
+**Purpose:** Bidirectional integration between PHARION and TrackWise (Sparta/Honeywell).
 Common in large pharma where TrackWise handles change control and CAPAs at the
-enterprise level while OpenVAL manages the detailed validation lifecycle.
+enterprise level while PHARION manages the detailed validation lifecycle.
 
 ### 5.1 Change Control Synchronization
 
 In environments where TrackWise is the enterprise change control system,
-OpenVAL acts as a sub-system that handles the technical validation aspects.
+PHARION acts as a sub-system that handles the technical validation aspects.
 
 **Data Flow:**
 ```
 TrackWise change request approved →
-  TrackWise notifies OpenVAL via webhook →
-    OpenVAL creates linked change_request record →
-    Validation impact assessment triggered in OpenVAL →
-    OpenVAL sends assessment result back to TrackWise →
-    Protocol created/executed in OpenVAL →
+  TrackWise notifies PHARION via webhook →
+    PHARION creates linked change_request record →
+    Validation impact assessment triggered in PHARION →
+    PHARION sends assessment result back to TrackWise →
+    Protocol created/executed in PHARION →
     Completion status sent to TrackWise
 ```
 
-**Mapping: TrackWise → OpenVAL**
+**Mapping: TrackWise → PHARION**
 ```
 TW Change Request ID  → cr_ref (stored as external_ref in change_requests)
 TW Change Type        → change_type
@@ -234,15 +234,15 @@ TW Target Date        → proposed_implementation_date
 ### 5.2 CAPA Synchronization
 
 **Scenario A: TrackWise is master CAPA system**
-TrackWise holds the CAPA record. OpenVAL holds the validation-specific actions.
-OpenVAL receives CAPA ID from TrackWise and creates linked actions locally.
+TrackWise holds the CAPA record. PHARION holds the validation-specific actions.
+PHARION receives CAPA ID from TrackWise and creates linked actions locally.
 
-**Scenario B: OpenVAL is master CAPA system**
-OpenVAL creates CAPA. Export capability generates TrackWise-compatible XML.
+**Scenario B: PHARION is master CAPA system**
+PHARION creates CAPA. Export capability generates TrackWise-compatible XML.
 
 ### 5.3 Nonconformance Linkage
 
-OpenVAL NCs (system outages, access control failures) can be exported as
+PHARION NCs (system outages, access control failures) can be exported as
 TrackWise NCR format for sites that require enterprise NCR management.
 
 ### 5.4 Configuration
@@ -272,10 +272,10 @@ ALTER TABLE nonconformances ADD COLUMN external_system VARCHAR(100);
 
 ### 6.1 Equipment Master Sync
 
-**Data Flow (SAP → OpenVAL):**
+**Data Flow (SAP → PHARION):**
 - Equipment created in SAP Plant Maintenance (PM module)
-- OpenVAL pulls equipment master via SAP BAPI or RFC
-- Creates/updates equipment record in OpenVAL
+- PHARION pulls equipment master via SAP BAPI or RFC
+- Creates/updates equipment record in PHARION
 - SAP equipment number stored as asset_number
 
 **Fields mapped:**
@@ -291,8 +291,8 @@ SAP Maintenance Plan    → equipment.maintenance_interval_days
 
 ### 6.2 Vendor Master Sync
 
-SAP vendor master (LFA1) syncs to OpenVAL vendor records.
-OpenVAL qualification status does not sync back to SAP (one-directional).
+SAP vendor master (LFA1) syncs to PHARION vendor records.
+PHARION qualification status does not sync back to SAP (one-directional).
 
 ### 6.3 Cost Center Assignment
 
@@ -303,7 +303,7 @@ for financial reporting. Cost center list synced from SAP CO module.
 
 ## 7. MES Integration
 
-**Purpose:** Connect batch manufacturing events to OpenVAL quality workflows.
+**Purpose:** Connect batch manufacturing events to PHARION quality workflows.
 
 ### 7.1 Supported MES Platforms
 
@@ -312,13 +312,13 @@ for financial reporting. Cost center list synced from SAP CO module.
 - Werum PAS-X
 - AVEVA MES
 
-### 7.2 Batch Events to OpenVAL
+### 7.2 Batch Events to PHARION
 
-**Events that trigger OpenVAL actions:**
+**Events that trigger PHARION actions:**
 
-| MES Event | OpenVAL Action |
+| MES Event | PHARION Action |
 |---|---|
-| Batch started | Create batch record in OpenVAL batch module |
+| Batch started | Create batch record in PHARION batch module |
 | Critical process parameter exceedance | Create process deviation |
 | Batch completed with deviations | Flag batch for QC review |
 | Equipment alarm triggered | Create equipment maintenance request |
@@ -334,7 +334,7 @@ Given Michael's environment, Tempo MES integration is prioritized.
 Base URL:           https://tempo.matc.astellas.com/api/
 Authentication:     JWT (Tempo service account)
 Events subscribed:  batch.started, batch.deviation, batch.completed, batch.hold
-Webhook target:     https://openval.matc.astellas.com/api/v1/integrations/tempo/inbound
+Webhook target:     https://pharion.matc.astellas.com/api/v1/integrations/tempo/inbound
 ```
 
 ---
@@ -343,7 +343,7 @@ Webhook target:     https://openval.matc.astellas.com/api/v1/integrations/tempo/
 
 ### 8.1 Microsoft Teams
 
-**Purpose:** Send OpenVAL notifications to Teams channels.
+**Purpose:** Send PHARION notifications to Teams channels.
 
 **Configuration:**
 ```
@@ -373,8 +373,8 @@ Channel Mapping:    Configurable per notification type
   }],
   "potentialAction": [{
     "@type": "OpenUri",
-    "name": "View in OpenVAL",
-    "targets": [{"os": "default", "uri": "https://openval.yoursite.com/capas/CAPA-0011"}]
+    "name": "View in PHARION",
+    "targets": [{"os": "default", "uri": "https://pharion.yoursite.com/capas/CAPA-0011"}]
   }]
 }
 ```
@@ -398,8 +398,8 @@ Channel Mapping:    Configurable per notification type
       "type": "actions",
       "elements": [{
         "type": "button",
-        "text": {"type": "plain_text", "text": "View in OpenVAL"},
-        "url": "https://openval.yoursite.com/capas/CAPA-0011"
+        "text": {"type": "plain_text", "text": "View in PHARION"},
+        "url": "https://pharion.yoursite.com/capas/CAPA-0011"
       }]
     }
   ]
@@ -418,26 +418,26 @@ Email is the fallback if Teams/Slack is not configured.
 ### 9.1 Purpose
 
 Allow laboratory instruments to feed calibration results, test data, and
-process parameters directly into OpenVAL without manual transcription.
+process parameters directly into PHARION without manual transcription.
 Eliminates ALCOA+ concerns about manual data entry from instruments.
 
 ### 9.2 Supported Integration Methods
 
 **Method A: REST API Push (modern instruments)**
-Instruments with modern software send results directly to OpenVAL API.
+Instruments with modern software send results directly to PHARION API.
 
 **Method B: LabWare Instrument Interface Bridge**
 LabWare already has instrument interfaces for many instruments.
-OpenVAL receives the processed result from LabWare (via Section 4 above)
+PHARION receives the processed result from LabWare (via Section 4 above)
 rather than directly from the instrument.
 
 **Method C: File Drop + Parser**
 Instrument exports result file (CSV, XML, JSON) to a monitored directory.
-OpenVAL file watcher (Celery task) picks up and parses.
+PHARION file watcher (Celery task) picks up and parses.
 
 **Method D: PI Historian Bridge (future)**
 For process instruments connected to OSIsoft PI Historian.
-OpenVAL queries PI via REST API for specific tag values at defined intervals.
+PHARION queries PI via REST API for specific tag values at defined intervals.
 
 ### 9.3 Instrument Data Webhook Endpoint
 
@@ -465,7 +465,7 @@ OpenVAL queries PI via REST API for specific tag values at defined intervals.
 
 ### 10.1 FDA Electronic Submissions
 
-**Purpose:** Export OpenVAL records in formats compatible with FDA electronic submissions.
+**Purpose:** Export PHARION records in formats compatible with FDA electronic submissions.
 
 **Supported Export Formats:**
 - eCTD (electronic Common Technical Document) structured reference
@@ -484,7 +484,7 @@ of validation-related regulatory correspondence.
 
 ### 11.1 Azure Blob Storage
 
-For sites running OpenVAL in cloud or hybrid mode:
+For sites running PHARION in cloud or hybrid mode:
 - File attachments stored in Azure Blob Storage instead of local filesystem
 - Validation-appropriate blob container with immutability policies
 - AES-256 encryption at rest
@@ -560,4 +560,4 @@ nightly against test environments.
 
 ---
 
-*INT-SPEC-001 v1.0 - OpenVAL Integration Specification*
+*INT-SPEC-001 v1.0 - PHARION Integration Specification*

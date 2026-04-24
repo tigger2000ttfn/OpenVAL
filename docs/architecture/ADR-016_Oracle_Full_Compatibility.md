@@ -69,15 +69,15 @@ CREATE OR REPLACE FUNCTION site_isolation_policy(
     schema_name IN VARCHAR2, table_name IN VARCHAR2
 ) RETURN VARCHAR2 IS
 BEGIN
-    RETURN 'SITE_ID = SYS_CONTEXT(''OPENVAL_CTX'', ''CURRENT_SITE_ID'')';
+    RETURN 'SITE_ID = SYS_CONTEXT(''PHARION_CTX'', ''CURRENT_SITE_ID'')';
 END;/
 
 BEGIN
     DBMS_RLS.ADD_POLICY(
-        object_schema   => 'OPENVAL',
+        object_schema   => 'PHARION',
         object_name     => 'SYSTEMS',
         policy_name     => 'SITE_ISOLATION',
-        function_schema => 'OPENVAL',
+        function_schema => 'PHARION',
         policy_function => 'SITE_ISOLATION_POLICY',
         statement_types => 'SELECT,INSERT,UPDATE,DELETE',
         enable          => TRUE
@@ -201,7 +201,7 @@ def upgrade():
 # Encrypted wallet (zero credentials in config files)
 engine = create_engine(
     "oracle+cx_oracle:///@prod_wallet_alias",
-    connect_args={"wallet_location": "/opt/openval/wallet"}
+    connect_args={"wallet_location": "/opt/pharion/wallet"}
 )
 ```
 
@@ -211,19 +211,19 @@ This is critical for pharma Oracle deployments — credentials never in plaintex
 
 ## GRANT Requirements
 
-The openval application user needs these Oracle grants:
+The pharion application user needs these Oracle grants:
 
 ```sql
 -- Minimum required grants
-GRANT CREATE SESSION TO openval_app;
-GRANT CREATE TABLE TO openval_app;
-GRANT CREATE SEQUENCE TO openval_app;
-GRANT CREATE PROCEDURE TO openval_app;
-GRANT EXECUTE ON DBMS_CRYPTO TO openval_app;  -- for SHA-256 audit chain
-GRANT EXECUTE ON DBMS_RLS TO openval_app;     -- for VPD policies
-GRANT EXECUTE ON DBMS_LOCK TO openval_app;    -- for advisory locks
+GRANT CREATE SESSION TO pharion_app;
+GRANT CREATE TABLE TO pharion_app;
+GRANT CREATE SEQUENCE TO pharion_app;
+GRANT CREATE PROCEDURE TO pharion_app;
+GRANT EXECUTE ON DBMS_CRYPTO TO pharion_app;  -- for SHA-256 audit chain
+GRANT EXECUTE ON DBMS_RLS TO pharion_app;     -- for VPD policies
+GRANT EXECUTE ON DBMS_LOCK TO pharion_app;    -- for advisory locks
 
 -- For Oracle Text (full-text search)
-GRANT CTXAPP TO openval_app;
+GRANT CTXAPP TO pharion_app;
 EXECUTE CTX_DDL.SYNC_INDEX('idx_documents_fulltext');
 ```

@@ -1,4 +1,4 @@
-# OpenVAL Modular Architecture Specification
+# PHARION Modular Architecture Specification
 
 **Document Reference:** ARCH-MOD-001
 **Version:** 1.0
@@ -9,7 +9,7 @@
 
 ## 1. Architecture Philosophy
 
-OpenVAL is built as a **modular monolith**. This is intentional.
+PHARION is built as a **modular monolith**. This is intentional.
 
 A modular monolith has the organizational cleanliness of microservices
 (clear module boundaries, no cross-cutting dependencies) with the operational
@@ -29,7 +29,7 @@ EE modules load conditionally based on license state.
 ## 2. Directory Structure
 
 ```
-openval/
+pharion/
 ├── backend/
 │   └── app/
 │       ├── main.py                    # App factory, conditional module loading
@@ -113,9 +113,9 @@ openval/
 │           ├── ai/
 │           └── multi_site/
 └── schema/
-    ├── openval_schema_part1.sql       # All DDL (CE + EE tables)
-    ├── openval_schema_part2.sql       # Indexes, sequences, seed data
-    └── openval_schema_part3.sql       # New module tables
+    ├── pharion_schema_part1.sql       # All DDL (CE + EE tables)
+    ├── pharion_schema_part2.sql       # Indexes, sequences, seed data
+    └── pharion_schema_part3.sql       # New module tables
 ```
 
 ---
@@ -180,7 +180,7 @@ A license key is a base64-encoded JSON payload signed with RSA-2048.
   ],
   "issued_at": "2026-04-01T00:00:00Z",
   "expires_at": "2027-04-01T00:00:00Z",
-  "issued_by": "openval_team",
+  "issued_by": "pharion_team",
   "signature": "RSA_SIGNATURE_HEX"
 }
 ```
@@ -197,9 +197,9 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from app.core.config import settings
 
-OPENVAL_PUBLIC_KEY = """
+PHARION_PUBLIC_KEY = """
 -----BEGIN PUBLIC KEY-----
-[OpenVAL RSA-2048 public key embedded in application]
+[PHARION RSA-2048 public key embedded in application]
 -----END PUBLIC KEY-----
 """
 
@@ -223,7 +223,7 @@ class License:
 
             # Verify signature
             public_key = serialization.load_pem_public_key(
-                OPENVAL_PUBLIC_KEY.encode()
+                PHARION_PUBLIC_KEY.encode()
             )
             public_key.verify(
                 signature_bytes,
@@ -339,7 +339,7 @@ def require_feature(feature_code: str):
                         "code": "FEATURE_NOT_LICENSED",
                         "message": f"The '{feature_code}' feature requires an Enterprise license.",
                         "feature": feature_code,
-                        "upgrade_url": "https://openval.io/upgrade",
+                        "upgrade_url": "https://pharion.io/upgrade",
                     }
                 )
             return await func(*args, **kwargs)
@@ -377,7 +377,7 @@ async def check_user_limit(db: AsyncSession, site_id: str):
                 "message": f"Your {license.tier} edition allows up to {license.max_users} users.",
                 "current_count": count,
                 "limit": license.max_users,
-                "upgrade_url": "https://openval.io/upgrade"
+                "upgrade_url": "https://pharion.io/upgrade"
             }
         )
 ```
@@ -407,7 +407,7 @@ async def lifespan(app: FastAPI):
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="OpenVAL",
+        title="PHARION",
         version=settings.APP_VERSION,
         docs_url="/api/docs" if settings.DEBUG else None,
         redoc_url="/api/redoc" if settings.DEBUG else None,
@@ -674,7 +674,7 @@ The Celery beat task `validate_license` runs hourly:
 The Administration > License page shows:
 
 ```
-OpenVAL Enterprise License
+PHARION Enterprise License
 ─────────────────────────────────────────────────────────
 Organization:    Astellas Pharma US
 Edition:         Enterprise Scale
@@ -719,7 +719,7 @@ LICENSED FEATURES
 #!/bin/bash
 set -e
 
-echo "Building OpenVAL Community Edition..."
+echo "Building PHARION Community Edition..."
 
 # Backend: exclude enterprise modules from distribution
 rsync -av --exclude='enterprise/' backend/ dist_ce/backend/
@@ -728,9 +728,9 @@ rsync -av --exclude='enterprise/' backend/ dist_ce/backend/
 npm --prefix frontend run build:community
 
 # Package
-tar -czf openval-ce-${VERSION}.tar.gz dist_ce/
+tar -czf pharion-ce-${VERSION}.tar.gz dist_ce/
 
-echo "CE build complete: openval-ce-${VERSION}.tar.gz"
+echo "CE build complete: pharion-ce-${VERSION}.tar.gz"
 ```
 
 ### EE Build (Private, Customer Distribution)
@@ -741,7 +741,7 @@ echo "CE build complete: openval-ce-${VERSION}.tar.gz"
 #!/bin/bash
 set -e
 
-echo "Building OpenVAL Enterprise Edition..."
+echo "Building PHARION Enterprise Edition..."
 
 # Full backend including enterprise modules
 cp -r backend/ dist_ee/backend/
@@ -753,8 +753,8 @@ npm --prefix frontend run build:enterprise
 python scripts/generate_ee_docs.py
 
 # Package with checksums
-tar -czf openval-ee-${VERSION}.tar.gz dist_ee/
-sha256sum openval-ee-${VERSION}.tar.gz > openval-ee-${VERSION}.sha256
+tar -czf pharion-ee-${VERSION}.tar.gz dist_ee/
+sha256sum pharion-ee-${VERSION}.tar.gz > pharion-ee-${VERSION}.sha256
 
 echo "EE build complete"
 ```
@@ -765,10 +765,10 @@ echo "EE build complete"
 # The installer detects which edition it is installing
 if [ -d "backend/app/modules/enterprise" ]; then
     EDITION="Enterprise"
-    echo "Installing OpenVAL Enterprise Edition"
+    echo "Installing PHARION Enterprise Edition"
 else
     EDITION="Community"
-    echo "Installing OpenVAL Community Edition"
+    echo "Installing PHARION Community Edition"
 fi
 ```
 
@@ -831,4 +831,4 @@ async def test_oos_endpoint_returns_402_without_license(client_ce, db):
 
 ---
 
-*ARCH-MOD-001 v1.0 - OpenVAL Modular Architecture Specification*
+*ARCH-MOD-001 v1.0 - PHARION Modular Architecture Specification*

@@ -1,4 +1,4 @@
-# OpenVAL Master Plan - Addendum 1
+# PHARION Master Plan - Addendum 1
 
 **Addendum Reference:** MASTER-ADD-001
 **Version:** 1.0
@@ -12,7 +12,7 @@
 
 After reviewing DCP (Roche/Genentech), MasterControl, TrackWise/Honeywell,
 Veeva Vault, ETQ Reliance, LabWare, and AmpleLogic, the following additions
-and enhancements have been approved for the OpenVAL roadmap.
+and enhancements have been approved for the PHARION roadmap.
 
 ### New Modules Added
 1. OOS/OOT Management (Phase 10 extension)
@@ -216,7 +216,7 @@ Phase 15 is extended to three months.
 - [ ] Certificate of Analysis (CoA) generation (auto-populated from batch + test results)
 - [ ] CoA approval and e-signature
 - [ ] CoA version history
-- [ ] Integration hook: LabWare lot disposition → OpenVAL batch status
+- [ ] Integration hook: LabWare lot disposition → PHARION batch status
 
 ---
 
@@ -240,14 +240,14 @@ Phase 15 is extended to three months.
 - [ ] Bidirectional system status sync
 - [ ] EM excursion webhook receiver
 - [ ] OOS result webhook receiver
-- [ ] Audit trail comparison tool (OpenVAL periodic review vs LabWare audit export)
+- [ ] Audit trail comparison tool (PHARION periodic review vs LabWare audit export)
 - [ ] Connection health monitoring
 
 **TrackWise Integration:**
 - [ ] TrackWise connection configuration
-- [ ] Change request sync (inbound TrackWise → OpenVAL CR)
+- [ ] Change request sync (inbound TrackWise → PHARION CR)
 - [ ] CAPA sync (configurable: TW as master or OV as master)
-- [ ] Export: OpenVAL records in TrackWise XML format
+- [ ] Export: PHARION records in TrackWise XML format
 
 **MES Integration:**
 - [ ] MES event webhook receiver
@@ -364,12 +364,12 @@ All AI interactions logged in ai_suggestions table.
 From competitive research:
 
 - The global pharmaceutical Quality Management Software market was valued at $1.87 billion in 2024 and is expected to more than double by 2030 at ~12.99% CAGR.
-- Cloud deployment dominates at ~77% of QMS market share in 2024. OpenVAL's self-hosted positioning addresses the 23% that cannot or will not go cloud.
-- AI-embedded CAPA investigation is estimated to reduce investigation time by 50-70% compared with conventional investigations. OpenVAL Phase 22 targets this.
-- MasterControl's patented Accelerated Validation reduces validation time from weeks to minutes. OpenVAL's Guided Validation Wizard (Phase 3) is our open source equivalent.
+- Cloud deployment dominates at ~77% of QMS market share in 2024. PHARION's self-hosted positioning addresses the 23% that cannot or will not go cloud.
+- AI-embedded CAPA investigation is estimated to reduce investigation time by 50-70% compared with conventional investigations. PHARION Phase 22 targets this.
+- MasterControl's patented Accelerated Validation reduces validation time from weeks to minutes. PHARION's Guided Validation Wizard (Phase 3) is our open source equivalent.
 
-OpenVAL does not compete with MasterControl or Veeva on enterprise feature depth in year one.
-OpenVAL competes on: open source, self-hosted, bundled validation package, and no licensing cost.
+PHARION does not compete with MasterControl or Veeva on enterprise feature depth in year one.
+PHARION competes on: open source, self-hosted, bundled validation package, and no licensing cost.
 The market exists. The gap exists. The plan is sound.
 
 ---
@@ -394,7 +394,7 @@ The market exists. The gap exists. The plan is sound.
 | 13 | Reporting and Dashboards | 18-19 | Plan complete |
 | 14 | Vendor + Audit + Inspection Readiness | 19-21 | Plan complete |
 | 15 | Training + EM + Stability + Batch/Lot | 21-24 | Plan complete |
-| 16 | Validation Package for OpenVAL | 24-25 | Plan complete |
+| 16 | Validation Package for PHARION | 24-25 | Plan complete |
 | 17 | Pharma Template Library | 25-26 | Plan complete |
 | 18 | Admin + Integrations + Multi-Site | 26-28 | Plan complete |
 | 19 | Security Hardening + Performance | 28-29 | Plan complete |

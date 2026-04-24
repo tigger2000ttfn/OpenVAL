@@ -1,4 +1,4 @@
-# OpenVAL Security Policy
+# PHARION Security Policy
 
 ## Supported Versions
 
@@ -12,13 +12,13 @@ Only the latest stable release receives security patches.
 
 ## Reporting a Vulnerability
 
-OpenVAL is used in regulated pharmaceutical environments. Security vulnerabilities,
+PHARION is used in regulated pharmaceutical environments. Security vulnerabilities,
 particularly those affecting audit trail integrity, electronic signatures, access
 controls, or GxP data, are treated as critical.
 
 **Do not report security vulnerabilities via GitHub Issues.**
 
-Report security vulnerabilities to: **security@openval.io**
+Report security vulnerabilities to: **security@pharion.io**
 (or via GitHub's private vulnerability reporting if enabled on the repository)
 
 Include in your report:
@@ -40,7 +40,7 @@ confirmation, with immediate notification to the community.
 
 ## Security Architecture Summary
 
-Key security controls in OpenVAL, for reference by security researchers:
+Key security controls in PHARION, for reference by security researchers:
 
 - Audit log: append-only via PostgreSQL Row Level Security. No application-layer bypass.
 - Electronic signatures: re-authentication required at signing time. Tokens are one-use.

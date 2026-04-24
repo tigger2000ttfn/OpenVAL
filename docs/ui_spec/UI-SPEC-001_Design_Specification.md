@@ -1,4 +1,4 @@
-# OpenVAL UI/UX Design Specification
+# PHARION UI/UX Design Specification
 
 **Document Reference:** UI-SPEC-001
 **Version:** 2.0.0
@@ -9,9 +9,9 @@
 
 ## 1. Brand Identity
 
-### OpenVAL Is Its Own Platform
+### PHARION Is Its Own Platform
 
-OpenVAL is not Kneat (navy/purple). Not Veeva (corporate blue). Not SWARE (generic SaaS light).
+PHARION is not Kneat (navy/purple). Not Veeva (corporate blue). Not SWARE (generic SaaS light).
 
 **Identity:** Dark Teal. Open. Precise. Trusted.
 
@@ -194,7 +194,7 @@ type Theme = 'light' | 'dark' | 'system';
 
 export function useTheme() {
   const [preference, setPreference] = useState<Theme>(
-    () => (localStorage.getItem('openval-theme') as Theme) ?? 'system'
+    () => (localStorage.getItem('pharion-theme') as Theme) ?? 'system'
   );
   
   const resolved = useMediaQuery('(prefers-color-scheme: dark)')
@@ -204,7 +204,7 @@ export function useTheme() {
   
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', active);
-    localStorage.setItem('openval-theme', preference);
+    localStorage.setItem('pharion-theme', preference);
   }, [active, preference]);
   
   return { preference, active, setPreference };
@@ -262,12 +262,12 @@ export function useTheme() {
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
-│  [≡]  OPENVAL          [◆ MATC Madison ▼]     [⌘K Search...]  [🔔3][👤] │
+│  [≡]  PHARION          [◆ MATC Madison ▼]     [⌘K Search...]  [🔔3][👤] │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
 - Always dark background (`--bg-header`)
-- OpenVAL wordmark: white, Inter SemiBold
+- PHARION wordmark: white, Inter SemiBold
 - Site selector dropdown: shows user's sites, switch with click (logs site change in audit)
 - Global search: ⌘K / Ctrl+K opens full overlay
 - Notification bell: badge count; click opens right-drawer panel (not dropdown)
@@ -496,9 +496,9 @@ gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker -
 #    - GET/POST /api/*   → proxied to localhost:8000 (FastAPI)
 
 # Managed by systemd:
-# openval-api.service      → Gunicorn
-# openval-worker.service   → Celery
-# openval-beat.service     → Celery Beat
+# pharion-api.service      → Gunicorn
+# pharion-worker.service   → Celery
+# pharion-beat.service     → Celery Beat
 ```
 
 ### Supported Platforms
@@ -536,7 +536,7 @@ Orange:         ⚡ ACTION REQUIRED
 
 ## 11. Project Management Module
 
-Validation is project work. OpenVAL needs a project management layer.
+Validation is project work. PHARION needs a project management layer.
 
 ### Project Board (Kanban)
 
@@ -558,39 +558,39 @@ Who is overloaded? Who has capacity?
 ### Integration: Jira (EE)
 
 ```
-OpenVAL Project    ↔  Jira Project
-OpenVAL Protocol   ↔  Jira Epic
-OpenVAL Test Step  ↔  Jira Task
-OpenVAL Deviation  ↔  Jira Bug
-OpenVAL CAPA Task  ↔  Jira Story
+PHARION Project    ↔  Jira Project
+PHARION Protocol   ↔  Jira Epic
+PHARION Test Step  ↔  Jira Task
+PHARION Deviation  ↔  Jira Bug
+PHARION CAPA Task  ↔  Jira Story
 ```
-OpenVAL is GxP system of record. Jira reflects status.
-Jira closure does not auto-close OpenVAL (requires e-signature).
+PHARION is GxP system of record. Jira reflects status.
+Jira closure does not auto-close PHARION (requires e-signature).
 
 ### Integration: Zephyr Scale (EE)
 
 ```
-OpenVAL Test Case Template  ↔  Zephyr Test Case
-OpenVAL Protocol            ↔  Zephyr Test Cycle
-OpenVAL Execution Results   ↔  Zephyr Execution
+PHARION Test Case Template  ↔  Zephyr Test Case
+PHARION Protocol            ↔  Zephyr Test Cycle
+PHARION Execution Results   ↔  Zephyr Execution
 ```
 For orgs using Jira/Zephyr as central test repository.
 
 ### Integration: Veeva Vault (EE)
 
 ```
-OpenVAL Deviation    → Vault Quality Event
-OpenVAL CAPA         ↔  Vault CAPA (status sync)
-OpenVAL Change Req   ↔  Vault Change Control
-OpenVAL Document     → Vault Document (publish)
+PHARION Deviation    → Vault Quality Event
+PHARION CAPA         ↔  Vault CAPA (status sync)
+PHARION Change Req   ↔  Vault Change Control
+PHARION Document     → Vault Document (publish)
 ```
 
 ### Integration: ServiceNow (EE)
 
 ```
-OpenVAL System       ↔  ServiceNow CMDB CI
-OpenVAL Change Req   ↔  ServiceNow RFC
-OpenVAL NCE          ↔  ServiceNow Incident
+PHARION System       ↔  ServiceNow CMDB CI
+PHARION Change Req   ↔  ServiceNow RFC
+PHARION NCE          ↔  ServiceNow Incident
 ```
 
 ---
@@ -620,7 +620,7 @@ OpenVAL NCE          ↔  ServiceNow Incident
 **The plan is comprehensive. Phase 0 code can begin.**
 
 ---
-*UI-SPEC-001 v2.0.0 — Dark Teal. Modal-first. Light + Dark. OpenVAL's own identity.*
+*UI-SPEC-001 v2.0.0 — Dark Teal. Modal-first. Light + Dark. PHARION's own identity.*
 
 ## 2.1 Design System Refinements (v2.1 — April 2026)
 

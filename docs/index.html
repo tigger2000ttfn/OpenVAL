@@ -2,435 +2,705 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>OpenVAL — Open Source GxP Validation Platform</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>PHAROLON — Quality Intelligence for Regulated Industries</title>
+<meta name="description" content="The open-source quality intelligence platform for pharmaceutical, medical device, biotech, food safety, aerospace and clinical research. Free self-hosted alternative to Kneat and ValGenesis."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --t950:#002A25;--t900:#004D45;--t800:#006B61;--t700:#008577;
-  --t600:#00A090;--t500:#00B8A9;--t400:#00D4C4;--t300:#5EEADF;
-  --g700:#A87E14;--g600:#C9981A;--g500:#E2A837;--g400:#F0C040;
-  --or:#F97316;--pass:#86C140;--fail:#E54B2E;--pur:#8B5CF6;--info:#3B82F6;
-  --ch:#141414;--ch2:#1E1E1E;--ch3:#2A2A2A;
-  --dk:#0C1117;--dks:#161D26;--dks2:#1E2837;--dkb:#1E3038;
-  --text:#E8EDF2;--text2:rgba(232,237,242,.65);--text3:rgba(232,237,242,.38);
-  --inp:#243040;--inpbrd:#2E4055;
-}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:#0C1117;font-family:'Inter',system-ui,sans-serif;color:var(--text);line-height:1.6;overflow-x:hidden;}
+:root{
+  --g300:#F7D56E;--g400:#F0C040;--g500:#E2A837;--g600:#C9981A;--g700:#A87E14;--g800:#7A5A0A;
+  --t950:#002A25;--t900:#004D45;--t600:#00A090;--t400:#00D4C4;
+  --pass:#86C140;--fail:#E54B2E;--pur:#8B5CF6;
+  --ink:#08080E;--ink2:#0D0D18;--ink3:#131320;--ink4:#1A1A2A;
+  --fog:rgba(226,168,55,.18);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--ink);font-family:'DM Mono',monospace;color:rgba(232,237,242,.7);overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(8,8,14,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--ink4);display:flex;align-items:center;padding:0 28px;gap:8px;}
+.nav-icon{width:22px;height:22px;flex-shrink:0;}
+.nav-wm{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;letter-spacing:0;background:linear-gradient(135deg,var(--g400),var(--g600));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-sp{flex:1;}
+.nav-links{display:flex;gap:24px;}
+.nav-a{font-size:9px;letter-spacing:.5px;color:rgba(226,168,55,.3);text-decoration:none;text-transform:uppercase;}
+.nav-a:hover{color:var(--g400);}
+.nav-gh{font-size:9px;letter-spacing:.5px;color:var(--g600);border:1px solid rgba(201,152,26,.22);border-radius:3px;padding:5px 14px;text-decoration:none;}
+.nav-gh:hover{background:rgba(201,152,26,.07);}
+
+/* ── GLOBAL SVG DEFS ── */
+/* rendered inline below body open */
 
 /* ── HERO ── */
-.hero{min-height:100vh;background:linear-gradient(160deg,#002A25 0%,#0C1117 45%,#0C1117 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--t600),transparent);}
-.hero-bg-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,160,144,.08) 0%,transparent 70%);pointer-events:none;}
-.logo-mark{width:64px;height:64px;background:linear-gradient(135deg,var(--t600),var(--t900));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;margin:0 auto 20px;font-family:'JetBrains Mono',monospace;box-shadow:0 0 40px rgba(0,160,144,.3);}
-.hero-badge{background:rgba(0,160,144,.12);border:1px solid rgba(0,160,144,.3);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--t400);letter-spacing:.5px;display:inline-block;margin-bottom:20px;}
-.hero h1{font-size:clamp(36px,6vw,72px);font-weight:700;letter-spacing:-1.5px;margin-bottom:16px;background:linear-gradient(135deg,#fff 30%,var(--t400) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:clamp(16px,2.5vw,20px);color:var(--text2);max-width:580px;margin:0 auto 12px;}
-.hero-tagline{font-size:14px;color:var(--text3);margin-bottom:40px;}
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.btn-hero{padding:14px 28px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
-.btn-primary{background:linear-gradient(135deg,var(--t600),var(--t900));color:#fff;border:none;}
-.btn-primary:hover{background:linear-gradient(135deg,var(--t500),var(--t800));transform:translateY(-1px);transition:all .15s;}
-.btn-ghost{background:transparent;color:var(--t400);border:1px solid rgba(0,160,144,.4);}
-.btn-ghost:hover{background:rgba(0,160,144,.08);}
-.hero-stats{display:flex;gap:40px;justify-content:center;margin-top:56px;flex-wrap:wrap;}
-.stat{text-align:center;}
-.stat-num{font-size:28px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
-.stat-num span{color:var(--t400);}
-.stat-lbl{font-size:11px;color:var(--text3);margin-top:2px;letter-spacing:.4px;text-transform:uppercase;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 28px 80px;position:relative;overflow:hidden;}
+.hero-ambient{position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:700px;height:320px;background:radial-gradient(ellipse at 50% 100%,rgba(226,168,55,.06),transparent 65%);border-radius:50%;filter:blur(10px);pointer-events:none;}
 
-/* ── APP PREVIEW ── */
-.preview-section{padding:80px 24px;max-width:1100px;margin:0 auto;}
-.section-eyebrow{font-size:11px;color:var(--t400);letter-spacing:1px;text-transform:uppercase;text-align:center;margin-bottom:10px;}
-.section-title{font-size:clamp(24px,4vw,40px);font-weight:700;text-align:center;letter-spacing:-0.5px;margin-bottom:8px;}
-.section-sub{font-size:15px;color:var(--text2);text-align:center;margin-bottom:48px;max-width:540px;margin-left:auto;margin-right:auto;}
-.app-frame{background:var(--ch);border-radius:12px;overflow:hidden;border:1px solid var(--ch3);box-shadow:0 40px 120px rgba(0,0,0,.6);}
-.app-frame-bar{background:#0A0A0A;height:32px;display:flex;align-items:center;padding:0 14px;gap:8px;}
-.frame-dot{width:10px;height:10px;border-radius:50%;}
-.frame-header{background:var(--ch);height:48px;display:flex;align-items:center;padding:0 16px;gap:10px;border-bottom:1px solid var(--ch3);}
-.frame-logo{width:28px;height:28px;background:linear-gradient(135deg,var(--t600),var(--t900));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;font-family:'JetBrains Mono',monospace;flex-shrink:0;}
-.frame-wordmark{color:#fff;font-size:13px;font-weight:500;letter-spacing:.3px;}
-.frame-wordmark em{color:var(--t400);font-style:normal;}
-.frame-site{background:rgba(0,160,144,.15);border:1px solid rgba(0,160,144,.3);color:var(--t400);font-size:10px;padding:3px 9px;border-radius:20px;}
-.frame-spacer{flex:1;}
-.frame-search{background:var(--ch3);border:1px solid var(--ch3);border-radius:6px;padding:5px 12px;width:180px;font-size:10px;color:#666;}
-.notif-btn{width:30px;height:30px;border-radius:6px;background:rgba(226,168,55,.12);border:1px solid rgba(226,168,55,.3);display:flex;align-items:center;justify-content:center;font-size:12px;position:relative;cursor:pointer;}
-.notif-b{position:absolute;top:2px;right:2px;width:12px;height:12px;background:var(--g500);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#000;}
-.frame-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--t600),var(--t900));border:2px solid var(--t600);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;}
-.frame-body{display:flex;height:380px;}
-.frame-sidebar{background:var(--t950);width:188px;padding:10px 0;flex-shrink:0;border-right:1px solid rgba(255,255,255,.06);}
-.nav-grp{font-size:8px;color:rgba(255,255,255,.22);letter-spacing:1px;text-transform:uppercase;padding:10px 12px 3px;font-weight:600;}
-.nav-item{display:flex;align-items:center;gap:8px;padding:7px 12px;font-size:10px;color:rgba(255,255,255,.5);cursor:pointer;}
-.nav-item.active{background:rgba(0,160,144,.22);color:#fff;border-right:2px solid var(--t300);}
-.nav-item .ico{font-size:12px;width:14px;text-align:center;}
-.nav-bc{margin-left:auto;background:var(--g600);color:#fff;font-size:7px;font-weight:700;padding:1px 5px;border-radius:3px;}
-.ee-ind{margin-left:auto;color:var(--t400);font-size:8px;}
-.frame-content{flex:1;background:var(--dk);padding:14px;overflow:hidden;}
-.fc-title{color:#fff;font-size:13px;font-weight:500;margin-bottom:2px;}
-.fc-sub{color:var(--text3);font-size:9px;margin-bottom:12px;}
-.kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px;}
-.kc{background:var(--dks);border:1px solid var(--dkb);border-radius:7px;padding:10px 12px;}
-.kc.gold{border-color:rgba(226,168,55,.35);}
-.kl{font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
-.kl.gold-l{color:rgba(226,168,55,.55);}
-.kv{font-size:19px;font-weight:500;color:#fff;}
-.tbl{background:var(--dks);border:1px solid var(--dkb);border-radius:7px;overflow:hidden;}
-.tbl-hdr{display:grid;grid-template-columns:70px 1fr 90px 58px;padding:6px 12px;background:var(--dks2);font-size:8px;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;gap:8px;}
-.tbl-row{display:grid;grid-template-columns:70px 1fr 90px 58px;padding:8px 12px;gap:8px;font-size:10px;color:var(--text2);border-top:1px solid var(--dkb);align-items:center;}
-.tbl-row:nth-child(even){background:rgba(255,255,255,.015);}
-.tbl-ref{color:#B2CCD6;font-family:'JetBrains Mono',monospace;font-size:9px;}
-.sp{padding:2px 7px;border-radius:3px;font-size:8px;font-weight:700;display:inline-block;}
-.sp-pass{background:rgba(134,193,64,.15);color:var(--pass);}
-.sp-rev{background:rgba(59,130,246,.15);color:#60A5FA;}
-.sp-over{background:rgba(226,168,55,.15);color:var(--g400);}
-.sp-dev{background:rgba(249,115,22,.15);color:var(--or);}
+/* icon wrap — rays live INSIDE the SVG so they align to the apex */
+.hero-icon{position:relative;z-index:1;margin-bottom:22px;}
 
-/* ── PALETTE SECTION ── */
-.palette-section{padding:80px 24px;background:var(--dks);border-top:1px solid var(--dkb);}
-.palette-inner{max-width:1100px;margin:0 auto;}
-.sw-row{display:flex;gap:6px;margin-bottom:6px;}
-.sw{flex:1;height:52px;border-radius:8px;display:flex;flex-direction:column;justify-content:flex-end;padding:6px 8px;}
-.sw-label{font-size:9px;font-weight:600;color:rgba(255,255,255,.7);}
-.sw-hex{font-size:8px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace;}
-.sw-main{outline:2px solid rgba(255,255,255,.5);outline-offset:2px;}
-.accent-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
-.accent-chip{display:flex;align-items:center;gap:8px;background:var(--dks2);border:1px solid var(--dkb);border-radius:8px;padding:9px 14px;}
-.ac-dot{width:18px;height:18px;border-radius:50%;}
-.ac-name{font-size:11px;font-weight:600;}
-.ac-use{font-size:10px;color:var(--text3);}
+.hor{width:180px;height:1px;background:linear-gradient(90deg,transparent,rgba(226,168,55,.28),transparent);margin:0 auto 20px;}
+.kicker{font-size:9px;letter-spacing:2px;color:rgba(226,168,55,.28);text-transform:uppercase;margin-bottom:18px;}
 
-/* ── FEATURES GRID ── */
-.features{padding:80px 24px;max-width:1100px;margin:0 auto;}
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
-.feat-card{background:var(--dks);border:1px solid var(--dkb);border-radius:10px;padding:22px;position:relative;overflow:hidden;}
-.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--t600),transparent);}
-.feat-icon{font-size:24px;margin-bottom:12px;}
-.feat-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px;}
-.feat-desc{font-size:12px;color:var(--text2);line-height:1.6;}
-.feat-tag{display:inline-block;margin-top:10px;font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;background:rgba(0,160,144,.15);color:var(--t400);}
-.feat-tag.ee{background:rgba(139,92,246,.15);color:#A78BFA;}
+/* WORDMARK — letter-spacing:0, no stretch */
+.wm{display:flex;align-items:baseline;overflow:visible;padding-bottom:16px;}
+.ch{font-family:'Syne',sans-serif;font-weight:800;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060 0%,#E2A837 45%,#B8820E 85%,#8A5F08 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ch-p{display:inline-block;transform:translateY(0.14em);}
+.wm-dk .ch{background:linear-gradient(180deg,#C9981A,#7A5A0A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
-/* ── COMPONENT SAMPLES ── */
-.comp-section{padding:80px 24px;background:var(--dks);border-top:1px solid var(--dkb);}
-.comp-inner{max-width:1100px;margin:0 auto;}
-.badge-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px;}
-.badge{padding:4px 10px;border-radius:5px;font-size:10px;font-weight:600;display:inline-flex;align-items:center;gap:4px;}
-.sig-demo{background:var(--dk);border:1px solid var(--dkb);border-radius:8px;padding:14px;max-width:420px;}
-.sig-row-demo{display:flex;align-items:center;gap:9px;border-radius:6px;padding:8px 10px;margin-bottom:6px;}
-.sig-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;}
-.sig-name{font-size:10px;font-weight:600;}
-.sig-role{font-size:9px;color:var(--text3);margin-top:1px;}
-.sig-time{margin-left:auto;font-size:8px;color:var(--text3);text-align:right;}
-.sig-ck{font-size:13px;margin-left:6px;}
-.callout{border-radius:7px;padding:10px 13px;display:flex;gap:9px;margin-bottom:6px;align-items:flex-start;}
-.co-icon{font-size:13px;flex-shrink:0;margin-top:1px;}
-.co-t{font-size:10px;font-weight:600;margin-bottom:2px;}
-.co-d{font-size:9px;line-height:1.4;}
+.tagline{font-size:9px;letter-spacing:2px;color:rgba(226,168,55,.2);text-transform:uppercase;margin-bottom:40px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:48px;}
+.chip{font-size:8px;letter-spacing:1px;color:rgba(226,168,55,.22);border:1px solid rgba(226,168,55,.11);border-radius:2px;padding:4px 10px;text-transform:uppercase;}
+.ctas{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.btn-p{font-family:'Syne',sans-serif;font-weight:800;font-size:10px;letter-spacing:.3px;color:#08080E;background:linear-gradient(135deg,var(--g400),var(--g600));border-radius:3px;padding:11px 26px;text-decoration:none;}
+.btn-s{font-family:'Syne',sans-serif;font-weight:800;font-size:10px;letter-spacing:.3px;color:rgba(226,168,55,.45);border:1px solid rgba(226,168,55,.18);border-radius:3px;padding:11px 26px;text-decoration:none;}
 
-/* ── COMPLIANCE ── */
-.compliance{padding:80px 24px;max-width:1100px;margin:0 auto;}
-.reg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
-.reg-card{background:var(--dks);border:1px solid var(--dkb);border-radius:8px;padding:16px;}
-.reg-badge{display:inline-block;background:rgba(134,193,64,.12);border:1px solid rgba(134,193,64,.3);color:var(--pass);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;margin-bottom:8px;}
-.reg-title{font-size:12px;font-weight:600;color:#fff;margin-bottom:4px;}
-.reg-desc{font-size:10px;color:var(--text2);}
+/* ── ANIMATIONS ── */
+/* Ghost pyramid — draws itself in transparently */
+@keyframes draw-ghost{0%{stroke-dashoffset:268;opacity:0;}12%{opacity:.16;}72%{opacity:.1;stroke-dashoffset:0;}88%{opacity:0;stroke-dashoffset:0;}100%{stroke-dashoffset:268;opacity:0;}}
+.ghost{stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;}
 
-/* ── SCHEMA SECTION ── */
-.schema-section{padding:80px 24px;background:var(--dks);border-top:1px solid var(--dkb);}
-.schema-inner{max-width:1100px;margin:0 auto;}
-.schema-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;}
-.schema-row{background:var(--dk);border:1px solid var(--dkb);border-radius:7px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
-.schema-part{font-size:10px;font-weight:700;color:var(--t400);font-family:'JetBrains Mono',monospace;width:60px;}
-.schema-count{font-size:18px;font-weight:700;color:#fff;width:32px;}
-.schema-desc{font-size:10px;color:var(--text2);flex:1;}
+/* Lighthouse triple-flash */
+@keyframes lh-flash{0%{opacity:.45;}8%{opacity:1;}18%{opacity:.3;}28%{opacity:1;}38%{opacity:.3;}48%{opacity:1;}62%{opacity:.25;}100%{opacity:.45;}}
+@keyframes lh-halo{0%,100%{opacity:.07;}8%,28%,48%{opacity:.22;}18%,38%{opacity:.04;}}
+.lh-core{animation:lh-flash 4.5s ease-in-out infinite;}
+.lh-halo{animation:lh-halo 4.5s ease-in-out infinite;}
 
-/* ── CTA ── */
-.cta{padding:100px 24px;text-align:center;background:linear-gradient(160deg,#0C1117 0%,var(--t950) 100%);border-top:1px solid var(--dkb);}
-.cta h2{font-size:clamp(28px,5vw,52px);font-weight:700;letter-spacing:-1px;margin-bottom:12px;background:linear-gradient(135deg,#fff 30%,var(--t400) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cta p{font-size:16px;color:var(--text2);margin-bottom:36px;}
+/* Compass slow rotation */
+@keyframes compass{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.compass-ring{transform-origin:55px 55px;animation:compass 100s linear infinite;}
+
+/* Sweep ray — rotates around apex (55,14) */
+@keyframes sweep{0%{transform:rotate(-35deg);opacity:0;}8%{opacity:.5;}55%{transform:rotate(35deg);opacity:.18;}65%{opacity:0;}100%{transform:rotate(-35deg);opacity:0;}}
+.sweep{transform-origin:55px 14px;animation:sweep 9s ease-in-out infinite;}
+
+/* Fan rays — subtle static glow lines from apex, pulse together */
+@keyframes fan-pulse{0%,100%{opacity:.06;}40%{opacity:.14;}50%{opacity:.1;}}
+.fan-ray{animation:fan-pulse 7s ease-in-out infinite;}
+.fan-ray:nth-child(2){animation-delay:-1.4s;}
+.fan-ray:nth-child(3){animation-delay:-2.8s;}
+.fan-ray:nth-child(4){animation-delay:-4.2s;}
+.fan-ray:nth-child(5){animation-delay:-5.6s;}
+
+/* ── STORY SECTION ── */
+.section{padding:96px 28px;border-top:1px solid var(--ink4);}
+.inner{max-width:880px;margin:0 auto;}
+.sec-label{font-size:9px;letter-spacing:2px;color:rgba(226,168,55,.25);text-transform:uppercase;margin-bottom:48px;}
+.story-pull{font-family:'Syne',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:800;letter-spacing:0;line-height:1.25;color:rgba(255,255,255,.88);margin-bottom:28px;}
+.story-gold{background:linear-gradient(135deg,var(--g400),var(--g600));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.rule{width:32px;height:1px;background:var(--g700);opacity:.45;margin:32px 0;}
+.body-text{font-size:11px;color:rgba(232,237,242,.4);line-height:2.1;letter-spacing:.2px;}
+.body-text strong{color:rgba(226,168,55,.65);font-weight:400;}
+
+/* Hidden meaning grid */
+.meaning-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:40px;}
+.meaning-card{background:var(--ink2);border:1px solid var(--ink4);padding:28px;border-radius:2px;}
+.mc-icon{font-size:20px;margin-bottom:12px;}
+.mc-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:0;}
+.mc-gold{color:var(--g500) !important;}
+.mc-body{font-size:10px;color:rgba(232,237,242,.38);line-height:1.9;}
+.mc-body strong{color:rgba(226,168,55,.55);font-weight:400;}
+
+/* ── FEATURES ── */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.feat{background:var(--ink2);border:1px solid var(--ink4);padding:24px;}
+.feat-label{font-size:8px;letter-spacing:1px;color:rgba(226,168,55,.3);text-transform:uppercase;margin-bottom:10px;}
+.feat-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:0;}
+.feat-body{font-size:10px;color:rgba(232,237,242,.38);line-height:1.9;}
+
+/* ── COMPLIANCE TABLE ── */
+.comp-table{width:100%;border-collapse:collapse;}
+.comp-table th{font-size:8px;letter-spacing:.5px;color:rgba(232,237,242,.22);text-transform:uppercase;text-align:left;padding:8px 14px;border-bottom:1px solid var(--ink4);}
+.comp-table td{font-size:9px;padding:9px 14px;border-bottom:1px solid var(--ink3);color:rgba(232,237,242,.45);}
+.comp-table tr:hover td{background:var(--ink2);}
+.ck{color:var(--pass);}
+.cx{color:var(--ink4);}
+
+/* ── LOGO LOCKUPS ── */
+.lockup-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;border-radius:8px;overflow:hidden;}
+.lk-cell{padding:44px;display:flex;align-items:center;justify-content:center;}
+.lk-h{display:flex;align-items:center;gap:18px;overflow:visible;padding-bottom:14px;}
+.lk-sep{width:1px;height:52px;}
+.lk-sep-dk{background:rgba(226,168,55,.1);}
+.lk-sep-lt{background:rgba(120,90,10,.2);}
+.bg-ink   {background:#08080E;}
+.bg-teal  {background:#002A25;}
+.bg-mid   {background:#c1c1c1;}
+.bg-white {background:#ffffff;}
+
+/* ── ICON-AS-A ── */
+.wm-a{display:flex;align-items:flex-end;overflow:visible;padding-bottom:16px;line-height:1;}
+
+/* ── APP ICONS ── */
+.icon-row{display:flex;align-items:flex-end;justify-content:center;gap:24px;flex-wrap:wrap;}
+.ico-item{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.ico-sz{font-size:8px;color:rgba(226,168,55,.2);letter-spacing:.3px;}
+.app-ico{border-radius:22%;background:linear-gradient(145deg,#130E01,#060401);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(226,168,55,.1);}
+
+/* ── PRICING ── */
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:680px;margin:0 auto;}
+.price-card{border-radius:8px;padding:32px;border:1px solid var(--ink4);background:var(--ink2);}
+.price-gold{border-color:rgba(226,168,55,.18);background:rgba(226,168,55,.03);}
+.price-tier{font-size:8px;letter-spacing:2px;color:rgba(226,168,55,.28);text-transform:uppercase;margin-bottom:8px;}
+.price-amt{font-family:'Syne',sans-serif;font-weight:800;font-size:44px;letter-spacing:0;line-height:1;margin-bottom:6px;}
+.price-amt-free{background:linear-gradient(135deg,var(--g400),var(--g600));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.price-sub{font-size:9px;color:rgba(232,237,242,.25);margin-bottom:24px;}
+.price-features{font-size:10px;color:rgba(232,237,242,.38);line-height:2.1;list-style:none;}
+.price-features li{padding-left:14px;position:relative;}
+.price-features li::before{content:'—';position:absolute;left:0;color:rgba(226,168,55,.2);}
+.price-cta{display:block;text-align:center;margin-top:22px;padding:10px;border-radius:3px;font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:.3px;text-decoration:none;}
+.price-cta-ce{background:var(--ink3);border:1px solid var(--ink4);color:rgba(232,237,242,.35);}
+.price-cta-ee{background:linear-gradient(135deg,var(--g500),var(--g700));color:#08080E;}
 
 /* ── FOOTER ── */
-footer{background:var(--ch);border-top:1px solid var(--ch3);padding:32px 24px;text-align:center;}
-.footer-logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:12px;}
-footer p{font-size:12px;color:var(--text3);}
-footer a{color:var(--t400);text-decoration:none;}
+footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center;}
+.ft-name{font-family:'Syne',sans-serif;font-weight:800;font-size:56px;letter-spacing:0;background:linear-gradient(180deg,var(--g400),var(--g700));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:.18;margin-bottom:16px;}
+.ft-tagline{font-size:9px;color:rgba(226,168,55,.2);letter-spacing:2px;text-transform:uppercase;line-height:2.2;}
+.ft-links{display:flex;gap:20px;justify-content:center;margin-top:20px;flex-wrap:wrap;}
+.ft-link{font-size:9px;color:rgba(226,168,55,.2);text-decoration:none;letter-spacing:.5px;}
+.ft-link:hover{color:var(--g500);}
 
-@media(max-width:640px){
-  .frame-body{height:auto;}
-  .frame-sidebar{display:none;}
-  .kgrid{grid-template-columns:1fr 1fr;}
-  .hero-stats{gap:24px;}
-  .stat-num{font-size:22px;}
+@media(max-width:620px){
+  .feat-grid{grid-template-columns:1fr;}
+  .meaning-grid{grid-template-columns:1fr;}
+  .lockup-grid{grid-template-columns:1fr;}
+  .price-grid{grid-template-columns:1fr;}
+  nav .nav-links{display:none;}
 }
 </style>
 </head>
 <body>
 
-<!-- ── HERO ── -->
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-lg" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ── NAV ── -->
+<nav>
+  <svg class="nav-icon" viewBox="0 0 110 110" fill="none">
+    <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/>
+    <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.18)" stroke-width=".75" fill="none"/>
+    <line x1="55" y1="5"  x2="55" y2="17" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
+    <line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
+    <line x1="5"  y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
+    <line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
+    <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/>
+    <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+    <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+    <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+    <circle class="lh-core" cx="55" cy="14" r="2.5" fill="#F5D060"/>
+  </svg>
+  <div class="nav-wm">PHAROLON</div>
+  <div class="nav-sp"></div>
+  <div class="nav-links">
+    <a class="nav-a" href="#story">Story</a>
+    <a class="nav-a" href="#platform">Platform</a>
+    <a class="nav-a" href="#compliance">Compliance</a>
+    <a class="nav-a" href="#pricing">Pricing</a>
+  </div>
+  <a class="nav-gh" href="https://github.com/tigger2000ttfn/OpenVAL">GitHub →</a>
+</nav>
+
+<!-- ════════════════════════════════
+     HERO
+════════════════════════════════ -->
 <section class="hero">
-  <div class="hero-bg-glow"></div>
-  <div class="hero-badge">Open Source · Self-Hosted · GxP Compliant</div>
-  <div class="logo-mark">OV</div>
-  <h1>OpenVAL</h1>
-  <p class="hero-sub">The open source GxP validation lifecycle platform for pharma, biotech, and medical devices.</p>
-  <p class="hero-tagline">One platform. Any validation process. Any discipline. Fully auditable.</p>
-  <div class="hero-btns">
-    <a href="https://github.com/tigger2000ttfn/OpenVAL" class="btn-hero btn-primary">★ View on GitHub</a>
-    <a href="https://github.com/tigger2000ttfn/OpenVAL/blob/main/MASTER_PLAN.md" class="btn-hero btn-ghost">Read the Master Plan →</a>
+  <div class="hero-ambient"></div>
+
+  <div class="hero-icon">
+    <!--
+      PHAROLON icon — 180px render, 110×110 viewBox
+      overflow="visible" so the beam rays extend beyond the circle
+      All rays and animations originate from the apex point (55,14)
+    -->
+    <svg width="180" height="180" viewBox="0 0 110 110" fill="none" overflow="visible" style="overflow:visible;">
+
+      <!-- ── Fan rays from apex — subtle background glow ── -->
+      <!-- Each line starts at apex (55,14) and fans outward downward -->
+      <g filter="url(#glow)">
+        <line class="fan-ray" x1="55" y1="14" x2="14"  y2="130" stroke="rgba(245,208,96,.12)" stroke-width="1.5"/>
+        <line class="fan-ray" x1="55" y1="14" x2="32"  y2="125" stroke="rgba(245,208,96,.1)"  stroke-width="2"/>
+        <line class="fan-ray" x1="55" y1="14" x2="55"  y2="130" stroke="rgba(245,208,96,.13)" stroke-width="2.5"/>
+        <line class="fan-ray" x1="55" y1="14" x2="78"  y2="125" stroke="rgba(245,208,96,.1)"  stroke-width="2"/>
+        <line class="fan-ray" x1="55" y1="14" x2="96"  y2="130" stroke="rgba(245,208,96,.12)" stroke-width="1.5"/>
+      </g>
+
+      <!-- ── Sweep ray — lighthouse beam rotating from apex ── -->
+      <line class="sweep" x1="55" y1="14" x2="55" y2="120"
+        stroke="rgba(255,220,80,.38)" stroke-width="2.5"
+        filter="url(#glow-lg)"/>
+
+      <!-- ── Compass halo band ── -->
+      <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/>
+      <!-- ── Compass precision ring ── -->
+      <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.18)" stroke-width=".75" fill="none"/>
+      <!-- ── Inner instrument ring ── -->
+      <circle cx="55" cy="55" r="44" stroke="rgba(226,168,55,.045)" stroke-width=".5" fill="none"/>
+
+      <!-- ── Rotating tick group ── -->
+      <g class="compass-ring">
+        <line x1="55" y1="5"   x2="55" y2="19"  stroke="rgba(226,168,55,.38)" stroke-width="1.5"/>
+        <line x1="55" y1="91"  x2="55" y2="105" stroke="rgba(226,168,55,.38)" stroke-width="1.5"/>
+        <line x1="5"  y1="55"  x2="19" y2="55"  stroke="rgba(226,168,55,.38)" stroke-width="1.5"/>
+        <line x1="91" y1="55"  x2="105" y2="55" stroke="rgba(226,168,55,.38)" stroke-width="1.5"/>
+        <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.16)" stroke-width="1"/>
+        <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.16)" stroke-width="1"/>
+        <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.16)" stroke-width="1"/>
+        <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.16)" stroke-width="1"/>
+      </g>
+
+      <!-- ── Horizon: dashed sea line ── -->
+      <line x1="10" y1="82" x2="100" y2="82"
+        stroke="rgba(226,168,55,.13)" stroke-width=".75" stroke-dasharray="3 5"/>
+
+      <!-- ── Ghost completion pyramid — draws itself in, glowing ── -->
+      <polygon class="ghost" filter="url(#glow)"
+        points="55,7  5,87  105,87"
+        stroke="rgba(240,192,64,.18)" stroke-width="1.5"
+        stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+
+      <!-- ── The three nested pyramids ── -->
+      <polygon points="55,14  11,82  99,82"
+        stroke="#C9981A" stroke-width="5"
+        stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+      <polygon points="55,27  22,82  88,82"
+        stroke="#00A090" stroke-width="3"
+        stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+      <polygon points="55,40  33,82  77,82"
+        stroke="#8B5CF6" stroke-width="1.8"
+        stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+      <!-- Subtle purple fill for depth -->
+      <polygon points="55,40  33,82  77,82" fill="rgba(139,92,246,.04)"/>
+
+      <!-- ── Apex beacon — lighthouse flash ── -->
+      <circle class="lh-halo" cx="55" cy="14" r="11" fill="rgba(245,208,96,.07)" filter="url(#glow-lg)"/>
+      <circle class="lh-halo" cx="55" cy="14" r="6"  fill="rgba(245,208,96,.14)" filter="url(#glow)"/>
+      <circle class="lh-core" cx="55" cy="14" r="2.8" fill="#F5D060"/>
+      <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+
+    </svg>
   </div>
-  <div class="hero-stats">
-    <div class="stat"><div class="stat-num">3<span>73</span></div><div class="stat-lbl">Database Tables</div></div>
-    <div class="stat"><div class="stat-num">3<span>0</span></div><div class="stat-lbl">Validation Disciplines</div></div>
-    <div class="stat"><div class="stat-num">2<span>6</span></div><div class="stat-lbl">Development Phases</div></div>
-    <div class="stat"><div class="stat-num">5<span>8</span></div><div class="stat-lbl">Protocol Templates</div></div>
-    <div class="stat"><div class="stat-num">1<span>00%</span></div><div class="stat-lbl">Audit Compliant</div></div>
+
+  <div class="hor"></div>
+  <div class="kicker">Quality Intelligence Platform · 2026</div>
+
+  <div class="wm" style="margin-bottom:10px;">
+    <span class="ch ch-p" style="font-size:clamp(58px,12vw,100px);">P</span>
+    <span class="ch"      style="font-size:clamp(58px,12vw,100px);">HAROLON</span>
+  </div>
+  <div class="tagline">Quality Intelligence for Regulated Industries</div>
+
+  <div class="chips">
+    <span class="chip">Pharmaceutical</span>
+    <span class="chip">Medical Device</span>
+    <span class="chip">Biotech</span>
+    <span class="chip">Food Safety</span>
+    <span class="chip">Aerospace</span>
+    <span class="chip">Clinical Research</span>
+    <span class="chip">Cell &amp; Gene Therapy</span>
+    <span class="chip">Contract Mfg</span>
+  </div>
+  <div class="ctas">
+    <a class="btn-p" href="https://github.com/tigger2000ttfn/OpenVAL">View on GitHub</a>
+    <a class="btn-s" href="#story">The Story</a>
   </div>
 </section>
 
-<!-- ── APP PREVIEW ── -->
-<section class="preview-section">
-  <div class="section-eyebrow">Interface Preview</div>
-  <h2 class="section-title">Dark Teal. Built for validation professionals.</h2>
-  <p class="section-sub">A purpose-built design system. Not another blue enterprise tool.</p>
-  <div class="app-frame">
-    <div class="app-frame-bar">
-      <div class="frame-dot" style="background:#FF5F57;"></div>
-      <div class="frame-dot" style="background:#FEBC2E;"></div>
-      <div class="frame-dot" style="background:#28C840;"></div>
-      <span style="color:#555;font-size:10px;margin-left:8px;font-family:'JetBrains Mono',monospace;">openval.yoursite.com</span>
+<!-- ════════════════════════════════
+     THE STORY — hidden references
+════════════════════════════════ -->
+<section class="section" id="story">
+<div class="inner">
+  <div class="sec-label">Origin · The Hidden Reference</div>
+
+  <div class="story-pull">
+    Two of the <span class="story-gold">Seven Wonders of the Ancient World</span>
+    — hidden inside a single mark.
+  </div>
+
+  <div class="rule"></div>
+
+  <p class="body-text">
+    The <strong>Pharos of Alexandria</strong> stood for over a thousand years as the tallest man-made structure on Earth. A lighthouse so monumental it became the ancient word for lighthouse in a dozen languages. It didn't guide Greek ships, or Roman ships, or Egyptian ships. It guided <strong>every ship</strong> — through the same dangerous waters, regardless of what they carried or where they were bound.<br/><br/>
+    The name <strong>PHAROLON</strong> carries that lighthouse inside it: <em>PHAROS + LON</em>. The ancient beacon, extended forward. A platform built to last not for one regulatory era, but for every era that follows.<br/><br/>
+    And the icon? Look closer. The pyramid inside the compass ring is no coincidence. The <strong>Great Pyramid of Giza</strong> — another of the Seven Wonders, standing on the same soil as the Pharos — is encoded into the mark. The nested triangles. The ancient stone courses. The apex that catches the light. <strong>Two wonders. One symbol.</strong>
+  </p>
+
+  <div class="meaning-grid">
+    <div class="meaning-card">
+      <div class="mc-icon">🏛</div>
+      <div class="mc-title mc-gold">PHAROS — The Lighthouse</div>
+      <div class="mc-body">The Pharos of Alexandria guided every vessel for over 1,000 years. <strong>PHAROLON</strong> does the same: the fixed reference point that guides any regulated organisation through compliance complexity — regardless of industry, geography, or regulatory framework.</div>
     </div>
-    <div class="frame-header">
-      <div class="frame-logo">OV</div>
-      <span class="frame-wordmark">OPEN<em>VAL</em></span>
-      <span class="frame-site">◈ MATC · Madison</span>
-      <div class="frame-spacer"></div>
-      <div class="frame-search">⌘K  Search everything...</div>
-      <div class="notif-btn">🔔<div class="notif-b">3</div></div>
-      <div class="frame-av">ME</div>
+    <div class="meaning-card">
+      <div class="mc-icon">△</div>
+      <div class="mc-title mc-gold">The Pyramid — Built to Last</div>
+      <div class="mc-body">The nested triangles in the icon reference the <strong>Great Pyramid of Giza</strong> — the only ancient Wonder still standing. Gold outer, teal mid, purple inner: three layers of quality, precision, and integrity, nested inside each other. Enduring. Immutable. Exact.</div>
     </div>
-    <div class="frame-body">
-      <div class="frame-sidebar">
-        <div class="nav-grp">VALIDATION</div>
-        <div class="nav-item"><span class="ico">⊞</span>Dashboard</div>
-        <div class="nav-item active"><span class="ico">◈</span>Protocols</div>
-        <div class="nav-item"><span class="ico">▶</span>Executions</div>
-        <div class="nav-item"><span class="ico" style="color:#8B5CF6;">◆</span>Test Library<span class="ee-ind">EE</span></div>
-        <div class="nav-item"><span class="ico">⟳</span>Traceability</div>
-        <div class="nav-grp">QUALITY</div>
-        <div class="nav-item"><span class="ico">✓</span>CAPA<span class="nav-bc">7</span></div>
-        <div class="nav-item"><span class="ico">↻</span>Change Control</div>
-        <div class="nav-item"><span class="ico">⚠</span>Deviations<span class="nav-bc" style="background:#E54B2E;">2</span></div>
-        <div class="nav-grp">DOCUMENTS</div>
-        <div class="nav-item"><span class="ico">⊟</span>Library</div>
-        <div class="nav-item"><span class="ico" style="color:#E2A837;">◎</span>Pending<span class="nav-bc">4</span></div>
-      </div>
-      <div class="frame-content">
-        <div class="fc-title">Protocols</div>
-        <div class="fc-sub">LabWare LIMS 8.0 · IQ / OQ / PQ validation project</div>
-        <div class="kgrid">
-          <div class="kc"><div class="kl">Total</div><div class="kv">12</div></div>
-          <div class="kc"><div class="kl">Passed</div><div class="kv" style="color:#86C140;">7</div></div>
-          <div class="kc"><div class="kl">In Review</div><div class="kv" style="color:#60A5FA;">3</div></div>
-          <div class="kc gold"><div class="kl gold-l">⚠ Action</div><div class="kv" style="color:#F0C040;">2</div></div>
-        </div>
-        <div class="tbl">
-          <div class="tbl-hdr"><span>Ref</span><span>Title</span><span>Status</span><span>Due</span></div>
-          <div class="tbl-row"><span class="tbl-ref">IQ-0042</span><span>LIMS IQ Protocol v1.0</span><span><span class="sp sp-pass">● PASSED</span></span><span style="font-size:9px;color:var(--text3);">Apr 01</span></div>
-          <div class="tbl-row"><span class="tbl-ref">OQ-0043</span><span>LIMS OQ Protocol v1.0</span><span><span class="sp sp-rev">◉ REVIEW</span></span><span style="font-size:9px;color:var(--text3);">Apr 15</span></div>
-          <div class="tbl-row"><span class="tbl-ref">PQ-0044</span><span>LIMS PQ Protocol v1.0</span><span><span class="sp sp-over">⚠ OVERDUE</span></span><span style="font-size:9px;color:#F0C040;">Mar 30</span></div>
-          <div class="tbl-row"><span class="tbl-ref">UAT-0045</span><span>LIMS UAT Protocol v1.0</span><span><span class="sp sp-dev">◷ DEVIATION</span></span><span style="font-size:9px;color:var(--text3);">Apr 22</span></div>
-        </div>
-      </div>
+    <div class="meaning-card">
+      <div class="mc-icon">◎</div>
+      <div class="mc-title mc-gold">The Compass — Navigate Complexity</div>
+      <div class="mc-body">The compass ring with its cardinal ticks represents <strong>navigation through regulatory complexity</strong>. FDA, EMA, ICH, PIC/S, ISO — every jurisdiction, every framework. PHAROLON is the instrument you navigate by. Precise. Calibrated. Reliable.</div>
+    </div>
+    <div class="meaning-card">
+      <div class="mc-icon">✦</div>
+      <div class="mc-title mc-gold">The Apex Beacon — The Flash</div>
+      <div class="mc-body">The apex beacon flashes like a real lighthouse: triple-flash, then dark. The <strong>dashed horizon line</strong> beneath the pyramid is the sea — the regulatory danger the lighthouse stands above. The ghost pyramid that draws itself in — the form that only appears when you look closely enough.</div>
     </div>
   </div>
+</div>
 </section>
 
-<!-- ── PALETTE ── -->
-<section class="palette-section">
-  <div class="palette-inner">
-    <div class="section-eyebrow" style="text-align:left;">Design System</div>
-    <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:28px;">Teal + Gold. Not another blue enterprise tool.</h2>
-    <div class="sw-row">
-      <div class="sw" style="background:#002A25;"><span class="sw-label">950</span><span class="sw-hex">#002A25</span></div>
-      <div class="sw" style="background:#004D45;"><span class="sw-label">900</span><span class="sw-hex">#004D45</span></div>
-      <div class="sw" style="background:#006B61;"><span class="sw-label">800</span></div>
-      <div class="sw sw-main" style="background:#00A090;"><span class="sw-label">600★</span><span class="sw-hex">#00A090</span></div>
-      <div class="sw" style="background:#00B8A9;"><span class="sw-label">500</span></div>
-      <div class="sw" style="background:#00D4C4;"><span class="sw-label" style="color:#002A25;">400</span></div>
-      <div class="sw" style="width:12px;flex:0;background:transparent;"></div>
-      <div class="sw" style="background:#C9981A;"><span class="sw-label">G600</span></div>
-      <div class="sw sw-main" style="background:#E2A837;"><span class="sw-label" style="color:#3A2000;">G★</span><span class="sw-hex" style="color:rgba(0,0,0,.5);">#E2A837</span></div>
-      <div class="sw" style="background:#F0C040;"><span class="sw-label" style="color:#3A2000;">G400</span></div>
-    </div>
-    <div class="accent-row">
-      <div class="accent-chip"><div class="ac-dot" style="background:#86C140;"></div><span class="ac-name" style="color:#86C140;">Pass</span><span class="ac-use">#86C140 — warm lime green</span></div>
-      <div class="accent-chip"><div class="ac-dot" style="background:#E54B2E;"></div><span class="ac-name" style="color:#E54B2E;">Fail</span><span class="ac-use">#E54B2E — warm coral red</span></div>
-      <div class="accent-chip"><div class="ac-dot" style="background:#F97316;"></div><span class="ac-name" style="color:#F97316;">Deviation</span><span class="ac-use">#F97316 — orange</span></div>
-      <div class="accent-chip"><div class="ac-dot" style="background:#8B5CF6;"></div><span class="ac-name" style="color:#A78BFA;">AI / EE</span><span class="ac-use">#8B5CF6 — purple</span></div>
-      <div class="accent-chip"><div class="ac-dot" style="background:#3B82F6;"></div><span class="ac-name" style="color:#60A5FA;">Info</span><span class="ac-use">#3B82F6 — blue</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ── FEATURES ── -->
-<section class="features">
-  <div class="section-eyebrow">Platform</div>
-  <h2 class="section-title">30 validation disciplines. One platform.</h2>
-  <p class="section-sub">Every type of validation your program needs — in a single, auditable system.</p>
+<!-- ════════════════════════════════
+     PLATFORM
+════════════════════════════════ -->
+<section class="section" id="platform">
+<div class="inner">
+  <div class="sec-label">The Platform</div>
   <div class="feat-grid">
-    <div class="feat-card">
-      <div class="feat-icon">💻</div>
-      <div class="feat-title">Computer System Validation</div>
-      <div class="feat-desc">Full IQ/OQ/PQ/UAT lifecycle. FDA CSA (Sept 2025) dual-mode. DQ, SAT, FAT, retrospective assessment. Reusable test case library.</div>
-      <span class="feat-tag">21 CFR Part 11</span>
+    <div class="feat">
+      <div class="feat-label">Validation Suite</div>
+      <div class="feat-title">Every Discipline</div>
+      <div class="feat-body">CSV · CSA · Equipment Qualification · CQV · Analytical Instrument · Method Validation · Process Validation · Cleaning · Sterilization · Cold Chain. 30+ disciplines in a single platform.</div>
     </div>
-    <div class="feat-card">
-      <div class="feat-icon">⚙️</div>
-      <div class="feat-title">Equipment & CQV</div>
-      <div class="feat-desc">Equipment qualification, analytical instrument validation, commissioning & qualification with punch items, paperless handover packages, P&ID walkdowns.</div>
-      <span class="feat-tag">GAMP 5</span>
+    <div class="feat">
+      <div class="feat-label">Document Intelligence</div>
+      <div class="feat-title">SOP Visualizer</div>
+      <div class="feat-body">AI parses any SOP into interactive swimlane flowcharts. Pharma's first AI-powered process map generator — from document to diagram in seconds. 67 protocol templates included.</div>
     </div>
-    <div class="feat-card">
-      <div class="feat-icon">🧬</div>
-      <div class="feat-title">Process Validation</div>
-      <div class="feat-desc">Stage 1/2/3 (Design → PPQ → CPV). Cleaning validation with MACO/ADE/LD50. Sterilization (F0, SAL). Cold chain / temperature mapping.</div>
-      <span class="feat-tag">FDA PV Guidance</span>
+    <div class="feat">
+      <div class="feat-label">Quality Management</div>
+      <div class="feat-title">Complete QMS</div>
+      <div class="feat-body">CAPA · Change Control · Deviations · OOS/OOT · Complaints · Audit Management · Periodic Review · Inspection Readiness. FDA 483 tracking built in.</div>
     </div>
-    <div class="feat-card">
-      <div class="feat-icon">✅</div>
-      <div class="feat-title">Quality Management</div>
-      <div class="feat-desc">CAPA, Change Control, Deviations, OOS/OOT, Complaints, Audit Management, Periodic Review, Validation Debt Tracker.</div>
-      <span class="feat-tag">21 CFR 211</span>
+    <div class="feat">
+      <div class="feat-label">Architecture</div>
+      <div class="feat-title">418 Tables. Zero Compromise.</div>
+      <div class="feat-body">SHA-256 immutable audit chain. Re-authentication e-signatures. VPD row-level security. PostgreSQL 15+, Oracle 19c/21c/23ai, MySQL 8.0. Full ALCOA+ by architecture.</div>
     </div>
-    <div class="feat-card">
-      <div class="feat-icon">📄</div>
-      <div class="feat-title">Document System</div>
-      <div class="feat-desc">Block-based WYSIWYG editor. 58 pre-built templates. Electronic logbooks. Drawing management. Validation packages with release notes.</div>
-      <span class="feat-tag">EU Annex 11</span>
+    <div class="feat">
+      <div class="feat-label">Self-Hosted</div>
+      <div class="feat-title">Your Data. Always.</div>
+      <div class="feat-body">No cloud mandate. No per-user fees. No audit trail in someone else's hands. Install on Ubuntu 22.04, RHEL 9, or any supported Linux. Ships with its own validation package VP-001 to VP-015.</div>
     </div>
-    <div class="feat-card">
-      <div class="feat-icon">🤖</div>
-      <div class="feat-title">AI Assistance</div>
-      <div class="feat-desc">Draft generation, regulatory gap analysis, natural language → test steps, video-to-script, completeness scoring, validation debt prioritization.</div>
-      <span class="feat-tag ee">Enterprise EE</span>
+    <div class="feat">
+      <div class="feat-label">Enterprise Edition</div>
+      <div class="feat-title">ATMP · DCS · GCP</div>
+      <div class="feat-body">ATMP Chain of Identity and Custody. DCS/SCADA instrument loop calibration. GCP clinical trial system validation. ICH Q12/Q13 lifecycle management. Jira, Veeva, SAML/SSO integrations.</div>
     </div>
   </div>
+</div>
 </section>
 
-<!-- ── COMPONENTS ── -->
-<section class="comp-section">
-  <div class="comp-inner">
-    <div class="section-eyebrow" style="text-align:left;">Design Components</div>
-    <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:24px;">Every component designed for GxP workflows.</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-      <div>
-        <p style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;font-weight:600;">Status badge library</p>
-        <div class="badge-grid">
-          <span class="badge" style="background:rgba(134,193,64,.15);color:#86C140;border:1px solid rgba(134,193,64,.3);">● PASSED</span>
-          <span class="badge" style="background:rgba(229,75,46,.15);color:#E54B2E;border:1px solid rgba(229,75,46,.3);">✗ FAILED</span>
-          <span class="badge" style="background:rgba(249,115,22,.15);color:#F97316;border:1px solid rgba(249,115,22,.3);">◷ DEVIATION</span>
-          <span class="badge" style="background:rgba(59,130,246,.15);color:#60A5FA;border:1px solid rgba(59,130,246,.25);">◉ IN REVIEW</span>
-          <span class="badge" style="background:rgba(226,168,55,.15);color:#F0C040;border:1px solid rgba(226,168,55,.3);">⚠ OVERDUE</span>
-          <span class="badge" style="background:rgba(0,160,144,.15);color:#00D4C4;border:1px solid rgba(0,160,144,.3);">◈ APPROVED</span>
-          <span class="badge" style="background:rgba(139,92,246,.15);color:#A78BFA;border:1px solid rgba(139,92,246,.25);">🤖 AI ASSIST</span>
-          <span class="badge" style="background:rgba(139,92,246,.12);color:#A78BFA;border:1px solid rgba(139,92,246,.25);">◆ ENTERPRISE</span>
-        </div>
-        <p style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin:16px 0 10px;font-weight:600;">Callout personality</p>
-        <div class="callout" style="background:rgba(0,160,144,.1);border:1px solid rgba(0,160,144,.25);border-left:3px solid #00A090;">
-          <div class="co-icon">ℹ</div><div><div class="co-t" style="color:#00D4C4;">21 CFR 11.10(e) requirement</div><div class="co-d" style="color:rgba(0,212,196,.6);">Audit trail must capture server-side timestamps only.</div></div>
-        </div>
-        <div class="callout" style="background:rgba(226,168,55,.1);border:1px solid rgba(226,168,55,.25);border-left:3px solid #E2A837;">
-          <div class="co-icon">★</div><div><div class="co-t" style="color:#F0C040;">Action required</div><div class="co-d" style="color:rgba(240,192,64,.6);">Periodic review overdue by 14 days.</div></div>
-        </div>
-        <div class="callout" style="background:rgba(134,193,64,.08);border:1px solid rgba(134,193,64,.25);border-left:3px solid #86C140;margin-bottom:0;">
-          <div class="co-icon">✓</div><div><div class="co-t" style="color:#BEF264;">All criteria met</div><div class="co-d" style="color:rgba(190,242,100,.6);">24 steps passed. Ready for QA review.</div></div>
-        </div>
+<!-- ════════════════════════════════
+     COMPLIANCE
+════════════════════════════════ -->
+<section class="section" id="compliance">
+<div class="inner">
+  <div class="sec-label">Regulatory Coverage</div>
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Framework</th>
+        <th>CE</th>
+        <th>EE</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>21 CFR Part 11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Audit trail, e-signatures, access controls, system validation</td></tr>
+      <tr><td>FDA CSA Final Guidance 2025</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Dual CSV/CSA mode, intended use scoping, unscripted testing</td></tr>
+      <tr><td>EU GMP Annex 11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Audit trail, e-signatures, periodic review, disaster recovery</td></tr>
+      <tr><td>EU GMP Annex 15</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Qualification, validation lifecycle, ongoing verification</td></tr>
+      <tr><td>EU GMP Annex 1 (2022)</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>CCS, APS, PUPSIT document types, continuous EM</td></tr>
+      <tr><td>GAMP 5 (2nd Ed.)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Software category classification, risk-based approach</td></tr>
+      <tr><td>ICH Q2/Q8/Q9/Q10/Q11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Quality by design, risk management, pharmaceutical development</td></tr>
+      <tr><td>ICH Q12/Q13</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Lifecycle management, post-approval changes, continuous manufacturing</td></tr>
+      <tr><td>FDA QMSR (21 CFR 820)</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Design History File, design controls, ISO 13485 alignment</td></tr>
+      <tr><td>PIC/S PI 041-1 (2021)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Data integrity governance, audit log review, ALCOA+</td></tr>
+      <tr><td>MHRA GxP Data Integrity</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Static and dynamic records, metadata, original data</td></tr>
+      <tr><td>ATMP / GTP</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Chain of Identity, Chain of Custody, donor eligibility</td></tr>
+      <tr><td>ICH E6(R3) GCP</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Clinical trial system validation, EDC, CTMS, eTMF</td></tr>
+      <tr><td>EU GDP / WHO GDP</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Temperature lane qualification, excursion management</td></tr>
+      <tr><td>Oracle 19c/21c/23ai</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Full VPD, DBMS_CRYPTO, Wallet, native JSON, ADW</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ════════════════════════════════
+     LOGO LOCKUP SHOWCASE
+════════════════════════════════ -->
+<section class="section">
+<div class="inner">
+  <div class="sec-label">Logo System</div>
+
+  <!-- Icon-as-A feature showcase -->
+  <div style="text-align:center;margin-bottom:12px;">
+    <div style="font-size:8px;letter-spacing:1px;color:rgba(226,168,55,.18);text-transform:uppercase;margin-bottom:20px;">The pyramid as the A</div>
+    <div class="wm-a" style="justify-content:center;">
+      <span class="ch ch-p" style="font-size:clamp(48px,10vw,80px);">P</span>
+      <span class="ch"      style="font-size:clamp(48px,10vw,80px);">H</span>
+      <span style="display:inline-flex;align-items:flex-end;margin:0 3px;">
+        <svg style="display:block;" width="clamp(42px,8.5vw,70px)" height="clamp(48px,10vw,80px)"
+          viewBox="0 0 110 128" fill="none" overflow="visible">
+          <polygon points="55,14 11,110 99,110" stroke="#C9981A" stroke-width="7"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,32 22,110 88,110" stroke="#00A090" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,50 33,110 77,110" stroke="#8B5CF6" stroke-width="2.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <circle class="lh-halo" cx="55" cy="16" r="7"   fill="rgba(245,208,96,.1)" filter="url(#glow-lg)"/>
+          <circle class="lh-core" cx="55" cy="16" r="2.5" fill="#F5D060"/>
+          <circle cx="55" cy="16" r="1.1" fill="#fff" opacity=".9"/>
+        </svg>
+      </span>
+      <span class="ch" style="font-size:clamp(48px,10vw,80px);">ROLON</span>
+    </div>
+  </div>
+
+  <!-- Background lockup grid -->
+  <div class="lockup-grid" style="margin-top:40px;">
+    <div class="lk-cell bg-ink">
+      <div class="lk-h">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none">
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/>
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.18)" stroke-width=".75" fill="none"/>
+          <line x1="55" y1="5"  x2="55" y2="18" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+          <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+          <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+          <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+          <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/>
+          <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <circle class="lh-core" cx="55" cy="14" r="2.3" fill="#F5D060"/>
+        </svg>
+        <div class="lk-sep lk-sep-dk"></div>
+        <div class="wm"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
       </div>
-      <div>
-        <p style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;font-weight:600;">21 CFR Part 11 signature record</p>
-        <div class="sig-demo">
-          <div style="color:var(--text3);font-size:8px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Approval block · IQ-0042 v1.0</div>
-          <div class="sig-row-demo" style="background:rgba(134,193,64,.06);border:1px solid rgba(134,193,64,.25);">
-            <div class="sig-av" style="background:linear-gradient(135deg,#00A090,#004D45);">ME</div>
-            <div style="flex:1;"><div class="sig-name" style="color:#86C140;">Michael Escamilla</div><div class="sig-role">APPROVED · QA Manager</div></div>
-            <div class="sig-time">2026-04-08<br>14:23 UTC</div>
-            <div class="sig-ck" style="color:#86C140;">✓</div>
-          </div>
-          <div class="sig-row-demo" style="background:rgba(226,168,55,.06);border:1px solid rgba(226,168,55,.25);">
-            <div class="sig-av" style="background:linear-gradient(135deg,#E2A837,#A87E14);">TJ</div>
-            <div style="flex:1;"><div class="sig-name" style="color:#F0C040;">Tracy Johnson</div><div class="sig-role">REVIEWED · Val. Engineer</div></div>
-            <div class="sig-time">2026-04-08<br>12:11 UTC</div>
-            <div class="sig-ck" style="color:#F0C040;">✓</div>
-          </div>
-          <div class="sig-row-demo" style="background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.25);">
-            <div class="sig-av" style="background:linear-gradient(135deg,#F97316,#C2510D);">RK</div>
-            <div style="flex:1;"><div class="sig-name" style="color:#FDBA74;">Ravi Kumar</div><div class="sig-role">AUTHORED · CSV Specialist</div></div>
-            <div class="sig-time">2026-04-08<br>09:45 UTC</div>
-            <div class="sig-ck" style="color:#FDBA74;">✓</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;border:1px dashed rgba(255,255,255,.1);border-radius:6px;padding:8px 10px;margin-top:6px;">
-            <div style="width:24px;height:24px;border-radius:50%;border:1.5px dashed rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:12px;">+</div>
-            <div style="color:rgba(255,255,255,.3);font-size:9px;">Director Sign-off · Awaiting signature</div>
-          </div>
-        </div>
+    </div>
+    <div class="lk-cell bg-teal">
+      <div class="lk-h">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none">
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="10" fill="none"/>
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.22)" stroke-width=".75" fill="none"/>
+          <line x1="55" y1="5"  x2="55" y2="18" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
+          <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
+          <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
+          <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
+          <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.14)" stroke-width=".75" stroke-dasharray="3 5"/>
+          <polygon points="55,14 11,82 99,82" stroke="#E2A837" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27 22,82 88,82" stroke="#00C4B4" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" stroke="#A78BFA" stroke-width="2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <circle class="lh-core" cx="55" cy="14" r="2.3" fill="#F5D060"/>
+        </svg>
+        <div class="lk-sep lk-sep-dk"></div>
+        <div class="wm"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+    <div class="lk-cell bg-mid">
+      <div class="lk-h">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none">
+          <circle cx="55" cy="55" r="50" stroke="rgba(100,75,10,.06)" stroke-width="10" fill="none"/>
+          <circle cx="55" cy="55" r="50" stroke="rgba(120,90,10,.2)"  stroke-width=".75" fill="none"/>
+          <line x1="55" y1="5"  x2="55" y2="18" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/>
+          <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/>
+          <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/>
+          <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/>
+          <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(120,90,10,.13)" stroke-width=".75" stroke-dasharray="3 5"/>
+          <polygon points="55,14 11,82 99,82" stroke="#A87E14" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27 22,82 88,82" stroke="#006B61" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" stroke="#5B21B6" stroke-width="2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <circle cx="55" cy="14" r="2.3" fill="#A87E14"/>
+        </svg>
+        <div class="lk-sep lk-sep-lt"></div>
+        <div class="wm wm-dk"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+    <div class="lk-cell bg-white">
+      <div class="lk-h">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none">
+          <circle cx="55" cy="55" r="50" stroke="rgba(100,75,10,.05)" stroke-width="10" fill="none"/>
+          <circle cx="55" cy="55" r="50" stroke="rgba(120,90,10,.16)" stroke-width=".75" fill="none"/>
+          <line x1="55" y1="5"  x2="55" y2="18" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/>
+          <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/>
+          <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/>
+          <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/>
+          <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(120,90,10,.1)" stroke-width=".75" stroke-dasharray="3 5"/>
+          <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27 22,82 88,82" stroke="#007A6E" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" stroke="#6D28D9" stroke-width="2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <circle cx="55" cy="14" r="2.3" fill="#C9981A"/>
+        </svg>
+        <div class="lk-sep lk-sep-lt"></div>
+        <div class="wm wm-dk"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ── COMPLIANCE ── -->
-<section class="compliance">
-  <div class="section-eyebrow">Regulatory</div>
-  <h2 class="section-title">Built for auditors. Not just compliance checkboxes.</h2>
-  <p class="section-sub" style="margin-bottom:36px;">Every architectural decision made with a regulator in the room.</p>
-  <div class="reg-grid">
-    <div class="reg-card"><div class="reg-badge">✓ Compliant</div><div class="reg-title">21 CFR Part 11</div><div class="reg-desc">SHA-256 hash chain audit trail, server-side timestamps, re-authentication at every signing, record hash linkage.</div></div>
-    <div class="reg-card"><div class="reg-badge">✓ Compliant</div><div class="reg-title">EU Annex 11</div><div class="reg-desc">Validated system with bundled VP-001–VP-015, configurable headers, distribution controls, version management.</div></div>
-    <div class="reg-card"><div class="reg-badge">✓ Aligned</div><div class="reg-title">FDA CSA Sept 2025</div><div class="reg-desc">Dual CSV/CSA mode. Intended use per feature. Unscripted testing capture. Critical thinking rationale required.</div></div>
-    <div class="reg-card"><div class="reg-badge">✓ Aligned</div><div class="reg-title">GAMP 5 2nd Ed.</div><div class="reg-desc">Category-driven validation scope. Risk-based testing matrix. Reusable test case library. OOTB/Configured/Custom.</div></div>
-    <div class="reg-card"><div class="reg-badge">✓ Enforced</div><div class="reg-title">ALCOA+</div><div class="reg-desc">Attributable · Contemporaneous · Original · Enduring · Available — all enforced by architecture, not policy.</div></div>
-    <div class="reg-card"><div class="reg-badge">✓ Aligned</div><div class="reg-title">ICH Q8/Q9/Q10</div><div class="reg-desc">QbD framework, design space documentation, quality risk management, product lifecycle management.</div></div>
-  </div>
-</section>
-
-<!-- ── SCHEMA ── -->
-<section class="schema-section">
-  <div class="schema-inner">
-    <div class="section-eyebrow" style="text-align:left;">Database</div>
-    <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:8px;">373 tables. Complete from day one.</h2>
-    <p style="color:var(--text2);font-size:14px;margin-bottom:28px;">UUID primary keys · UTC timestamps · JSON as TEXT for multi-DB portability · No hard deletes anywhere.</p>
-    <div class="schema-grid">
-      <div class="schema-row"><span class="schema-part">Part 1</span><span class="schema-count">130</span><span class="schema-desc">Core: auth, audit trail, systems, protocols, documents, workflows, CAPA</span></div>
-      <div class="schema-row"><span class="schema-part">Part 3</span><span class="schema-count">31</span><span class="schema-desc">Quality: OOS/OOT, EM, stability, batch, complaints, inspection, SPC</span></div>
-      <div class="schema-row"><span class="schema-part">Part 5</span><span class="schema-count">33</span><span class="schema-desc">Validation workflows: projects, plans, sign-offs, lifecycle state machines</span></div>
-      <div class="schema-row"><span class="schema-part">Part 7</span><span class="schema-count">37</span><span class="schema-desc">Disciplines: logbooks, drawings, cleaning, cold chain, CQV, sterilization</span></div>
-      <div class="schema-row"><span class="schema-part">Part 8</span><span class="schema-count">20</span><span class="schema-desc">Document system: block model, flowcharts, validation packages, AI log</span></div>
-      <div class="schema-row"><span class="schema-part">Part 9</span><span class="schema-count">91</span><span class="schema-desc">Complete: workspaces, teams, eBR, regulatory, integrations, dashboards</span></div>
-      <div class="schema-row"><span class="schema-part">Part 10</span><span class="schema-count">11</span><span class="schema-desc">Astellas gap fill: RASC, SMM, SRP, EOL, SRS, vendor releases, EHSA</span></div>
-      <div class="schema-row" style="border-color:rgba(0,160,144,.3);"><span class="schema-part" style="color:#fff;">TOTAL</span><span class="schema-count" style="color:var(--t400);">373</span><span class="schema-desc" style="color:#fff;font-weight:500;">tables across 10 schema parts</span></div>
+  <!-- App icon family -->
+  <div style="margin-top:48px;">
+    <div style="font-size:8px;letter-spacing:1px;color:rgba(226,168,55,.18);text-transform:uppercase;text-align:center;margin-bottom:28px;">App Icon Family</div>
+    <div class="icon-row">
+      <div class="ico-item">
+        <div class="app-ico" style="width:88px;height:88px;">
+          <svg width="60" height="60" viewBox="0 0 110 110" fill="none">
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/>
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.2)" stroke-width=".75" fill="none"/>
+            <line x1="55" y1="5"  x2="55" y2="18" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
+            <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
+            <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
+            <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
+            <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/>
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <circle cx="55" cy="14" r="7" fill="rgba(245,208,96,.09)" filter="url(#glow-lg)"/>
+            <circle class="lh-core" cx="55" cy="14" r="2.8" fill="#F5D060"/>
+            <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+          </svg>
+        </div>
+        <div class="ico-sz">1024</div>
+      </div>
+      <div class="ico-item">
+        <div class="app-ico" style="width:64px;height:64px;">
+          <svg width="44" height="44" viewBox="0 0 110 110" fill="none">
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/>
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.18)" stroke-width=".75" fill="none"/>
+            <line x1="55" y1="5" x2="55" y2="18" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="5" y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <circle class="lh-core" cx="55" cy="14" r="2.8" fill="#F5D060"/>
+          </svg>
+        </div>
+        <div class="ico-sz">512</div>
+      </div>
+      <div class="ico-item">
+        <div class="app-ico" style="width:46px;height:46px;">
+          <svg width="30" height="30" viewBox="0 0 110 110" fill="none">
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.04)" stroke-width="10" fill="none"/>
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.16)" stroke-width="1" fill="none"/>
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="7"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="4"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <circle cx="55" cy="14" r="3" fill="#F5D060"/>
+          </svg>
+        </div>
+        <div class="ico-sz">256</div>
+      </div>
+      <div class="ico-item">
+        <div class="app-ico" style="width:34px;height:34px;">
+          <svg width="22" height="22" viewBox="0 0 110 110" fill="none">
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.14)" stroke-width="1" fill="none"/>
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="9"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          </svg>
+        </div>
+        <div class="ico-sz">64</div>
+      </div>
+      <div class="ico-item">
+        <div class="app-ico" style="width:24px;height:24px;">
+          <svg width="16" height="16" viewBox="0 0 110 110" fill="none">
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="7.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          </svg>
+        </div>
+        <div class="ico-sz">32</div>
+      </div>
+      <div class="ico-item">
+        <div class="app-ico" style="width:18px;height:18px;">
+          <svg width="12" height="12" viewBox="0 0 110 110" fill="none">
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="18" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          </svg>
+        </div>
+        <div class="ico-sz">16</div>
+      </div>
     </div>
   </div>
+</div>
 </section>
 
-<!-- ── CTA ── -->
-<section class="cta">
-  <h2>Ready to validate differently?</h2>
-  <p>Free, open source, self-hosted. Built for the people who make medicines safe.</p>
-  <div class="hero-btns">
-    <a href="https://github.com/tigger2000ttfn/OpenVAL" class="btn-hero btn-primary">★ Star on GitHub</a>
-    <a href="https://github.com/tigger2000ttfn/OpenVAL/blob/main/CONTRIBUTING.md" class="btn-hero btn-ghost">Contribute →</a>
+<!-- ════════════════════════════════
+     PRICING
+════════════════════════════════ -->
+<section class="section" id="pricing">
+<div class="inner">
+  <div class="sec-label">Pricing</div>
+  <div class="price-grid">
+    <div class="price-card">
+      <div class="price-tier">Community Edition</div>
+      <div class="price-amt price-amt-free">Free</div>
+      <div class="price-sub">Forever. AGPL-3.0. Self-hosted.</div>
+      <ul class="price-features">
+        <li>Full validation lifecycle</li>
+        <li>E-signatures + immutable audit trail</li>
+        <li>CAPA, change control, deviations</li>
+        <li>Controlled documents + 67 templates</li>
+        <li>SOP Visualizer + Package Visualizer</li>
+        <li>RTM auto-generation</li>
+        <li>Periodic review workflows</li>
+        <li>Validation package VP-001–VP-015</li>
+        <li>PostgreSQL, Oracle, MySQL</li>
+        <li>Bare metal installer included</li>
+      </ul>
+      <a class="price-cta price-cta-ce" href="https://github.com/tigger2000ttfn/OpenVAL">Get Started on GitHub</a>
+    </div>
+    <div class="price-card price-gold">
+      <div class="price-tier" style="color:rgba(226,168,55,.4);">Enterprise Edition</div>
+      <div class="price-amt" style="color:rgba(226,168,55,.6);font-size:32px;padding-top:8px;">Contact Us</div>
+      <div class="price-sub">Commercial licence. Site, enterprise, SaaS.</div>
+      <ul class="price-features">
+        <li>Everything in CE</li>
+        <li>OOS/OOT · Complaints · EM · Stability</li>
+        <li>Electronic logbooks + drawings</li>
+        <li>Cleaning, cold chain, CQV, process val</li>
+        <li>Sterilization + CSA mode</li>
+        <li>ATMP Chain of Identity / Custody</li>
+        <li>DCS/SCADA calibration + historian</li>
+        <li>GCP clinical system validation</li>
+        <li>AI assistance + audit anomaly detection</li>
+        <li>SAML/SSO · Jira · Veeva · ServiceNow</li>
+        <li>Multi-site + tenant isolation</li>
+        <li>Priority support + validation services</li>
+      </ul>
+      <a class="price-cta price-cta-ee" href="https://github.com/tigger2000ttfn/OpenVAL/discussions">Enquire →</a>
+    </div>
   </div>
+</div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- ════════════════════════════════
+     FOOTER
+════════════════════════════════ -->
 <footer>
-  <div class="footer-logo">
-    <div class="frame-logo">OV</div>
-    <span style="color:#fff;font-size:13px;font-weight:500;">OPEN<em style="color:#00D4C4;font-style:normal;">VAL</em></span>
+  <div class="ft-name">PHAROLON</div>
+  <div class="ft-tagline">
+    Quality Intelligence for Regulated Industries<br/>
+    <span style="color:rgba(226,168,55,.12);">Two ancient wonders. One mark. Built to last.</span>
   </div>
-  <p>Open Source GxP Validation Platform · <a href="https://github.com/tigger2000ttfn/OpenVAL">GitHub</a> · AGPL-3.0 · Built for pharma, biotech, and medical devices.</p>
+  <div class="ft-links">
+    <a class="ft-link" href="https://github.com/tigger2000ttfn/OpenVAL">GitHub</a>
+    <a class="ft-link" href="#story">The Story</a>
+    <a class="ft-link" href="#platform">Platform</a>
+    <a class="ft-link" href="#compliance">Compliance</a>
+    <a class="ft-link" href="#pricing">Pricing</a>
+  </div>
+  <div style="margin-top:32px;font-size:8px;color:rgba(226,168,55,.1);letter-spacing:.5px;">
+    PHAROLON Community Edition · AGPL-3.0 · © 2026
+  </div>
 </footer>
 
 </body>
