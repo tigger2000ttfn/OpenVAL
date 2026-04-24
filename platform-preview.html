@@ -306,7 +306,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 }
 @media(max-width:768px){.sidebar{display:none;}.app-body{height:auto;}.kgrid{grid-template-columns:1fr 1fr;}.feat-grid{grid-template-columns:1fr;}.hero{padding:90px 20px 60px;}}
 </style>
-<meta name="pharolon:build" content="68a0f33"/><meta name="pharolon:built-at" content="2026-04-24T11:19:47Z"/></head>
+<meta name="pharolon:build" content="1c713ec"/><meta name="pharolon:built-at" content="2026-04-24T11:24:01Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -1206,6 +1206,579 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══ VIEW 9: WORKFLOW DESIGNER ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Process Automation</div>
+  <h2 class="section-title">Workflow Designer</h2>
+  <p class="section-sub">Visual drag-and-drop workflow builder. Define review stages, approval gates, escalation rules, and SLA timers without writing code. Every workflow is GxP-auditable by design.</p>
+  <div class="app-wrap">
+    <div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div>
+    <div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">WKFL-001 · Protocol Approval Workflow v2</div></div>
+    <div style="display:flex;height:460px;">
+      <!-- Node palette -->
+      <div style="width:150px;background:#0D1410;border-right:1px solid var(--ch3);padding:10px;flex-shrink:0;overflow:auto;">
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Nodes</div>
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);margin-bottom:4px;">Trigger</div>
+        <div style="background:rgba(0,160,144,.1);border:1px solid rgba(0,160,144,.25);border-radius:4px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:var(--t400);cursor:grab;">⬡ Document Created</div>
+        <div style="background:rgba(0,160,144,.1);border:1px solid rgba(0,160,144,.25);border-radius:4px;padding:5px 8px;margin-bottom:8px;font-size:8px;color:var(--t400);cursor:grab;">⬡ Change Request</div>
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);margin-bottom:4px;">Actions</div>
+        <div style="background:var(--ch3);border-radius:4px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:rgba(232,237,242,.7);cursor:grab;">▷ Assign Reviewer</div>
+        <div style="background:var(--ch3);border-radius:4px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:rgba(232,237,242,.7);cursor:grab;">▷ Send Notification</div>
+        <div style="background:var(--ch3);border-radius:4px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:rgba(232,237,242,.7);cursor:grab;">▷ Request e-Sig</div>
+        <div style="background:var(--ch3);border-radius:4px;padding:5px 8px;margin-bottom:8px;font-size:8px;color:rgba(232,237,242,.7);cursor:grab;">▷ Update Status</div>
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);margin-bottom:4px;">Logic</div>
+        <div style="background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:4px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:#F97316;cursor:grab;">◇ Decision</div>
+        <div style="background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:4px;padding:5px 8px;margin-bottom:8px;font-size:8px;color:#F97316;cursor:grab;">◇ SLA Timer</div>
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);margin-bottom:4px;">GxP</div>
+        <div style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);border-radius:4px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:var(--pur);cursor:grab;">✦ Audit Checkpoint</div>
+        <div style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);border-radius:4px;padding:5px 8px;font-size:8px;color:var(--pur);cursor:grab;">✦ 21 CFR Gate</div>
+      </div>
+
+      <!-- Canvas -->
+      <div style="flex:1;background:var(--ch);background-image:radial-gradient(rgba(0,160,144,.04) 1px,transparent 1px);background-size:18px 18px;position:relative;overflow:auto;padding:20px;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" xmlns="http://www.w3.org/2000/svg">
+          <!-- Connector lines -->
+          <line x1="184" y1="70" x2="184" y2="100" stroke="rgba(0,160,144,.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <line x1="184" y1="160" x2="184" y2="190" stroke="rgba(0,160,144,.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <line x1="184" y1="255" x2="184" y2="260" stroke="rgba(249,115,22,.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <line x1="184" y1="295" x2="100" y2="295" x2="100" y2="320" stroke="rgba(134,193,64,.35)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <line x1="184" y1="295" x2="270" y2="295" stroke="rgba(229,75,46,.35)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <line x1="100" y1="320" x2="100" y2="350" stroke="rgba(134,193,64,.35)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        </svg>
+
+        <!-- Node: Start trigger -->
+        <div style="position:absolute;top:20px;left:120px;width:130px;">
+          <div style="background:rgba(0,160,144,.15);border:2px solid var(--t600);border-radius:8px;padding:8px 10px;text-align:center;">
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);">TRIGGER</div>
+            <div style="font-size:9px;font-weight:600;color:#fff;margin-top:2px;">Document Created</div>
+          </div>
+        </div>
+
+        <!-- Node: Assign author review -->
+        <div style="position:absolute;top:100px;left:110px;width:150px;">
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:8px;padding:8px 10px;">
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">ACTION</div>
+            <div style="font-size:9px;font-weight:600;color:#fff;margin-top:1px;">Assign to Author</div>
+            <div style="font-size:7px;color:var(--t400);margin-top:3px;">Role: Document Author · SLA: 5d</div>
+          </div>
+        </div>
+
+        <!-- Node: Request e-sig -->
+        <div style="position:absolute;top:190px;left:110px;width:150px;">
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:8px;padding:8px 10px;">
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">ACTION</div>
+            <div style="font-size:9px;font-weight:600;color:#fff;margin-top:1px;">Request Reviewer e-Sig</div>
+            <div style="font-size:7px;color:var(--t400);margin-top:3px;">Meaning: Reviewed · SLA: 3d</div>
+          </div>
+        </div>
+
+        <!-- Decision diamond -->
+        <div style="position:absolute;top:255px;left:140px;width:90px;height:50px;">
+          <div style="width:60px;height:40px;background:rgba(249,115,22,.12);border:2px solid #F97316;transform:rotate(45deg);border-radius:4px;margin:5px auto;"></div>
+          <div style="position:absolute;top:12px;left:0;right:0;text-align:center;font-size:7px;font-weight:600;color:#F97316;">Approved?</div>
+          <div style="position:absolute;bottom:-12px;left:-20px;font-size:7px;font-family:'DM Mono',monospace;color:#86C140;">Yes ↓</div>
+          <div style="position:absolute;bottom:10px;right:-28px;font-size:7px;font-family:'DM Mono',monospace;color:var(--fail);">No →</div>
+        </div>
+
+        <!-- Yes branch: Approved -->
+        <div style="position:absolute;top:330px;left:56px;width:100px;">
+          <div style="background:rgba(134,193,64,.1);border:1px solid rgba(134,193,64,.3);border-radius:8px;padding:7px 8px;text-align:center;">
+            <div style="font-size:8px;font-weight:600;color:#86C140;">✓ Approved</div>
+            <div style="font-size:7px;color:rgba(232,237,242,.4);margin-top:2px;">Audit entry · Notify</div>
+          </div>
+        </div>
+
+        <!-- No branch: Return -->
+        <div style="position:absolute;top:275px;right:30px;width:110px;">
+          <div style="background:rgba(229,75,46,.08);border:1px solid rgba(229,75,46,.25);border-radius:8px;padding:7px 8px;text-align:center;">
+            <div style="font-size:8px;font-weight:600;color:var(--fail);">Return for Revision</div>
+            <div style="font-size:7px;color:rgba(232,237,242,.4);margin-top:2px;">Comments required</div>
+          </div>
+        </div>
+
+        <!-- 21 CFR Gate badge -->
+        <div style="position:absolute;bottom:20px;right:20px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);border-radius:6px;padding:8px 12px;max-width:160px;">
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--pur);margin-bottom:4px;">✦ 21 CFR Part 11 Gate</div>
+          <div style="font-size:8px;color:rgba(232,237,242,.6);">All signatures validated · audit trail complete · meaning recorded</div>
+        </div>
+      </div>
+
+      <!-- Properties -->
+      <div style="width:170px;background:var(--ch2);border-left:1px solid var(--ch3);padding:12px;overflow:auto;flex-shrink:0;">
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Workflow Settings</div>
+        <div style="font-size:8px;color:rgba(232,237,242,.45);margin-bottom:4px;">Trigger</div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;font-size:9px;color:var(--t400);margin-bottom:10px;">Document Created ▾</div>
+        <div style="font-size:8px;color:rgba(232,237,242,.45);margin-bottom:4px;">Scope</div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;font-size:9px;color:#fff;margin-bottom:10px;">SOPs, Protocols ▾</div>
+        <div style="font-size:8px;color:rgba(232,237,242,.45);margin-bottom:4px;">Escalation</div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;font-size:9px;color:#F97316;margin-bottom:10px;">Auto-escalate 48h</div>
+        <div style="font-size:8px;color:rgba(232,237,242,.45);margin-bottom:4px;">Part 11 Mode</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+          <div style="width:28px;height:14px;background:var(--t600);border-radius:7px;position:relative;"><div style="position:absolute;right:2px;top:2px;width:10px;height:10px;background:#fff;border-radius:5px;"></div></div>
+          <span style="font-size:8px;color:var(--t400);">Enforced</span>
+        </div>
+        <div style="font-size:8px;color:rgba(232,237,242,.45);margin-bottom:4px;">Parallel Approval</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px;">
+          <div style="width:28px;height:14px;background:var(--ch3);border-radius:7px;position:relative;"><div style="position:absolute;left:2px;top:2px;width:10px;height:10px;background:rgba(232,237,242,.3);border-radius:5px;"></div></div>
+          <span style="font-size:8px;color:rgba(232,237,242,.3);">Off</span>
+        </div>
+        <div style="border-top:1px solid var(--ch3);padding-top:10px;">
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);margin-bottom:6px;">Audit Stats</div>
+          <div style="font-size:8px;color:rgba(232,237,242,.5);">142 executions</div>
+          <div style="font-size:8px;color:rgba(232,237,242,.5);">Avg cycle: 4.2 days</div>
+          <div style="font-size:8px;color:#86C140;">SLA met: 97.2%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 10: DOCUMENT ROUTING ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Review &amp; Approval</div>
+  <h2 class="section-title">Document Routing &amp; Controlled Circulation</h2>
+  <p class="section-sub">Real-time document review queue with live SLA countdowns, role-based inbox, parallel and sequential routing, and one-click escalation. Every action is Part 11 signed.</p>
+  <div class="app-wrap">
+    <div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div>
+    <div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">Document Control · Review Inbox</div></div>
+    <div style="display:flex;height:420px;">
+      <div class="sidebar">
+        <div class="nav-grp">My Inbox</div>
+        <div class="nav-item active">Pending Review <span style="margin-left:auto;background:var(--t600);color:#fff;font-size:7px;padding:1px 6px;border-radius:8px;">7</span></div>
+        <div class="nav-item">Pending Approval <span style="margin-left:auto;background:#F97316;color:#fff;font-size:7px;padding:1px 6px;border-radius:8px;">2</span></div>
+        <div class="nav-item">For My Signature</div>
+        <div class="nav-item">Overdue <span style="margin-left:auto;background:var(--fail);color:#fff;font-size:7px;padding:1px 6px;border-radius:8px;">1</span></div>
+        <div class="nav-grp">All Documents</div>
+        <div class="nav-item">In Review</div>
+        <div class="nav-item">In Approval</div>
+        <div class="nav-item">Effective</div>
+        <div class="nav-item">Superseded</div>
+        <div class="nav-grp">Reports</div>
+        <div class="nav-item">SLA Report</div>
+        <div class="nav-item">Cycle Time</div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:0;">
+        <div style="padding:10px 14px;border-bottom:1px solid var(--ch3);display:flex;align-items:center;gap:8px;">
+          <span style="font-size:10px;font-weight:600;color:#fff;">Pending Review</span>
+          <div style="flex:1;"></div>
+          <span style="font-size:8px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">7 items · sorted by SLA</span>
+        </div>
+        <!-- Document rows -->
+        <table style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr style="background:var(--ch2);">
+              <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:8px 12px;font-weight:400;">Document</th>
+              <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:8px 8px;font-weight:400;">Type</th>
+              <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:8px 8px;font-weight:400;">Author</th>
+              <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:8px 8px;font-weight:400;">Stage</th>
+              <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:right;padding:8px 12px;font-weight:400;">SLA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--ch3);">
+              <td style="padding:10px 12px;">
+                <div style="font-size:9px;font-weight:600;color:#fff;">SOP-QC-024 · Environmental Monitoring</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-top:2px;">v4.1 · Amendment — Section 5.3 updated</div>
+              </td>
+              <td style="padding:10px 8px;"><span style="font-size:7px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">SOP</span></td>
+              <td style="padding:10px 8px;font-size:8px;color:rgba(232,237,242,.6);">M. Chen</td>
+              <td style="padding:10px 8px;"><span style="font-size:7px;background:rgba(226,168,55,.1);color:var(--g500);padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">1 of 3 reviews</span></td>
+              <td style="padding:10px 12px;text-align:right;"><span style="font-size:8px;font-family:'DM Mono',monospace;color:var(--fail);">⚠ 4h left</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ch3);">
+              <td style="padding:10px 12px;">
+                <div style="font-size:9px;font-weight:600;color:#fff;">IQ-HPLC-SYSTEM-003 · Installation Qualification</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-top:2px;">v1.0 · New document</div>
+              </td>
+              <td style="padding:10px 8px;"><span style="font-size:7px;background:rgba(139,92,246,.1);color:var(--pur);padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">Protocol</span></td>
+              <td style="padding:10px 8px;font-size:8px;color:rgba(232,237,242,.6);">S. Patel</td>
+              <td style="padding:10px 8px;"><span style="font-size:7px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">QA Review</span></td>
+              <td style="padding:10px 12px;text-align:right;"><span style="font-size:8px;font-family:'DM Mono',monospace;color:#F97316;">1d 6h</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ch3);background:rgba(0,160,144,.03);">
+              <td style="padding:10px 12px;">
+                <div style="font-size:9px;font-weight:600;color:#fff;">VAL-PLAN-2026-007 · Validation Master Plan</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-top:2px;">v2.0 · Annual update</div>
+              </td>
+              <td style="padding:10px 8px;"><span style="font-size:7px;background:rgba(226,168,55,.1);color:var(--g500);padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">VMP</span></td>
+              <td style="padding:10px 8px;font-size:8px;color:rgba(232,237,242,.6);">J. Müller</td>
+              <td style="padding:10px 8px;"><span style="font-size:7px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">Parallel · 2/4</span></td>
+              <td style="padding:10px 12px;text-align:right;"><span style="font-size:8px;font-family:'DM Mono',monospace;color:#86C140;">3d 2h</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ch3);">
+              <td style="padding:10px 12px;">
+                <div style="font-size:9px;font-weight:600;color:#fff;">WI-MFG-044 · Granulation Work Instruction</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-top:2px;">v3.2 · Periodic review</div>
+              </td>
+              <td style="padding:10px 8px;"><span style="font-size:7px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">Work Inst.</span></td>
+              <td style="padding:10px 8px;font-size:8px;color:rgba(232,237,242,.6);">R. Okonkwo</td>
+              <td style="padding:10px 8px;"><span style="font-size:7px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 6px;border-radius:2px;font-family:'DM Mono',monospace;">SME Review</span></td>
+              <td style="padding:10px 12px;text-align:right;"><span style="font-size:8px;font-family:'DM Mono',monospace;color:#86C140;">4d 12h</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Action bar for selected doc -->
+        <div style="position:sticky;bottom:0;background:var(--ch2);border-top:1px solid var(--ch3);padding:10px 14px;display:flex;align-items:center;gap:8px;">
+          <span style="font-size:8px;color:rgba(232,237,242,.5);">SOP-QC-024 selected</span>
+          <div style="flex:1;"></div>
+          <button style="font-size:8px;background:var(--t600);color:#fff;border:none;padding:6px 14px;border-radius:3px;cursor:pointer;font-family:'DM Mono',monospace;">✓ Approve &amp; Sign</button>
+          <button style="font-size:8px;background:transparent;color:var(--fail);border:1px solid rgba(229,75,46,.3);padding:6px 14px;border-radius:3px;cursor:pointer;font-family:'DM Mono',monospace;">✗ Return</button>
+          <button style="font-size:8px;background:transparent;color:rgba(232,237,242,.5);border:1px solid var(--ch3);padding:6px 14px;border-radius:3px;cursor:pointer;font-family:'DM Mono',monospace;">Escalate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 11: EXCEL VALIDATION ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">21 CFR Part 11 · Spreadsheet Control</div>
+  <h2 class="section-title">Excel Spreadsheet Validation &amp; Part 11 Control</h2>
+  <p class="section-sub">Import any Excel spreadsheet into PHAROLON's validated environment. The validation engine maps cells, locks formulae, wraps input in audit trail, and issues a Part 11 compliance certificate — turning legacy spreadsheets into GxP-compliant tools.</p>
+  <div class="app-wrap">
+    <div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div>
+    <div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">Spreadsheet Validator · XLSX-STABILITY-CALC-001</div></div>
+    <div style="display:flex;height:450px;">
+      <div class="sidebar">
+        <div class="nav-grp">This File</div>
+        <div class="nav-item active">Validation Status</div>
+        <div class="nav-item">Cell Inventory</div>
+        <div class="nav-item">Formula Lock</div>
+        <div class="nav-item">Audit Trail</div>
+        <div class="nav-item">Part 11 Cert</div>
+        <div class="nav-grp">Actions</div>
+        <div class="nav-item" style="color:var(--t400);">Re-validate</div>
+        <div class="nav-item" style="color:var(--t400);">Compare Versions</div>
+        <div class="nav-item" style="color:var(--pur);">✦ AI Review</div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:16px;">
+
+        <!-- Status header -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:16px;">
+          <div style="background:rgba(134,193,64,.08);border:1px solid rgba(134,193,64,.25);border-radius:6px;padding:10px 12px;">
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Status</div>
+            <div style="font-size:13px;font-weight:700;color:#86C140;margin-top:2px;">Validated</div>
+          </div>
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:10px 12px;">
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Cells Mapped</div>
+            <div style="font-size:13px;font-weight:700;color:#fff;margin-top:2px;">847</div>
+          </div>
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:10px 12px;">
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Formulae Locked</div>
+            <div style="font-size:13px;font-weight:700;color:#fff;margin-top:2px;">63</div>
+          </div>
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:10px 12px;">
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Audit Entries</div>
+            <div style="font-size:13px;font-weight:700;color:#fff;margin-top:2px;">1,244</div>
+          </div>
+        </div>
+
+        <!-- Validation checks -->
+        <div style="margin-bottom:16px;">
+          <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Validation Checks</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border-radius:4px;padding:7px 10px;">
+              <span style="color:#86C140;font-size:12px;">✓</span>
+              <span style="font-size:9px;color:#fff;flex:1;">Formula integrity hash verified — no unauthorised modifications since last validation</span>
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">SHA-256 ✓</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border-radius:4px;padding:7px 10px;">
+              <span style="color:#86C140;font-size:12px;">✓</span>
+              <span style="font-size:9px;color:#fff;flex:1;">Input cells locked to validated data types — numeric, date, enumerated values only</span>
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">63 cells</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border-radius:4px;padding:7px 10px;">
+              <span style="color:#86C140;font-size:12px;">✓</span>
+              <span style="font-size:9px;color:#fff;flex:1;">All user inputs trigger audit trail entry — who, what, when, original value, new value</span>
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">Part 11.10(e)</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border-radius:4px;padding:7px 10px;">
+              <span style="color:#86C140;font-size:12px;">✓</span>
+              <span style="font-size:9px;color:#fff;flex:1;">Electronic signature required for result finalisation — meaning "Reviewed and Approved"</span>
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">Part 11.50</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border-radius:4px;padding:7px 10px;">
+              <span style="color:#86C140;font-size:12px;">✓</span>
+              <span style="font-size:9px;color:#fff;flex:1;">Print-to-PDF locked — output includes validation watermark and audit summary page</span>
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">ALCOA+ ✓</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;background:rgba(249,115,22,.06);border:1px solid rgba(249,115,22,.15);border-radius:4px;padding:7px 10px;">
+              <span style="color:#F97316;font-size:12px;">⚠</span>
+              <span style="font-size:9px;color:#fff;flex:1;">3 cells reference external workbook links — these are read-only references and flagged for review</span>
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:#F97316;">Review</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Audit trail preview -->
+        <div>
+          <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Recent Audit Trail</div>
+          <table style="width:100%;border-collapse:collapse;">
+            <thead><tr style="background:var(--ch2);">
+              <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:6px 8px;font-weight:400;">Timestamp</th>
+              <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:6px 8px;font-weight:400;">User</th>
+              <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:6px 8px;font-weight:400;">Cell</th>
+              <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:6px 8px;font-weight:400;">Old Value</th>
+              <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:6px 8px;font-weight:400;">New Value</th>
+              <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:6px 8px;font-weight:400;">Reason</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--ch3);">
+                <td style="padding:6px 8px;font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.45);">2026-04-24 09:14</td>
+                <td style="padding:6px 8px;font-size:8px;color:#fff;">S. Patel</td>
+                <td style="padding:6px 8px;font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);">Sheet2!D14</td>
+                <td style="padding:6px 8px;font-size:8px;color:rgba(232,237,242,.5);">25.4</td>
+                <td style="padding:6px 8px;font-size:8px;color:#86C140;">25.6</td>
+                <td style="padding:6px 8px;font-size:7px;color:rgba(232,237,242,.4);">Corrected timepoint</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--ch3);">
+                <td style="padding:6px 8px;font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.45);">2026-04-23 16:42</td>
+                <td style="padding:6px 8px;font-size:8px;color:#fff;">M. Chen</td>
+                <td style="padding:6px 8px;font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);">Sheet1!B8</td>
+                <td style="padding:6px 8px;font-size:8px;color:rgba(232,237,242,.5);">—</td>
+                <td style="padding:6px 8px;font-size:8px;color:#86C140;">98.7%</td>
+                <td style="padding:6px 8px;font-size:7px;color:rgba(232,237,242,.4);">T=6 month result</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 12: PART 11 COMPLIANCE ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Compliance Intelligence</div>
+  <h2 class="section-title">21 CFR Part 11 Control Centre</h2>
+  <p class="section-sub">Real-time Part 11 compliance posture across every system. Audit trail health, e-signature configuration, access control, and system inventory — all in one view. Built for FDA inspections.</p>
+  <div class="app-wrap">
+    <div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div>
+    <div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">Part 11 Compliance · Live Posture</div></div>
+    <div style="display:flex;height:440px;">
+      <div class="sidebar">
+        <div class="nav-grp">Posture</div>
+        <div class="nav-item active">Overall Score</div>
+        <div class="nav-item">Audit Trails</div>
+        <div class="nav-item">e-Signatures</div>
+        <div class="nav-item">Access Control</div>
+        <div class="nav-grp">Systems</div>
+        <div class="nav-item">System Inventory</div>
+        <div class="nav-item">Validated State</div>
+        <div class="nav-item">CSA Assessments</div>
+        <div class="nav-grp">Reports</div>
+        <div class="nav-item">Inspection Pack</div>
+        <div class="nav-item" style="color:var(--pur);">✦ AI Gap Scan</div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:16px;">
+
+        <!-- Overall score -->
+        <div style="display:flex;gap:12px;margin-bottom:16px;align-items:stretch;">
+          <div style="background:rgba(134,193,64,.08);border:1px solid rgba(134,193,64,.25);border-radius:8px;padding:16px 20px;text-align:center;width:120px;flex-shrink:0;">
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-bottom:6px;">Part 11 Score</div>
+            <div style="font-size:32px;font-weight:700;color:#86C140;line-height:1;">94</div>
+            <div style="font-size:7px;color:rgba(232,237,242,.4);margin-top:4px;">/ 100</div>
+            <div style="margin-top:8px;font-size:7px;background:#86C140;color:#000;padding:2px 8px;border-radius:8px;font-family:'DM Mono',monospace;">COMPLIANT</div>
+          </div>
+          <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:10px;">
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Audit Trail Coverage</div>
+              <div style="font-size:14px;font-weight:700;color:#86C140;margin-top:2px;">100%</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.35);">All 18 GxP systems</div>
+            </div>
+            <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:10px;">
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">e-Sig Compliance</div>
+              <div style="font-size:14px;font-weight:700;color:#86C140;margin-top:2px;">98.4%</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.35);">2 legacy exceptions</div>
+            </div>
+            <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:10px;">
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Open Findings</div>
+              <div style="font-size:14px;font-weight:700;color:#F97316;margin-top:2px;">3</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.35);">0 critical · 3 major</div>
+            </div>
+            <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:10px;">
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Access Reviews Due</div>
+              <div style="font-size:14px;font-weight:700;color:var(--t400);margin-top:2px;">2</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.35);">Due in 14 days</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Requirement matrix -->
+        <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Part 11 Requirement Matrix</div>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:16px;">
+          <thead><tr style="background:var(--ch2);">
+            <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:7px 10px;font-weight:400;">Requirement</th>
+            <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:7px 8px;font-weight:400;">CFR Ref</th>
+            <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:center;padding:7px 8px;font-weight:400;">Status</th>
+            <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:right;padding:7px 10px;font-weight:400;">Evidence</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--ch3);">
+              <td style="padding:8px 10px;font-size:9px;color:#fff;">Audit trail — date/time, user, original/changed value</td>
+              <td style="padding:8px 8px;font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">§11.10(e)</td>
+              <td style="padding:8px 8px;text-align:center;"><span style="font-size:8px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">✓ Met</span></td>
+              <td style="padding:8px 10px;text-align:right;font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);">AT-REPORT-001</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ch3);">
+              <td style="padding:8px 10px;font-size:9px;color:#fff;">e-Signature — unique to individual, non-repudiable</td>
+              <td style="padding:8px 8px;font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">§11.50</td>
+              <td style="padding:8px 8px;text-align:center;"><span style="font-size:8px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">✓ Met</span></td>
+              <td style="padding:8px 10px;text-align:right;font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);">ESIG-VAL-004</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ch3);">
+              <td style="padding:8px 10px;font-size:9px;color:#fff;">System access limited to authorised individuals</td>
+              <td style="padding:8px 8px;font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">§11.10(d)</td>
+              <td style="padding:8px 8px;text-align:center;"><span style="font-size:8px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">✓ Met</span></td>
+              <td style="padding:8px 10px;text-align:right;font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);">RBAC-MATRIX-v5</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ch3);">
+              <td style="padding:8px 10px;font-size:9px;color:#fff;">System checks for operator identity before signing</td>
+              <td style="padding:8px 8px;font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">§11.200</td>
+              <td style="padding:8px 8px;text-align:center;"><span style="font-size:8px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">✓ Met</span></td>
+              <td style="padding:8px 10px;text-align:right;font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);">AUTH-TEST-011</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ch3);">
+              <td style="padding:8px 10px;font-size:9px;color:#fff;">Operational system checks — device checks</td>
+              <td style="padding:8px 8px;font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">§11.10(c)</td>
+              <td style="padding:8px 8px;text-align:center;"><span style="font-size:8px;background:rgba(249,115,22,.12);color:#F97316;padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">⚠ Partial</span></td>
+              <td style="padding:8px 10px;text-align:right;font-size:7px;font-family:'DM Mono',monospace;color:#F97316;">CAPA-2026-012</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 13: INFRA MONITORING ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Operational Visibility</div>
+  <h2 class="section-title">Infrastructure Monitoring &amp; Validated State Checker</h2>
+  <p class="section-sub">Live validated system inventory with real-time health checks. Know which systems are in validated state, what changed, who approved the change, and whether the audit trail is intact. One dashboard. Full visibility.</p>
+  <div class="app-wrap">
+    <div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div>
+    <div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">System Health · Validated State Monitor</div></div>
+    <div style="display:flex;height:460px;">
+      <div class="sidebar">
+        <div class="nav-grp">Monitor</div>
+        <div class="nav-item active">All Systems</div>
+        <div class="nav-item">Critical GxP</div>
+        <div class="nav-item">Infrastructure</div>
+        <div class="nav-item">Alerts <span style="margin-left:auto;background:var(--fail);color:#fff;font-size:7px;padding:1px 5px;border-radius:8px;">2</span></div>
+        <div class="nav-grp">Validated State</div>
+        <div class="nav-item">State Register</div>
+        <div class="nav-item">Change Impact</div>
+        <div class="nav-item">Revalidation Due</div>
+        <div class="nav-grp">Reports</div>
+        <div class="nav-item">Health Report</div>
+        <div class="nav-item">Validation Status</div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:14px;">
+
+        <!-- Live metrics strip -->
+        <div style="display:flex;gap:8px;margin-bottom:14px;">
+          <div style="flex:1;background:rgba(134,193,64,.08);border:1px solid rgba(134,193,64,.2);border-radius:5px;padding:8px 10px;text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:#86C140;">18</div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Systems Online</div>
+          </div>
+          <div style="flex:1;background:rgba(134,193,64,.08);border:1px solid rgba(134,193,64,.2);border-radius:5px;padding:8px 10px;text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:#86C140;">16</div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Validated State</div>
+          </div>
+          <div style="flex:1;background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:5px;padding:8px 10px;text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:#F97316;">2</div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Revalidation Due</div>
+          </div>
+          <div style="flex:1;background:rgba(229,75,46,.08);border:1px solid rgba(229,75,46,.2);border-radius:5px;padding:8px 10px;text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:var(--fail);">2</div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Active Alerts</div>
+          </div>
+          <div style="flex:1;background:var(--ch2);border:1px solid var(--ch3);border-radius:5px;padding:8px 10px;text-align:center;">
+            <div style="font-size:18px;font-weight:700;color:var(--t400);">99.7%</div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">30-day Uptime</div>
+          </div>
+        </div>
+
+        <!-- System table -->
+        <table style="width:100%;border-collapse:collapse;">
+          <thead><tr style="background:var(--ch2);">
+            <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:7px 10px;font-weight:400;">System</th>
+            <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:7px 8px;font-weight:400;">Version</th>
+            <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:center;padding:7px 8px;font-weight:400;">Health</th>
+            <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:center;padding:7px 8px;font-weight:400;">Val State</th>
+            <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:left;padding:7px 8px;font-weight:400;">Last Change</th>
+            <th style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-align:right;padding:7px 10px;font-weight:400;">Reval Due</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--ch3);">
+              <td style="padding:9px 10px;">
+                <div style="font-size:9px;font-weight:600;color:#fff;">PHAROLON QMS</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">Primary validation platform</div>
+              </td>
+              <td style="padding:9px 8px;font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);">v2.4.1</td>
+              <td style="padding:9px 8px;text-align:center;"><span style="display:inline-block;width:8px;height:8px;background:#86C140;border-radius:50%;box-shadow:0 0 6px #86C140;"></span></td>
+              <td style="padding:9px 8px;text-align:center;"><span style="font-size:7px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">Validated</span></td>
+              <td style="padding:9px 8px;font-size:8px;color:rgba(232,237,242,.5);">Patch 2.4.1 · J. Smith</td>
+              <td style="padding:9px 10px;text-align:right;font-size:7px;font-family:'DM Mono',monospace;color:#86C140;">2027-02-14</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ch3);">
+              <td style="padding:9px 10px;">
+                <div style="font-size:9px;font-weight:600;color:#fff;">LIMS — LabWare v8</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">Laboratory information system</div>
+              </td>
+              <td style="padding:9px 8px;font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);">8.3.2</td>
+              <td style="padding:9px 8px;text-align:center;"><span style="display:inline-block;width:8px;height:8px;background:#86C140;border-radius:50%;box-shadow:0 0 6px #86C140;"></span></td>
+              <td style="padding:9px 8px;text-align:center;"><span style="font-size:7px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">Validated</span></td>
+              <td style="padding:9px 8px;font-size:8px;color:rgba(232,237,242,.5);">Config CR-204 · QA</td>
+              <td style="padding:9px 10px;text-align:right;font-size:7px;font-family:'DM Mono',monospace;color:#86C140;">2026-11-30</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ch3);background:rgba(249,115,22,.03);">
+              <td style="padding:9px 10px;">
+                <div style="font-size:9px;font-weight:600;color:#fff;">MES — Werum PAS-X</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">Manufacturing execution system</div>
+              </td>
+              <td style="padding:9px 8px;font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);">4.2.0</td>
+              <td style="padding:9px 8px;text-align:center;"><span style="display:inline-block;width:8px;height:8px;background:#86C140;border-radius:50%;box-shadow:0 0 6px #86C140;"></span></td>
+              <td style="padding:9px 8px;text-align:center;"><span style="font-size:7px;background:rgba(249,115,22,.12);color:#F97316;padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">⚠ Reval Due</span></td>
+              <td style="padding:9px 8px;font-size:8px;color:rgba(232,237,242,.5);">OS patch · 14 Apr 26</td>
+              <td style="padding:9px 10px;text-align:right;font-size:7px;font-family:'DM Mono',monospace;color:#F97316;">2026-05-01</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ch3);">
+              <td style="padding:9px 10px;">
+                <div style="font-size:9px;font-weight:600;color:#fff;">DeltaV DCS — Batch</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">Process control system</div>
+              </td>
+              <td style="padding:9px 8px;font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);">14.3.1</td>
+              <td style="padding:9px 8px;text-align:center;"><span style="display:inline-block;width:8px;height:8px;background:#86C140;border-radius:50%;box-shadow:0 0 6px #86C140;"></span></td>
+              <td style="padding:9px 8px;text-align:center;"><span style="font-size:7px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">Validated</span></td>
+              <td style="padding:9px 8px;font-size:8px;color:rgba(232,237,242,.5);">None — frozen config</td>
+              <td style="padding:9px 10px;text-align:right;font-size:7px;font-family:'DM Mono',monospace;color:#86C140;">2027-08-22</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ch3);background:rgba(229,75,46,.03);">
+              <td style="padding:9px 10px;">
+                <div style="font-size:9px;font-weight:600;color:#fff;">Empower 3 CDS</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">Chromatography data system</div>
+              </td>
+              <td style="padding:9px 8px;font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);">3.7.2</td>
+              <td style="padding:9px 8px;text-align:center;"><span style="display:inline-block;width:8px;height:8px;background:var(--fail);border-radius:50%;box-shadow:0 0 6px rgba(229,75,46,.6);animation:apex-pulse 2s ease-in-out infinite;"></span></td>
+              <td style="padding:9px 8px;text-align:center;"><span style="font-size:7px;background:rgba(229,75,46,.12);color:var(--fail);padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">🔴 Alert</span></td>
+              <td style="padding:9px 8px;font-size:8px;color:var(--fail);">Unplanned restart · 08:22</td>
+              <td style="padding:9px 10px;text-align:right;font-size:7px;font-family:'DM Mono',monospace;color:var(--fail);">Investigate</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
