@@ -58,6 +58,19 @@ standing below the horizon line in the icon. Deliberate. Precise. Not accidental
 
 **Icon-as-A variant:** The pyramid icon replaces the A in PHAROLON — PH△ROLON.
 Available as a secondary wordmark for contexts where the icon and letterform are unified.
+### Acronym — pH
+
+**pH** is the official short-form acronym for PHAROLON. Always written as `pH` — lowercase p, uppercase H — matching the chemistry notation for potential of Hydrogen.
+
+This is intentional on four levels:
+1. **pH = PHAROLON** — the platform acronym
+2. **pH = potential of Hydrogen** — the universal chemistry notation fundamental to pharmaceutical manufacturing, biotech, food safety, and all regulated science
+3. **pH wordmark** — the descending P in the wordmark (translateY 0.14em) directly references the lowercase p in pH notation. The descent was always semantic, not decorative.
+4. **H stands tall** — the uppercase H is the fixed reference point, the lighthouse, the thing that doesn't move
+
+> Never `PH`. Never `Ph`. Always `pH`.
+
+
 
 ---
 

@@ -2102,6 +2102,11 @@ Gradient:       180deg #F5D060 → #E2A837 → #B8820E → #8A5F08
 Variant:        PH△ROLON — pyramid icon replaces the A
 ```
 
+### Acronym — pH
+
+**pH** — the official PHAROLON short-form. Lowercase p, uppercase H. The chemistry notation for potential of Hydrogen. Fundamental to pharma, biotech, food safety, and every regulated science that PHAROLON serves. The descending P in the wordmark was always referencing this. The brand has four hidden layers: the lighthouse (name), the pyramid (icon), the pH chemistry notation (acronym), and the compass navigation (ring).
+
+
 ### Brand Story (Canonical)
 
 > *Two of the Seven Wonders of the Ancient World — hidden inside a single mark.*

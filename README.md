@@ -42,6 +42,9 @@ The Pharos of Alexandria — one of the Seven Wonders of the Ancient World — g
 
 **PHAROLON** carries that mission into the age of regulated industry. The quality intelligence platform that guides any organisation through the complexity of compliance, validation, and quality management — wherever regulatory waters run dangerous.
 
+> **Short-form:** `pH` — the chemistry notation for potential of Hydrogen, and the PHAROLON acronym. Lowercase p (the descending P in the wordmark), uppercase H (the fixed reference point). Four hidden references in one brand: the Pharos lighthouse, the Great Pyramid, the pH notation, and the compass.
+
+
 Not just pharmaceutical. Not just validation. **The complete quality intelligence platform for every regulated industry.**
 
 ```

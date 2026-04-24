@@ -70,6 +70,26 @@ Syne 800, letter-spacing:0, P descends 0.14em below baseline — echoing the lig
 - Domain registration: pharolon.io and pharolon.com to be verified and secured
 - The brand story (two Egyptian wonders) to be disclosed progressively — not upfront — as users and partners discover the layers
 
+## Acronym — pH
+
+**pH** is the official short-form acronym for PHAROLON.
+
+This is the fourth layer of the brand, and the most technically elegant:
+
+| Reference | Meaning |
+|---|---|
+| **pH** = PHAROLON | The platform acronym |
+| **pH** = potential of Hydrogen | The universal chemistry notation for acidity/alkalinity — fundamental to pharmaceutical manufacturing, biotech, food safety, and every regulated science |
+| **p** lowercase | Mirrors the dropped P in the wordmark (P descends 0.14em below baseline — like the lowercase p in pH notation) |
+| **H** uppercase | The standing letter — the lighthouse, the fixed reference point |
+
+The wordmark's descending P was always referencing pH. The chemistry is in the letterform.
+
+Usage: `pH` in running text, `pH PHAROLON` on first use, `pH` alone in contexts where
+the brand is established. Never `PH`, never `Ph` — always the chemistry notation casing.
+
+---
+
 ## Actions Required
 
 - [ ] Register pharolon.io / pharolon.com
