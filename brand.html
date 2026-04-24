@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>PHAROLON — Brand Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#08080E;font-family:'DM Mono',monospace;color:rgba(232,237,242,.65);overflow-x:hidden;}
+
+/* wordmark */
+.ch{font-family:'Syne',sans-serif;font-weight:800;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060 0%,#E2A837 45%,#B8820E 85%,#8A5F08 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ch-p{display:inline-block;transform:translateY(0.14em);}
+.wm{display:flex;align-items:baseline;overflow:visible;padding-bottom:16px;}
+.wm-dk .ch{background:linear-gradient(180deg,#C9981A,#7A5A0A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* layout */
+.page{max-width:960px;margin:0 auto;padding:80px 32px;}
+.section{padding:72px 0;border-top:1px solid rgba(226,168,55,.08);}
+.sec-label{font-size:9px;letter-spacing:2px;color:rgba(226,168,55,.25);text-transform:uppercase;margin-bottom:40px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;}
+.cell{padding:44px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:28px;}
+.lbl{font-size:8px;letter-spacing:1px;text-transform:uppercase;align-self:flex-start;}
+.lbl-lt{color:rgba(255,255,255,.15);}
+.lbl-dk{color:rgba(0,0,0,.2);}
+.lk-h{display:flex;align-items:center;gap:18px;overflow:visible;padding-bottom:14px;}
+.sep-dk{width:1px;height:52px;background:rgba(226,168,55,.1);}
+.sep-lt{width:1px;height:52px;background:rgba(120,90,10,.2);}
+.bg-ink  {background:#08080E;}
+.bg-dark {background:#0D0D18;}
+.bg-teal {background:#002A25;}
+.bg-mid  {background:#c1c1c1;}
+.bg-white{background:#ffffff;}
+
+/* icon aura */
+.icon-hero{position:relative;display:flex;align-items:center;justify-content:center;}
+.icon-hero::before{content:'';position:absolute;width:220px;height:220px;background:radial-gradient(circle,rgba(226,168,55,.09),transparent 60%);border-radius:50%;animation:aura 4s ease-in-out infinite;}
+@keyframes aura{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.12);}}
+
+/* animations */
+@keyframes draw-ghost{0%{stroke-dashoffset:268;opacity:0;}12%{opacity:.16;}72%{opacity:.1;stroke-dashoffset:0;}88%{opacity:0;stroke-dashoffset:0;}100%{stroke-dashoffset:268;opacity:0;}}
+.ghost{stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;}
+@keyframes lh-flash{0%{opacity:.45;}8%{opacity:1;}18%{opacity:.3;}28%{opacity:1;}38%{opacity:.3;}48%{opacity:1;}62%{opacity:.25;}100%{opacity:.45;}}
+@keyframes lh-halo{0%,100%{opacity:.07;}8%,28%,48%{opacity:.22;}18%,38%{opacity:.04;}}
+.lh-core{animation:lh-flash 4.5s ease-in-out infinite;}
+.lh-halo{animation:lh-halo  4.5s ease-in-out infinite;}
+@keyframes compass{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.compass-ring{transform-origin:55px 55px;animation:compass 100s linear infinite;}
+@keyframes sweep{0%{transform:rotate(-35deg);opacity:0;}8%{opacity:.5;}55%{transform:rotate(35deg);opacity:.18;}65%{opacity:0;}100%{transform:rotate(-35deg);opacity:0;}}
+.sweep{transform-origin:55px 14px;animation:sweep 9s ease-in-out infinite;}
+@keyframes fan-pulse{0%,100%{opacity:.06;}40%{opacity:.14;}}
+.fan-ray{animation:fan-pulse 7s ease-in-out infinite;}
+.fan-ray:nth-child(2){animation-delay:-1.4s;}
+.fan-ray:nth-child(3){animation-delay:-2.8s;}
+.fan-ray:nth-child(4){animation-delay:-4.2s;}
+.fan-ray:nth-child(5){animation-delay:-5.6s;}
+
+/* pull quote */
+.pull{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:clamp(24px,4vw,44px);line-height:1.2;color:rgba(240,192,64,.7);letter-spacing:-.3px;margin-bottom:24px;}
+.rule{width:32px;height:1px;background:rgba(226,168,55,.3);margin:28px 0;}
+.body{font-size:11px;color:rgba(232,237,242,.38);line-height:2.1;}
+.body strong{color:rgba(226,168,55,.55);font-weight:400;}
+
+/* meaning cards */
+.mc-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:40px;}
+.mc{background:#0D0D18;border:1px solid #1A1A2A;padding:26px;}
+.mc-title{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:0;margin-bottom:8px;}
+.mc-gold{color:rgba(226,168,55,.7);}
+.mc-body{font-size:10px;color:rgba(232,237,242,.35);line-height:1.9;}
+.mc-body strong{color:rgba(226,168,55,.5);font-weight:400;}
+
+/* pH display */
+.ph-display{font-family:'Syne',sans-serif;font-weight:800;font-size:120px;letter-spacing:0;line-height:1;}
+.ph-p{display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ph-h{background:linear-gradient(180deg,#F5D060,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* palette */
+.pal-row{display:flex;gap:3px;margin-bottom:3px;}
+.sw{flex:1;height:52px;border-radius:3px;display:flex;flex-direction:column;justify-content:flex-end;padding:5px 7px;}
+.sw-n{font-size:8px;font-weight:500;}
+.sw-h{font-size:7px;opacity:.5;}
+
+/* app icons */
+.icon-row{display:flex;align-items:flex-end;justify-content:center;gap:24px;flex-wrap:wrap;}
+.ico-item{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.ico-sz{font-size:8px;color:rgba(226,168,55,.2);}
+.app-ico{border-radius:22%;background:linear-gradient(145deg,#130E01,#060401);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(226,168,55,.1);}
+
+footer{padding:64px 32px;text-align:center;border-top:1px solid rgba(226,168,55,.06);}
+.ft{font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;background:linear-gradient(180deg,rgba(240,192,64,.15),rgba(168,126,20,.08));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;}
+.ft-sub{font-size:8px;color:rgba(226,168,55,.15);letter-spacing:2px;text-transform:uppercase;line-height:2.2;}
+
+@media(max-width:620px){.grid2,.grid3,.mc-grid{grid-template-columns:1fr;}}
+</style>
+<meta name="pharolon:build" content="e67e5cf"/><meta name="pharolon:built-at" content="2026-04-24T01:02:20Z"/></head>
+<body>
+
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <filter id="glow"   x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glow-lg" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+</svg>
+
+<div class="page">
+
+<!-- ── HERO ICON ── -->
+<section style="padding:80px 0 60px;text-align:center;">
+  <div style="font-size:9px;letter-spacing:2px;color:rgba(226,168,55,.22);text-transform:uppercase;margin-bottom:32px;">Brand Identity · 2026</div>
+
+  <div class="icon-hero" style="margin-bottom:32px;">
+    <svg width="180" height="180" viewBox="0 0 110 110" fill="none" overflow="visible" style="overflow:visible;">
+      <g filter="url(#glow)">
+        <line class="fan-ray" x1="55" y1="14" x2="14"  y2="130" stroke="rgba(245,208,96,.12)" stroke-width="1.5"/>
+        <line class="fan-ray" x1="55" y1="14" x2="32"  y2="125" stroke="rgba(245,208,96,.1)"  stroke-width="2"/>
+        <line class="fan-ray" x1="55" y1="14" x2="55"  y2="130" stroke="rgba(245,208,96,.13)" stroke-width="2.5"/>
+        <line class="fan-ray" x1="55" y1="14" x2="78"  y2="125" stroke="rgba(245,208,96,.1)"  stroke-width="2"/>
+        <line class="fan-ray" x1="55" y1="14" x2="96"  y2="130" stroke="rgba(245,208,96,.12)" stroke-width="1.5"/>
+      </g>
+      <line class="sweep" x1="55" y1="14" x2="55" y2="120" stroke="rgba(255,220,80,.38)" stroke-width="2.5" filter="url(#glow-lg)"/>
+      <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/>
+      <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.18)" stroke-width=".75" fill="none"/>
+      <circle cx="55" cy="55" r="44" stroke="rgba(226,168,55,.04)" stroke-width=".5" fill="none"/>
+      <g class="compass-ring">
+        <line x1="55" y1="5"   x2="55" y2="19"  stroke="rgba(226,168,55,.38)" stroke-width="1.5"/>
+        <line x1="55" y1="91"  x2="55" y2="105" stroke="rgba(226,168,55,.38)" stroke-width="1.5"/>
+        <line x1="5"  y1="55"  x2="19" y2="55"  stroke="rgba(226,168,55,.38)" stroke-width="1.5"/>
+        <line x1="91" y1="55"  x2="105" y2="55" stroke="rgba(226,168,55,.38)" stroke-width="1.5"/>
+        <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.16)" stroke-width="1"/>
+        <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.16)" stroke-width="1"/>
+        <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.16)" stroke-width="1"/>
+        <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.16)" stroke-width="1"/>
+      </g>
+      <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.13)" stroke-width=".75" stroke-dasharray="3 5"/>
+      <polygon class="ghost" filter="url(#glow)" points="55,7 5,87 105,87" stroke="rgba(240,192,64,.18)" stroke-width="1.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+      <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+      <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+      <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+      <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.04)"/>
+      <circle class="lh-halo" cx="55" cy="14" r="11" fill="rgba(245,208,96,.07)" filter="url(#glow-lg)"/>
+      <circle class="lh-halo" cx="55" cy="14" r="6"  fill="rgba(245,208,96,.14)" filter="url(#glow)"/>
+      <circle class="lh-core" cx="55" cy="14" r="2.8" fill="#F5D060"/>
+      <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+    </svg>
+  </div>
+
+  <div style="width:180px;height:1px;background:linear-gradient(90deg,transparent,rgba(226,168,55,.25),transparent);margin:0 auto 24px;"></div>
+
+  <div class="wm" style="justify-content:center;margin-bottom:10px;">
+    <span class="ch ch-p" style="font-size:clamp(56px,12vw,96px);">P</span>
+    <span class="ch"      style="font-size:clamp(56px,12vw,96px);">HAROLON</span>
+  </div>
+  <div style="font-size:9px;letter-spacing:2px;color:rgba(226,168,55,.18);text-transform:uppercase;">Quality Intelligence for Regulated Industries</div>
+</section>
+
+<!-- ── THE STORY ── -->
+<section class="section">
+  <div class="sec-label">The Hidden References</div>
+  <div class="pull">"Two of the Seven Wonders of the Ancient World — hidden inside a single mark."</div>
+  <div class="rule"></div>
+  <p class="body">
+    The <strong>Pharos of Alexandria</strong> guided every vessel for over a thousand years. Not one industry — every industry. <strong>PHAROLON</strong> carries that lighthouse inside its name: PHAROS + LON. The ancient beacon, extended forward into the age of regulated industry.<br/><br/>
+    The pyramid inside the compass ring encodes the <strong>Great Pyramid of Giza</strong> — another Egyptian Wonder, standing on the same soil, still standing today. The only ancient Wonder that survived. And the acronym — <strong>pH</strong> — is the universal chemistry notation for potential of Hydrogen. Fundamental to pharmaceutical manufacturing, biotech, food safety, and every regulated science this platform serves.<br/><br/>
+    <strong>Four hidden references. One mark.</strong>
+  </p>
+  <div class="mc-grid">
+    <div class="mc"><div class="mc-title mc-gold">🏛 PHAROS — The Lighthouse</div><div class="mc-body">Hidden in the name. The Pharos of Alexandria guided every vessel for 1,000+ years. <strong>Not one trade. Every trade.</strong> PHAROLON is the fixed reference point for any regulated industry navigating compliance complexity.</div></div>
+    <div class="mc"><div class="mc-title mc-gold">△ The Pyramid — Built to Last</div><div class="mc-body">Hidden in the icon. The nested triangles reference the <strong>Great Pyramid of Giza</strong> — the only ancient Wonder still standing. Gold outer, teal mid, purple inner. Three layers of quality, precision, and integrity. Enduring. Immutable.</div></div>
+    <div class="mc"><div class="mc-title mc-gold">pH — The Chemistry</div><div class="mc-body">Hidden in the acronym. <strong>pH = potential of Hydrogen</strong> — the universal chemistry notation fundamental to pharma, biotech, food safety, and every regulated science. The descending P in the wordmark was always referencing this. The brand is in the letterform.</div></div>
+    <div class="mc"><div class="mc-title mc-gold">◎ The Compass — Navigate</div><div class="mc-body">Hidden in the ring. The compass with cardinal and intercardinal ticks represents <strong>navigation through regulatory complexity</strong>. The dashed horizon is the sea — the danger the lighthouse stands above. The ring rotates. Always finding true north.</div></div>
+  </div>
+</section>
+
+<!-- ── pH ACRONYM ── -->
+<section class="section">
+  <div class="sec-label">The Acronym — pH</div>
+  <div style="text-align:center;padding:48px 0;">
+    <div class="ph-display">
+      <span class="ph-p">p</span><span class="ph-h">H</span>
+    </div>
+    <div style="margin-top:20px;font-size:10px;color:rgba(226,168,55,.25);letter-spacing:1px;">potential of Hydrogen · PHAROLON</div>
+    <div style="margin-top:8px;font-size:9px;color:rgba(226,168,55,.15);letter-spacing:.5px;">Never PH. Never Ph. Always pH.</div>
+  </div>
+</section>
+
+<!-- ── ICON-AS-A ── -->
+<section class="section">
+  <div class="sec-label">The Pyramid as the A</div>
+  <div style="text-align:center;padding:32px 0;">
+    <div style="font-size:8px;letter-spacing:1px;color:rgba(226,168,55,.18);text-transform:uppercase;margin-bottom:20px;">PH△ROLON — pyramid replaces the A</div>
+    <div style="display:flex;align-items:center;justify-content:center;padding:20px 0;overflow:visible;line-height:1;">
+      <span class="ch ch-p" style="font-size:clamp(44px,10vw,80px);">P</span>
+      <span class="ch"      style="font-size:clamp(44px,10vw,80px);">H</span>
+      <span style="display:inline-flex;align-items:center;width:clamp(120px,17vw,170px);height:clamp(120px,17vw,170px);margin:0 clamp(-10px,-1.5vw,-14px);flex-shrink:0;">
+        <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+          <circle cx="55" cy="55" r="43" stroke="rgba(226,168,55,.1)"  stroke-width=".7" fill="none"/>
+          <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+            <line x1="55" y1="5"   x2="55" y2="20"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="55" y1="90"  x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="5"  y1="55"  x2="20" y2="55"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="90" y1="55"  x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+          </g>
+          <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.25)" stroke-width="1.2" stroke-dasharray="3.5 4.5"/>
+          <polygon style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;" filter="url(#glow)" points="55,7 5,87 105,87" stroke="rgba(240,192,64,.22)" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,14  11,82  99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27  22,82  88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40  33,82  77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40  33,82  77,82" fill="rgba(139,92,246,.06)"/>
+          <circle style="animation:lh-halo 4.5s ease-in-out infinite;" cx="55" cy="14" r="12" fill="rgba(245,208,96,.09)" filter="url(#glow-lg)"/>
+          <circle style="animation:lh-halo 4.5s ease-in-out infinite;" cx="55" cy="14" r="6"  fill="rgba(245,208,96,.18)" filter="url(#glow)"/>
+          <circle style="animation:lh-flash 4.5s ease-in-out infinite;" cx="55" cy="14" r="3.5" fill="#F5D060"/>
+          <circle cx="55" cy="14" r="1.5" fill="#fff" opacity=".9"/>
+        </svg>
+      </span>
+      <span class="ch" style="font-size:clamp(44px,10vw,80px);">ROLON</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── BACKGROUND VARIANTS ── -->
+<section class="section">
+  <div class="sec-label">Background Variants</div>
+  <div class="grid2" style="border-radius:8px;overflow:hidden;">
+    <!-- INK -->
+    <div class="cell bg-ink"><div class="lbl lbl-lt">Pure ink</div>
+      <div class="lk-h">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.18)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle class="lh-core" cx="55" cy="14" r="2.3" fill="#F5D060"/></svg>
+        <div class="sep-dk"></div>
+        <div class="wm"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+    <!-- TEAL -->
+    <div class="cell bg-teal"><div class="lbl lbl-lt">Deep teal</div>
+      <div class="lk-h">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.22)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.14)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#E2A837" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00C4B4" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#A78BFA" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle class="lh-core" cx="55" cy="14" r="2.3" fill="#F5D060"/></svg>
+        <div class="sep-dk"></div>
+        <div class="wm"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+    <!-- MID GREY -->
+    <div class="cell bg-mid"><div class="lbl lbl-dk">Mid grey</div>
+      <div class="lk-h">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(100,75,10,.06)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(120,90,10,.2)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(120,90,10,.13)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#A87E14" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#006B61" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#5B21B6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.3" fill="#A87E14"/></svg>
+        <div class="sep-lt"></div>
+        <div class="wm wm-dk"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+    <!-- WHITE -->
+    <div class="cell bg-white"><div class="lbl lbl-dk">White</div>
+      <div class="lk-h">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(100,75,10,.05)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(120,90,10,.16)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(120,90,10,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#007A6E" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#6D28D9" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.3" fill="#C9981A"/></svg>
+        <div class="sep-lt"></div>
+        <div class="wm wm-dk"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COLOUR ── -->
+<section class="section">
+  <div class="sec-label">Colour System</div>
+  <div class="pal-row">
+    <div class="sw" style="background:#F5D060;"><span class="sw-n" style="color:#7A5A0A;">Gold 300</span></div>
+    <div class="sw" style="background:#F0C040;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#3A2000;">Gold 400 ★</span><span class="sw-h" style="color:rgba(58,32,0,.5);">#F0C040</span></div>
+    <div class="sw" style="background:#E2A837;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#fff;">Gold 500 ★</span><span class="sw-h">#E2A837</span></div>
+    <div class="sw" style="background:#C9981A;"><span class="sw-n" style="color:#fff;">Gold 600</span><span class="sw-h">#C9981A</span></div>
+    <div class="sw" style="background:#A87E14;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#FDE68A;">Gold 700 ★</span><span class="sw-h" style="color:rgba(253,230,138,.4);">#A87E14</span></div>
+    <div class="sw" style="background:#7A5A0A;"><span class="sw-n" style="color:#FDE68A;">Gold 800</span></div>
+  </div>
+  <div class="pal-row">
+    <div class="sw" style="background:#002A25;"><span class="sw-n" style="color:#5EEADF;">Teal 950</span></div>
+    <div class="sw" style="background:#004D45;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#5EEADF;">Teal 900 ★</span><span class="sw-h" style="color:rgba(94,234,223,.3);">#004D45</span></div>
+    <div class="sw" style="background:#00A090;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#fff;">Teal 600 ★</span><span class="sw-h">#00A090</span></div>
+    <div class="sw" style="background:#00D4C4;"><span class="sw-n" style="color:#002A25;">Teal 400</span></div>
+    <div class="sw" style="background:#86C140;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#fff;">Pass ★</span><span class="sw-h">#86C140</span></div>
+    <div class="sw" style="background:#E54B2E;outline:2px solid rgba(255,255,255,.4);outline-offset:2px;"><span class="sw-n" style="color:#fff;">Fail ★</span><span class="sw-h">#E54B2E</span></div>
+    <div class="sw" style="background:#8B5CF6;"><span class="sw-n" style="color:#fff;">AI / EE</span></div>
+    <div class="sw" style="background:#141414;border:1px solid #222;"><span class="sw-n" style="color:#666;">Header</span><span class="sw-h" style="color:#444;">#141414</span></div>
+  </div>
+</section>
+
+<!-- ── APP ICONS ── -->
+<section class="section">
+  <div class="sec-label">App Icon Family</div>
+  <div class="icon-row">
+    <div class="ico-item"><div class="app-ico" style="width:88px;height:88px;"><svg width="60" height="60" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.2)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="6" fill="rgba(245,208,96,.09)" filter="url(#glow-lg)"/><circle class="lh-core" cx="55" cy="14" r="2.8" fill="#F5D060"/><circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/></svg></div><div class="ico-sz">1024</div></div>
+    <div class="ico-item"><div class="app-ico" style="width:64px;height:64px;"><svg width="44" height="44" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.18)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle class="lh-core" cx="55" cy="14" r="2.8" fill="#F5D060"/></svg></div><div class="ico-sz">512</div></div>
+    <div class="ico-item"><div class="app-ico" style="width:46px;height:46px;"><svg width="30" height="30" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.04)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.16)" stroke-width="1" fill="none"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="7" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="3" fill="#F5D060"/></svg></div><div class="ico-sz">256</div></div>
+    <div class="ico-item"><div class="app-ico" style="width:34px;height:34px;"><svg width="22" height="22" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.14)" stroke-width="1" fill="none"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="9" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/></svg></div><div class="ico-sz">64</div></div>
+    <div class="ico-item"><div class="app-ico" style="width:24px;height:24px;"><svg width="16" height="16" viewBox="0 0 110 110" fill="none"><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="7.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/></svg></div><div class="ico-sz">32</div></div>
+    <div class="ico-item"><div class="app-ico" style="width:18px;height:18px;"><svg width="12" height="12" viewBox="0 0 110 110" fill="none"><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="18" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/></svg></div><div class="ico-sz">16</div></div>
+  </div>
+</section>
+
+</div><!-- /page -->
+
+<footer>
+  <div class="ft">PHAROLON</div>
+  <div class="ft-sub">
+    Quality Intelligence for Regulated Industries<br/>
+    pH · Two Ancient Wonders · One Mark · Built to Last
+  </div>
+</footer>
+
+</body>
+</html>
