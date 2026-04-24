@@ -20,7 +20,7 @@
 body{background:var(--dk);font-family:'Inter',system-ui,sans-serif;color:var(--text);line-height:1.6;overflow-x:hidden;}
 
 /* ── HERO ── */
-.hero{min-height:100vh;background:linear-gradient(160deg,#0A1A10 0%,var(--dk) 50%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;position:relative;overflow:hidden;}
+.hero{min-height:100vh;background:linear-gradient(160deg,#002A25 0%,#0C1117 45%,#0C1117 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g500),transparent);}
 .hero-bg-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(226,168,55,.06) 0%,transparent 70%);pointer-events:none;}
 .hero-badge{background:rgba(226,168,55,.1);border:1px solid rgba(226,168,55,.3);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--g400);letter-spacing:.5px;display:inline-block;margin-bottom:20px;}
@@ -246,7 +246,7 @@ footer a{color:var(--g600);text-decoration:none;}
 <section class="hero">
   <div class="hero-bg-glow"></div>
   <div class="hero-badge">Platform Design Preview · 2026</div>
-  <h1 style="display:flex;align-items:baseline;justify-content:center;overflow:visible;padding-bottom:0.14em;letter-spacing:-1px;"><span style="display:inline-block;transform:translateY(0.14em);">P</span><span>HAROLON</span></h1>
+  <h1 style="display:flex;align-items:baseline;justify-content:center;overflow:visible;padding-bottom:0.18em;letter-spacing:-1.5px;"><span style="display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060 0%,var(--g500) 45%,var(--g700) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">P</span><span style="background:linear-gradient(180deg,#F5D060 0%,var(--g500) 45%,var(--g700) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">HAROLON</span></h1>
   <p class="hero-sub">Quality intelligence for every regulated industry. One platform. Any validation process.</p>
   <p class="hero-tagline">pH · The open-source alternative to Kneat, ValGenesis, and SWARE · Free self-hosted CE</p>
   <div class="hero-btns">
@@ -658,19 +658,29 @@ footer a{color:var(--g600);text-decoration:none;}
 </section>
 
 <!-- ══ PALETTE ══ -->
-<section class="pal-section">
-  <div class="section-eyebrow" style="text-align:left;">Design System</div>
-  <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:28px;">Gold + Teal. Not another blue enterprise tool.</h2>
-  <div class="pal-row">
-    <div class="swatch sw-star" style="background:#F5D060;"><span class="sw-n" style="color:#7A5A0A;">Gold 200</span></div>
-    <div class="swatch sw-star" style="background:#E2A837;"><span class="sw-n" style="color:#fff;">Gold 500 ★</span><span class="sw-h">#E2A837</span></div>
-    <div class="swatch sw-star" style="background:#C9981A;"><span class="sw-n" style="color:#fff;">Gold 600 ★</span><span class="sw-h">#C9981A</span></div>
-    <div class="swatch" style="background:#A87E14;"><span class="sw-n" style="color:#FDE68A;">Gold 700</span></div>
-    <div class="swatch sw-star" style="background:#00A090;"><span class="sw-n" style="color:#fff;">Teal 600 ★</span><span class="sw-h">#00A090</span></div>
-    <div class="swatch sw-star" style="background:#86C140;"><span class="sw-n" style="color:#fff;">Pass ★</span><span class="sw-h">#86C140</span></div>
-    <div class="swatch sw-star" style="background:#E54B2E;"><span class="sw-n" style="color:#fff;">Fail ★</span><span class="sw-h">#E54B2E</span></div>
-    <div class="swatch" style="background:#8B5CF6;"><span class="sw-n" style="color:#fff;">AI/EE</span><span class="sw-h">#8B5CF6</span></div>
-    <div class="swatch" style="background:#141414;border:1px solid #2A2A2A;"><span class="sw-n" style="color:#555;">Header</span><span class="sw-h" style="color:#333;">#141414</span></div>
+<section class="palette-section">
+  <div class="palette-inner">
+    <div class="section-eyebrow" style="text-align:left;">Design System</div>
+    <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:28px;">Teal + Gold. Not another blue enterprise tool.</h2>
+    <div class="sw-row">
+      <div class="sw" style="background:#002A25;"><span class="sw-label">950</span><span class="sw-hex">#002A25</span></div>
+      <div class="sw" style="background:#004D45;"><span class="sw-label">900</span><span class="sw-hex">#004D45</span></div>
+      <div class="sw" style="background:#006B61;"><span class="sw-label">800</span></div>
+      <div class="sw sw-main" style="background:#00A090;"><span class="sw-label">600★</span><span class="sw-hex">#00A090</span></div>
+      <div class="sw" style="background:#00B8A9;"><span class="sw-label">500</span></div>
+      <div class="sw" style="background:#00D4C4;"><span class="sw-label" style="color:#002A25;">400</span></div>
+      <div class="sw" style="width:12px;flex:0;background:transparent;"></div>
+      <div class="sw" style="background:#C9981A;"><span class="sw-label">G600</span></div>
+      <div class="sw sw-main" style="background:#E2A837;"><span class="sw-label" style="color:#3A2000;">G★</span><span class="sw-hex" style="color:rgba(0,0,0,.5);">#E2A837</span></div>
+      <div class="sw" style="background:#F0C040;"><span class="sw-label" style="color:#3A2000;">G400</span></div>
+    </div>
+    <div class="accent-row">
+      <div class="accent-chip"><div class="ac-dot" style="background:#86C140;"></div><span class="ac-name" style="color:#86C140;">Pass</span><span class="ac-use">#86C140 — warm lime green</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#E54B2E;"></div><span class="ac-name" style="color:#E54B2E;">Fail</span><span class="ac-use">#E54B2E — warm coral red</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#F97316;"></div><span class="ac-name" style="color:#F97316;">Deviation</span><span class="ac-use">#F97316 — orange</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#8B5CF6;"></div><span class="ac-name" style="color:#A78BFA;">AI / EE</span><span class="ac-use">#8B5CF6 — purple</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#3B82F6;"></div><span class="ac-name" style="color:#60A5FA;">Info</span><span class="ac-use">#3B82F6 — blue</span></div>
+    </div>
   </div>
 </section>
 
