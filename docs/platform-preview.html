@@ -3,482 +3,770 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>PHAROLON — Platform Design Preview</title>
+<title>PHAROLON — Platform Preview</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --t950:#002A25;--t900:#004D45;--t800:#006B61;--t700:#008577;
-  --t600:#00A090;--t500:#00B8A9;--t400:#00D4C4;--t300:#5EEADF;
-  --g700:#A87E14;--g600:#C9981A;--g500:#E2A837;--g400:#F0C040;
+:root{
+  --t950:#002A25;--t900:#004D45;--t700:#008577;--t600:#00A090;--t500:#00B8A9;--t400:#00D4C4;--t300:#5EEADF;
+  --g300:#F7D56E;--g400:#F0C040;--g500:#E2A837;--g600:#C9981A;--g700:#A87E14;--g800:#7A5A0A;
   --or:#F97316;--pass:#86C140;--fail:#E54B2E;--pur:#8B5CF6;--info:#3B82F6;
   --ch:#141414;--ch2:#1E1E1E;--ch3:#2A2A2A;
-  --dk:#0C1117;--dks:#161D26;--dks2:#1E2837;--dkb:#1E3038;
+  --dk:#0C1117;--dks:#161D26;--dks2:#1E2837;
   --text:#E8EDF2;--text2:rgba(232,237,242,.65);--text3:rgba(232,237,242,.38);
   --inp:#243040;--inpbrd:#2E4055;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:#0C1117;font-family:'Inter',system-ui,sans-serif;color:var(--text);line-height:1.6;overflow-x:hidden;}
+body{background:var(--dk);font-family:'Inter',system-ui,sans-serif;color:var(--text);line-height:1.6;overflow-x:hidden;}
 
 /* ── HERO ── */
-.hero{min-height:100vh;background:linear-gradient(160deg,#002A25 0%,#0C1117 45%,#0C1117 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--t600),transparent);}
-.hero-bg-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,160,144,.08) 0%,transparent 70%);pointer-events:none;}
-.logo-mark{width:64px;height:64px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
-.hero-badge{background:rgba(0,160,144,.12);border:1px solid rgba(0,160,144,.3);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--t400);letter-spacing:.5px;display:inline-block;margin-bottom:20px;}
-.hero h1{font-size:clamp(36px,6vw,72px);font-weight:700;letter-spacing:-1.5px;margin-bottom:16px;background:linear-gradient(180deg,#F5D060 0%,#E2A837 45%,#A87E14 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero{min-height:100vh;background:linear-gradient(160deg,#0A1A10 0%,var(--dk) 50%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g500),transparent);}
+.hero-bg-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(226,168,55,.06) 0%,transparent 70%);pointer-events:none;}
+.hero-badge{background:rgba(226,168,55,.1);border:1px solid rgba(226,168,55,.3);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--g400);letter-spacing:.5px;display:inline-block;margin-bottom:20px;}
+.hero h1{font-size:clamp(36px,6vw,72px);font-weight:700;letter-spacing:-1.5px;margin-bottom:16px;background:linear-gradient(180deg,#F5D060 0%,var(--g500) 45%,var(--g700) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .hero-sub{font-size:clamp(16px,2.5vw,20px);color:var(--text2);max-width:580px;margin:0 auto 12px;}
 .hero-tagline{font-size:14px;color:var(--text3);margin-bottom:40px;}
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.btn-hero{padding:14px 28px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
-.btn-primary{background:linear-gradient(135deg,var(--t600),var(--t900));color:#fff;border:none;}
-.btn-primary:hover{background:linear-gradient(135deg,var(--t500),var(--t800));transform:translateY(-1px);transition:all .15s;}
-.btn-ghost{background:transparent;color:var(--t400);border:1px solid rgba(0,160,144,.4);}
-.btn-ghost:hover{background:rgba(0,160,144,.08);}
+.btn-hero{padding:14px 28px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .15s;}
+.btn-primary{background:linear-gradient(135deg,var(--g500),var(--g700));color:#08080E;border:none;}
+.btn-primary:hover{background:linear-gradient(135deg,var(--g400),var(--g600));transform:translateY(-1px);}
+.btn-ghost{background:transparent;color:var(--g400);border:1px solid rgba(226,168,55,.35);}
+.btn-ghost:hover{background:rgba(226,168,55,.08);}
 .hero-stats{display:flex;gap:40px;justify-content:center;margin-top:56px;flex-wrap:wrap;}
 .stat{text-align:center;}
-.stat-num{font-size:28px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
-.stat-num span{color:var(--t400);}
+.stat-num{font-size:28px;font-weight:700;color:#fff;}
+.stat-num span{color:var(--g400);}
 .stat-lbl{font-size:11px;color:var(--text3);margin-top:2px;letter-spacing:.4px;text-transform:uppercase;}
 
-/* ── APP PREVIEW ── */
-.preview-section{padding:80px 24px;max-width:1100px;margin:0 auto;}
-.section-eyebrow{font-size:11px;color:var(--t400);letter-spacing:1px;text-transform:uppercase;text-align:center;margin-bottom:10px;}
-.section-title{font-size:clamp(24px,4vw,40px);font-weight:700;text-align:center;letter-spacing:-0.5px;margin-bottom:8px;}
+/* ── SHARED SECTION ── */
+.section{padding:80px 24px;max-width:1100px;margin:0 auto;}
+.section-eyebrow{font-size:11px;color:var(--g600);letter-spacing:1px;text-transform:uppercase;text-align:center;margin-bottom:10px;}
+.section-title{font-size:clamp(24px,4vw,40px);font-weight:700;text-align:center;letter-spacing:-.5px;margin-bottom:8px;}
 .section-sub{font-size:15px;color:var(--text2);text-align:center;margin-bottom:48px;max-width:540px;margin-left:auto;margin-right:auto;}
-.app-frame{background:var(--ch);border-radius:12px;overflow:hidden;border:1px solid var(--ch3);box-shadow:0 40px 120px rgba(0,0,0,.6);}
-.app-frame-bar{background:#0A0A0A;height:32px;display:flex;align-items:center;padding:0 14px;gap:8px;}
-.frame-dot{width:10px;height:10px;border-radius:50%;}
-.frame-header{background:var(--ch);height:48px;display:flex;align-items:center;padding:0 16px;gap:10px;border-bottom:1px solid var(--ch3);}
-.frame-logo{width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.frame-wordmark{font-size:16px;font-weight:800;letter-spacing:0;font-family:'Syne',sans-serif;}
-.frame-wordmark em{color:var(--t400);font-style:normal;}
-.frame-site{background:rgba(0,160,144,.15);border:1px solid rgba(0,160,144,.3);color:var(--t400);font-size:10px;padding:3px 9px;border-radius:20px;}
-.frame-spacer{flex:1;}
-.frame-search{background:var(--ch3);border:1px solid var(--ch3);border-radius:6px;padding:5px 12px;width:180px;font-size:10px;color:#666;}
-.notif-btn{width:30px;height:30px;border-radius:6px;background:rgba(226,168,55,.12);border:1px solid rgba(226,168,55,.3);display:flex;align-items:center;justify-content:center;font-size:12px;position:relative;cursor:pointer;}
-.notif-b{position:absolute;top:2px;right:2px;width:12px;height:12px;background:var(--g500);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#000;}
-.frame-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--t600),var(--t900));border:2px solid var(--t600);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:600;}
-.frame-body{display:flex;height:380px;}
-.frame-sidebar{background:var(--t950);width:188px;padding:10px 0;flex-shrink:0;border-right:1px solid rgba(255,255,255,.06);}
-.nav-grp{font-size:8px;color:rgba(255,255,255,.22);letter-spacing:1px;text-transform:uppercase;padding:10px 12px 3px;font-weight:600;}
-.nav-item{display:flex;align-items:center;gap:8px;padding:7px 12px;font-size:10px;color:rgba(255,255,255,.5);cursor:pointer;}
-.nav-item.active{background:rgba(0,160,144,.22);color:#fff;border-right:2px solid var(--t300);}
-.nav-item .ico{font-size:12px;width:14px;text-align:center;}
-.nav-bc{margin-left:auto;background:var(--g600);color:#fff;font-size:7px;font-weight:700;padding:1px 5px;border-radius:3px;}
-.ee-ind{margin-left:auto;color:var(--t400);font-size:8px;}
-.frame-content{flex:1;background:var(--dk);padding:14px;overflow:hidden;}
-.fc-title{color:#fff;font-size:13px;font-weight:500;margin-bottom:2px;}
-.fc-sub{color:var(--text3);font-size:9px;margin-bottom:12px;}
-.kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px;}
-.kc{background:var(--dks);border:1px solid var(--dkb);border-radius:7px;padding:10px 12px;}
-.kc.gold{border-color:rgba(226,168,55,.35);}
-.kl{font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
-.kl.gold-l{color:rgba(226,168,55,.55);}
-.kv{font-size:19px;font-weight:500;color:#fff;}
-.tbl{background:var(--dks);border:1px solid var(--dkb);border-radius:7px;overflow:hidden;}
-.tbl-hdr{display:grid;grid-template-columns:70px 1fr 90px 58px;padding:6px 12px;background:var(--dks2);font-size:8px;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;gap:8px;}
-.tbl-row{display:grid;grid-template-columns:70px 1fr 90px 58px;padding:8px 12px;gap:8px;font-size:10px;color:var(--text2);border-top:1px solid var(--dkb);align-items:center;}
-.tbl-row:nth-child(even){background:rgba(255,255,255,.015);}
-.tbl-ref{color:#B2CCD6;font-family:'JetBrains Mono',monospace;font-size:9px;}
-.sp{padding:2px 7px;border-radius:3px;font-size:8px;font-weight:700;display:inline-block;}
-.sp-pass{background:rgba(134,193,64,.15);color:var(--pass);}
-.sp-rev{background:rgba(59,130,246,.15);color:#60A5FA;}
-.sp-over{background:rgba(226,168,55,.15);color:var(--g400);}
-.sp-dev{background:rgba(249,115,22,.15);color:var(--or);}
 
-/* ── PALETTE SECTION ── */
-.palette-section{padding:80px 24px;background:var(--dks);border-top:1px solid var(--dkb);}
-.palette-inner{max-width:1100px;margin:0 auto;}
-.sw-row{display:flex;gap:6px;margin-bottom:6px;}
-.sw{flex:1;height:52px;border-radius:8px;display:flex;flex-direction:column;justify-content:flex-end;padding:6px 8px;}
-.sw-label{font-size:9px;font-weight:600;color:rgba(255,255,255,.7);}
-.sw-hex{font-size:8px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace;}
-.sw-main{outline:2px solid rgba(255,255,255,.5);outline-offset:2px;}
-.accent-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
-.accent-chip{display:flex;align-items:center;gap:8px;background:var(--dks2);border:1px solid var(--dkb);border-radius:8px;padding:9px 14px;}
-.ac-dot{width:18px;height:18px;border-radius:50%;}
-.ac-name{font-size:11px;font-weight:600;}
-.ac-use{font-size:10px;color:var(--text3);}
+/* ── APP CHROME ── */
+.app-wrap{background:var(--ch);border-radius:12px;overflow:hidden;border:1px solid var(--ch3);box-shadow:0 40px 120px rgba(0,0,0,.6);margin-bottom:12px;}
+.app-bar{background:#0A0A0A;height:32px;display:flex;align-items:center;padding:0 14px;gap:8px;}
+.dot{width:10px;height:10px;border-radius:50%;}
+.app-hdr{background:var(--ch);height:48px;display:flex;align-items:center;padding:0 16px;gap:10px;border-bottom:1px solid var(--ch3);}
+.ph-logo{width:28px;height:28px;flex-shrink:0;}
+.ph-wm{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;letter-spacing:0;display:flex;align-items:baseline;}
+.ph-p{display:inline-block;transform:translateY(0.12em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ph-h{background:linear-gradient(180deg,#F5D060,#E2A837 45%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.site-chip{background:rgba(226,168,55,.1);border:1px solid rgba(226,168,55,.25);color:var(--g600);font-size:10px;padding:3px 9px;border-radius:20px;}
+.hdr-sp{flex:1;}
+.notif-btn{width:30px;height:30px;border-radius:6px;background:rgba(226,168,55,.1);border:1px solid rgba(226,168,55,.25);display:flex;align-items:center;justify-content:center;font-size:12px;position:relative;}
+.notif-b{position:absolute;top:2px;right:2px;width:12px;height:12px;background:var(--g500);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#08080E;}
+.frame-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--t600),var(--t900));border:2px solid var(--t600);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;}
+.app-body{display:flex;height:320px;}
+.sidebar{background:#0C0F14;width:180px;flex-shrink:0;padding:6px 0;border-right:1px solid var(--ch3);}
+.nav-grp{font-size:7px;color:rgba(226,168,55,.28);letter-spacing:1px;text-transform:uppercase;padding:10px 12px 3px;font-family:'JetBrains Mono',monospace;}
+.nav-item{display:flex;align-items:center;gap:8px;padding:6px 12px;font-size:10px;color:var(--text3);cursor:pointer;}
+.nav-item.active{background:rgba(226,168,55,.07);color:#fff;border-right:2px solid var(--g600);}
+.nav-item.active .nav-ic{color:var(--g500);}
+.nav-ic{font-size:11px;width:14px;}
+.nav-badge{margin-left:auto;background:var(--g700);color:#fff;font-size:6px;font-weight:700;padding:1px 4px;border-radius:3px;}
+.content{flex:1;background:#0D1117;padding:14px;overflow:hidden;}
+.view-title{font-size:15px;font-weight:600;color:#fff;margin-bottom:2px;}
+.view-sub{font-size:10px;color:var(--text3);margin-bottom:12px;font-family:'JetBrains Mono',monospace;}
 
-/* ── FEATURES GRID ── */
-.features{padding:80px 24px;max-width:1100px;margin:0 auto;}
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
-.feat-card{background:var(--dks);border:1px solid var(--dkb);border-radius:10px;padding:22px;position:relative;overflow:hidden;}
-.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--t600),transparent);}
+/* ── STATUS BADGES ── */
+.sp{padding:2px 8px;border-radius:4px;font-size:9px;font-weight:600;font-family:'JetBrains Mono',monospace;}
+.sp-pass{background:rgba(134,193,64,.12);color:var(--pass);}
+.sp-fail{background:rgba(229,75,46,.12);color:var(--fail);}
+.sp-rev{background:rgba(0,160,144,.1);color:var(--t400);}
+.sp-gold{background:rgba(226,168,55,.1);color:var(--g400);}
+.sp-pur{background:rgba(139,92,246,.12);color:var(--pur);}
+.sp-grey{background:rgba(232,237,242,.06);color:var(--text3);}
+
+/* ── PROTOCOL EXECUTION VIEW ── */
+.kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;}
+.kc{background:var(--dks);border:1px solid var(--ch3);border-radius:6px;padding:9px 11px;}
+.kc-gold{border-color:rgba(226,168,55,.2);}
+.kl{font-size:7px;color:var(--text3);text-transform:uppercase;letter-spacing:.3px;margin-bottom:3px;font-family:'JetBrains Mono',monospace;}
+.kl-gold{color:rgba(226,168,55,.4);}
+.kv{font-size:18px;font-weight:700;color:#fff;}
+.tbl{background:var(--dks);border:1px solid var(--ch3);border-radius:6px;overflow:hidden;}
+.tbl-hdr{display:grid;grid-template-columns:58px 1fr 80px 54px;padding:5px 10px;background:var(--ch3);font-size:7px;color:var(--text3);letter-spacing:.3px;text-transform:uppercase;gap:8px;font-family:'JetBrains Mono',monospace;}
+.tbl-row{display:grid;grid-template-columns:58px 1fr 80px 54px;padding:7px 10px;gap:8px;font-size:9px;color:var(--text2);border-top:1px solid var(--ch3);align-items:center;}
+.tbl-ref{color:var(--g600);font-family:'JetBrains Mono',monospace;font-size:8px;}
+
+/* ── RTM HEAT MAP VIEW ── */
+.rtm-wrap{overflow:hidden;}
+.rtm-grid{display:grid;gap:2px;margin-bottom:6px;}
+.rtm-cell{height:18px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:6px;font-weight:700;}
+.rtm-pass{background:rgba(134,193,64,.25);color:var(--pass);}
+.rtm-fail{background:rgba(229,75,46,.2);color:var(--fail);}
+.rtm-pend{background:rgba(226,168,55,.12);color:var(--g400);}
+.rtm-na{background:rgba(232,237,242,.04);color:transparent;}
+.rtm-label{font-size:7px;color:var(--text3);font-family:'JetBrains Mono',monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rtm-col-hdr{font-size:6px;color:var(--text3);font-family:'JetBrains Mono',monospace;transform:rotate(-35deg);transform-origin:bottom left;white-space:nowrap;height:36px;display:flex;align-items:flex-end;}
+.rtm-coverage-bar{background:var(--ch3);border-radius:3px;height:5px;margin-top:8px;}
+.rtm-coverage-fill{background:linear-gradient(90deg,var(--pass),var(--g500));border-radius:3px;height:5px;}
+
+/* ── CAPA VIEW ── */
+.capa-table{width:100%;border-collapse:separate;border-spacing:0;}
+.capa-hdr{font-size:7px;color:var(--text3);text-transform:uppercase;letter-spacing:.3px;padding:5px 8px;text-align:left;border-bottom:1px solid var(--ch3);font-family:'JetBrains Mono',monospace;}
+.capa-row td{font-size:9px;padding:7px 8px;border-bottom:1px solid rgba(232,237,242,.04);color:var(--text2);vertical-align:middle;}
+.capa-row:hover td{background:rgba(226,168,55,.03);}
+.capa-id{color:var(--g600);font-family:'JetBrains Mono',monospace;font-size:8px;white-space:nowrap;}
+.capa-priority{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:4px;}
+.overdue-tag{font-size:7px;color:var(--fail);margin-left:4px;}
+
+/* ── SOP VISUALIZER VIEW ── */
+.swim-wrap{display:flex;flex-direction:column;gap:2px;padding:8px 0;}
+.swim-lane{display:flex;align-items:stretch;min-height:52px;}
+.swim-label{width:54px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);color:var(--text3);background:rgba(232,237,242,.03);border-right:1px solid var(--ch3);border-radius:3px 0 0 3px;}
+.swim-label-qa{color:var(--g600);}
+.swim-label-it{color:var(--t400);}
+.swim-label-biz{color:var(--pur);}
+.swim-nodes{flex:1;display:flex;align-items:center;gap:8px;padding:6px 8px;background:rgba(232,237,242,.02);border-radius:0 3px 3px 0;position:relative;}
+.sop-node{background:var(--dks);border:1px solid var(--ch3);border-radius:5px;padding:5px 8px;font-size:8px;color:var(--text2);white-space:nowrap;position:relative;}
+.sop-node-gold{border-color:rgba(226,168,55,.3);color:var(--g400);}
+.sop-node-teal{border-color:rgba(0,160,144,.25);color:var(--t400);}
+.sop-node-pur{border-color:rgba(139,92,246,.25);color:var(--pur);}
+.sop-arrow{color:var(--text3);font-size:10px;flex-shrink:0;}
+.sop-decision{background:var(--dks);border:1px solid rgba(226,168,55,.3);border-radius:3px;transform:rotate(45deg);width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sop-decision span{transform:rotate(-45deg);font-size:7px;color:var(--g400);}
+
+/* ── DASHBOARD VIEW ── */
+.dash-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px;}
+.dash-kpi{background:var(--dks);border:1px solid var(--ch3);border-radius:6px;padding:9px 10px;}
+.dash-kpi-gold{border-color:rgba(226,168,55,.2);}
+.dk-label{font-size:7px;color:var(--text3);text-transform:uppercase;letter-spacing:.3px;margin-bottom:3px;font-family:'JetBrains Mono',monospace;}
+.dk-val{font-size:20px;font-weight:700;color:#fff;line-height:1;}
+.dk-delta{font-size:8px;margin-top:2px;}
+.dk-up{color:var(--pass);}
+.dk-down{color:var(--fail);}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.dash-card{background:var(--dks);border:1px solid var(--ch3);border-radius:6px;padding:10px;}
+.dash-card-title{font-size:9px;font-weight:600;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.3px;}
+.activity-item{display:flex;align-items:flex-start;gap:7px;padding:4px 0;border-bottom:1px solid rgba(232,237,242,.04);}
+.activity-item:last-child{border-bottom:none;}
+.act-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.act-text{font-size:9px;color:var(--text2);line-height:1.4;}
+.act-time{font-size:8px;color:var(--text3);margin-left:auto;white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+/* sparkline bars */
+.sparkline{display:flex;align-items:flex-end;gap:2px;height:40px;margin-top:4px;}
+.spark-bar{flex:1;border-radius:2px 2px 0 0;min-height:4px;}
+
+/* ── VIEW TAB STRIP ── */
+.view-tabs{display:flex;gap:2px;margin-bottom:16px;background:rgba(232,237,242,.04);border-radius:8px;padding:3px;}
+.view-tab{flex:1;text-align:center;padding:7px 8px;border-radius:6px;font-size:10px;font-weight:500;color:var(--text3);cursor:pointer;transition:all .15s;}
+.view-tab.active{background:rgba(226,168,55,.12);color:var(--g400);border:1px solid rgba(226,168,55,.2);}
+
+/* ── PALETTE ── */
+.pal-section{padding:72px 24px;max-width:1100px;margin:0 auto;border-top:1px solid var(--ch3);}
+.pal-row{display:flex;gap:4px;margin-bottom:4px;}
+.swatch{flex:1;height:52px;border-radius:4px;display:flex;flex-direction:column;justify-content:flex-end;padding:5px 7px;}
+.sw-n{font-size:8px;font-weight:600;}
+.sw-h{font-size:7px;opacity:.5;font-family:'JetBrains Mono',monospace;}
+.sw-star{outline:2px solid rgba(255,255,255,.4);outline-offset:2px;}
+
+/* ── FEATURES ── */
+.feat-section{padding:72px 24px;border-top:1px solid var(--ch3);}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto;}
+.feat-card{background:var(--dks);border:1px solid var(--ch3);border-radius:10px;padding:24px;position:relative;overflow:hidden;}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g600),var(--g400));}
 .feat-icon{font-size:24px;margin-bottom:12px;}
-.feat-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px;}
-.feat-desc{font-size:12px;color:var(--text2);line-height:1.6;}
-.feat-tag{display:inline-block;margin-top:10px;font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;background:rgba(0,160,144,.15);color:var(--t400);}
-.feat-tag.ee{background:rgba(139,92,246,.15);color:#A78BFA;}
+.feat-title{font-size:15px;font-weight:600;margin-bottom:8px;}
+.feat-desc{font-size:13px;color:var(--text2);line-height:1.6;}
+.feat-tag{display:inline-block;margin-top:10px;font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;background:rgba(226,168,55,.1);color:var(--g400);}
+.feat-tag-ee{background:rgba(139,92,246,.12);color:var(--pur);}
 
-/* ── COMPONENT SAMPLES ── */
-.comp-section{padding:80px 24px;background:var(--dks);border-top:1px solid var(--dkb);}
+/* ── COMPONENTS ── */
+.comp-section{padding:72px 24px;border-top:1px solid var(--ch3);}
 .comp-inner{max-width:1100px;margin:0 auto;}
-.badge-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px;}
-.badge{padding:4px 10px;border-radius:5px;font-size:10px;font-weight:600;display:inline-flex;align-items:center;gap:4px;}
-.sig-demo{background:var(--dk);border:1px solid var(--dkb);border-radius:8px;padding:14px;max-width:420px;}
-.sig-row-demo{display:flex;align-items:center;gap:9px;border-radius:6px;padding:8px 10px;margin-bottom:6px;}
-.sig-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;}
-.sig-name{font-size:10px;font-weight:600;}
-.sig-role{font-size:9px;color:var(--text3);margin-top:1px;}
-.sig-time{margin-left:auto;font-size:8px;color:var(--text3);text-align:right;}
-.sig-ck{font-size:13px;margin-left:6px;}
-.callout{border-radius:7px;padding:10px 13px;display:flex;gap:9px;margin-bottom:6px;align-items:flex-start;}
-.co-icon{font-size:13px;flex-shrink:0;margin-top:1px;}
-.co-t{font-size:10px;font-weight:600;margin-bottom:2px;}
-.co-d{font-size:9px;line-height:1.4;}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.comp-card{background:var(--dks);border:1px solid var(--ch3);border-radius:10px;padding:20px;}
+.comp-label{font-size:10px;color:var(--g600);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;}
+.badge{padding:3px 10px;border-radius:6px;font-size:10px;font-weight:600;border:1px solid;}
+.sig-block{background:var(--dks2);border:1px solid var(--ch3);border-radius:6px;padding:10px 12px;display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.sig-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;}
+.sig-name{font-size:11px;font-weight:600;}
+.sig-role{font-size:9px;color:var(--text3);}
+.sig-check{margin-left:auto;font-size:14px;}
+.rtm-mini{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;}
+.rtm-mini-cell{height:16px;border-radius:2px;}
 
 /* ── COMPLIANCE ── */
-.compliance{padding:80px 24px;max-width:1100px;margin:0 auto;}
-.reg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
-.reg-card{background:var(--dks);border:1px solid var(--dkb);border-radius:8px;padding:16px;}
-.reg-badge{display:inline-block;background:rgba(134,193,64,.12);border:1px solid rgba(134,193,64,.3);color:var(--pass);font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;margin-bottom:8px;}
-.reg-title{font-size:12px;font-weight:600;color:#fff;margin-bottom:4px;}
-.reg-desc{font-size:10px;color:var(--text2);}
+.comp-table-section{padding:72px 24px;border-top:1px solid var(--ch3);}
+.comp-table-inner{max-width:1100px;margin:0 auto;}
+.reg-table{width:100%;border-collapse:collapse;}
+.reg-table th{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.3px;padding:8px 12px;border-bottom:1px solid var(--ch3);text-align:left;}
+.reg-table td{font-size:11px;padding:9px 12px;border-bottom:1px solid rgba(232,237,242,.05);color:var(--text2);}
+.reg-table tr:hover td{background:rgba(226,168,55,.03);}
+.ck{color:var(--pass);}
+.cx{color:var(--ch3);}
 
-/* ── SCHEMA SECTION ── */
-.schema-section{padding:80px 24px;background:var(--dks);border-top:1px solid var(--dkb);}
+/* ── SCHEMA ── */
+.schema-section{padding:72px 24px;border-top:1px solid var(--ch3);}
 .schema-inner{max-width:1100px;margin:0 auto;}
-.schema-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;}
-.schema-row{background:var(--dk);border:1px solid var(--dkb);border-radius:7px;padding:12px 14px;display:flex;align-items:center;gap:10px;}
-.schema-part{font-size:10px;font-weight:700;color:var(--t400);font-family:'JetBrains Mono',monospace;width:60px;}
-.schema-count{font-size:18px;font-weight:700;color:#fff;width:32px;}
-.schema-desc{font-size:10px;color:var(--text2);flex:1;}
+.schema-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.schema-row{display:flex;align-items:center;gap:10px;background:var(--dks);border:1px solid var(--ch3);border-radius:6px;padding:10px 12px;}
+.schema-part{font-size:10px;font-weight:700;color:var(--g500);font-family:'JetBrains Mono',monospace;width:64px;flex-shrink:0;}
+.schema-name{font-size:10px;color:var(--text2);flex:1;}
+.schema-count{font-size:10px;font-weight:700;color:#fff;font-family:'JetBrains Mono',monospace;}
 
 /* ── CTA ── */
-.cta{padding:100px 24px;text-align:center;background:linear-gradient(160deg,#0C1117 0%,var(--t950) 100%);border-top:1px solid var(--dkb);}
-.cta h2{font-size:clamp(28px,5vw,52px);font-weight:700;letter-spacing:-1px;margin-bottom:12px;background:linear-gradient(180deg,#F5D060 0%,#E2A837 45%,#A87E14 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cta p{font-size:16px;color:var(--text2);margin-bottom:36px;}
+.cta-section{padding:80px 24px;text-align:center;border-top:1px solid var(--ch3);}
+.cta-title{font-size:clamp(24px,4vw,44px);font-weight:700;letter-spacing:-.5px;margin-bottom:16px;}
+.cta-sub{font-size:15px;color:var(--text2);margin-bottom:32px;}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
 
 /* ── FOOTER ── */
-footer{background:var(--ch);border-top:1px solid var(--ch3);padding:32px 24px;text-align:center;}
+footer{padding:40px 24px;text-align:center;border-top:1px solid var(--ch3);}
 .footer-logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:12px;}
 footer p{font-size:12px;color:var(--text3);}
-footer a{color:var(--t400);text-decoration:none;}
+footer a{color:var(--g600);text-decoration:none;}
 
 @media(max-width:640px){
-  .frame-body{height:auto;}
-  .frame-sidebar{display:none;}
+  .app-body{height:auto;}
+  .sidebar{display:none;}
   .kgrid{grid-template-columns:1fr 1fr;}
   .hero-stats{gap:24px;}
-  .stat-num{font-size:22px;}
+  .feat-grid{grid-template-columns:1fr;}
+  .comp-grid{grid-template-columns:1fr;}
+  .schema-grid{grid-template-columns:1fr 1fr;}
+  .dash-kpis{grid-template-columns:repeat(3,1fr);}
 }
 </style>
 </head>
 <body>
 
-<!-- ── HERO ── -->
+<!-- ══ HERO ══ -->
 <section class="hero">
   <div class="hero-bg-glow"></div>
-  <div class="hero-badge">Open Source · Self-Hosted · GxP Compliant</div>
-  <svg width="64" height="64" viewBox="0 0 110 110" fill="none" style="display:block;margin:0 auto 20px;">
-  <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="10" fill="none"/>
-  <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.4)" stroke-width=".9" fill="none"/>
-  <line x1="55" y1="5" x2="55" y2="18" stroke="rgba(226,168,55,.4)" stroke-width="1.8"/>
-  <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.4)" stroke-width="1.8"/>
-  <line x1="5" y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.4)" stroke-width="1.8"/>
-  <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.4)" stroke-width="1.8"/>
-  <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.2)" stroke-width="1.2"/>
-  <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.2)" stroke-width="1.2"/>
-  <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.2)" stroke-width="1.2"/>
-  <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.2)" stroke-width="1.2"/>
-  <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.15)" stroke-width=".9" stroke-dasharray="3 5"/>
-  <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="7" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-  <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-  <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.4" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-  <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.05)"/>
-  <circle cx="55" cy="14" r="9" fill="rgba(245,208,96,.1)"/>
-  <circle cx="55" cy="14" r="5" fill="rgba(245,208,96,.18)"/>
-  <circle cx="55" cy="14" r="3" fill="#F5D060"/>
-  <circle cx="55" cy="14" r="1.3" fill="#fff" opacity=".9"/>
-</svg>
+  <div class="hero-badge">Platform Design Preview · 2026</div>
   <h1>PHAROLON</h1>
-  <p class="hero-sub">The open source GxP validation lifecycle platform for pharma, biotech, and medical devices.</p>
-  <p class="hero-tagline">One platform. Any validation process. Any discipline. Fully auditable.</p>
+  <p class="hero-sub">Quality intelligence for every regulated industry. One platform. Any validation process.</p>
+  <p class="hero-tagline">pH · The open-source alternative to Kneat, ValGenesis, and SWARE · Free self-hosted CE</p>
   <div class="hero-btns">
-    <a href="https://github.com/tigger2000ttfn/PHAROLON" class="btn-hero btn-primary">★ View on GitHub</a>
-    <a href="https://github.com/tigger2000ttfn/PHAROLON/blob/main/MASTER_PLAN.md" class="btn-hero btn-ghost">Read the Master Plan →</a>
+    <a class="btn-hero btn-primary" href="https://github.com/tigger2000ttfn/OpenVAL">★ GitHub →</a>
+    <a class="btn-hero btn-ghost" href="brand.html">Brand Identity</a>
+    <a class="btn-hero btn-ghost" href="index.html">Platform Story</a>
   </div>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">3<span>73</span></div><div class="stat-lbl">Database Tables</div></div>
-    <div class="stat"><div class="stat-num">3<span>0</span></div><div class="stat-lbl">Validation Disciplines</div></div>
-    <div class="stat"><div class="stat-num">2<span>6</span></div><div class="stat-lbl">Development Phases</div></div>
-    <div class="stat"><div class="stat-num">5<span>8</span></div><div class="stat-lbl">Protocol Templates</div></div>
-    <div class="stat"><div class="stat-num">1<span>00%</span></div><div class="stat-lbl">Audit Compliant</div></div>
+    <div class="stat"><div class="stat-num">6<span>73</span></div><div class="stat-lbl">Database Tables</div></div>
+    <div class="stat"><div class="stat-num"><span>30</span>+</div><div class="stat-lbl">Disciplines</div></div>
+    <div class="stat"><div class="stat-num"><span>15</span></div><div class="stat-lbl">Schema Parts</div></div>
+    <div class="stat"><div class="stat-num"><span>67</span></div><div class="stat-lbl">Templates</div></div>
   </div>
 </section>
 
-<!-- ── APP PREVIEW ── -->
-<section class="preview-section">
+<!-- ══ VIEW 1: PROTOCOL EXECUTION ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
   <div class="section-eyebrow">Interface Preview</div>
-  <h2 class="section-title">Dark Teal. Built for validation professionals.</h2>
-  <p class="section-sub">A purpose-built design system. Not another blue enterprise tool.</p>
-  <div class="app-frame">
-    <div class="app-frame-bar">
-      <div class="frame-dot" style="background:#FF5F57;"></div>
-      <div class="frame-dot" style="background:#FEBC2E;"></div>
-      <div class="frame-dot" style="background:#28C840;"></div>
-      <span style="color:#555;font-size:10px;margin-left:8px;font-family:'JetBrains Mono',monospace;">pharolon.yoursite.com</span>
+  <h2 class="section-title">Protocol Execution</h2>
+  <p class="section-sub">Electronic batch execution with live status, step sign-off, and immutable audit trail.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div>
+      <div class="dot" style="background:#FEBC2E;"></div>
+      <div class="dot" style="background:#28C840;"></div>
     </div>
-    <div class="frame-header">
-      <svg width="28" height="28" viewBox="0 0 110 110" fill="none" style="display:block;">
-  <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/>
-  <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/>
-  <line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
-  <line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
-  <line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
-  <line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
-  <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/>
-  <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-  <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-  <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-  <circle cx="55" cy="14" r="2.5" fill="#F5D060"/>
-</svg>
-      <span class="frame-wordmark" style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;letter-spacing:0;display:flex;align-items:baseline;">
-        <span style="display:inline-block;transform:translateY(0.12em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">p</span><span style="background:linear-gradient(180deg,#F5D060,#E2A837 45%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">H</span>
-      </span>
-      <span class="frame-site">◈ MATC · Madison</span>
-      <div class="frame-spacer"></div>
-      <div class="frame-search">⌘K  Search everything...</div>
+    <div class="app-hdr">
+      <svg class="ph-logo" viewBox="0 0 110 110" fill="none">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/>
+        <line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
+        <line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
+        <line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
+        <line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
+        <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <circle cx="55" cy="14" r="2.5" fill="#F5D060"/>
+      </svg>
+      <div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div>
+      <div class="site-chip">◈ MATC · Madison</div>
+      <div class="hdr-sp"></div>
       <div class="notif-btn">🔔<div class="notif-b">3</div></div>
       <div class="frame-av">ME</div>
     </div>
-    <div class="frame-body">
-      <div class="frame-sidebar">
-        <div class="nav-grp">VALIDATION</div>
-        <div class="nav-item"><span class="ico">⊞</span>Dashboard</div>
-        <div class="nav-item active"><span class="ico">◈</span>Protocols</div>
-        <div class="nav-item"><span class="ico">▶</span>Executions</div>
-        <div class="nav-item"><span class="ico" style="color:#8B5CF6;">◆</span>Test Library<span class="ee-ind">EE</span></div>
-        <div class="nav-item"><span class="ico">⟳</span>Traceability</div>
-        <div class="nav-grp">QUALITY</div>
-        <div class="nav-item"><span class="ico">✓</span>CAPA<span class="nav-bc">7</span></div>
-        <div class="nav-item"><span class="ico">↻</span>Change Control</div>
-        <div class="nav-item"><span class="ico">⚠</span>Deviations<span class="nav-bc" style="background:#E54B2E;">2</span></div>
-        <div class="nav-grp">DOCUMENTS</div>
-        <div class="nav-item"><span class="ico">⊟</span>Library</div>
-        <div class="nav-item"><span class="ico" style="color:#E2A837;">◎</span>Pending<span class="nav-bc">4</span></div>
+    <div class="app-body">
+      <div class="sidebar">
+        <div class="nav-grp">Validation</div>
+        <div class="nav-item"><span class="nav-ic">⊞</span>Dashboard</div>
+        <div class="nav-item active"><span class="nav-ic">◈</span>Protocols</div>
+        <div class="nav-item"><span class="nav-ic">▶</span>Executions</div>
+        <div class="nav-grp">Quality</div>
+        <div class="nav-item"><span class="nav-ic">✓</span>CAPA<span class="nav-badge">7</span></div>
+        <div class="nav-item"><span class="nav-ic">⚠</span>Deviations</div>
+        <div class="nav-item"><span class="nav-ic">↻</span>Change Control</div>
+        <div class="nav-grp">Documents</div>
+        <div class="nav-item"><span class="nav-ic">⊟</span>Library</div>
+        <div class="nav-item"><span class="nav-ic">◎</span>Pending<span class="nav-badge">4</span></div>
       </div>
-      <div class="frame-content">
-        <div class="fc-title">Protocols</div>
-        <div class="fc-sub">LabWare LIMS 8.0 · IQ / OQ / PQ validation project</div>
+      <div class="content">
+        <div class="view-title">Protocols</div>
+        <div class="view-sub">LabWare LIMS 8.0 · SAP ERP 2026 · IQ / OQ / PQ validation suite</div>
         <div class="kgrid">
           <div class="kc"><div class="kl">Total</div><div class="kv">12</div></div>
-          <div class="kc"><div class="kl">Passed</div><div class="kv" style="color:#86C140;">7</div></div>
-          <div class="kc"><div class="kl">In Review</div><div class="kv" style="color:#60A5FA;">3</div></div>
-          <div class="kc gold"><div class="kl gold-l">⚠ Action</div><div class="kv" style="color:#F0C040;">2</div></div>
+          <div class="kc"><div class="kl">Passed</div><div class="kv" style="color:var(--pass)">7</div></div>
+          <div class="kc"><div class="kl">In Review</div><div class="kv" style="color:var(--t400)">3</div></div>
+          <div class="kc kc-gold"><div class="kl kl-gold">⚠ Action</div><div class="kv" style="color:var(--g400)">2</div></div>
         </div>
         <div class="tbl">
-          <div class="tbl-hdr"><span>Ref</span><span>Title</span><span>Status</span><span>Due</span></div>
-          <div class="tbl-row"><span class="tbl-ref">IQ-0042</span><span>LIMS IQ Protocol v1.0</span><span><span class="sp sp-pass">● PASSED</span></span><span style="font-size:9px;color:var(--text3);">Apr 01</span></div>
-          <div class="tbl-row"><span class="tbl-ref">OQ-0043</span><span>LIMS OQ Protocol v1.0</span><span><span class="sp sp-rev">◉ REVIEW</span></span><span style="font-size:9px;color:var(--text3);">Apr 15</span></div>
-          <div class="tbl-row"><span class="tbl-ref">PQ-0044</span><span>LIMS PQ Protocol v1.0</span><span><span class="sp sp-over">⚠ OVERDUE</span></span><span style="font-size:9px;color:#F0C040;">Mar 30</span></div>
-          <div class="tbl-row"><span class="tbl-ref">UAT-0045</span><span>LIMS UAT Protocol v1.0</span><span><span class="sp sp-dev">◷ DEVIATION</span></span><span style="font-size:9px;color:var(--text3);">Apr 22</span></div>
+          <div class="tbl-hdr"><span>Ref</span><span>Protocol</span><span>Status</span><span>Due</span></div>
+          <div class="tbl-row"><span class="tbl-ref">IQ-0042</span><span>LabWare LIMS Installation</span><span><span class="sp sp-pass">● PASSED</span></span><span style="font-size:8px;color:var(--text3)">Apr 01</span></div>
+          <div class="tbl-row"><span class="tbl-ref">OQ-0043</span><span>LabWare LIMS Operation</span><span><span class="sp sp-rev">◉ REVIEW</span></span><span style="font-size:8px;color:var(--text3)">Apr 15</span></div>
+          <div class="tbl-row"><span class="tbl-ref">PQ-0044</span><span>LabWare LIMS Performance</span><span><span class="sp sp-gold">⚠ OVERDUE</span></span><span style="font-size:8px;color:var(--g600)">Mar 30</span></div>
+          <div class="tbl-row"><span class="tbl-ref">IQ-0045</span><span>SAP ERP Installation</span><span><span class="sp sp-pass">● PASSED</span></span><span style="font-size:8px;color:var(--text3)">Apr 08</span></div>
+          <div class="tbl-row"><span class="tbl-ref">OQ-0046</span><span>SAP ERP Operation</span><span><span class="sp sp-grey">○ PENDING</span></span><span style="font-size:8px;color:var(--text3)">May 01</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PALETTE ── -->
-<section class="palette-section">
-  <div class="palette-inner">
-    <div class="section-eyebrow" style="text-align:left;">Design System</div>
-    <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:28px;">Teal + Gold. Not another blue enterprise tool.</h2>
-    <div class="sw-row">
-      <div class="sw" style="background:#002A25;"><span class="sw-label">950</span><span class="sw-hex">#002A25</span></div>
-      <div class="sw" style="background:#004D45;"><span class="sw-label">900</span><span class="sw-hex">#004D45</span></div>
-      <div class="sw" style="background:#006B61;"><span class="sw-label">800</span></div>
-      <div class="sw sw-main" style="background:#00A090;"><span class="sw-label">600★</span><span class="sw-hex">#00A090</span></div>
-      <div class="sw" style="background:#00B8A9;"><span class="sw-label">500</span></div>
-      <div class="sw" style="background:#00D4C4;"><span class="sw-label" style="color:#002A25;">400</span></div>
-      <div class="sw" style="width:12px;flex:0;background:transparent;"></div>
-      <div class="sw" style="background:#C9981A;"><span class="sw-label">G600</span></div>
-      <div class="sw sw-main" style="background:#E2A837;"><span class="sw-label" style="color:#3A2000;">G★</span><span class="sw-hex" style="color:rgba(0,0,0,.5);">#E2A837</span></div>
-      <div class="sw" style="background:#F0C040;"><span class="sw-label" style="color:#3A2000;">G400</span></div>
+<!-- ══ VIEW 2: RTM HEAT MAP ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Interface Preview</div>
+  <h2 class="section-title">Requirements Traceability Matrix</h2>
+  <p class="section-sub">Auto-generated RTM maps every requirement to every test case. Live coverage at a glance.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div>
     </div>
-    <div class="accent-row">
-      <div class="accent-chip"><div class="ac-dot" style="background:#86C140;"></div><span class="ac-name" style="color:#86C140;">Pass</span><span class="ac-use">#86C140 — warm lime green</span></div>
-      <div class="accent-chip"><div class="ac-dot" style="background:#E54B2E;"></div><span class="ac-name" style="color:#E54B2E;">Fail</span><span class="ac-use">#E54B2E — warm coral red</span></div>
-      <div class="accent-chip"><div class="ac-dot" style="background:#F97316;"></div><span class="ac-name" style="color:#F97316;">Deviation</span><span class="ac-use">#F97316 — orange</span></div>
-      <div class="accent-chip"><div class="ac-dot" style="background:#8B5CF6;"></div><span class="ac-name" style="color:#A78BFA;">AI / EE</span><span class="ac-use">#8B5CF6 — purple</span></div>
-      <div class="accent-chip"><div class="ac-dot" style="background:#3B82F6;"></div><span class="ac-name" style="color:#60A5FA;">Info</span><span class="ac-use">#3B82F6 — blue</span></div>
+    <div class="app-hdr">
+      <svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060"/></svg>
+      <div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div>
+      <div class="site-chip">◈ SAP ERP 2026 · RTM</div>
+      <div class="hdr-sp"></div>
+      <div class="notif-btn">🔔<div class="notif-b">3</div></div>
+      <div class="frame-av">ME</div>
+    </div>
+    <div class="app-body">
+      <div class="sidebar">
+        <div class="nav-grp">Validation</div>
+        <div class="nav-item"><span class="nav-ic">⊞</span>Dashboard</div>
+        <div class="nav-item"><span class="nav-ic">◈</span>Protocols</div>
+        <div class="nav-item"><span class="nav-ic">▶</span>Executions</div>
+        <div class="nav-item active"><span class="nav-ic">⊠</span>RTM</div>
+        <div class="nav-grp">Quality</div>
+        <div class="nav-item"><span class="nav-ic">✓</span>CAPA<span class="nav-badge">7</span></div>
+        <div class="nav-item"><span class="nav-ic">⚠</span>Deviations</div>
+        <div class="nav-grp">Reports</div>
+        <div class="nav-item"><span class="nav-ic">⊟</span>Val Package</div>
+      </div>
+      <div class="content">
+        <div class="view-title">Requirements Traceability Matrix</div>
+        <div class="view-sub">SAP ERP 2026 · 24 requirements · 48 test cases · Auto-generated</div>
+
+        <!-- RTM heat map grid -->
+        <div style="display:flex;gap:8px;height:235px;">
+          <!-- Row labels -->
+          <div style="display:flex;flex-direction:column;gap:2px;justify-content:flex-start;padding-top:32px;">
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-001 User auth</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-002 Audit trail</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-003 E-signature</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-004 Role access</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-005 Data export</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-006 Batch records</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-007 Reporting</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-008 Integration</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-009 Backup/DR</div>
+          </div>
+          <!-- Heat map -->
+          <div style="flex:1;overflow:hidden;">
+            <!-- Column headers -->
+            <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;margin-bottom:2px;height:30px;">
+              <div class="rtm-col-hdr">IQ-TC-001</div><div class="rtm-col-hdr">IQ-TC-002</div><div class="rtm-col-hdr">IQ-TC-003</div><div class="rtm-col-hdr">OQ-TC-001</div><div class="rtm-col-hdr">OQ-TC-002</div><div class="rtm-col-hdr">OQ-TC-003</div><div class="rtm-col-hdr">OQ-TC-004</div><div class="rtm-col-hdr">PQ-TC-001</div><div class="rtm-col-hdr">PQ-TC-002</div><div class="rtm-col-hdr">PQ-TC-003</div><div class="rtm-col-hdr">PQ-TC-004</div><div class="rtm-col-hdr">PQ-TC-005</div>
+            </div>
+            <!-- Rows -->
+            <div style="display:flex;flex-direction:column;gap:2px;">
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-fail">✗</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-na"></div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div></div>
+            </div>
+            <!-- Coverage bar -->
+            <div style="margin-top:8px;display:flex;align-items:center;gap:8px;">
+              <div style="font-size:8px;color:var(--text3);font-family:'JetBrains Mono',monospace;">Coverage</div>
+              <div class="rtm-coverage-bar" style="flex:1;"><div class="rtm-coverage-fill" style="width:78%;"></div></div>
+              <div style="font-size:8px;color:var(--pass);font-family:'JetBrains Mono',monospace;font-weight:700;">78%</div>
+              <div style="display:flex;gap:6px;font-size:7px;">
+                <span style="color:var(--pass)">■ Pass</span>
+                <span style="color:var(--g400)">■ Pending</span>
+                <span style="color:var(--fail)">■ Fail</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── FEATURES ── -->
-<section class="features">
+<!-- ══ VIEW 3: CAPA ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Interface Preview</div>
+  <h2 class="section-title">CAPA Management</h2>
+  <p class="section-sub">Full 21 CFR 211.192 corrective and preventive action lifecycle with effectiveness checks.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div>
+    </div>
+    <div class="app-hdr">
+      <svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060"/></svg>
+      <div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div>
+      <div class="site-chip">◈ Quality · CAPA</div>
+      <div class="hdr-sp"></div>
+      <div class="notif-btn">🔔<div class="notif-b">3</div></div>
+      <div class="frame-av">ME</div>
+    </div>
+    <div class="app-body">
+      <div class="sidebar">
+        <div class="nav-grp">Validation</div>
+        <div class="nav-item"><span class="nav-ic">⊞</span>Dashboard</div>
+        <div class="nav-item"><span class="nav-ic">◈</span>Protocols</div>
+        <div class="nav-grp">Quality</div>
+        <div class="nav-item active"><span class="nav-ic">✓</span>CAPA<span class="nav-badge">7</span></div>
+        <div class="nav-item"><span class="nav-ic">⚠</span>Deviations</div>
+        <div class="nav-item"><span class="nav-ic">↻</span>Change Control</div>
+        <div class="nav-item"><span class="nav-ic">◉</span>NCE</div>
+        <div class="nav-grp">Reports</div>
+        <div class="nav-item"><span class="nav-ic">⊟</span>Inspection Ready</div>
+      </div>
+      <div class="content">
+        <div class="view-title">CAPA Register</div>
+        <div class="view-sub">7 open · 2 overdue · 1 effectiveness check due</div>
+        <div class="kgrid" style="grid-template-columns:repeat(4,1fr);">
+          <div class="kc"><div class="kl">Open</div><div class="kv">7</div></div>
+          <div class="kc kc-gold"><div class="kl kl-gold">Overdue</div><div class="kv" style="color:var(--fail)">2</div></div>
+          <div class="kc"><div class="kl">Closed 30d</div><div class="kv" style="color:var(--pass)">4</div></div>
+          <div class="kc"><div class="kl">Effectiveness</div><div class="kv" style="color:var(--g400)">1</div></div>
+        </div>
+        <div class="tbl">
+          <table class="capa-table" style="width:100%;border-collapse:collapse;">
+            <tr><th class="capa-hdr">CAPA ID</th><th class="capa-hdr">Description</th><th class="capa-hdr">Priority</th><th class="capa-hdr">Owner</th><th class="capa-hdr">Due</th><th class="capa-hdr">Status</th></tr>
+            <tr class="capa-row"><td><span class="capa-id">CAPA-0019</span></td><td style="font-size:9px;">Audit trail gap — LIMS upgrade</td><td><span class="sp sp-fail">● CRITICAL</span></td><td style="font-size:9px;">J. Chen</td><td style="font-size:8px;color:var(--fail);">Mar 15 <span class="overdue-tag">⚠ 40d</span></td><td><span class="sp sp-gold">⚠ OPEN</span></td></tr>
+            <tr class="capa-row"><td><span class="capa-id">CAPA-0020</span></td><td style="font-size:9px;">SOB deviation — Batch 2024-041</td><td><span class="sp sp-gold">● MAJOR</span></td><td style="font-size:9px;">M. Park</td><td style="font-size:8px;color:var(--fail);">Mar 30 <span class="overdue-tag">⚠ 25d</span></td><td><span class="sp sp-gold">⚠ OPEN</span></td></tr>
+            <tr class="capa-row"><td><span class="capa-id">CAPA-0021</span></td><td style="font-size:9px;">SOP update — cleaning validation</td><td><span class="sp sp-rev">● MINOR</span></td><td style="font-size:9px;">S. Patel</td><td style="font-size:8px;color:var(--text3);">Apr 30</td><td><span class="sp sp-rev">◉ IN PROGRESS</span></td></tr>
+            <tr class="capa-row"><td><span class="capa-id">CAPA-0022</span></td><td style="font-size:9px;">Effectiveness check — CAPA-0015</td><td><span class="sp sp-pur">● EFF.CHK</span></td><td style="font-size:9px;">QA Lead</td><td style="font-size:8px;color:var(--g600);">Apr 25</td><td><span class="sp sp-pur">◎ EFF. DUE</span></td></tr>
+            <tr class="capa-row"><td><span class="capa-id">CAPA-0023</span></td><td style="font-size:9px;">Training gap — new GMP module</td><td><span class="sp sp-rev">● MINOR</span></td><td style="font-size:9px;">T. Wilson</td><td style="font-size:8px;color:var(--text3);">May 15</td><td><span class="sp sp-grey">○ OPEN</span></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIEW 4: SOP VISUALIZER ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Unique Differentiator</div>
+  <h2 class="section-title">SOP Visualizer</h2>
+  <p class="section-sub">AI parses any SOP into an interactive swimlane flowchart. Pharma's first. No other platform does this.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div>
+    </div>
+    <div class="app-hdr">
+      <svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060"/></svg>
+      <div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div>
+      <div class="site-chip">◈ SOP-0142 · CSV Change Control</div>
+      <div class="hdr-sp"></div>
+      <div class="notif-btn">🔔<div class="notif-b">3</div></div>
+      <div class="frame-av">ME</div>
+    </div>
+    <div class="app-body">
+      <div class="sidebar">
+        <div class="nav-grp">Documents</div>
+        <div class="nav-item"><span class="nav-ic">⊟</span>Library</div>
+        <div class="nav-item active"><span class="nav-ic">◎</span>SOP Visualizer</div>
+        <div class="nav-item"><span class="nav-ic">⊞</span>Val Package</div>
+        <div class="nav-grp">Views</div>
+        <div class="nav-item active" style="background:rgba(226,168,55,.07);color:var(--g400);border-right:2px solid var(--g600);"><span class="nav-ic">≡</span>Swimlane</div>
+        <div class="nav-item"><span class="nav-ic">↓</span>Flowchart</div>
+        <div class="nav-item"><span class="nav-ic">◉</span>RACI</div>
+        <div class="nav-item"><span class="nav-ic">⊠</span>Decision Tree</div>
+      </div>
+      <div class="content">
+        <div class="view-title">SOP-0142 · CSV Change Control Process</div>
+        <div class="view-sub">AI-generated · 12 steps · 3 roles · 2 decision points</div>
+        <div class="swim-wrap">
+          <!-- QA Lane -->
+          <div class="swim-lane">
+            <div class="swim-label swim-label-qa">QA</div>
+            <div class="swim-nodes">
+              <div class="sop-node sop-node-gold">Change Request</div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-node sop-node-gold">Impact Assessment</div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-decision"><span>?</span></div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-node sop-node-gold">QA Approval</div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-node sop-node-gold" style="border-color:rgba(134,193,64,.3);color:var(--pass);">Close + Archive</div>
+            </div>
+          </div>
+          <!-- IT Lane -->
+          <div class="swim-lane">
+            <div class="swim-label swim-label-it">IT</div>
+            <div class="swim-nodes" style="padding-left:200px;">
+              <div class="sop-node sop-node-teal">Risk Classification</div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-node sop-node-teal">Val Plan Update</div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-node sop-node-teal">Implement + Test</div>
+            </div>
+          </div>
+          <!-- Business Lane -->
+          <div class="swim-lane">
+            <div class="swim-label swim-label-biz">BIZ</div>
+            <div class="swim-nodes" style="padding-left:48px;">
+              <div class="sop-node sop-node-pur">Business Sign-off</div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-node sop-node-pur">UAT Approval</div>
+              <div style="margin-left:auto;font-size:8px;color:var(--pur);opacity:.5;">← feeds IT lane</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:6px;font-size:8px;color:var(--text3);">
+          <span style="color:var(--g400);">■ QA steps (4)</span>
+          <span style="color:var(--t400);">■ IT steps (3)</span>
+          <span style="color:var(--pur);">■ Business steps (2)</span>
+          <span style="margin-left:auto;color:var(--g500);">⚡ Generated from SOP-0142.pdf in 8s</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIEW 5: DASHBOARD ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Interface Preview</div>
+  <h2 class="section-title">Validation Dashboard</h2>
+  <p class="section-sub">Real-time quality intelligence across your entire validation portfolio. Site-wide visibility.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div>
+    </div>
+    <div class="app-hdr">
+      <svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060"/></svg>
+      <div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div>
+      <div class="site-chip">◈ MATC Madison · All Systems</div>
+      <div class="hdr-sp"></div>
+      <div class="notif-btn">🔔<div class="notif-b">3</div></div>
+      <div class="frame-av">ME</div>
+    </div>
+    <div class="app-body">
+      <div class="sidebar">
+        <div class="nav-grp">Validation</div>
+        <div class="nav-item active"><span class="nav-ic">⊞</span>Dashboard</div>
+        <div class="nav-item"><span class="nav-ic">◈</span>Protocols</div>
+        <div class="nav-item"><span class="nav-ic">▶</span>Executions</div>
+        <div class="nav-grp">Quality</div>
+        <div class="nav-item"><span class="nav-ic">✓</span>CAPA<span class="nav-badge">7</span></div>
+        <div class="nav-item"><span class="nav-ic">⚠</span>Deviations<span class="nav-badge">3</span></div>
+        <div class="nav-grp">Reports</div>
+        <div class="nav-item"><span class="nav-ic">⊟</span>Inspection Ready</div>
+        <div class="nav-item"><span class="nav-ic">◎</span>Periodic Review</div>
+      </div>
+      <div class="content">
+        <div class="view-title">Validation Dashboard</div>
+        <div class="view-sub">MATC Madison · Apr 2026 · 14 active systems</div>
+        <div class="dash-kpis">
+          <div class="dash-kpi"><div class="dk-label">Active Systems</div><div class="dk-val">14</div><div class="dk-delta dk-up">↑ 2 this quarter</div></div>
+          <div class="dash-kpi dash-kpi-gold"><div class="dk-label">Protocols</div><div class="dk-val" style="color:var(--g400)">38</div><div class="dk-delta" style="color:var(--text3)">12 in progress</div></div>
+          <div class="dash-kpi"><div class="dk-label">Pass Rate</div><div class="dk-val" style="color:var(--pass)">94%</div><div class="dk-delta dk-up">↑ 3% vs Q1</div></div>
+          <div class="dash-kpi"><div class="dk-label">Open CAPA</div><div class="dk-val" style="color:var(--fail)">7</div><div class="dk-delta dk-down">↑ 2 overdue</div></div>
+          <div class="dash-kpi"><div class="dk-label">Periodic Due</div><div class="dk-val" style="color:var(--g400)">3</div><div class="dk-delta" style="color:var(--text3)">next 30 days</div></div>
+        </div>
+        <div class="dash-grid">
+          <div class="dash-card">
+            <div class="dash-card-title">Recent Activity</div>
+            <div class="activity-item"><div class="act-dot" style="background:var(--pass)"></div><div class="act-text">IQ-0042 LabWare LIMS — <strong style="color:var(--pass)">PASSED</strong></div><div class="act-time">2h ago</div></div>
+            <div class="activity-item"><div class="act-dot" style="background:var(--g500)"></div><div class="act-text">CAPA-0021 assigned to S. Patel</div><div class="act-time">4h ago</div></div>
+            <div class="activity-item"><div class="act-dot" style="background:var(--fail)"></div><div class="act-text">PQ-0044 overdue — <strong style="color:var(--fail)">ACTION REQUIRED</strong></div><div class="act-time">1d ago</div></div>
+            <div class="activity-item"><div class="act-dot" style="background:var(--t400)"></div><div class="act-text">SOP-0142 visualized by AI in 8s</div><div class="act-time">1d ago</div></div>
+            <div class="activity-item"><div class="act-dot" style="background:var(--pur)"></div><div class="act-text">CAPA-0015 effectiveness check due</div><div class="act-time">2d ago</div></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-title">Protocol Outcomes — Rolling 90d</div>
+            <div class="sparkline">
+              <div class="spark-bar" style="height:60%;background:var(--pass);opacity:.7;"></div>
+              <div class="spark-bar" style="height:80%;background:var(--pass);opacity:.7;"></div>
+              <div class="spark-bar" style="height:50%;background:var(--pass);opacity:.7;"></div>
+              <div class="spark-bar" style="height:90%;background:var(--pass);opacity:.7;"></div>
+              <div class="spark-bar" style="height:70%;background:var(--pass);opacity:.7;"></div>
+              <div class="spark-bar" style="height:100%;background:var(--pass);"></div>
+              <div class="spark-bar" style="height:85%;background:var(--pass);"></div>
+              <div class="spark-bar" style="height:40%;background:var(--fail);opacity:.8;"></div>
+              <div class="spark-bar" style="height:75%;background:var(--pass);"></div>
+              <div class="spark-bar" style="height:95%;background:var(--pass);"></div>
+              <div class="spark-bar" style="height:60%;background:var(--g500);opacity:.8;"></div>
+              <div class="spark-bar" style="height:80%;background:var(--pass);"></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:6px;font-size:8px;color:var(--text3);">
+              <span style="color:var(--pass)">■ Pass</span>
+              <span style="color:var(--fail)">■ Fail</span>
+              <span style="color:var(--g500)">■ Pending</span>
+              <span style="margin-left:auto;">Q1 → Q2 2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PALETTE ══ -->
+<section class="pal-section">
+  <div class="section-eyebrow" style="text-align:left;">Design System</div>
+  <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:28px;">Gold + Teal. Not another blue enterprise tool.</h2>
+  <div class="pal-row">
+    <div class="swatch sw-star" style="background:#F5D060;"><span class="sw-n" style="color:#7A5A0A;">Gold 200</span></div>
+    <div class="swatch sw-star" style="background:#E2A837;"><span class="sw-n" style="color:#fff;">Gold 500 ★</span><span class="sw-h">#E2A837</span></div>
+    <div class="swatch sw-star" style="background:#C9981A;"><span class="sw-n" style="color:#fff;">Gold 600 ★</span><span class="sw-h">#C9981A</span></div>
+    <div class="swatch" style="background:#A87E14;"><span class="sw-n" style="color:#FDE68A;">Gold 700</span></div>
+    <div class="swatch sw-star" style="background:#00A090;"><span class="sw-n" style="color:#fff;">Teal 600 ★</span><span class="sw-h">#00A090</span></div>
+    <div class="swatch sw-star" style="background:#86C140;"><span class="sw-n" style="color:#fff;">Pass ★</span><span class="sw-h">#86C140</span></div>
+    <div class="swatch sw-star" style="background:#E54B2E;"><span class="sw-n" style="color:#fff;">Fail ★</span><span class="sw-h">#E54B2E</span></div>
+    <div class="swatch" style="background:#8B5CF6;"><span class="sw-n" style="color:#fff;">AI/EE</span><span class="sw-h">#8B5CF6</span></div>
+    <div class="swatch" style="background:#141414;border:1px solid #2A2A2A;"><span class="sw-n" style="color:#555;">Header</span><span class="sw-h" style="color:#333;">#141414</span></div>
+  </div>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<section class="feat-section">
   <div class="section-eyebrow">Platform</div>
   <h2 class="section-title">30 validation disciplines. One platform.</h2>
-  <p class="section-sub">Every type of validation your program needs — in a single, auditable system.</p>
+  <p class="section-sub" style="margin-bottom:40px;">Every discipline pharma needs, built in. Integrate your existing LIMS and MES, or use the native ones.</p>
   <div class="feat-grid">
-    <div class="feat-card">
-      <div class="feat-icon">💻</div>
-      <div class="feat-title">Computer System Validation</div>
-      <div class="feat-desc">Full IQ/OQ/PQ/UAT lifecycle. FDA CSA (Sept 2025) dual-mode. DQ, SAT, FAT, retrospective assessment. Reusable test case library.</div>
-      <span class="feat-tag">21 CFR Part 11</span>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon">⚙️</div>
-      <div class="feat-title">Equipment & CQV</div>
-      <div class="feat-desc">Equipment qualification, analytical instrument validation, commissioning & qualification with punch items, paperless handover packages, P&ID walkdowns.</div>
-      <span class="feat-tag">GAMP 5</span>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon">🧬</div>
-      <div class="feat-title">Process Validation</div>
-      <div class="feat-desc">Stage 1/2/3 (Design → PPQ → CPV). Cleaning validation with MACO/ADE/LD50. Sterilization (F0, SAL). Cold chain / temperature mapping.</div>
-      <span class="feat-tag">FDA PV Guidance</span>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon">✅</div>
-      <div class="feat-title">Quality Management</div>
-      <div class="feat-desc">CAPA, Change Control, Deviations, OOS/OOT, Complaints, Audit Management, Periodic Review, Validation Debt Tracker.</div>
-      <span class="feat-tag">21 CFR 211</span>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon">📄</div>
-      <div class="feat-title">Document System</div>
-      <div class="feat-desc">Block-based WYSIWYG editor. 58 pre-built templates. Electronic logbooks. Drawing management. Validation packages with release notes.</div>
-      <span class="feat-tag">EU Annex 11</span>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon">🤖</div>
-      <div class="feat-title">AI Assistance</div>
-      <div class="feat-desc">Draft generation, regulatory gap analysis, natural language → test steps, video-to-script, completeness scoring, validation debt prioritization.</div>
-      <span class="feat-tag ee">Enterprise EE</span>
-    </div>
+    <div class="feat-card"><div class="feat-icon">◈</div><div class="feat-title">Validation Suite</div><div class="feat-desc">CSV · CSA · Equipment Qualification · CQV · Analytical Instrument · Method Validation · Process Validation · Cleaning · Sterilization · Cold Chain. Full lifecycle from RASC to VSR.</div><span class="feat-tag">CE</span></div>
+    <div class="feat-card"><div class="feat-icon">⊟</div><div class="feat-title">SOP Visualizer</div><div class="feat-desc">AI parses any SOP into interactive swimlane flowcharts in seconds. Pharma's first. No other platform has this. Four views: swimlane, flowchart, RACI, decision tree.</div><span class="feat-tag">CE</span></div>
+    <div class="feat-card"><div class="feat-icon">✓</div><div class="feat-title">Quality Management</div><div class="feat-desc">CAPA · Change Control · Deviations · NCE · OOS/OOT · Complaints · Audit Management · Periodic Review · Inspection Readiness · FDA 483 tracking.</div><span class="feat-tag">CE</span></div>
+    <div class="feat-card"><div class="feat-icon">⊞</div><div class="feat-title">Native LIMS</div><div class="feat-desc">Full laboratory information management — sample registration, chain of custody, test results, specifications, OOS/OOT, stability, CoA generation. Integrates with LabVantage and Sapio.</div><span class="feat-tag feat-tag-ee">EE</span></div>
+    <div class="feat-card"><div class="feat-icon">▶</div><div class="feat-title">Native MES / eBR</div><div class="feat-desc">Electronic batch records, BOM, master batch records, in-process controls, CPP monitoring, bioreactor runs, solid dose, packaging, serialisation, continuous manufacturing. All pharma MFG levels.</div><span class="feat-tag feat-tag-ee">EE</span></div>
+    <div class="feat-card"><div class="feat-icon">◎</div><div class="feat-title">ATMP Suite</div><div class="feat-desc">Chain of Identity · Chain of Custody · Donor eligibility · Patient manufacturing orders · Cell expansion · Cryopreservation · Vector production · Viral clearance tracking.</div><span class="feat-tag feat-tag-ee">EE</span></div>
   </div>
 </section>
 
-<!-- ── COMPONENTS ── -->
+<!-- ══ COMPONENTS ══ -->
 <section class="comp-section">
   <div class="comp-inner">
     <div class="section-eyebrow" style="text-align:left;">Design Components</div>
     <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:24px;">Every component designed for GxP workflows.</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-      <div>
-        <p style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;font-weight:600;">Status badge library</p>
-        <div class="badge-grid">
-          <span class="badge" style="background:rgba(134,193,64,.15);color:#86C140;border:1px solid rgba(134,193,64,.3);">● PASSED</span>
-          <span class="badge" style="background:rgba(229,75,46,.15);color:#E54B2E;border:1px solid rgba(229,75,46,.3);">✗ FAILED</span>
-          <span class="badge" style="background:rgba(249,115,22,.15);color:#F97316;border:1px solid rgba(249,115,22,.3);">◷ DEVIATION</span>
-          <span class="badge" style="background:rgba(59,130,246,.15);color:#60A5FA;border:1px solid rgba(59,130,246,.25);">◉ IN REVIEW</span>
-          <span class="badge" style="background:rgba(226,168,55,.15);color:#F0C040;border:1px solid rgba(226,168,55,.3);">⚠ OVERDUE</span>
-          <span class="badge" style="background:rgba(0,160,144,.15);color:#00D4C4;border:1px solid rgba(0,160,144,.3);">◈ APPROVED</span>
-          <span class="badge" style="background:rgba(139,92,246,.15);color:#A78BFA;border:1px solid rgba(139,92,246,.25);">🤖 AI ASSIST</span>
-          <span class="badge" style="background:rgba(139,92,246,.12);color:#A78BFA;border:1px solid rgba(139,92,246,.25);">◆ ENTERPRISE</span>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-label">Status Badges</div>
+        <div class="badge-row">
+          <span class="badge" style="background:rgba(134,193,64,.12);color:#86C140;border-color:rgba(134,193,64,.25);">● PASSED</span>
+          <span class="badge" style="background:rgba(229,75,46,.12);color:#E54B2E;border-color:rgba(229,75,46,.25);">✗ FAILED</span>
+          <span class="badge" style="background:rgba(0,160,144,.1);color:#00D4C4;border-color:rgba(0,160,144,.25);">◉ IN REVIEW</span>
         </div>
-        <p style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin:16px 0 10px;font-weight:600;">Callout personality</p>
-        <div class="callout" style="background:rgba(0,160,144,.1);border:1px solid rgba(0,160,144,.25);border-left:3px solid #00A090;">
-          <div class="co-icon">ℹ</div><div><div class="co-t" style="color:#00D4C4;">21 CFR 11.10(e) requirement</div><div class="co-d" style="color:rgba(0,212,196,.6);">Audit trail must capture server-side timestamps only.</div></div>
-        </div>
-        <div class="callout" style="background:rgba(226,168,55,.1);border:1px solid rgba(226,168,55,.25);border-left:3px solid #E2A837;">
-          <div class="co-icon">★</div><div><div class="co-t" style="color:#F0C040;">Action required</div><div class="co-d" style="color:rgba(240,192,64,.6);">Periodic review overdue by 14 days.</div></div>
-        </div>
-        <div class="callout" style="background:rgba(134,193,64,.08);border:1px solid rgba(134,193,64,.25);border-left:3px solid #86C140;margin-bottom:0;">
-          <div class="co-icon">✓</div><div><div class="co-t" style="color:#BEF264;">All criteria met</div><div class="co-d" style="color:rgba(190,242,100,.6);">24 steps passed. Ready for QA review.</div></div>
+        <div class="badge-row">
+          <span class="badge" style="background:rgba(226,168,55,.1);color:#F0C040;border-color:rgba(226,168,55,.25);">⚠ OVERDUE</span>
+          <span class="badge" style="background:rgba(139,92,246,.12);color:#8B5CF6;border-color:rgba(139,92,246,.25);">◎ AI DRAFT</span>
+          <span class="badge" style="background:rgba(232,237,242,.06);color:#666;border-color:rgba(232,237,242,.1);">○ PENDING</span>
         </div>
       </div>
-      <div>
-        <p style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;font-weight:600;">21 CFR Part 11 signature record</p>
-        <div class="sig-demo">
-          <div style="color:var(--text3);font-size:8px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Approval block · IQ-0042 v1.0</div>
-          <div class="sig-row-demo" style="background:rgba(134,193,64,.06);border:1px solid rgba(134,193,64,.25);">
-            <div class="sig-av" style="background:linear-gradient(135deg,#00A090,#004D45);">ME</div>
-            <div style="flex:1;"><div class="sig-name" style="color:#86C140;">Michael Escamilla</div><div class="sig-role">APPROVED · QA Manager</div></div>
-            <div class="sig-time">2026-04-08<br>14:23 UTC</div>
-            <div class="sig-ck" style="color:#86C140;">✓</div>
-          </div>
-          <div class="sig-row-demo" style="background:rgba(226,168,55,.06);border:1px solid rgba(226,168,55,.25);">
-            <div class="sig-av" style="background:linear-gradient(135deg,#E2A837,#A87E14);">TJ</div>
-            <div style="flex:1;"><div class="sig-name" style="color:#F0C040;">Tracy Johnson</div><div class="sig-role">REVIEWED · Val. Engineer</div></div>
-            <div class="sig-time">2026-04-08<br>12:11 UTC</div>
-            <div class="sig-ck" style="color:#F0C040;">✓</div>
-          </div>
-          <div class="sig-row-demo" style="background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.25);">
-            <div class="sig-av" style="background:linear-gradient(135deg,#F97316,#C2510D);">RK</div>
-            <div style="flex:1;"><div class="sig-name" style="color:#FDBA74;">Ravi Kumar</div><div class="sig-role">AUTHORED · CSV Specialist</div></div>
-            <div class="sig-time">2026-04-08<br>09:45 UTC</div>
-            <div class="sig-ck" style="color:#FDBA74;">✓</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;border:1px dashed rgba(255,255,255,.1);border-radius:6px;padding:8px 10px;margin-top:6px;">
-            <div style="width:24px;height:24px;border-radius:50%;border:1.5px dashed rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:12px;">+</div>
-            <div style="color:rgba(255,255,255,.3);font-size:9px;">Director Sign-off · Awaiting signature</div>
-          </div>
+      <div class="comp-card">
+        <div class="comp-label">Electronic Signatures</div>
+        <div class="sig-block"><div class="sig-av" style="background:linear-gradient(135deg,var(--pass),#5A9A2A);">ME</div><div><div class="sig-name" style="color:var(--pass);">Michael Escamilla</div><div class="sig-role">APPROVED · QA Manager · Apr 23 2026 09:14 UTC</div></div><div class="sig-check">✅</div></div>
+        <div class="sig-block"><div class="sig-av" style="background:linear-gradient(135deg,var(--t600),var(--t900));">JC</div><div><div class="sig-name">Jane Chen</div><div class="sig-role">REVIEWED · Validation Eng · Apr 23 2026 08:52 UTC</div></div><div class="sig-check">✅</div></div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">RTM Coverage Cell</div>
+        <div class="rtm-mini" style="margin-bottom:8px;">
+          <div class="rtm-mini-cell" style="background:rgba(134,193,64,.25);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(134,193,64,.25);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(232,237,242,.04);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(226,168,55,.15);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(134,193,64,.25);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(229,75,46,.2);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(232,237,242,.04);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(134,193,64,.25);"></div>
+        </div>
+        <div style="font-size:9px;color:var(--text3);">Auto-generated from URS → IQ/OQ/PQ test cases. Updates live as execution completes.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">Gold Buttons — Primary Actions</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
+          <button class="btn-hero btn-primary" style="font-size:11px;padding:9px 18px;border-radius:6px;">Approve &amp; Sign →</button>
+          <button class="btn-hero btn-ghost" style="font-size:11px;padding:9px 18px;border-radius:6px;">Request Review</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── COMPLIANCE ── -->
-<section class="compliance">
-  <div class="section-eyebrow">Regulatory</div>
-  <h2 class="section-title">Built for auditors. Not just compliance checkboxes.</h2>
-  <p class="section-sub" style="margin-bottom:36px;">Every architectural decision made with a regulator in the room.</p>
-  <div class="reg-grid">
-    <div class="reg-card"><div class="reg-badge">✓ Compliant</div><div class="reg-title">21 CFR Part 11</div><div class="reg-desc">SHA-256 hash chain audit trail, server-side timestamps, re-authentication at every signing, record hash linkage.</div></div>
-    <div class="reg-card"><div class="reg-badge">✓ Compliant</div><div class="reg-title">EU Annex 11</div><div class="reg-desc">Validated system with bundled VP-001–VP-015, configurable headers, distribution controls, version management.</div></div>
-    <div class="reg-card"><div class="reg-badge">✓ Aligned</div><div class="reg-title">FDA CSA Sept 2025</div><div class="reg-desc">Dual CSV/CSA mode. Intended use per feature. Unscripted testing capture. Critical thinking rationale required.</div></div>
-    <div class="reg-card"><div class="reg-badge">✓ Aligned</div><div class="reg-title">GAMP 5 2nd Ed.</div><div class="reg-desc">Category-driven validation scope. Risk-based testing matrix. Reusable test case library. OOTB/Configured/Custom.</div></div>
-    <div class="reg-card"><div class="reg-badge">✓ Enforced</div><div class="reg-title">ALCOA+</div><div class="reg-desc">Attributable · Contemporaneous · Original · Enduring · Available — all enforced by architecture, not policy.</div></div>
-    <div class="reg-card"><div class="reg-badge">✓ Aligned</div><div class="reg-title">ICH Q8/Q9/Q10</div><div class="reg-desc">QbD framework, design space documentation, quality risk management, product lifecycle management.</div></div>
+<!-- ══ COMPLIANCE ══ -->
+<section class="comp-table-section">
+  <div class="comp-table-inner">
+    <div class="section-eyebrow">Regulatory</div>
+    <h2 class="section-title">Built for auditors. Not just compliance checkboxes.</h2>
+    <p class="section-sub" style="margin-bottom:32px;">PHAROLON's architecture enforces ALCOA+ by design — not by configuration. Every write goes through the audit trail engine.</p>
+    <table class="reg-table">
+      <thead><tr><th>Framework</th><th>CE</th><th>EE</th><th>Coverage</th></tr></thead>
+      <tbody>
+        <tr><td>21 CFR Part 11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Audit trail · E-signatures · Access controls · System validation</td></tr>
+        <tr><td>FDA CSA 2025</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Dual CSV/CSA mode · Intended use scoping · Unscripted testing</td></tr>
+        <tr><td>EU GMP Annex 11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Audit trail · E-signatures · Periodic review · DR</td></tr>
+        <tr><td>EU GMP Annex 1 (2022)</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>CCS · APS · PUPSIT · Continuous EM</td></tr>
+        <tr><td>GAMP 5 (2nd Ed.)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Software category · Risk-based approach · Scalable validation</td></tr>
+        <tr><td>ICH Q2/Q8–Q13</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>QbD · Risk management · Lifecycle · Continuous manufacturing</td></tr>
+        <tr><td>FDA QMSR (21 CFR 820)</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Design History File · Design controls · ISO 13485</td></tr>
+        <tr><td>PIC/S PI 041-1 (2021)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Data integrity governance · Audit log review · ALCOA+</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
-<!-- ── SCHEMA ── -->
+<!-- ══ SCHEMA ══ -->
 <section class="schema-section">
   <div class="schema-inner">
     <div class="section-eyebrow" style="text-align:left;">Database</div>
-    <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:8px;">373 tables. Complete from day one.</h2>
-    <p style="color:var(--text2);font-size:14px;margin-bottom:28px;">UUID primary keys · UTC timestamps · JSON as TEXT for multi-DB portability · No hard deletes anywhere.</p>
+    <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:8px;">673 tables. Everything and the kitchen sink.</h2>
+    <p style="font-size:14px;color:var(--text2);margin-bottom:28px;">PostgreSQL 15+ · Oracle 19c/21c/23ai · MySQL 8.0+. UUID PKs. UTC timestamps. SHA-256 audit chain. No hard deletes.</p>
     <div class="schema-grid">
-      <div class="schema-row"><span class="schema-part">Part 1</span><span class="schema-count">130</span><span class="schema-desc">Core: auth, audit trail, systems, protocols, documents, workflows, CAPA</span></div>
-      <div class="schema-row"><span class="schema-part">Part 3</span><span class="schema-count">31</span><span class="schema-desc">Quality: OOS/OOT, EM, stability, batch, complaints, inspection, SPC</span></div>
-      <div class="schema-row"><span class="schema-part">Part 5</span><span class="schema-count">33</span><span class="schema-desc">Validation workflows: projects, plans, sign-offs, lifecycle state machines</span></div>
-      <div class="schema-row"><span class="schema-part">Part 7</span><span class="schema-count">37</span><span class="schema-desc">Disciplines: logbooks, drawings, cleaning, cold chain, CQV, sterilization</span></div>
-      <div class="schema-row"><span class="schema-part">Part 8</span><span class="schema-count">20</span><span class="schema-desc">Document system: block model, flowcharts, validation packages, AI log</span></div>
-      <div class="schema-row"><span class="schema-part">Part 9</span><span class="schema-count">91</span><span class="schema-desc">Complete: workspaces, teams, eBR, regulatory, integrations, dashboards</span></div>
-      <div class="schema-row"><span class="schema-part">Part 10</span><span class="schema-count">11</span><span class="schema-desc">Astellas gap fill: RASC, SMM, SRP, EOL, SRS, vendor releases, EHSA</span></div>
-      <div class="schema-row" style="border-color:rgba(0,160,144,.3);"><span class="schema-part" style="color:#fff;">TOTAL</span><span class="schema-count" style="color:var(--t400);">373</span><span class="schema-desc" style="color:#fff;font-weight:500;">tables across 10 schema parts</span></div>
+      <div class="schema-row"><span class="schema-part">Part 1</span><span class="schema-name">Core — auth, audit, systems, protocols, CAPA</span><span class="schema-count">130</span></div>
+      <div class="schema-row"><span class="schema-part">Part 3</span><span class="schema-name">Quality — OOS/OOT, EM, stability, batch, SPC</span><span class="schema-count">31</span></div>
+      <div class="schema-row"><span class="schema-part">Part 5</span><span class="schema-name">Validation workflows, plans, state machines</span><span class="schema-count">33</span></div>
+      <div class="schema-row"><span class="schema-part">Part 7</span><span class="schema-name">Disciplines — cleaning, cold chain, CQV, sterilisation</span><span class="schema-count">37</span></div>
+      <div class="schema-row"><span class="schema-part">Part 8</span><span class="schema-name">Document system, block model, val packages</span><span class="schema-count">20</span></div>
+      <div class="schema-row"><span class="schema-part">Part 9</span><span class="schema-name">Platform — workspaces, training, eBR, AI registry</span><span class="schema-count">91</span></div>
+      <div class="schema-row"><span class="schema-part">Part 11</span><span class="schema-name">QMSR DHF, Annex 1, ATMP COI, DCS, GDP, PI 041-1</span><span class="schema-count">45</span></div>
+      <div class="schema-row"><span class="schema-part">Part 12</span><span class="schema-name">Native LIMS — samples, tests, CoA, stability, micro</span><span class="schema-count">72</span></div>
+      <div class="schema-row"><span class="schema-part">Part 13</span><span class="schema-name">Native MES — eBR, bioreactor, solid dose, serialisation</span><span class="schema-count">70</span></div>
+      <div class="schema-row" style="border-color:rgba(226,168,55,.3);"><span class="schema-part" style="color:#fff;">TOTAL</span><span class="schema-name" style="color:#fff;font-weight:600;">15 parts · all regulated disciplines</span><span class="schema-count" style="color:var(--g400);font-size:14px;">673</span></div>
     </div>
   </div>
 </section>
 
-<!-- ── CTA ── -->
-<section class="cta">
-  <h2>Ready to validate differently?</h2>
-  <p>Free, open source, self-hosted. Built for the people who make medicines safe.</p>
-  <div class="hero-btns">
-    <a href="https://github.com/tigger2000ttfn/PHAROLON" class="btn-hero btn-primary">★ Star on GitHub</a>
-    <a href="https://github.com/tigger2000ttfn/PHAROLON/blob/main/CONTRIBUTING.md" class="btn-hero btn-ghost">Contribute →</a>
+<!-- ══ CTA ══ -->
+<section class="cta-section">
+  <h2 class="cta-title">The lighthouse for every regulated industry.</h2>
+  <p class="cta-sub">Free Community Edition. Self-hosted. Ships with its own validation package VP-001 to VP-015.</p>
+  <div class="cta-btns">
+    <a class="btn-hero btn-primary" href="https://github.com/tigger2000ttfn/OpenVAL">★ View on GitHub</a>
+    <a class="btn-hero btn-ghost" href="brand.html">Brand Identity</a>
+    <a class="btn-hero btn-ghost" href="index.html">Platform Story</a>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-logo">
-    <svg width="28" height="28" viewBox="0 0 110 110" fill="none" style="display:block;">
-  <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/>
-  <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/>
-  <line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
-  <line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
-  <line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
-  <line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
-  <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/>
-  <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-  <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-  <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
-  <circle cx="55" cy="14" r="2.5" fill="#F5D060"/>
-</svg>
-    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;letter-spacing:0;display:flex;align-items:baseline;gap:0;">
-      <span style="display:inline-block;transform:translateY(0.12em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">p</span><span style="background:linear-gradient(180deg,#F5D060,#E2A837 45%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">H</span>
-    </span>
+    <svg width="24" height="24" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060"/></svg>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:17px;display:flex;align-items:baseline;"><span style="display:inline-block;transform:translateY(0.12em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">p</span><span style="background:linear-gradient(180deg,#F5D060,#E2A837 45%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">H</span></span>
   </div>
-  <p>Open Source GxP Validation Platform · <a href="https://github.com/tigger2000ttfn/PHAROLON">GitHub</a> · AGPL-3.0 · Built for pharma, biotech, and medical devices.</p>
+  <p>PHAROLON · Quality Intelligence for Regulated Industries · <a href="https://github.com/tigger2000ttfn/OpenVAL">GitHub</a> · <a href="brand.html">Brand</a> · <a href="index.html">Story</a></p>
 </footer>
 
 </body>
