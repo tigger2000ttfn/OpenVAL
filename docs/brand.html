@@ -13,7 +13,7 @@ body{background:#08080E;font-family:'DM Mono',monospace;color:rgba(232,237,242,.
 .ch{font-family:'Syne',sans-serif;font-weight:800;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060 0%,#E2A837 45%,#B8820E 85%,#8A5F08 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .ch-p{display:inline-block;transform:translateY(0.14em);}
 .wm{display:flex;align-items:baseline;overflow:visible;padding-bottom:16px;}
-.wm-dk .ch{background:linear-gradient(180deg,#C9981A,#7A5A0A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.wm-dk .ch{background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
 /* layout */
 .page{max-width:960px;margin:0 auto;padding:80px 32px;}
@@ -109,6 +109,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 
 .icon-box{width:200px;height:200px;background:linear-gradient(145deg,#1C1C1C,#0A0A0A);border-radius:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(0,0,0,.5),0 4px 16px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.08);position:relative;margin:0 auto 32px;}
 .icon-box::before{content:'';position:absolute;inset:0;border-radius:44px;background:linear-gradient(145deg,rgba(255,255,255,.04),transparent 60%);pointer-events:none;}
+.wm-shadow{filter:drop-shadow(0 1px 4px rgba(0,0,0,.3));}
 </style>
 </head>
 <body>
@@ -359,7 +360,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
     <!-- MID GREY -->
     <div class="cell bg-mid"><div class="lbl lbl-dk">Mid grey</div>
       <div class="lk-h">
-        <svg width="68" height="68" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(100,75,10,.06)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(120,90,10,.2)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(120,90,10,.13)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#A87E14" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#006B61" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#5B21B6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.3" fill="#A87E14"/></svg>
+        <svg width="68" height="68" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(100,75,10,.06)" stroke-width="10" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(120,90,10,.2)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="18" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="55" y1="92" x2="55" y2="105" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="5" y1="55" x2="18" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="92" y1="55" x2="105" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(120,90,10,.13)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#006B61" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#5B21B6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.3" fill="#E2A837"/></svg>
         <div class="sep-lt"></div>
         <div class="wm wm-dk"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
       </div>
@@ -706,7 +707,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
     </div>
     <div style="background:#c1c1c1;padding:40px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
       <div style="display:flex;align-items:center;justify-content:center;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
-      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#A87E14,#7A5A0A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#A87E14,#7A5A0A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:78px;height:78px;margin:0 -7px;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:78px;height:78px;margin:0 -7px;">
       <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
         <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
         <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
@@ -731,12 +732,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
         <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
         <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
       </svg>
-    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#A87E14,#7A5A0A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
     </div>
     </div>
     <div style="background:#ffffff;padding:40px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
       <div style="display:flex;align-items:center;justify-content:center;overflow:visible;padding-bottom:0.14em;flex-wrap:nowrap;">
-      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#A87E14,#7A5A0A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#A87E14,#7A5A0A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:78px;height:78px;margin:0 -7px;">
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span><span style="display:inline-flex;align-items:center;flex-shrink:0;width:78px;height:78px;margin:0 -7px;">
       <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
         <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
         <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
@@ -761,7 +762,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
         <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
         <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
       </svg>
-    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#A87E14,#7A5A0A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+    </span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
     </div>
     </div>
 
