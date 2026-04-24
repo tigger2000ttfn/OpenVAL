@@ -98,9 +98,60 @@ footer{padding:64px 32px;text-align:center;border-top:1px solid rgba(226,168,55,
 @keyframes lh-halo{0%,100%{opacity:.06;}8%,28%,48%{opacity:.24;}18%,38%{opacity:.03;}}
 @keyframes compass-rot{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 @keyframes ghost-draw{0%{stroke-dashoffset:268;opacity:0;}12%{opacity:.15;}72%{opacity:.08;stroke-dashoffset:0;}88%{opacity:0;stroke-dashoffset:0;}100%{stroke-dashoffset:268;opacity:0;}}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(8,8,14,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,160,144,.15);display:flex;align-items:center;padding:0 24px;gap:10px;}
+.nav-wm{line-height:1;}
+.nav-sp{flex:1;}
+.nav-links{display:flex;gap:20px;align-items:center;}
+.nav-a{font-size:9px;letter-spacing:.5px;color:rgba(0,212,196,.55);text-decoration:none;text-transform:uppercase;transition:color .15s;}
+.nav-a:hover{color:#5EEADF;}
+.nav-gh{font-size:9px;letter-spacing:.5px;color:#00D4C4;border:1px solid rgba(0,160,144,.35);border-radius:3px;padding:5px 14px;text-decoration:none;}
+
+.icon-box{width:200px;height:200px;background:linear-gradient(145deg,#003D35,#001F1A);border-radius:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(0,160,144,.25),0 4px 16px rgba(0,0,0,.4);border:1px solid rgba(0,160,144,.2);position:relative;margin:0 auto 32px;}
+.icon-box::before{content:'';position:absolute;inset:0;border-radius:44px;background:linear-gradient(145deg,rgba(0,160,144,.08),transparent 60%);pointer-events:none;}
 </style>
 </head>
 <body>
+<nav>
+  <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 50%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">P</span>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;background:linear-gradient(180deg,#F5D060,#E2A837 50%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">H</span>
+    <span style="display:inline-flex;align-items:center;width:32px;height:32px;margin:0 -2px;flex-shrink:0;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.6)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass-rot 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.6)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.6)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.6)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.6)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+        </g>
+        <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.18)" stroke-width=".9" stroke-dasharray="3 4"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.16)" stroke-width="1.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:ghost-draw 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="7" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.6" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <circle cx="55" cy="14" r="7" fill="rgba(245,208,96,.1)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;background:linear-gradient(180deg,#F5D060,#E2A837 50%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ROLON</span>
+  </div>
+  <div class="nav-sp"></div>
+  <div class="nav-links">
+    <a class="nav-a" href="index.html">Home</a>
+    <a class="nav-a" href="index.html#story">Story</a>
+    <a class="nav-a active" href="brand.html" style="color:#00D4C4;">Brand</a>
+    <a class="nav-a" href="platform-preview.html">Preview</a>
+  </div>
+  <a class="nav-gh" href="https://github.com/tigger2000ttfn/OpenVAL">GitHub →</a>
+</nav>
+
 
 <svg width="0" height="0" style="position:absolute;">
   <defs>
@@ -115,8 +166,8 @@ footer{padding:64px 32px;text-align:center;border-top:1px solid rgba(226,168,55,
 <section style="padding:80px 0 60px;text-align:center;">
   <div style="font-size:9px;letter-spacing:2px;color:rgba(226,168,55,.22);text-transform:uppercase;margin-bottom:32px;">Brand Identity · 2026</div>
 
-  <div class="icon-hero" style="margin-bottom:32px;">
-    <svg width="220" height="220" viewBox="0 0 110 110" fill="none" overflow="visible" style="overflow:visible;display:block;">
+  <div class="icon-hero" style="margin-bottom:32px;"><div class="icon-box">
+    <svg width="160" height="160" viewBox="0 0 110 110" fill="none" overflow="visible" style="overflow:visible;display:block;">
           <!-- compass halo band -->
           <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="11" fill="none"/>
           <!-- precision ring -->
@@ -155,6 +206,7 @@ footer{padding:64px 32px;text-align:center;border-top:1px solid rgba(226,168,55,
           <circle cx="55" cy="14" r="3.2" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
           <circle cx="55" cy="14" r="1.4" fill="#fff" opacity=".9"/>
         </svg>
+    </div>
   </div>
 
   <div style="width:180px;height:1px;background:linear-gradient(90deg,transparent,rgba(226,168,55,.25),transparent);margin:0 auto 24px;"></div>
