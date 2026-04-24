@@ -19,6 +19,9 @@
 
 <br/>
 
+[![Deploy Pages](https://github.com/tigger2000ttfn/OpenVAL/actions/workflows/pages.yml/badge.svg)](https://github.com/tigger2000ttfn/OpenVAL/actions/workflows/pages.yml)
+[![Schema Validation](https://github.com/tigger2000ttfn/OpenVAL/actions/workflows/schema.yml/badge.svg)](https://github.com/tigger2000ttfn/OpenVAL/actions/workflows/schema.yml)
+[![Docs Quality](https://github.com/tigger2000ttfn/OpenVAL/actions/workflows/docs.yml/badge.svg)](https://github.com/tigger2000ttfn/OpenVAL/actions/workflows/docs.yml)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-teal.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg)](https://fastapi.tiangolo.com)

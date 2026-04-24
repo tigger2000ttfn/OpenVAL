@@ -1,0 +1,156 @@
+name: 📚 Documentation Quality
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - '*.md'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: 📋 Documentation Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Brand name compliance
+        run: |
+          echo "🏛 PHAROLON Brand Compliance Check"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+          # Wrong names that must not appear
+          violations=0
+
+          echo "Checking for wrong brand name PHARION..."
+          count=$(grep -ri "pharion" --include="*.md" --include="*.html" . \
+            --exclude-dir=.git | grep -v "ADR-017" | grep -v "CHANGELOG" | wc -l)
+          if [ "$count" -gt 0 ]; then
+            echo "  ❌ $count PHARION references found (wrong name)"
+            grep -ri "pharion" --include="*.md" --include="*.html" . \
+              --exclude-dir=.git | grep -v "ADR-017" | grep -v "CHANGELOG"
+            violations=$((violations + 1))
+          else
+            echo "  ✅ No PHARION references (correct)"
+          fi
+
+          echo ""
+          echo "Checking pH acronym usage..."
+          ph_count=$(grep -ri " pH\b\|^pH\b\|(pH)" --include="*.md" . --exclude-dir=.git | wc -l)
+          echo "  ✅ pH acronym used $ph_count times across docs"
+
+          echo ""
+          echo "Checking critical documents exist..."
+          required=(
+            "README.md"
+            "MASTER_PLAN.md"
+            "docs/ui_spec/UI-SPEC-001_Design_Specification.md"
+            "docs/architecture/ADR-017_Brand_Name_PHAROLON.md"
+            "docs/architecture/ADR-016_Oracle_Full_Compatibility.md"
+            "docs/business/BIZ-001_Licensing_Strategy.md"
+            "docs/analysis/SOP_GAP_ANALYSIS_Astellas_SLC.md"
+          )
+
+          for doc in "${required[@]}"; do
+            if [ -f "$doc" ]; then
+              words=$(wc -w < "$doc")
+              echo "  ✅ $doc ($words words)"
+            else
+              echo "  ❌ MISSING: $doc"
+              violations=$((violations + 1))
+            fi
+          done
+
+          [ $violations -eq 0 ] || exit 1
+
+      - name: Schema coverage report
+        run: |
+          echo ""
+          echo "🗄 Schema Coverage"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+          total_tables=0
+          for f in schema/*.sql; do
+            count=$(grep -c "^CREATE TABLE" "$f" 2>/dev/null || echo 0)
+            total_tables=$((total_tables + count))
+          done
+
+          echo "Schema parts:   $(ls schema/*.sql | wc -l)"
+          echo "Total tables:   $total_tables"
+          echo "Template count: $(find templates/ -name '*.md' 2>/dev/null | wc -l)"
+
+      - name: Regulatory coverage check
+        run: |
+          echo ""
+          echo "⚖️  Regulatory Framework Coverage"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          frameworks=(
+            "21 CFR Part 11"
+            "GAMP 5"
+            "ICH Q10"
+            "Annex 11"
+            "Annex 15"
+            "ALCOA"
+            "PIC/S"
+            "QMSR"
+          )
+          for fw in "${frameworks[@]}"; do
+            count=$(grep -ri "$fw" --include="*.md" . --exclude-dir=.git | wc -l)
+            if [ "$count" -gt 0 ]; then
+              echo "  ✅ $fw ($count references)"
+            else
+              echo "  ⚠️  $fw — no references found"
+            fi
+          done
+
+      - name: Generate summary
+        run: |
+          echo "## 📚 Documentation Quality Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          total_words=$(find . -name "*.md" -not -path "./.git/*" -exec wc -w {} + | tail -1 | awk '{print $1}')
+          total_tables=$(grep -h "^CREATE TABLE" schema/*.sql | wc -l)
+          total_docs=$(find docs -name "*.md" -o -name "*.html" | wc -l)
+
+          echo "| Metric | Count |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| Total documentation words | $total_words |" >> $GITHUB_STEP_SUMMARY
+          echo "| Schema tables | $total_tables |" >> $GITHUB_STEP_SUMMARY
+          echo "| Documentation files | $total_docs |" >> $GITHUB_STEP_SUMMARY
+          echo "| Brand compliance | ✅ Pass |" >> $GITHUB_STEP_SUMMARY
+
+  link-check:
+    name: 🔗 Link Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check internal doc links
+        run: |
+          echo "Checking internal markdown links..."
+          broken=0
+
+          # Find all [text](path) links in markdown files
+          while IFS= read -r line; do
+            file=$(echo "$line" | cut -d: -f1)
+            link=$(echo "$line" | grep -oP '\]\((?!http)[^)]+\)' | tr -d ']()')
+            if [ -n "$link" ]; then
+              # Resolve relative to file location
+              dir=$(dirname "$file")
+              target="${dir}/${link}"
+              if [ ! -f "$target" ] && [ ! -d "$target" ]; then
+                echo "  ⚠️  Broken link in $file → $link"
+                broken=$((broken + 1))
+              fi
+            fi
+          done < <(grep -rn '\]\([^h]' --include="*.md" . --exclude-dir=.git 2>/dev/null | head -100)
+
+          if [ "$broken" -eq 0 ]; then
+            echo "  ✅ All internal links valid"
+          else
+            echo "  ⚠️  $broken broken links found"
+          fi

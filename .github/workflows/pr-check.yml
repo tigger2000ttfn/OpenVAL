@@ -1,0 +1,67 @@
+name: 🔬 Pull Request Quality Gate
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality-gate:
+    name: 🔬 Quality Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Changed files summary
+        run: |
+          echo "## Changed Files" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          git diff --name-status origin/main...HEAD >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Schema change detection
+        run: |
+          SCHEMA_CHANGES=$(git diff --name-only origin/main...HEAD | grep "^schema/" | wc -l)
+          if [ "$SCHEMA_CHANGES" -gt 0 ]; then
+            echo "## ⚠️ Schema Changes Detected" >> $GITHUB_STEP_SUMMARY
+            echo "$SCHEMA_CHANGES schema file(s) modified — ensure:" >> $GITHUB_STEP_SUMMARY
+            echo "- All new tables have UUID PKs (VARCHAR(36))" >> $GITHUB_STEP_SUMMARY
+            echo "- All timestamps use WITH TIME ZONE" >> $GITHUB_STEP_SUMMARY
+            echo "- No hard deletes (use soft delete pattern)" >> $GITHUB_STEP_SUMMARY
+            echo "- Audit trail tables updated if GxP-regulated scope" >> $GITHUB_STEP_SUMMARY
+
+            git diff --name-only origin/main...HEAD | grep "^schema/" | while read f; do
+              NEW=$(grep -c "^CREATE TABLE" "$f" 2>/dev/null || echo 0)
+              echo "  Modified: $f ($NEW tables)"
+            done
+          fi
+
+      - name: Brand compliance
+        run: |
+          echo "🏛 Brand compliance check on PR changes..."
+
+          # Check changed files for wrong brand name
+          WRONG=$(git diff origin/main...HEAD -- '*.md' '*.html' | grep "^+" | grep -i "pharion" | grep -v "ADR-017\|CHANGELOG" | wc -l)
+          if [ "$WRONG" -gt 0 ]; then
+            echo "❌ PR introduces wrong brand name PHARION ($WRONG occurrences)"
+            git diff origin/main...HEAD -- '*.md' '*.html' | grep "^+" | grep -i "pharion" | grep -v "ADR-017\|CHANGELOG"
+            exit 1
+          fi
+          echo "  ✅ Brand name PHAROLON consistent"
+
+      - name: GxP compliance markers
+        run: |
+          echo "Checking GxP compliance markers in schema changes..."
+
+          # New tables in schema changes should have audit trail patterns
+          SCHEMA_CHANGES=$(git diff --name-only origin/main...HEAD | grep "^schema/" | head -5)
+          if [ -n "$SCHEMA_CHANGES" ]; then
+            for f in $SCHEMA_CHANGES; do
+              NEW_TABLES=$(git diff origin/main...HEAD -- "$f" | grep "^+CREATE TABLE" | wc -l)
+              AUDIT_COLS=$(git diff origin/main...HEAD -- "$f" | grep "^+" | grep -E "created_at|updated_at|created_by" | wc -l)
+              echo "  $f: $NEW_TABLES new tables, $AUDIT_COLS audit columns"
+            done
+          fi
+          echo "  ✅ GxP markers check complete"

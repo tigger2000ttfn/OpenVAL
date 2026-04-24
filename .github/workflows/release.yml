@@ -1,0 +1,98 @@
+name: 🏺 Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g. v0.1.0-alpha)'
+        required: true
+
+jobs:
+  release:
+    name: 🏺 Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ inputs.version }}"
+          else
+            VERSION="${GITHUB_REF_NAME}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Release version: $VERSION"
+
+      - name: Schema stats for release notes
+        id: stats
+        run: |
+          TABLES=$(grep -h "^CREATE TABLE" schema/*.sql | wc -l)
+          PARTS=$(ls schema/*.sql | wc -l)
+          DOCS=$(find docs -name "*.md" -o -name "*.html" | wc -l)
+          echo "tables=$TABLES" >> $GITHUB_OUTPUT
+          echo "parts=$PARTS" >> $GITHUB_OUTPUT
+          echo "docs=$DOCS" >> $GITHUB_OUTPUT
+
+      - name: Package schema
+        run: |
+          mkdir -p release-assets
+          # Combine all schema into single file
+          echo "-- PHAROLON Complete Schema ${{ steps.version.outputs.version }}" > release-assets/pharolon_schema_complete.sql
+          echo "-- Generated: $(date -u)" >> release-assets/pharolon_schema_complete.sql
+          echo "-- Tables: ${{ steps.stats.outputs.tables }}" >> release-assets/pharolon_schema_complete.sql
+          echo "" >> release-assets/pharolon_schema_complete.sql
+          for f in $(ls schema/*.sql | sort); do
+            echo "" >> release-assets/pharolon_schema_complete.sql
+            echo "-- ── $(basename $f) ──" >> release-assets/pharolon_schema_complete.sql
+            cat "$f" >> release-assets/pharolon_schema_complete.sql
+          done
+          gzip -k release-assets/pharolon_schema_complete.sql
+          echo "Schema packaged: $(wc -l < release-assets/pharolon_schema_complete.sql) lines"
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: "PHAROLON ${{ steps.version.outputs.version }}"
+          body: |
+            ## 🏛 PHAROLON ${{ steps.version.outputs.version }}
+
+            > *Two of the Seven Wonders of the Ancient World — hidden inside a single mark.*
+
+            ### Schema
+            - **${{ steps.stats.outputs.tables }} database tables** across ${{ steps.stats.outputs.parts }} schema parts
+            - PostgreSQL 15+ · Oracle 19c/21c/23ai · MySQL 8.0+
+            - Full ALCOA+ compliance by architecture
+            - 21 CFR Part 11 · EU GMP Annex 11 · GAMP 5 · ICH Q10
+
+            ### Modules
+            - ✅ Validation Suite (CSV + CSA, 30+ disciplines)
+            - ✅ Quality Management (CAPA, Change Control, Deviations)
+            - ✅ Document Intelligence + SOP Visualizer
+            - ✅ Native LIMS (sample management → CoA)
+            - ✅ Native MES (eBR, bioprocess, solid dose, packaging)
+            - ✅ ATMP Chain of Identity / Custody
+
+            ### Regulatory Coverage
+            21 CFR Part 11 · FDA CSA 2025 · EU GMP Annex 11/15/1 · GAMP 5 · ICH Q2/Q8–Q13 · QMSR · PIC/S PI 041-1 · ALCOA+ · GCP · GDP · ATMP
+
+            ### Brand
+            **pH** — the acronym. Four hidden references: the Pharos lighthouse, the Great Pyramid, the compass, and the chemistry of every regulated industry we serve.
+
+            ---
+            📚 [Documentation](https://tigger2000ttfn.github.io/OpenVAL/) · [Brand](https://tigger2000ttfn.github.io/OpenVAL/brand.html) · [Schema](schema/)
+          files: |
+            release-assets/pharolon_schema_complete.sql
+            release-assets/pharolon_schema_complete.sql.gz
+          draft: false
+          prerelease: ${{ contains(steps.version.outputs.version, 'alpha') || contains(steps.version.outputs.version, 'beta') }}

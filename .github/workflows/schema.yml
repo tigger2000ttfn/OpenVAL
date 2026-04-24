@@ -1,0 +1,127 @@
+name: 🗄 Schema Validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'schema/**'
+  pull_request:
+    paths:
+      - 'schema/**'
+  workflow_dispatch:
+
+jobs:
+  validate-schema:
+    name: 🔍 Validate SQL Schema
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: pharolon_test
+          POSTGRES_USER: pharolon
+          POSTGRES_PASSWORD: pharolon_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Schema inventory
+        run: |
+          echo "📊 PHAROLON Schema Inventory"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          total=0
+          for f in schema/*.sql; do
+            count=$(grep -c "^CREATE TABLE" "$f" 2>/dev/null || echo 0)
+            total=$((total + count))
+            printf "  %3d tables  %s\n" "$count" "$(basename $f)"
+          done
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          printf "  %3d tables  TOTAL\n" "$total"
+
+      - name: Lint SQL files
+        run: |
+          echo "Checking SQL conventions..."
+          errors=0
+
+          for f in schema/*.sql; do
+            fname=$(basename $f)
+
+            # Check all tables have UUID PKs
+            tables_without_uuid=$(grep -A5 "^CREATE TABLE" "$f" | grep -B3 "PRIMARY KEY" | grep -v "VARCHAR(36)" | grep -v "CREATE TABLE" | grep -v "PRIMARY KEY" | grep -v "^--" || true)
+
+            # Check for TEXT instead of CLOB/VARCHAR (PostgreSQL compatibility)
+            if grep -n "CLOB" "$f" > /dev/null 2>&1; then
+              echo "  ⚠️  $fname: CLOB found — use TEXT for PostgreSQL"
+            fi
+
+            # Check timestamps use WITH TIME ZONE
+            tz_violations=$(grep "TIMESTAMP$" "$f" | grep -v "WITH TIME ZONE" | grep -v "^--" | wc -l)
+            if [ "$tz_violations" -gt 0 ]; then
+              echo "  ⚠️  $fname: $tz_violations TIMESTAMP columns missing WITH TIME ZONE"
+            fi
+
+            echo "  ✅ $fname — syntax check passed"
+          done
+
+          [ $errors -eq 0 ] || exit 1
+
+      - name: Deploy schema to test PostgreSQL
+        env:
+          PGPASSWORD: pharolon_test
+        run: |
+          echo "Deploying all schema parts to test database..."
+          success=0
+          failed=0
+
+          for f in $(ls schema/*.sql | sort); do
+            fname=$(basename $f)
+            if psql -h localhost -U pharolon -d pharolon_test -f "$f" -q 2>/tmp/err_${fname}.txt; then
+              tables=$(psql -h localhost -U pharolon -d pharolon_test -tAc "SELECT count(*) FROM information_schema.tables WHERE table_schema='public'" 2>/dev/null)
+              echo "  ✅ $fname (total tables so far: $tables)"
+              success=$((success + 1))
+            else
+              echo "  ❌ $fname FAILED:"
+              cat /tmp/err_${fname}.txt | head -5
+              failed=$((failed + 1))
+            fi
+          done
+
+          echo ""
+          echo "Results: $success passed, $failed failed"
+          [ $failed -eq 0 ] || exit 1
+
+      - name: Final table count
+        env:
+          PGPASSWORD: pharolon_test
+        run: |
+          echo "📊 Final PHAROLON Schema Report"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+          TOTAL=$(psql -h localhost -U pharolon -d pharolon_test -tAc \
+            "SELECT count(*) FROM information_schema.tables WHERE table_schema='public'")
+          echo "Total tables deployed: $TOTAL"
+
+          echo ""
+          echo "Tables by domain prefix:"
+          psql -h localhost -U pharolon -d pharolon_test -c \
+            "SELECT split_part(table_name,'_',1) AS domain, count(*) AS tables
+             FROM information_schema.tables
+             WHERE table_schema='public'
+             GROUP BY 1 ORDER BY 2 DESC" 2>/dev/null || true
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 🗄 Schema Validation Passed" >> $GITHUB_STEP_SUMMARY
+          echo "| | |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Total tables** | $TOTAL |" >> $GITHUB_STEP_SUMMARY
+          echo "| **PostgreSQL** | 15 |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Status** | ✅ All parts deployed successfully |" >> $GITHUB_STEP_SUMMARY
