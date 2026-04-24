@@ -306,7 +306,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 }
 @media(max-width:768px){.sidebar{display:none;}.app-body{height:auto;}.kgrid{grid-template-columns:1fr 1fr;}.feat-grid{grid-template-columns:1fr;}.hero{padding:90px 20px 60px;}}
 </style>
-<meta name="pharolon:build" content="dbf7cac"/><meta name="pharolon:built-at" content="2026-04-24T03:35:10Z"/></head>
+<meta name="pharolon:build" content="68a0f33"/><meta name="pharolon:built-at" content="2026-04-24T11:19:47Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -790,6 +790,427 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
     </div>
   </div>
 </section>
+
+
+<!-- ══ VIEW 6: URS / FRS AUTHORING ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Requirements Management</div>
+  <h2 class="section-title">URS / FRS — Smart Requirement Authoring</h2>
+  <p class="section-sub">AI-assisted requirement writing with live traceability scoring. Every URS item links forward to FRS, design specs, test protocols, and execution evidence.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div>
+    </div>
+    <div class="app-hdr">
+      <svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg>
+      <div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div>
+      <div style="flex:1;"></div>
+      <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">CHROMATOGRAPHY-LAB-001 · URS v1.3</div>
+    </div>
+    <div class="app-body" style="display:flex;height:440px;">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="nav-grp">Document</div>
+        <div class="nav-item active"><span class="nav-icon-dot" style="background:var(--t400);"></span>Requirements</div>
+        <div class="nav-item"><span class="nav-icon-dot"></span>Traceability</div>
+        <div class="nav-item"><span class="nav-icon-dot"></span>Coverage Map</div>
+        <div class="nav-grp">Views</div>
+        <div class="nav-item"><span class="nav-icon-dot"></span>URS</div>
+        <div class="nav-item"><span class="nav-icon-dot"></span>FRS</div>
+        <div class="nav-item"><span class="nav-icon-dot"></span>RTM</div>
+        <div class="nav-grp">AI Tools</div>
+        <div class="nav-item" style="color:var(--pur);"><span class="nav-icon-dot" style="background:var(--pur);"></span>Improve Req</div>
+        <div class="nav-item" style="color:var(--pur);"><span class="nav-icon-dot" style="background:var(--pur);"></span>Gap Detect</div>
+      </div>
+      <!-- Main content -->
+      <div class="content" style="flex:1;overflow:auto;padding:0;">
+        <!-- Toolbar -->
+        <div style="padding:10px 16px;border-bottom:1px solid var(--ch3);display:flex;align-items:center;gap:10px;">
+          <span style="font-size:10px;font-weight:600;color:#fff;">URS — User Requirements Specification</span>
+          <div style="flex:1;"></div>
+          <span style="font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);">32 requirements · 28 traced · 87% coverage</span>
+          <div style="width:80px;height:5px;background:var(--ch3);border-radius:3px;overflow:hidden;">
+            <div style="width:87%;height:100%;background:var(--t600);border-radius:3px;"></div>
+          </div>
+          <button style="font-size:8px;background:var(--t600);color:#fff;border:none;padding:4px 10px;border-radius:3px;cursor:pointer;font-family:'DM Mono',monospace;">+ Add Req</button>
+        </div>
+
+        <!-- Requirement rows -->
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:2px;">
+
+          <!-- Category header -->
+          <div style="font-size:8px;font-family:'DM Mono',monospace;letter-spacing:1px;color:var(--t400);text-transform:uppercase;padding:8px 0 4px;">General System Requirements</div>
+
+          <!-- URS-001 — fully traced, expanded -->
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-left:3px solid var(--t600);border-radius:4px;padding:10px 12px;">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <span style="font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);white-space:nowrap;margin-top:2px;">URS-001</span>
+              <div style="flex:1;">
+                <div style="font-size:11px;font-weight:500;color:#fff;margin-bottom:6px;">The system shall enforce 21 CFR Part 11 compliant electronic signatures for all approved documents, including audit trail capture of who signed, when, and the meaning of the signature.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;">
+                  <span style="font-size:7px;background:rgba(0,160,144,.12);color:var(--t400);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">21 CFR Part 11.50</span>
+                  <span style="font-size:7px;background:rgba(0,160,144,.12);color:var(--t400);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">EU GMP Annex 11</span>
+                  <span style="font-size:7px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">● FRS-007</span>
+                  <span style="font-size:7px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">● TS-042</span>
+                  <span style="font-size:7px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">● EXEC-019</span>
+                  <span style="margin-left:auto;font-size:7px;color:#86C140;font-family:'DM Mono',monospace;">✓ Fully Traced</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- URS-002 — AI suggestion -->
+          <div style="background:var(--ch2);border:1px solid rgba(139,92,246,.3);border-left:3px solid var(--pur);border-radius:4px;padding:10px 12px;">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <span style="font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);white-space:nowrap;margin-top:2px;">URS-002</span>
+              <div style="flex:1;">
+                <div style="font-size:11px;font-weight:500;color:#fff;margin-bottom:6px;">The system shall provide role-based access control with minimum three distinct user roles and documented access rights.</div>
+                <div style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:3px;padding:6px 8px;margin-bottom:6px;">
+                  <div style="font-size:8px;color:var(--pur);font-family:'DM Mono',monospace;margin-bottom:3px;">✦ AI Suggestion — Strengthen this requirement</div>
+                  <div style="font-size:9px;color:rgba(232,237,242,.6);">Consider adding: minimum privilege principle, segregation of duties for approval workflows, and periodic access review frequency per EU GMP Annex 11 cl. 12.1</div>
+                </div>
+                <div style="display:flex;gap:4px;">
+                  <span style="font-size:7px;background:rgba(229,75,46,.12);color:var(--fail);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">○ FRS missing</span>
+                  <span style="font-size:7px;background:rgba(229,75,46,.12);color:var(--fail);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">○ No test</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- URS-003 — partially traced -->
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-left:3px solid #F97316;border-radius:4px;padding:10px 12px;">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <span style="font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);white-space:nowrap;margin-top:2px;">URS-003</span>
+              <div style="flex:1;">
+                <div style="font-size:11px;font-weight:500;color:#fff;margin-bottom:6px;">The system shall maintain a complete and immutable audit trail for all data entry, modification, and deletion events with 21 CFR Part 11 metadata.</div>
+                <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                  <span style="font-size:7px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">● FRS-012</span>
+                  <span style="font-size:7px;background:rgba(229,75,46,.12);color:var(--fail);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">○ TS missing</span>
+                  <span style="margin-left:auto;font-size:7px;color:#F97316;font-family:'DM Mono',monospace;">⚠ Partial</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="font-size:8px;font-family:'DM Mono',monospace;letter-spacing:1px;color:var(--t400);text-transform:uppercase;padding:12px 0 4px;">Performance Requirements</div>
+
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-left:3px solid var(--t600);border-radius:4px;padding:10px 12px;">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <span style="font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);white-space:nowrap;margin-top:2px;">URS-004</span>
+              <div style="flex:1;">
+                <div style="font-size:11px;font-weight:500;color:#fff;margin-bottom:6px;">The system shall support a minimum of 500 concurrent users with response times not exceeding 3 seconds for standard transactions under peak load conditions.</div>
+                <div style="display:flex;gap:4px;">
+                  <span style="font-size:7px;background:rgba(0,160,144,.12);color:var(--t400);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">GAMP 5 Performance</span>
+                  <span style="font-size:7px;background:rgba(134,193,64,.12);color:#86C140;padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">● FRS-031 ● TS-088 ● EXEC-041</span>
+                  <span style="margin-left:auto;font-size:7px;color:#86C140;font-family:'DM Mono',monospace;">✓ Fully Traced</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right panel — FRS linkage -->
+      <div style="width:220px;background:var(--ch2);border-left:1px solid var(--ch3);padding:12px;overflow:auto;flex-shrink:0;">
+        <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Linked FRS Items</div>
+        <div style="background:var(--ch3);border-radius:4px;padding:8px 10px;margin-bottom:6px;">
+          <div style="font-size:8px;font-family:'DM Mono',monospace;color:#86C140;margin-bottom:4px;">FRS-007</div>
+          <div style="font-size:9px;color:rgba(232,237,242,.7);">E-signature component shall capture meaning text, signer ID, timestamp, and system-generated hash per 21 CFR 11.50(a)</div>
+        </div>
+        <div style="background:var(--ch3);border-radius:4px;padding:8px 10px;margin-bottom:6px;">
+          <div style="font-size:8px;font-family:'DM Mono',monospace;color:#86C140;margin-bottom:4px;">FRS-012</div>
+          <div style="font-size:9px;color:rgba(232,237,242,.7);">Audit trail shall be stored separately from application data, write-once, with cryptographic integrity verification</div>
+        </div>
+        <div style="background:var(--ch3);border-radius:4px;padding:8px 10px;margin-bottom:12px;">
+          <div style="font-size:8px;font-family:'DM Mono',monospace;color:#86C140;margin-bottom:4px;">FRS-031</div>
+          <div style="font-size:9px;color:rgba(232,237,242,.7);">Load testing shall verify 500 concurrent sessions with p95 response &lt;3s under simulated peak conditions</div>
+        </div>
+        <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Coverage Score</div>
+        <div style="background:var(--ch3);border-radius:6px;padding:10px;text-align:center;">
+          <div style="font-size:24px;font-weight:700;color:var(--t400);">87%</div>
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-top:2px;">28 of 32 traced</div>
+          <div style="margin-top:8px;height:4px;background:var(--ch2);border-radius:2px;overflow:hidden;">
+            <div style="width:87%;height:100%;background:linear-gradient(90deg,var(--t600),var(--t400));border-radius:2px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 7: TEMPLATE BUILDER ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">No-Code Document Design</div>
+  <h2 class="section-title">Template Builder</h2>
+  <p class="section-sub">Drag-and-drop GxP document templates. Build validation protocols, SOPs, and batch records visually. No developers required. Every block carries its regulatory citation.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div>
+    </div>
+    <div class="app-hdr">
+      <svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg>
+      <div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div>
+      <div style="flex:1;"></div>
+      <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);">TMPL-IQ-PROTOCOL-001 · v0.4 draft</div>
+    </div>
+    <div class="app-body" style="display:flex;height:480px;">
+
+      <!-- Block Library sidebar -->
+      <div style="width:160px;background:#0D1410;border-right:1px solid var(--ch3);padding:10px;overflow:auto;flex-shrink:0;">
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Block Library</div>
+
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);text-transform:uppercase;margin-bottom:4px;">Structure</div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:rgba(232,237,242,.7);cursor:grab;display:flex;align-items:center;gap:5px;">
+          <span style="color:var(--t400);">⠿</span> Section Header
+        </div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:rgba(232,237,242,.7);cursor:grab;display:flex;align-items:center;gap:5px;">
+          <span style="color:var(--t400);">⠿</span> Approval Block
+        </div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;margin-bottom:8px;font-size:8px;color:rgba(232,237,242,.7);cursor:grab;display:flex;align-items:center;gap:5px;">
+          <span style="color:var(--t400);">⠿</span> Revision History
+        </div>
+
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);text-transform:uppercase;margin-bottom:4px;">Data Capture</div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:rgba(232,237,242,.7);cursor:grab;display:flex;align-items:center;gap:5px;">
+          <span style="color:var(--t400);">⠿</span> Test Step
+        </div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:rgba(232,237,242,.7);cursor:grab;display:flex;align-items:center;gap:5px;">
+          <span style="color:var(--t400);">⠿</span> Pass/Fail Check
+        </div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:rgba(232,237,242,.7);cursor:grab;display:flex;align-items:center;gap:5px;">
+          <span style="color:var(--t400);">⠿</span> Data Table
+        </div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:rgba(232,237,242,.7);cursor:grab;display:flex;align-items:center;gap:5px;">
+          <span style="color:var(--t400);">⠿</span> Witness Signature
+        </div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;margin-bottom:8px;font-size:8px;color:rgba(232,237,242,.7);cursor:grab;display:flex;align-items:center;gap:5px;">
+          <span style="color:var(--t400);">⠿</span> Deviation Field
+        </div>
+
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);text-transform:uppercase;margin-bottom:4px;">GxP Smart</div>
+        <div style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);border-radius:3px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:var(--pur);cursor:grab;display:flex;align-items:center;gap:5px;">
+          <span>✦</span> AI Risk Flag
+        </div>
+        <div style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);border-radius:3px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:var(--pur);cursor:grab;display:flex;align-items:center;gap:5px;">
+          <span>✦</span> Reg Reference
+        </div>
+        <div style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);border-radius:3px;padding:5px 8px;margin-bottom:3px;font-size:8px;color:var(--pur);cursor:grab;display:flex;align-items:center;gap:5px;">
+          <span>✦</span> Auto-RTM Link
+        </div>
+      </div>
+
+      <!-- Canvas -->
+      <div style="flex:1;overflow:auto;padding:16px;background:var(--ch);background-image:radial-gradient(rgba(0,160,144,.04) 1px,transparent 1px);background-size:20px 20px;">
+
+        <!-- Approval block -->
+        <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:12px;margin-bottom:8px;">
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">▸ Approval Block · GxP Required</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+            <div style="background:var(--ch3);border-radius:3px;padding:8px;text-align:center;">
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);">Prepared By</div>
+              <div style="font-size:10px;font-weight:600;color:#fff;margin-top:4px;">_____________</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.35);margin-top:2px;">e-Signature + Date</div>
+            </div>
+            <div style="background:var(--ch3);border-radius:3px;padding:8px;text-align:center;">
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);">Reviewed By</div>
+              <div style="font-size:10px;font-weight:600;color:#fff;margin-top:4px;">_____________</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.35);margin-top:2px;">e-Signature + Date</div>
+            </div>
+            <div style="background:var(--ch3);border-radius:3px;padding:8px;text-align:center;">
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);">Approved By</div>
+              <div style="font-size:10px;font-weight:600;color:#fff;margin-top:4px;">_____________</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.35);margin-top:2px;">e-Signature + Date</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section header block -->
+        <div style="background:linear-gradient(90deg,rgba(0,160,144,.08),transparent);border-left:3px solid var(--t600);border-radius:0 4px 4px 0;padding:10px 12px;margin-bottom:8px;">
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">▸ Section Header</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">1. Objective &amp; Scope</div>
+          <div style="font-size:9px;color:rgba(232,237,242,.5);margin-top:4px;">Click to edit · Rich text supported · Regulatory citations auto-linked</div>
+        </div>
+
+        <!-- Test step block — selected/active -->
+        <div style="background:var(--ch2);border:2px solid var(--t600);border-radius:6px;padding:12px;margin-bottom:8px;position:relative;">
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">▸ Test Step · IQ-001</div>
+          <div style="font-size:10px;color:#fff;margin-bottom:8px;">Verify that the system displays the correct software version number on the login screen. Compare displayed version against approved software version register.</div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <div style="flex:1;background:var(--ch3);border-radius:3px;padding:6px 8px;">
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);">Expected Result</div>
+              <div style="font-size:9px;color:rgba(232,237,242,.7);margin-top:2px;">Version displayed matches approved version register entry</div>
+            </div>
+            <div style="display:flex;gap:4px;">
+              <div style="background:rgba(134,193,64,.12);border:1px solid rgba(134,193,64,.3);border-radius:3px;padding:5px 10px;font-size:8px;color:#86C140;font-family:'DM Mono',monospace;">Pass</div>
+              <div style="background:rgba(229,75,46,.08);border:1px solid rgba(229,75,46,.2);border-radius:3px;padding:5px 10px;font-size:8px;color:var(--fail);font-family:'DM Mono',monospace;">Fail</div>
+              <div style="background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:3px;padding:5px 10px;font-size:8px;color:#F97316;font-family:'DM Mono',monospace;">N/A</div>
+            </div>
+          </div>
+          <!-- Active indicator -->
+          <div style="position:absolute;top:-8px;right:10px;background:var(--t600);color:#fff;font-size:7px;font-family:'DM Mono',monospace;padding:2px 8px;border-radius:10px;">Selected</div>
+        </div>
+
+        <!-- AI Reg block -->
+        <div style="background:rgba(139,92,246,.07);border:1px dashed rgba(139,92,246,.3);border-radius:6px;padding:10px 12px;margin-bottom:8px;">
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--pur);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">✦ Regulatory Reference Block</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span style="font-size:8px;background:rgba(139,92,246,.12);color:var(--pur);padding:3px 8px;border-radius:2px;font-family:'DM Mono',monospace;">EU GMP Annex 11 § 4.1</span>
+            <span style="font-size:8px;background:rgba(139,92,246,.12);color:var(--pur);padding:3px 8px;border-radius:2px;font-family:'DM Mono',monospace;">GAMP 5 — Cat 4 Configured</span>
+            <span style="font-size:8px;background:rgba(139,92,246,.12);color:var(--pur);padding:3px 8px;border-radius:2px;font-family:'DM Mono',monospace;">21 CFR Part 11.10(a)</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Properties panel -->
+      <div style="width:180px;background:var(--ch2);border-left:1px solid var(--ch3);padding:12px;overflow:auto;flex-shrink:0;">
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Block Properties</div>
+        <div style="font-size:8px;color:rgba(232,237,242,.5);margin-bottom:6px;">Step Number</div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;font-size:9px;color:#fff;margin-bottom:8px;">IQ-001</div>
+        <div style="font-size:8px;color:rgba(232,237,242,.5);margin-bottom:6px;">Step Type</div>
+        <div style="background:var(--ch3);border-radius:3px;padding:5px 8px;font-size:9px;color:var(--t400);margin-bottom:8px;">Verification ▾</div>
+        <div style="font-size:8px;color:rgba(232,237,242,.5);margin-bottom:6px;">Requires Witness</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+          <div style="width:28px;height:14px;background:var(--t600);border-radius:7px;position:relative;"><div style="position:absolute;right:2px;top:2px;width:10px;height:10px;background:#fff;border-radius:5px;"></div></div>
+          <span style="font-size:8px;color:var(--t400);">On</span>
+        </div>
+        <div style="font-size:8px;color:rgba(232,237,242,.5);margin-bottom:6px;">RTM Linkage</div>
+        <div style="background:rgba(134,193,64,.1);border:1px solid rgba(134,193,64,.2);border-radius:3px;padding:5px 8px;font-size:8px;color:#86C140;margin-bottom:12px;">URS-001 · FRS-007</div>
+        <div style="font-size:8px;color:rgba(232,237,242,.5);margin-bottom:6px;">Regulatory Ref</div>
+        <div style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);border-radius:3px;padding:5px 8px;font-size:8px;color:var(--pur);">21 CFR 11.10(a) · Annex 11 §4</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 8: SOP VISUALIZER DEEP ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">World's First · AI-Powered</div>
+  <h2 class="section-title">SOP Visualizer — Live Process Intelligence</h2>
+  <p class="section-sub">Upload any SOP. AI parses roles, decisions, and exceptions into an interactive swimlane. Click any node to see the underlying SOP text, linked CAPA history, and deviation risk score.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div>
+    </div>
+    <div style="background:var(--ch);border-radius:0 0 8px 8px;min-height:400px;padding:0;position:relative;overflow:hidden;">
+      <!-- Toolbar -->
+      <div style="background:var(--ch2);border-bottom:1px solid var(--ch3);padding:8px 16px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);">SOP-QC-014 · Environmental Monitoring Program v3.2</span>
+        <div style="flex:1;"></div>
+        <span style="font-size:7px;background:rgba(139,92,246,.12);color:var(--pur);padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">✦ AI Parsed · 42 nodes · 3 decision branches</span>
+        <span style="font-size:8px;background:var(--ch3);color:rgba(232,237,242,.6);padding:3px 8px;border-radius:3px;font-family:'DM Mono',monospace;">Swimlane ▾</span>
+        <span style="font-size:8px;background:var(--ch3);color:rgba(232,237,242,.6);padding:3px 8px;border-radius:3px;font-family:'DM Mono',monospace;">Export PDF</span>
+      </div>
+
+      <!-- Swimlane canvas -->
+      <div style="padding:16px;overflow:auto;">
+        <!-- Role headers -->
+        <div style="display:flex;gap:0;margin-bottom:12px;">
+          <div style="width:110px;flex-shrink:0;"></div>
+          <div style="flex:1;background:rgba(0,160,144,.08);border:1px solid rgba(0,160,144,.15);border-radius:4px;padding:6px 10px;margin-right:6px;text-align:center;">
+            <div style="font-size:8px;font-weight:600;color:var(--t400);">QC Analyst</div>
+          </div>
+          <div style="flex:1;background:rgba(226,168,55,.06);border:1px solid rgba(226,168,55,.15);border-radius:4px;padding:6px 10px;margin-right:6px;text-align:center;">
+            <div style="font-size:8px;font-weight:600;color:var(--g500);">QC Supervisor</div>
+          </div>
+          <div style="flex:1;background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.15);border-radius:4px;padding:6px 10px;text-align:center;">
+            <div style="font-size:8px;font-weight:600;color:var(--pur);">QA Manager</div>
+          </div>
+        </div>
+
+        <!-- Row 1 -->
+        <div style="display:flex;gap:0;align-items:center;margin-bottom:10px;">
+          <div style="width:110px;flex-shrink:0;font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">Step 1–3</div>
+          <div style="flex:1;margin-right:6px;display:flex;justify-content:center;">
+            <div style="background:var(--t600);color:#fff;border-radius:6px;padding:7px 12px;font-size:8px;font-weight:600;width:80%;text-align:center;position:relative;">
+              Schedule EM sampling per approved program
+              <div style="position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:1px;height:10px;background:var(--t600);"></div>
+            </div>
+          </div>
+          <div style="flex:1;margin-right:6px;"></div>
+          <div style="flex:1;"></div>
+        </div>
+
+        <!-- Row 2 — decision diamond -->
+        <div style="display:flex;gap:0;align-items:center;margin-bottom:10px;">
+          <div style="width:110px;flex-shrink:0;font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">Decision</div>
+          <div style="flex:1;margin-right:6px;display:flex;justify-content:center;">
+            <div style="width:70px;height:40px;background:rgba(249,115,22,.15);border:2px solid #F97316;transform:rotate(45deg);display:flex;align-items:center;justify-content:center;border-radius:4px;position:relative;">
+              <span style="transform:rotate(-45deg);font-size:7px;font-weight:600;color:#F97316;text-align:center;line-height:1.2;">Action<br/>Level?</span>
+              <!-- Yes/No labels -->
+              <div style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%) rotate(-45deg);font-size:7px;font-family:'DM Mono',monospace;color:#86C140;">No ↓</div>
+              <div style="position:absolute;right:-30px;top:50%;transform:translateY(-50%) rotate(-45deg);font-size:7px;font-family:'DM Mono',monospace;color:var(--fail);">Yes →</div>
+            </div>
+          </div>
+          <div style="flex:1;margin-right:6px;display:flex;align-items:center;justify-content:center;">
+            <div style="background:rgba(229,75,46,.12);border:1px solid rgba(229,75,46,.3);border-radius:6px;padding:7px 10px;font-size:8px;font-weight:600;color:var(--fail);width:80%;text-align:center;">
+              Initiate EM Exceedance Investigation
+            </div>
+          </div>
+          <div style="flex:1;"></div>
+        </div>
+
+        <!-- Row 3 -->
+        <div style="display:flex;gap:0;align-items:center;margin-bottom:10px;">
+          <div style="width:110px;flex-shrink:0;font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">Step 4–6</div>
+          <div style="flex:1;margin-right:6px;display:flex;justify-content:center;">
+            <div style="background:var(--ch2);border:1px solid var(--t600);border-radius:6px;padding:7px 12px;font-size:8px;color:#fff;width:80%;text-align:center;">
+              Log results in LIMS · Verify vs spec limits
+            </div>
+          </div>
+          <div style="flex:1;margin-right:6px;display:flex;justify-content:center;">
+            <div style="background:var(--ch2);border:1px solid rgba(226,168,55,.3);border-radius:6px;padding:7px 12px;font-size:8px;color:#fff;width:80%;text-align:center;">
+              Review &amp; e-sign within 24h
+            </div>
+          </div>
+          <div style="flex:1;"></div>
+        </div>
+
+        <!-- Row 4 — approval -->
+        <div style="display:flex;gap:0;align-items:center;">
+          <div style="width:110px;flex-shrink:0;font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">Step 7</div>
+          <div style="flex:1;margin-right:6px;"></div>
+          <div style="flex:1;margin-right:6px;"></div>
+          <div style="flex:1;display:flex;justify-content:center;">
+            <div style="background:rgba(134,193,64,.1);border:1px solid rgba(134,193,64,.3);border-radius:6px;padding:7px 12px;font-size:8px;font-weight:600;color:#86C140;width:80%;text-align:center;">
+              ✓ Monthly Trend Approval &amp; Archive
+            </div>
+          </div>
+        </div>
+
+        <!-- Node tooltip -->
+        <div style="margin-top:16px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:6px;padding:10px 12px;">
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--pur);margin-bottom:6px;">✦ Node Intelligence — Step 4: Log results in LIMS</div>
+          <div style="display:flex;gap:16px;">
+            <div>
+              <div style="font-size:7px;color:rgba(232,237,242,.4);margin-bottom:3px;">SOP Reference</div>
+              <div style="font-size:8px;color:rgba(232,237,242,.7);">SOP-QC-014, Section 4.2.1</div>
+            </div>
+            <div>
+              <div style="font-size:7px;color:rgba(232,237,242,.4);margin-bottom:3px;">Deviation History</div>
+              <div style="font-size:8px;color:#F97316;">3 deviations in 12 months</div>
+            </div>
+            <div>
+              <div style="font-size:7px;color:rgba(232,237,242,.4);margin-bottom:3px;">Risk Score</div>
+              <div style="font-size:8px;color:#F97316;">Medium · 6.2 / 10</div>
+            </div>
+            <div>
+              <div style="font-size:7px;color:rgba(232,237,242,.4);margin-bottom:3px;">Open CAPA</div>
+              <div style="font-size:8px;color:var(--fail);">CAPA-2025-047 (overdue)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ══ PALETTE ══ -->
 <section class="palette-section">
