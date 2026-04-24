@@ -202,7 +202,7 @@ to{transform:rotate(360deg);}}
   .hero{padding:90px 20px 60px;}
 }
 </style>
-<meta name="pharolon:build" content="c8bd8d4"/><meta name="pharolon:built-at" content="2026-04-24T03:09:23Z"/></head>
+<meta name="pharolon:build" content="2d6045e"/><meta name="pharolon:built-at" content="2026-04-24T03:13:48Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -530,7 +530,7 @@ to{transform:rotate(360deg);}}
             var prog=easeOut(pElapsed/ARRIVE_DUR);
             tx=p.sx+(p.ox-p.sx)*prog;
             ty=p.sy+(p.oy-p.sy)*prog;
-            targetAlpha=prog*0.85;
+            targetAlpha=prog*0.6;
           }
         } else {
           // LEAVE phase — drift back toward spawn
@@ -538,13 +538,13 @@ to{transform:rotate(360deg);}}
           var prog=easeIn(leaveT);
           tx=p.ox+(p.sx-p.ox)*prog;
           ty=p.oy+(p.sy-p.oy)*prog;
-          targetAlpha=(1-prog)*0.85;
+          targetAlpha=(1-prog)*0.6;
         }
 
         // Breathe only during hold
         if(elapsed>=LAST_ARRIVE_APPROX&&elapsed<CYCLE_HOLD_END){
           var breathe=0.5+0.5*Math.sin(elapsed/p.breatheP*Math.PI*2+p.breathePh);
-          targetAlpha=0.35+breathe*0.5;
+          targetAlpha=0.2+breathe*0.35;
         }
 
         p.x+=(tx-p.x)*0.06;
