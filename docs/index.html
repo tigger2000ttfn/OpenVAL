@@ -82,11 +82,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 .fan-ray:nth-child(4){animation-delay:-4.2s;}
 .fan-ray:nth-child(5){animation-delay:-5.6s;}
 
+/* ── SECTION DISPLAY HEADS ── */
+.section-heading{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(18px,3vw,32px);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.2px;line-height:1.2;margin-bottom:16px;}
+
 /* ── STORY SECTION ── */
 .section{padding:96px 28px;border-top:1px solid var(--ink4);}
 .inner{max-width:820px;margin:0 auto;}
 .sec-label{font-size:9px;letter-spacing:2px;color:rgba(0,212,196,.6);text-transform:uppercase;margin-bottom:48px;}
-.story-pull{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(20px,3.2vw,38px);letter-spacing:-.2px;line-height:1.3;color:rgba(255,255,255,.88);margin-bottom:28px;}
+.story-pull{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(20px,3.2vw,38px);letter-spacing:-.2px;line-height:1.3;color:rgba(255,255,255,.88);margin-bottom:28px;}
 .story-gold{background:linear-gradient(135deg,#F5D060,#C9981A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800;}
 .rule{width:32px;height:1px;background:var(--t600);opacity:.5;margin:32px 0;}
 .body-text{font-size:12px;color:rgba(232,237,242,.62);line-height:2;letter-spacing:.1px;font-family:'DM Mono',monospace;}
@@ -96,7 +99,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 .meaning-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:40px;}
 .meaning-card{background:var(--ink2);border:1px solid var(--ink4);padding:28px;border-radius:2px;}
 .mc-icon{font-size:20px;margin-bottom:12px;}
-.mc-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:0;}
+.mc-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;letter-spacing:0;}
 .mc-gold{color:var(--g500) !important;}
 .mc-body{font-size:11px;color:rgba(232,237,242,.55);line-height:1.9;font-family:'DM Mono',monospace;}
 .mc-body strong{color:rgba(226,168,55,.55);font-weight:400;}
@@ -105,7 +108,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
 .feat{background:var(--ink2);border:1px solid var(--ink4);padding:24px;}
 .feat-label{font-size:8px;letter-spacing:1px;color:rgba(0,212,196,.55);text-transform:uppercase;margin-bottom:10px;}
-.feat-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:0;}
+.feat-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;letter-spacing:0;}
 .feat-body{font-size:11px;color:rgba(232,237,242,.55);line-height:1.8;font-family:'DM Mono',monospace;}
 
 /* ── COMPLIANCE TABLE ── */
@@ -141,9 +144,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:680px;margin:0 auto;}
 .price-card{border-radius:8px;padding:32px;border:1px solid var(--ink4);background:var(--ink2);}
 .price-gold{border-color:rgba(226,168,55,.18);background:rgba(226,168,55,.03);}
-.price-tier{font-size:8px;letter-spacing:2px;color:rgba(0,212,196,.5);text-transform:uppercase;margin-bottom:8px;}
+.price-tier{font-family:'Syne',sans-serif;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;}
 .price-amt{font-family:'Syne',sans-serif;font-weight:800;font-size:44px;letter-spacing:0;line-height:1;margin-bottom:6px;}
-.price-amt-free{background:linear-gradient(135deg,var(--g400),var(--g600));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.price-amt-free{background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .price-sub{font-size:9px;color:rgba(232,237,242,.25);margin-bottom:24px;}
 .price-features{font-size:10px;color:rgba(232,237,242,.5);line-height:2.1;list-style:none;font-family:'DM Mono',monospace;}
 .price-features li{padding-left:14px;position:relative;}
@@ -451,28 +454,28 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
   <table class="comp-table">
     <thead>
       <tr>
-        <th>Framework</th>
+        <th style="font-family:'Syne',sans-serif;font-weight:800;font-size:9px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Framework</th>
         <th>CE</th>
         <th>EE</th>
         <th>Notes</th>
       </tr>
     </thead>
     <tbody>
-      <tr><td>21 CFR Part 11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Audit trail, e-signatures, access controls, system validation</td></tr>
-      <tr><td>FDA CSA Final Guidance 2025</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Dual CSV/CSA mode, intended use scoping, unscripted testing</td></tr>
-      <tr><td>EU GMP Annex 11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Audit trail, e-signatures, periodic review, disaster recovery</td></tr>
-      <tr><td>EU GMP Annex 15</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Qualification, validation lifecycle, ongoing verification</td></tr>
-      <tr><td>EU GMP Annex 1 (2022)</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>CCS, APS, PUPSIT document types, continuous EM</td></tr>
-      <tr><td>GAMP 5 (2nd Ed.)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Software category classification, risk-based approach</td></tr>
-      <tr><td>ICH Q2/Q8/Q9/Q10/Q11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Quality by design, risk management, pharmaceutical development</td></tr>
-      <tr><td>ICH Q12/Q13</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Lifecycle management, post-approval changes, continuous manufacturing</td></tr>
-      <tr><td>FDA QMSR (21 CFR 820)</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Design History File, design controls, ISO 13485 alignment</td></tr>
-      <tr><td>PIC/S PI 041-1 (2021)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Data integrity governance, audit log review, ALCOA+</td></tr>
-      <tr><td>MHRA GxP Data Integrity</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Static and dynamic records, metadata, original data</td></tr>
-      <tr><td>ATMP / GTP</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Chain of Identity, Chain of Custody, donor eligibility</td></tr>
-      <tr><td>ICH E6(R3) GCP</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Clinical trial system validation, EDC, CTMS, eTMF</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">21 CFR Part 11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Audit trail, e-signatures, access controls, system validation</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">FDA CSA Final Guidance 2025</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Dual CSV/CSA mode, intended use scoping, unscripted testing</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">EU GMP Annex 11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Audit trail, e-signatures, periodic review, disaster recovery</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">EU GMP Annex 15</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Qualification, validation lifecycle, ongoing verification</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">EU GMP Annex 1 (2022)</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>CCS, APS, PUPSIT document types, continuous EM</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">GAMP 5 (2nd Ed.)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Software category classification, risk-based approach</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ICH Q2/Q8/Q9/Q10/Q11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Quality by design, risk management, pharmaceutical development</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ICH Q12/Q13</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Lifecycle management, post-approval changes, continuous manufacturing</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">FDA QMSR (21 CFR 820)</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Design History File, design controls, ISO 13485 alignment</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">PIC/S PI 041-1 (2021)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Data integrity governance, audit log review, ALCOA+</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">MHRA GxP Data Integrity</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Static and dynamic records, metadata, original data</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ATMP / GTP</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Chain of Identity, Chain of Custody, donor eligibility</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ICH E6(R3) GCP</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Clinical trial system validation, EDC, CTMS, eTMF</td></tr>
       <tr><td>EU GDP / WHO GDP</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Temperature lane qualification, excursion management</td></tr>
-      <tr><td>Oracle 19c/21c/23ai</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Full VPD, DBMS_CRYPTO, Wallet, native JSON, ADW</td></tr>
+      <tr><td style="font-family:'Syne',sans-serif;font-weight:800;font-size:10px;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Oracle 19c/21c/23ai</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Full VPD, DBMS_CRYPTO, Wallet, native JSON, ADW</td></tr>
     </tbody>
   </table>
 </div>
@@ -697,7 +700,7 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
   <div class="sec-label">Pricing</div>
   <div class="price-grid">
     <div class="price-card">
-      <div class="price-tier">Community Edition</div>
+      <div class="price-tier" style="color:rgba(0,212,196,.7);">Community Edition</div>
       <div class="price-amt price-amt-free">Free</div>
       <div class="price-sub">Forever. AGPL-3.0. Self-hosted.</div>
       <ul class="price-features">
@@ -715,7 +718,7 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
       <a class="price-cta price-cta-ce" href="https://github.com/tigger2000ttfn/OpenVAL">Get Started on GitHub</a>
     </div>
     <div class="price-card price-gold">
-      <div class="price-tier" style="color:rgba(226,168,55,.4);">Enterprise Edition</div>
+      <div class="price-tier" style="background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Enterprise Edition</div>
       <div class="price-amt" style="color:rgba(226,168,55,.6);font-size:32px;padding-top:8px;">Contact Us</div>
       <div class="price-sub">Commercial licence. Site, enterprise, SaaS.</div>
       <ul class="price-features">
