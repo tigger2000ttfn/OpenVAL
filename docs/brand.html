@@ -385,126 +385,131 @@ to{transform:rotate(360deg);}}
     var cv=document.getElementById('ph-canvas');
     if(!cv)return;
     var ctx=cv.getContext('2d');
-    var W=280,H=280;
-    var CX=140,CY=148;
+    var W=280,H=280,CX=140,CY=148;
 
+    // Three nested triangles matching PHAROLON icon
     var tris=[
-      {apex:{x:140,y:26},bl:{x:16,y:218},br:{x:264,y:218},col:[201,152,26],name:'gold',n:6},
-      {apex:{x:140,y:54},bl:{x:50,y:218},br:{x:230,y:218},col:[0,160,144],name:'teal',n:5},
-      {apex:{x:140,y:82},bl:{x:84,y:218},br:{x:196,y:218},col:[139,92,246],name:'purple',n:4}
+      {apex:{x:140,y:26},bl:{x:16,y:218},br:{x:264,y:218},col:[201,152,26]},
+      {apex:{x:140,y:54},bl:{x:50,y:218}, br:{x:230,y:218},col:[0,160,144]},
+      {apex:{x:140,y:82},bl:{x:84,y:218}, br:{x:196,y:218},col:[139,92,246]}
     ];
 
-    // Sample points along edge with perpendicular band thickness
-    function bandEdge(p1,p2,count,offsets){
+    // Dense band along edge: particle every ~3px, 5 rows perpendicular
+    function denseEdge(p1,p2,rowOffsets){
+      var dx=p2.x-p1.x,dy=p2.y-p1.y;
+      var edgeLen=Math.sqrt(dx*dx+dy*dy);
+      var ux=dx/edgeLen,uy=dy/edgeLen; // unit along edge
+      var nx=-uy,ny=ux;               // unit perpendicular
       var pts=[];
-      // perpendicular direction to edge
-      var dx=p2.x-p1.x, dy=p2.y-p1.y;
-      var len=Math.sqrt(dx*dx+dy*dy)||1;
-      var nx=-dy/len, ny=dx/len; // normal
-
+      var step=3.2;
+      var count=Math.floor(edgeLen/step);
       for(var i=0;i<=count;i++){
         var t=i/count;
-        var bx=p1.x+(p2.x-p1.x)*t;
-        var by=p1.y+(p2.y-p1.y)*t;
-        offsets.forEach(function(off){
+        var bx=p1.x+dx*t, by=p1.y+dy*t;
+        rowOffsets.forEach(function(off,ri){
           pts.push({
-            ox: bx+nx*off + (Math.random()-.5)*1.2,
-            oy: by+ny*off + (Math.random()-.5)*1.2
+            ox: bx+nx*off,
+            oy: by+ny*off,
+            edgeT: t,          // position along edge 0–1
+            row:   ri,
+            edgeU: {x:ux,y:uy}, // edge direction (for undulation)
+            edgeN: {x:nx,y:ny}  // perpendicular direction
           });
         });
       }
       return pts;
     }
 
-    var BUILD_DELAY=[0,4500,8200];
+    var BUILD_DELAY=[0,4500,8500];
     var particles=[];
 
     tris.forEach(function(tri,ti){
-      var n=tri.n;
-      // 3-5 rows of particles per edge (band width ~8px)
-      var offsets=ti===0?[-4,-2,0,2,4]:ti===1?[-3,-1,0,1,3]:[-2,0,2];
+      // Outer gets widest band, inner gets narrower
+      var rows=ti===0?[-5,-2.5,0,2.5,5]:ti===1?[-3.5,-1.5,0,1.5,3.5]:[-2.5,0,2.5];
       var edges=[
         [tri.apex,tri.bl],
         [tri.apex,tri.br],
-        [tri.bl,tri.br]
+        [tri.bl,  tri.br]
       ];
       edges.forEach(function(e,ei){
-        var pts=bandEdge(e[0],e[1],n,offsets);
+        var pts=denseEdge(e[0],e[1],rows);
         pts.forEach(function(pt,pi){
           var angle=Math.random()*Math.PI*2;
-          var dist=100+Math.random()*90;
+          var dist=90+Math.random()*100;
           particles.push({
-            ox:pt.ox,oy:pt.oy,
-            x:CX+Math.cos(angle)*dist,
-            y:CY+Math.sin(angle)*dist,
-            vx:0,vy:0,
-            col:tri.col.slice(),
-            triIdx:ti,
-            edgeIdx:ei,
-            alpha:0,
-            targetAlpha:0,
-            // staggered arrival
-            delay: BUILD_DELAY[ti]+(pi+ei*pts.length)*18+Math.random()*200,
-            // individual breathe cycle
-            breathePeriod:12000+Math.random()*8000,
-            breatheOffset:Math.random()*Math.PI*2,
-            // subtle drift
-            driftAngle:Math.random()*Math.PI*2,
-            driftAmt:0.8+Math.random()*0.6,
-            size:0.8+Math.random()*1.1,
-            arrived:false
+            ox:pt.ox, oy:pt.oy,
+            x: CX+Math.cos(angle)*dist,
+            y: CY+Math.sin(angle)*dist,
+            col: tri.col.slice(),
+            triIdx: ti, edgeIdx: ei,
+            edgeT: pt.edgeT,
+            edgeN: pt.edgeN,
+            alpha: 0, arrived: false,
+            delay: BUILD_DELAY[ti] + pi*8 + Math.random()*300,
+            breathePeriod: 10000+Math.random()*8000,
+            breatheOffset: Math.random()*Math.PI*2,
+            undulateOffset: pt.edgeT*Math.PI*4 + Math.random()*0.5, // wave phase
+            size: 1.2+Math.random()*0.8
           });
         });
       });
     });
 
-    // Group particles by triIdx for interaction
-    var byTri=[[],[],[]];
-    particles.forEach(function(p){byTri[p.triIdx].push(p);});
+    var totalP=particles.length;
+    console.log('Particles:',totalP);
 
-    // Oscillating spin — gentle rock, not continuous
-    // ±10° over ~40 seconds, then reverse
-    function getSpinAngle(t){
-      return 0.175*Math.sin(t*0.000055); // ±10° very slowly
+    // Build a spatial grid for fast neighbour lookup
+    var CELL=14;
+    var COLS=Math.ceil(W/CELL), ROWS=Math.ceil(H/CELL);
+    var grid=[];
+    function buildGrid(){
+      grid=[];
+      for(var i=0;i<COLS*ROWS;i++) grid.push([]);
+      particles.forEach(function(p,i){
+        var cx=Math.floor(p.x/CELL),cy=Math.floor(p.y/CELL);
+        if(cx>=0&&cx<COLS&&cy>=0&&cy<ROWS) grid[cy*COLS+cx].push(i);
+      });
     }
+    function neighbours(px,py,maxDist){
+      var cx0=Math.max(0,Math.floor((px-maxDist)/CELL));
+      var cx1=Math.min(COLS-1,Math.floor((px+maxDist)/CELL));
+      var cy0=Math.max(0,Math.floor((py-maxDist)/CELL));
+      var cy1=Math.min(ROWS-1,Math.floor((py+maxDist)/CELL));
+      var result=[];
+      for(var cy=cy0;cy<=cy1;cy++)
+        for(var cx=cx0;cx<=cx1;cx++)
+          Array.prototype.push.apply(result,grid[cy*COLS+cx]);
+      return result;
+    }
+
+    var BUILD_END=11500;
+    var t0=performance.now();
 
     // Flare
     var flare={i:0,cooling:false};
-    var nextFlare=performance.now()+5000+Math.random()*7000;
-    function scheduleFlare(){nextFlare=performance.now()+9000+Math.random()*13000;}
+    var nextFlare=t0+5000+Math.random()*7000;
+    function schedFlare(){nextFlare=performance.now()+9000+Math.random()*13000;}
     function updateFlare(now){
-      if(!flare.cooling&&now>=nextFlare){flare.i=1;flare.cooling=true;scheduleFlare();}
+      if(!flare.cooling&&now>=nextFlare){flare.i=1;flare.cooling=true;schedFlare();}
       if(flare.cooling){flare.i=Math.max(0,flare.i-(flare.i>0.3?0.016:0.003));if(!flare.i)flare.cooling=false;}
     }
     function drawFlare(spinA){
       var I=flare.i; if(I<0.01)return;
-      var ap0=tris[0].apex;
-      var dx=ap0.x-CX,dy=ap0.y-CY;
+      var a0=tris[0].apex,dx=a0.x-CX,dy=a0.y-CY;
       var ax=CX+dx*Math.cos(spinA)-dy*Math.sin(spinA);
       var ay=CY+dx*Math.sin(spinA)+dy*Math.cos(spinA);
-
       var h=ctx.createRadialGradient(ax,ay,0,ax,ay,65+I*35);
-      h.addColorStop(0,'rgba(255,248,180,'+(I*.7)+')');
-      h.addColorStop(.25,'rgba(240,192,64,'+(I*.4)+')');
-      h.addColorStop(.7,'rgba(226,168,55,'+(I*.07)+')');
-      h.addColorStop(1,'rgba(226,168,55,0)');
+      h.addColorStop(0,'rgba(255,248,180,'+(I*.7)+')');h.addColorStop(.25,'rgba(240,192,64,'+(I*.4)+')');
+      h.addColorStop(.7,'rgba(226,168,55,'+(I*.07)+')');h.addColorStop(1,'rgba(226,168,55,0)');
       ctx.beginPath();ctx.arc(ax,ay,65+I*35,0,Math.PI*2);ctx.fillStyle=h;ctx.fill();
-
       var sL=100+I*90;
       var sg=ctx.createLinearGradient(ax-sL,ay,ax+sL,ay);
-      sg.addColorStop(0,'rgba(255,255,255,0)');
-      sg.addColorStop(.3,'rgba(255,248,200,'+(I*.28)+')');
-      sg.addColorStop(.5,'rgba(255,255,255,'+(I*.75)+')');
-      sg.addColorStop(.7,'rgba(255,248,200,'+(I*.28)+')');
-      sg.addColorStop(1,'rgba(255,255,255,0)');
-      ctx.fillStyle=sg;ctx.fillRect(ax-sL,ay-1.8,sL*2,3.6);
-
-      var sg2=ctx.createLinearGradient(ax-sL*.5,ay,ax+sL*.5,ay);
-      sg2.addColorStop(0,'rgba(255,255,255,0)');sg2.addColorStop(.5,'rgba(255,255,255,'+(I*.5)+')');sg2.addColorStop(1,'rgba(255,255,255,0)');
-      ctx.fillStyle=sg2;ctx.fillRect(ax-sL*.5,ay-.8,sL,1.6);
+      sg.addColorStop(0,'rgba(255,255,255,0)');sg.addColorStop(.3,'rgba(255,248,200,'+(I*.28)+')');
+      sg.addColorStop(.5,'rgba(255,255,255,'+(I*.75)+')');sg.addColorStop(.7,'rgba(255,248,200,'+(I*.28)+')');
+      sg.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=sg;ctx.fillRect(ax-sL,ay-1.8,sL*2,3.6);
       [[-0.38,.65],[0.38,.5],[-0.85,.3],[0.85,.25]].forEach(function(d){
-        ctx.save();ctx.translate(ax,ay);ctx.rotate(d[0]);
-        var len=42+I*32,dg=ctx.createLinearGradient(-len,0,len,0);
+        ctx.save();ctx.translate(ax,ay);ctx.rotate(d[0]);var len=42+I*32;
+        var dg=ctx.createLinearGradient(-len,0,len,0);
         dg.addColorStop(0,'rgba(210,235,255,0)');dg.addColorStop(.5,'rgba(225,240,255,'+(I*.2*d[1])+')');dg.addColorStop(1,'rgba(210,235,255,0)');
         ctx.fillStyle=dg;ctx.fillRect(-len,-.9,len*2,1.8);ctx.restore();
       });
@@ -512,78 +517,78 @@ to{transform:rotate(360deg);}}
       var pg=ctx.createRadialGradient(ox2,oy2,0,ox2,oy2,8);
       pg.addColorStop(0,'rgba(167,139,250,'+(I*.65)+')');pg.addColorStop(1,'rgba(167,139,250,0)');
       ctx.beginPath();ctx.arc(ox2,oy2,8,0,Math.PI*2);ctx.fillStyle=pg;ctx.fill();
-      ctx.beginPath();ctx.arc(ax,ay,1.8+I*2.2,0,Math.PI*2);
-      ctx.fillStyle='rgba(255,255,255,'+(I*.95)+')';ctx.fill();
+      ctx.beginPath();ctx.arc(ax,ay,1.8+I*2.2,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,'+(I*.95)+')';ctx.fill();
     }
 
-    var t0=performance.now();
-    var BUILD_END=11500; // all 3 triangles fully arrived
-
+    var frameCount=0;
     function draw(now){
       ctx.clearRect(0,0,W,H);
       updateFlare(now);
       var elapsed=now-t0;
-      var spinA=getSpinAngle(elapsed);
+      var spinA=0.14*Math.sin(elapsed*0.000052); // ±8° gentle rock
 
-      particles.forEach(function(p){
+      // Rebuild grid every 4 frames for performance
+      if(frameCount%4===0) buildGrid();
+      frameCount++;
+
+      particles.forEach(function(p,pi){
         if(elapsed<p.delay)return;
 
-        // Spin home position
-        var dox=p.ox-CX, doy=p.oy-CY;
+        // Spin home
+        var dox=p.ox-CX,doy=p.oy-CY;
         var hx=CX+dox*Math.cos(spinA)-doy*Math.sin(spinA);
         var hy=CY+dox*Math.sin(spinA)+doy*Math.cos(spinA);
 
-        // Drift offset — gentle movement in a circle, limited radius
-        p.driftAngle+=0.004+Math.random()*0.002;
-        var driftR=(elapsed<BUILD_END)?1.2:2.5;
-        var tx=hx+Math.cos(p.driftAngle)*p.driftAmt*driftR;
-        var ty=hy+Math.sin(p.driftAngle)*p.driftAmt*driftR;
+        // Undulation: perpendicular sine wave travelling along the edge
+        // amplitude increases where adjacent triangles are close (boundary zones)
+        var undulAmp=p.arrived?1.8:0.5;
+        var undulWave=Math.sin(elapsed*0.0012+p.undulateOffset)*undulAmp;
+        // spin the normal too
+        var sn_x=p.edgeN.x*Math.cos(spinA)-p.edgeN.y*Math.sin(spinA);
+        var sn_y=p.edgeN.x*Math.sin(spinA)+p.edgeN.y*Math.cos(spinA);
+        var tx=hx+sn_x*undulWave;
+        var ty=hy+sn_y*undulWave;
 
-        // Boundary softening — particles near adjacent triangle edge
-        // pull slightly toward neighbours but damped
-        if(elapsed>BUILD_END&&p.triIdx<2){
-          var neighbour=byTri[p.triIdx+1];
-          var pullX=0,pullY=0,count=0;
-          for(var ni=0;ni<neighbour.length;ni+=8){
-            var np=neighbour[ni];
+        // Cross-colour interaction — particles near adjacent colour edges
+        if(p.arrived && p.triIdx<2){
+          var idxList=neighbours(p.x,p.y,12);
+          var pullX=0,pullY=0,cnt=0;
+          for(var ni=0;ni<idxList.length;ni++){
+            var np=particles[idxList[ni]];
+            if(!np||np.triIdx!==p.triIdx+1||!np.arrived)continue;
             var ndx=np.x-p.x,ndy=np.y-p.y;
-            var ndist=Math.sqrt(ndx*ndx+ndy*ndy);
-            if(ndist<14&&ndist>2){ // only very close neighbours
-              pullX+=ndx/ndist; pullY+=ndy/ndist; count++;
+            var nd=Math.sqrt(ndx*ndx+ndy*ndy);
+            if(nd<12&&nd>1){
+              // Oscillating attraction/repulsion — creates undulation at boundary
+              var phase=elapsed*0.0009+p.undulateOffset;
+              var force=Math.sin(phase)*0.9; // alternates push/pull
+              pullX+=ndx/nd*force;
+              pullY+=ndy/nd*force;
+              cnt++;
             }
           }
-          if(count>0){
-            tx+=pullX/count*0.8; // subtle pull — won't cross over
-            ty+=pullY/count*0.8;
-          }
+          if(cnt>0){tx+=pullX/cnt;ty+=pullY/cnt;}
         }
 
-        // Ease toward target
-        p.x+=(tx-p.x)*0.025;
-        p.y+=(ty-p.y)*0.025;
+        p.x+=(tx-p.x)*(p.arrived?0.04:0.028);
+        p.y+=(ty-p.y)*(p.arrived?0.04:0.028);
 
-        // Alpha — build in, then breathe slowly
+        // Alpha
         if(!p.arrived){
           var age=elapsed-p.delay;
-          p.alpha=Math.min(p.alpha+0.013,Math.min(1,age/2500)*0.82);
-          if(p.alpha>0.5)p.arrived=true;
-        } else {
-          // Individual breathe: slow sine fade, min 0.25 max 0.82
-          var breathe=0.5+0.5*Math.sin((elapsed/p.breathePeriod)*Math.PI*2+p.breatheOffset);
-          var target=0.25+breathe*0.57;
-          p.alpha+=(target-p.alpha)*0.008;
+          p.alpha=Math.min(p.alpha+0.015,Math.min(1,age/2000)*0.88);
+          if(p.alpha>0.6)p.arrived=true;
+        }else{
+          var breathe=0.5+0.5*Math.sin(elapsed/p.breathePeriod*Math.PI*2+p.breatheOffset);
+          p.alpha+=(0.3+breathe*0.58-p.alpha)*0.006;
         }
 
         if(p.alpha<0.01)return;
 
-        // Flare boost
-        var fap=tris[0].apex;
-        var fdx=p.x-fap.x,fdy=p.y-fap.y;
-        var fb=flare.i*Math.max(0,1-Math.sqrt(fdx*fdx+fdy*fdy)/160)*.5;
+        var fb=flare.i*Math.max(0,1-Math.sqrt((p.x-tris[0].apex.x)**2+(p.y-tris[0].apex.y)**2)/160)*.5;
         var a=Math.min(1,p.alpha+fb);
-
         ctx.beginPath();
-        ctx.arc(p.x,p.y,p.size*(1+fb*.4),0,Math.PI*2);
+        ctx.arc(p.x,p.y,p.size*(1+fb*.3),0,Math.PI*2);
         ctx.fillStyle='rgba('+p.col[0]+','+p.col[1]+','+p.col[2]+','+a+')';
         ctx.fill();
       });
@@ -591,7 +596,6 @@ to{transform:rotate(360deg);}}
       drawFlare(spinA);
       requestAnimationFrame(draw);
     }
-
     requestAnimationFrame(draw);
   })();
   </script>
