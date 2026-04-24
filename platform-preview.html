@@ -306,7 +306,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 }
 @media(max-width:768px){.sidebar{display:none;}.app-body{height:auto;}.kgrid{grid-template-columns:1fr 1fr;}.feat-grid{grid-template-columns:1fr;}.hero{padding:90px 20px 60px;}}
 </style>
-<meta name="pharolon:build" content="1aa064f"/><meta name="pharolon:built-at" content="2026-04-24T11:28:00Z"/></head>
+<meta name="pharolon:build" content="1d2b4da"/><meta name="pharolon:built-at" content="2026-04-24T11:35:11Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -2224,6 +2224,789 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
           </div>
         </div>
 
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══ VIEW 17: eBR BATCH EXECUTION ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Electronic Batch Record</div>
+  <h2 class="section-title">eBR — Live Batch Execution</h2>
+  <p class="section-sub">Step-by-step batch execution with in-process checks, inline deviations, real-time yield calculations, and e-signatures at every critical step. Replaces paper batch records permanently.</p>
+  <div class="app-wrap"><div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div><div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">BATCH-2026-B042 · Granulation Step 3 of 7</div></div>
+    <div style="display:flex;height:480px;">
+      <div class="sidebar">
+        <div class="nav-grp">Batch Steps</div>
+        <div class="nav-item" style="color:#86C140;">✓ 1. Line Clearance</div>
+        <div class="nav-item" style="color:#86C140;">✓ 2. Dispensing</div>
+        <div class="nav-item active">3. Granulation ←</div>
+        <div class="nav-item" style="color:rgba(232,237,242,.3);">4. Drying</div>
+        <div class="nav-item" style="color:rgba(232,237,242,.3);">5. Milling</div>
+        <div class="nav-item" style="color:rgba(232,237,242,.3);">6. Blending</div>
+        <div class="nav-item" style="color:rgba(232,237,242,.3);">7. Compression</div>
+        <div class="nav-grp">Status</div>
+        <div class="nav-item">Batch: <span style="color:#86C140;">Active</span></div>
+        <div class="nav-item">Steps: <span style="color:var(--t400);">2/7</span></div>
+        <div class="nav-item">Open Dev: <span style="color:#F97316;">1</span></div>
+        <div class="nav-item">Yield: <span style="color:var(--t400);">—</span></div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:0;">
+        <div style="padding:10px 14px;border-bottom:1px solid var(--ch3);display:flex;align-items:center;gap:10px;">
+          <span style="font-size:10px;font-weight:600;color:#fff;">Step 3 — High Shear Granulation</span>
+          <div style="flex:1;"></div>
+          <span style="font-size:8px;font-family:'DM Mono',monospace;background:rgba(249,115,22,.1);color:#F97316;padding:3px 8px;border-radius:3px;">1 open deviation</span>
+          <span style="font-size:8px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Operator: M. Okonkwo</span>
+        </div>
+        <div style="padding:14px;">
+          <!-- Steps -->
+          <div style="display:flex;flex-direction:column;gap:8px;">
+
+            <!-- Step done -->
+            <div style="background:rgba(134,193,64,.06);border:1px solid rgba(134,193,64,.2);border-radius:6px;padding:11px 14px;display:flex;align-items:flex-start;gap:10px;">
+              <div style="width:22px;height:22px;background:#86C140;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#000;margin-top:1px;">✓</div>
+              <div style="flex:1;">
+                <div style="font-size:9px;font-weight:600;color:#86C140;margin-bottom:3px;">3.1 — Verify granulator bowl temperature ≥ 18°C and ≤ 25°C</div>
+                <div style="font-size:8px;color:rgba(232,237,242,.55);">Recorded: 21.4°C — within specification</div>
+              </div>
+              <div style="text-align:right;flex-shrink:0;">
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:#86C140;">M. Okonkwo</div>
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">09:14:33</div>
+              </div>
+            </div>
+
+            <!-- Step with deviation -->
+            <div style="background:rgba(249,115,22,.06);border:1px solid rgba(249,115,22,.25);border-radius:6px;padding:11px 14px;">
+              <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;">
+                <div style="width:22px;height:22px;background:#F97316;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#000;margin-top:1px;">!</div>
+                <div style="flex:1;">
+                  <div style="font-size:9px;font-weight:600;color:#F97316;margin-bottom:3px;">3.2 — Add granulation liquid — target 8.2 kg ± 0.2 kg</div>
+                  <div style="font-size:8px;color:rgba(232,237,242,.55);">Recorded: 8.6 kg — EXCEEDS upper limit by 0.2 kg</div>
+                </div>
+              </div>
+              <div style="background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);border-radius:4px;padding:8px 10px;">
+                <div style="font-size:7px;font-family:'DM Mono',monospace;color:#F97316;margin-bottom:4px;">⚠ Inline Deviation — DEV-2026-B042-001</div>
+                <div style="font-size:8px;color:rgba(232,237,242,.65);">Granulation liquid exceeded upper limit. QA notified. Impact assessment required before proceeding to Step 3.3.</div>
+                <div style="display:flex;gap:6px;margin-top:8px;">
+                  <button style="font-size:7px;background:var(--t600);color:#fff;border:none;padding:4px 10px;border-radius:2px;font-family:'DM Mono',monospace;">Assess Impact</button>
+                  <button style="font-size:7px;background:transparent;color:#F97316;border:1px solid rgba(249,115,22,.3);padding:4px 10px;border-radius:2px;font-family:'DM Mono',monospace;">Escalate to QA</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Active step -->
+            <div style="background:var(--ch2);border:2px solid var(--t600);border-radius:6px;padding:11px 14px;">
+              <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+                <div style="width:22px;height:22px;background:var(--t600);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#fff;margin-top:1px;animation:apex-pulse 2s infinite;">→</div>
+                <div style="flex:1;">
+                  <div style="font-size:9px;font-weight:600;color:#fff;margin-bottom:3px;">3.3 — Set impeller speed to 250 ± 10 rpm and granulate for 8 ± 0.5 min</div>
+                  <div style="font-size:8px;color:rgba(232,237,242,.55);">Enter actual impeller speed and observed granulation time:</div>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                <div>
+                  <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);margin-bottom:4px;">Impeller Speed (rpm)</div>
+                  <div style="background:var(--ch3);border:1px solid var(--t600);border-radius:3px;padding:7px 10px;font-size:12px;font-weight:700;color:#fff;">252</div>
+                </div>
+                <div>
+                  <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);margin-bottom:4px;">Time (min)</div>
+                  <div style="background:var(--ch3);border:1px solid var(--ch3);border-radius:3px;padding:7px 10px;font-size:12px;font-weight:700;color:rgba(232,237,242,.3);">—</div>
+                </div>
+                <div>
+                  <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);margin-bottom:4px;">Granule Endpoint</div>
+                  <div style="background:var(--ch3);border:1px solid var(--ch3);border-radius:3px;padding:7px 10px;font-size:9px;color:rgba(232,237,242,.3);">Visual ▾</div>
+                </div>
+              </div>
+              <button style="margin-top:10px;width:100%;font-size:9px;font-weight:600;background:var(--t600);color:#fff;border:none;padding:9px;border-radius:4px;font-family:'DM Mono',monospace;">Record &amp; e-Sign Step 3.3</button>
+            </div>
+
+            <!-- Remaining step (locked) -->
+            <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:11px 14px;opacity:.45;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:22px;height:22px;background:var(--ch3);border-radius:50%;flex-shrink:0;"></div>
+                <div style="font-size:9px;color:rgba(232,237,242,.5);">3.4 — Wet mass endpoint check — complete before drying transfer</div>
+                <div style="margin-left:auto;font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">Locked</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIEW 18: AUDIT TRAIL EXPLORER ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Data Integrity · FDA Inspection Ready</div>
+  <h2 class="section-title">Audit Trail Explorer — FDA Inspection Mode</h2>
+  <p class="section-sub">Full-system audit trail search across every record. One-click FDA Inspection Mode freezes the view, disables edits, and presents records exactly as an inspector would see them. ALCOA+ scored in real time.</p>
+  <div class="app-wrap"><div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div><div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">Audit Trail Explorer · Inspection Mode ACTIVE</div></div>
+    <div style="display:flex;height:470px;">
+      <div class="sidebar">
+        <div class="nav-grp">Search</div>
+        <div class="nav-item active">Full Text Search</div>
+        <div class="nav-item">By User</div>
+        <div class="nav-item">By Record Type</div>
+        <div class="nav-item">By Date Range</div>
+        <div class="nav-item">Deleted Records</div>
+        <div class="nav-grp">ALCOA+</div>
+        <div class="nav-item">Attributable <span style="margin-left:auto;color:#86C140;">100%</span></div>
+        <div class="nav-item">Legible <span style="margin-left:auto;color:#86C140;">100%</span></div>
+        <div class="nav-item">Contemporaneous <span style="margin-left:auto;color:#F97316;">97%</span></div>
+        <div class="nav-item">Original <span style="margin-left:auto;color:#86C140;">100%</span></div>
+        <div class="nav-item">Accurate <span style="margin-left:auto;color:#86C140;">99.8%</span></div>
+        <div class="nav-grp">Mode</div>
+        <div class="nav-item" style="color:var(--fail);font-weight:600;">🔒 Inspection Mode</div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:0;">
+        <!-- Inspection mode banner -->
+        <div style="background:rgba(229,75,46,.1);border-bottom:2px solid var(--fail);padding:8px 14px;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:9px;font-weight:700;color:var(--fail);">🔒 FDA INSPECTION MODE ACTIVE</span>
+          <span style="font-size:8px;color:rgba(232,237,242,.6);">All editing disabled · Records read-only · Session logged · Inspector: FDA ORA Investigator</span>
+          <div style="flex:1;"></div>
+          <button style="font-size:7px;background:var(--fail);color:#fff;border:none;padding:4px 10px;border-radius:2px;font-family:'DM Mono',monospace;">Exit Mode</button>
+        </div>
+        <div style="padding:12px 14px;">
+          <!-- Search bar -->
+          <div style="display:flex;gap:8px;margin-bottom:12px;">
+            <div style="flex:1;background:var(--ch2);border:1px solid var(--ch3);border-radius:4px;padding:8px 12px;font-size:9px;color:#fff;font-family:'DM Mono',monospace;">batch_number = "2026-B042" AND action IN (modify, delete)</div>
+            <button style="font-size:8px;background:var(--t600);color:#fff;border:none;padding:8px 16px;border-radius:4px;font-family:'DM Mono',monospace;">Search</button>
+          </div>
+          <!-- Results info -->
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <span style="font-size:8px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">247 records · showing 1–5 · sorted by timestamp desc</span>
+            <div style="flex:1;"></div>
+            <span style="font-size:7px;background:rgba(139,92,246,.1);color:var(--pur);padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">✦ AI: No anomalies detected</span>
+          </div>
+          <!-- Audit entries -->
+          <div style="display:flex;flex-direction:column;gap:4px;">
+
+            <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:4px;padding:9px 12px;display:grid;grid-template-columns:140px 100px 80px 1fr 80px;gap:8px;align-items:center;">
+              <div><div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">2026-04-24 09:47:22</div><div style="font-size:7px;color:rgba(232,237,242,.4);">UTC+0</div></div>
+              <div style="font-size:8px;color:#fff;">M. Okonkwo</div>
+              <span style="font-size:7px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 5px;border-radius:2px;font-family:'DM Mono',monospace;">MODIFY</span>
+              <div><div style="font-size:8px;color:#fff;">Batch step 3.1 — temperature recorded 21.4°C</div><div style="font-size:7px;color:rgba(232,237,242,.4);">Field: actual_temp_c · Old: null · New: 21.4</div></div>
+              <span style="font-size:7px;color:#86C140;font-family:'DM Mono',monospace;">ALCOA ✓</span>
+            </div>
+
+            <div style="background:rgba(249,115,22,.04);border:1px solid rgba(249,115,22,.2);border-radius:4px;padding:9px 12px;display:grid;grid-template-columns:140px 100px 80px 1fr 80px;gap:8px;align-items:center;">
+              <div><div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">2026-04-24 09:52:08</div></div>
+              <div style="font-size:8px;color:#fff;">M. Okonkwo</div>
+              <span style="font-size:7px;background:rgba(249,115,22,.1);color:#F97316;padding:2px 5px;border-radius:2px;font-family:'DM Mono',monospace;">MODIFY</span>
+              <div><div style="font-size:8px;color:#fff;">Batch step 3.2 — granulation liquid 8.6 kg (OOL)</div><div style="font-size:7px;color:#F97316;">Deviation DEV-2026-B042-001 auto-created</div></div>
+              <span style="font-size:7px;color:#F97316;font-family:'DM Mono',monospace;">DEV linked</span>
+            </div>
+
+            <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:4px;padding:9px 12px;display:grid;grid-template-columns:140px 100px 80px 1fr 80px;gap:8px;align-items:center;">
+              <div><div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">2026-04-24 09:55:01</div></div>
+              <div style="font-size:8px;color:#fff;">P. Sharma (QA)</div>
+              <span style="font-size:7px;background:rgba(139,92,246,.1);color:var(--pur);padding:2px 5px;border-radius:2px;font-family:'DM Mono',monospace;">SIGN</span>
+              <div><div style="font-size:8px;color:#fff;">QA acknowledgement of DEV-2026-B042-001</div><div style="font-size:7px;color:rgba(232,237,242,.4);">Meaning: Reviewed · Hash: a4f2c8d...</div></div>
+              <span style="font-size:7px;color:#86C140;font-family:'DM Mono',monospace;">ALCOA ✓</span>
+            </div>
+
+            <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:4px;padding:9px 12px;display:grid;grid-template-columns:140px 100px 80px 1fr 80px;gap:8px;align-items:center;">
+              <div><div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">2026-04-24 10:02:44</div></div>
+              <div style="font-size:8px;color:#fff;">System</div>
+              <span style="font-size:7px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 5px;border-radius:2px;font-family:'DM Mono',monospace;">AUTO</span>
+              <div><div style="font-size:8px;color:#fff;">Integrity hash checkpoint — batch record snapshot</div><div style="font-size:7px;color:rgba(232,237,242,.4);">SHA-256: 7d3a1f9b2e... · Tamper-evident seal verified</div></div>
+              <span style="font-size:7px;color:#86C140;font-family:'DM Mono',monospace;">HASH ✓</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 19: AI COPILOT ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">AI Intelligence · Enterprise Edition</div>
+  <h2 class="section-title">PHAROLON AI Copilot</h2>
+  <p class="section-sub">Your GxP expert always available. Drafts protocol language, writes acceptance criteria, spots regulatory gaps as you type, and answers validation questions with citations. Trained on FDA guidance, ICH, EU GMP, and 10,000+ validation documents.</p>
+  <div class="app-wrap"><div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div><div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">AI Copilot · Protocol Authoring Mode</div></div>
+    <div style="display:flex;height:480px;">
+      <!-- Protocol editor -->
+      <div style="flex:1;border-right:1px solid var(--ch3);overflow:auto;padding:14px;">
+        <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">OQ-HPLC-003 · Operational Qualification</div>
+        <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:4px;">Section 4.2 — System Suitability Test</div>
+        <div style="font-size:9px;color:rgba(232,237,242,.6);line-height:1.8;margin-bottom:10px;">Inject the system suitability reference standard 6 times. Calculate:</div>
+
+        <!-- AI writing inline -->
+        <div style="background:rgba(139,92,246,.06);border-left:3px solid var(--pur);padding:10px 12px;border-radius:0 6px 6px 0;margin-bottom:10px;">
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--pur);margin-bottom:6px;">✦ AI is drafting acceptance criteria...</div>
+          <div style="font-size:9px;color:#fff;line-height:1.8;">
+            — Tailing factor: NMT 2.0 (USP &lt;621&gt;)<br>
+            — Plate count: NLT 2000 theoretical plates<br>
+            — %RSD of peak area: NMT 1.0% (n=6)<br>
+            — Retention time %RSD: NMT 1.0%<br>
+            <span style="color:var(--pur);font-size:8px;">▌</span>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:6px;margin-bottom:14px;">
+          <button style="font-size:7px;background:var(--pur);color:#fff;border:none;padding:5px 12px;border-radius:2px;font-family:'DM Mono',monospace;">Accept All</button>
+          <button style="font-size:7px;background:transparent;color:var(--pur);border:1px solid rgba(139,92,246,.3);padding:5px 12px;border-radius:2px;font-family:'DM Mono',monospace;">Edit</button>
+          <button style="font-size:7px;background:transparent;color:rgba(232,237,242,.4);border:1px solid var(--ch3);padding:5px 12px;border-radius:2px;font-family:'DM Mono',monospace;">Regenerate</button>
+        </div>
+
+        <!-- Regulatory gap flag -->
+        <div style="background:rgba(229,75,46,.06);border:1px solid rgba(229,75,46,.2);border-radius:4px;padding:8px 10px;">
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--fail);margin-bottom:4px;">⚠ Regulatory Gap Detected</div>
+          <div style="font-size:8px;color:rgba(232,237,242,.65);">EU GMP Annex 11 §7.1 requires a documented check of output vs input data. This section covers output but has no input data verification step. <span style="color:var(--t400);cursor:pointer;text-decoration:underline;">Add suggested step →</span></div>
+        </div>
+      </div>
+
+      <!-- Chat panel -->
+      <div style="width:280px;display:flex;flex-direction:column;background:var(--ch2);">
+        <div style="padding:10px 12px;border-bottom:1px solid var(--ch3);">
+          <div style="font-size:8px;font-weight:600;color:#fff;">Ask Copilot</div>
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Trained on FDA, ICH, EU GMP, USP</div>
+        </div>
+        <div style="flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px;">
+
+          <div style="background:var(--ch3);border-radius:6px 6px 6px 2px;padding:8px 10px;max-width:90%;">
+            <div style="font-size:8px;color:#fff;">What plate count should I specify for a USP assay HPLC method?</div>
+          </div>
+          <div style="background:rgba(139,92,246,.1);border-radius:6px 6px 2px 6px;padding:8px 10px;align-self:flex-end;max-width:90%;">
+            <div style="font-size:8px;color:rgba(232,237,242,.85);line-height:1.6;">USP &lt;621&gt; requires NLT 2000 theoretical plates for assay methods. For impurity methods, NLT 1000 is acceptable. Tailing factor should be NMT 2.0 in both cases. <span style="color:var(--pur);">[USP 43-NF38 &lt;621&gt;]</span></div>
+          </div>
+
+          <div style="background:var(--ch3);border-radius:6px 6px 6px 2px;padding:8px 10px;max-width:90%;">
+            <div style="font-size:8px;color:#fff;">Does this section need a witness signature per GMP?</div>
+          </div>
+          <div style="background:rgba(139,92,246,.1);border-radius:6px 6px 2px 6px;padding:8px 10px;align-self:flex-end;max-width:90%;">
+            <div style="font-size:8px;color:rgba(232,237,242,.85);line-height:1.6;">For OQ system suitability: EU GMP Annex 11 §12 requires a second person review but not concurrent witnessing unless the site SOP specifies it. FDA 21 CFR 211.68 is silent on witnessing for OQ steps specifically. Check your site SOPs. <span style="color:var(--pur);">[Annex 11 §12]</span></div>
+          </div>
+        </div>
+        <div style="padding:10px;border-top:1px solid var(--ch3);display:flex;gap:6px;">
+          <div style="flex:1;background:var(--ch3);border-radius:4px;padding:7px 10px;font-size:8px;color:rgba(232,237,242,.35);font-family:'DM Mono',monospace;">Ask anything...</div>
+          <button style="font-size:11px;background:var(--pur);color:#fff;border:none;padding:6px 10px;border-radius:4px;">↑</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 20: RISK FMEA ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Risk Management · GAMP 5 / ICH Q9</div>
+  <h2 class="section-title">Risk Assessment Builder — FMEA Heat Map</h2>
+  <p class="section-sub">Visual drag-and-drop FMEA. Plot failure modes on a probability vs severity matrix. Auto-links each risk to its test script, control measure, and CAPA. Risk scores drive protocol test depth — no more over or under testing.</p>
+  <div class="app-wrap"><div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div><div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">RA-HPLC-003 · FMEA · Waters Alliance IQ/OQ</div></div>
+    <div style="display:flex;height:460px;">
+      <div class="sidebar">
+        <div class="nav-grp">Assessment</div>
+        <div class="nav-item active">Heat Map</div>
+        <div class="nav-item">Risk Register</div>
+        <div class="nav-item">Controls Matrix</div>
+        <div class="nav-item">Residual Risk</div>
+        <div class="nav-grp">Filter</div>
+        <div class="nav-item">All Risks <span style="margin-left:auto;font-size:7px;color:var(--t400);">24</span></div>
+        <div class="nav-item">Critical <span style="margin-left:auto;background:var(--fail);color:#fff;font-size:7px;padding:1px 5px;border-radius:8px;">2</span></div>
+        <div class="nav-item">High <span style="margin-left:auto;background:#F97316;color:#fff;font-size:7px;padding:1px 5px;border-radius:8px;">5</span></div>
+        <div class="nav-item">Medium <span style="margin-left:auto;font-size:7px;color:#F97316;">11</span></div>
+        <div class="nav-item">Low <span style="margin-left:auto;font-size:7px;color:#86C140;">6</span></div>
+        <div class="nav-grp">Linked</div>
+        <div class="nav-item">Test Scripts</div>
+        <div class="nav-item">Controls</div>
+        <div class="nav-item">Open CAPAs</div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:14px;">
+        <!-- FMEA matrix -->
+        <div style="display:flex;gap:14px;">
+          <!-- Heat map -->
+          <div style="flex:1;">
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);margin-bottom:8px;text-align:center;">PROBABILITY →</div>
+            <div style="display:flex;gap:4px;align-items:flex-end;margin-bottom:4px;">
+              <div style="width:60px;flex-shrink:0;"></div>
+              <div style="flex:1;text-align:center;font-size:6px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">Low</div>
+              <div style="flex:1;text-align:center;font-size:6px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">Med</div>
+              <div style="flex:1;text-align:center;font-size:6px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">High</div>
+              <div style="flex:1;text-align:center;font-size:6px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">Very High</div>
+            </div>
+            <!-- Rows: severity decreasing downward -->
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <!-- Critical severity row -->
+              <div style="display:flex;gap:4px;align-items:center;">
+                <div style="width:60px;font-size:6px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);text-align:right;padding-right:6px;flex-shrink:0;">Critical</div>
+                <div style="flex:1;height:48px;background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.2);border-radius:3px;position:relative;">
+                  <div style="position:absolute;inset:4px;background:rgba(139,92,246,.2);border:1px dashed rgba(139,92,246,.4);border-radius:2px;display:flex;align-items:center;justify-content:center;">
+                    <span style="font-size:7px;font-family:'DM Mono',monospace;color:var(--pur);">R-04</span>
+                  </div>
+                </div>
+                <div style="flex:1;height:48px;background:rgba(229,75,46,.2);border:1px solid rgba(229,75,46,.3);border-radius:3px;position:relative;">
+                  <div style="position:absolute;inset:4px;background:rgba(229,75,46,.25);border:1px solid rgba(229,75,46,.4);border-radius:2px;display:flex;align-items:center;justify-content:center;">
+                    <span style="font-size:7px;font-family:'DM Mono',monospace;color:var(--fail);">R-01</span>
+                  </div>
+                </div>
+                <div style="flex:1;height:48px;background:rgba(229,75,46,.25);border:1px solid rgba(229,75,46,.35);border-radius:3px;position:relative;">
+                  <div style="position:absolute;inset:4px;background:rgba(229,75,46,.3);border:1px solid rgba(229,75,46,.5);border-radius:2px;display:flex;align-items:center;justify-content:center;">
+                    <span style="font-size:7px;font-family:'DM Mono',monospace;color:var(--fail);">R-07</span>
+                  </div>
+                </div>
+                <div style="flex:1;height:48px;background:rgba(229,75,46,.3);border:1px solid rgba(229,75,46,.4);border-radius:3px;"></div>
+              </div>
+              <!-- High severity -->
+              <div style="display:flex;gap:4px;align-items:center;">
+                <div style="width:60px;font-size:6px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);text-align:right;padding-right:6px;flex-shrink:0;">High</div>
+                <div style="flex:1;height:48px;background:rgba(134,193,64,.07);border:1px solid rgba(134,193,64,.15);border-radius:3px;"></div>
+                <div style="flex:1;height:48px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.2);border-radius:3px;position:relative;">
+                  <div style="position:absolute;top:4px;left:4px;right:4px;bottom:4px;display:flex;flex-direction:column;gap:2px;">
+                    <div style="background:rgba(249,115,22,.25);border:1px solid rgba(249,115,22,.4);border-radius:2px;flex:1;display:flex;align-items:center;justify-content:center;font-size:6px;font-family:'DM Mono',monospace;color:#F97316;">R-02</div>
+                    <div style="background:rgba(249,115,22,.25);border:1px solid rgba(249,115,22,.4);border-radius:2px;flex:1;display:flex;align-items:center;justify-content:center;font-size:6px;font-family:'DM Mono',monospace;color:#F97316;">R-09</div>
+                  </div>
+                </div>
+                <div style="flex:1;height:48px;background:rgba(229,75,46,.15);border:1px solid rgba(229,75,46,.25);border-radius:3px;position:relative;">
+                  <div style="position:absolute;inset:4px;background:rgba(229,75,46,.2);border:1px solid rgba(229,75,46,.35);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:7px;font-family:'DM Mono',monospace;color:var(--fail);">R-03</div>
+                </div>
+                <div style="flex:1;height:48px;background:rgba(229,75,46,.2);border:1px solid rgba(229,75,46,.3);border-radius:3px;"></div>
+              </div>
+              <!-- Medium -->
+              <div style="display:flex;gap:4px;align-items:center;">
+                <div style="width:60px;font-size:6px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);text-align:right;padding-right:6px;flex-shrink:0;">Medium</div>
+                <div style="flex:1;height:48px;background:rgba(134,193,64,.07);border:1px solid rgba(134,193,64,.15);border-radius:3px;position:relative;">
+                  <div style="position:absolute;inset:4px;background:rgba(134,193,64,.12);border:1px solid rgba(134,193,64,.25);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:7px;font-family:'DM Mono',monospace;color:#86C140;">R-11</div>
+                </div>
+                <div style="flex:1;height:48px;background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.15);border-radius:3px;"></div>
+                <div style="flex:1;height:48px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.2);border-radius:3px;"></div>
+                <div style="flex:1;height:48px;background:rgba(229,75,46,.15);border:1px solid rgba(229,75,46,.25);border-radius:3px;"></div>
+              </div>
+              <!-- Low -->
+              <div style="display:flex;gap:4px;align-items:center;">
+                <div style="width:60px;font-size:6px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);text-align:right;padding-right:6px;flex-shrink:0;">Low</div>
+                <div style="flex:1;height:36px;background:rgba(134,193,64,.1);border:1px solid rgba(134,193,64,.2);border-radius:3px;"></div>
+                <div style="flex:1;height:36px;background:rgba(134,193,64,.08);border:1px solid rgba(134,193,64,.15);border-radius:3px;"></div>
+                <div style="flex:1;height:36px;background:rgba(249,115,22,.06);border:1px solid rgba(249,115,22,.12);border-radius:3px;"></div>
+                <div style="flex:1;height:36px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.18);border-radius:3px;"></div>
+              </div>
+            </div>
+            <div style="font-size:6px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);margin-top:6px;text-align:center;">← SEVERITY</div>
+          </div>
+
+          <!-- Selected risk detail -->
+          <div style="width:200px;flex-shrink:0;">
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">R-01 · Selected</div>
+            <div style="background:rgba(229,75,46,.08);border:1px solid rgba(229,75,46,.25);border-radius:6px;padding:10px;margin-bottom:8px;">
+              <div style="font-size:8px;font-weight:600;color:var(--fail);margin-bottom:4px;">Pump seal failure — solvent leak</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.6);line-height:1.6;margin-bottom:6px;">Loss of flow accuracy, safety hazard, cross-contamination risk during analysis</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+                <div style="text-align:center;"><div style="font-size:6px;color:rgba(232,237,242,.35);">Severity</div><div style="font-size:10px;font-weight:700;color:var(--fail);">Critical</div></div>
+                <div style="text-align:center;"><div style="font-size:6px;color:rgba(232,237,242,.35);">Probability</div><div style="font-size:10px;font-weight:700;color:#F97316;">High</div></div>
+                <div style="text-align:center;"><div style="font-size:6px;color:rgba(232,237,242,.35);">RPN Score</div><div style="font-size:10px;font-weight:700;color:var(--fail);">18/25</div></div>
+                <div style="text-align:center;"><div style="font-size:6px;color:rgba(232,237,242,.35);">Test Scripts</div><div style="font-size:10px;font-weight:700;color:var(--t400);">OQ-14,15</div></div>
+              </div>
+            </div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--t400);margin-bottom:4px;">Control Measure</div>
+            <div style="font-size:8px;color:rgba(232,237,242,.7);background:var(--ch2);border:1px solid var(--ch3);border-radius:3px;padding:7px 8px;line-height:1.6;">PM schedule every 6 months. Visual inspection at each use. Solvent drain tray installed.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 21: EXECUTIVE DASHBOARD ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Quality Intelligence</div>
+  <h2 class="section-title">Executive Quality Dashboard</h2>
+  <p class="section-sub">Board-level quality posture in one view. Validated system count, open CAPAs by age, training compliance, upcoming inspections, and quality KPIs trending — synthesised from every corner of the platform in real time.</p>
+  <div class="app-wrap"><div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div><div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">Executive Dashboard · Q2 2026</div></div>
+    <div style="padding:16px;overflow:auto;background:var(--ch);height:470px;">
+      <!-- KPI row -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px;">
+        <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:12px;text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:#86C140;">18</div>
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Validated Systems</div>
+          <div style="font-size:7px;color:#86C140;margin-top:2px;">↑ 2 this quarter</div>
+        </div>
+        <div style="background:var(--ch2);border:1px solid rgba(249,115,22,.2);border-radius:6px;padding:12px;text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:#F97316;">7</div>
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Open CAPAs</div>
+          <div style="font-size:7px;color:#F97316;margin-top:2px;">2 overdue</div>
+        </div>
+        <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:12px;text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:var(--t400);">94.2%</div>
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Training Compliance</div>
+          <div style="font-size:7px;color:var(--t400);margin-top:2px;">↑ 1.4% vs Q1</div>
+        </div>
+        <div style="background:var(--ch2);border:1px solid rgba(229,75,46,.15);border-radius:6px;padding:12px;text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:var(--fail);">1</div>
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Inspection Due</div>
+          <div style="font-size:7px;color:var(--fail);margin-top:2px;">FDA · 62 days</div>
+        </div>
+        <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:12px;text-align:center;">
+          <div style="font-size:22px;font-weight:700;color:#86C140;">99.7%</div>
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">System Uptime</div>
+          <div style="font-size:7px;color:#86C140;margin-top:2px;">30-day avg</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+
+        <!-- CAPA age breakdown -->
+        <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:12px;">
+          <div style="font-size:8px;font-weight:600;color:#fff;margin-bottom:10px;">Open CAPAs by Age</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:#86C140;width:50px;flex-shrink:0;">&lt; 30 days</span>
+              <div style="flex:1;background:var(--ch3);border-radius:2px;height:8px;overflow:hidden;"><div style="width:43%;height:100%;background:#86C140;border-radius:2px;"></div></div>
+              <span style="font-size:8px;color:#86C140;width:16px;text-align:right;">3</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:#F97316;width:50px;flex-shrink:0;">30–60d</span>
+              <div style="flex:1;background:var(--ch3);border-radius:2px;height:8px;overflow:hidden;"><div style="width:29%;height:100%;background:#F97316;border-radius:2px;"></div></div>
+              <span style="font-size:8px;color:#F97316;width:16px;text-align:right;">2</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:var(--fail);width:50px;flex-shrink:0;">&gt; 60d ⚠</span>
+              <div style="flex:1;background:var(--ch3);border-radius:2px;height:8px;overflow:hidden;"><div style="width:29%;height:100%;background:var(--fail);border-radius:2px;"></div></div>
+              <span style="font-size:8px;color:var(--fail);width:16px;text-align:right;">2</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Training compliance by dept -->
+        <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:12px;">
+          <div style="font-size:8px;font-weight:600;color:#fff;margin-bottom:10px;">Training Compliance by Dept</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:7px;color:rgba(232,237,242,.5);width:40px;flex-shrink:0;">QA</span>
+              <div style="flex:1;background:var(--ch3);border-radius:2px;height:8px;overflow:hidden;"><div style="width:100%;height:100%;background:#86C140;border-radius:2px;"></div></div>
+              <span style="font-size:8px;color:#86C140;width:32px;text-align:right;">100%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:7px;color:rgba(232,237,242,.5);width:40px;flex-shrink:0;">QC</span>
+              <div style="flex:1;background:var(--ch3);border-radius:2px;height:8px;overflow:hidden;"><div style="width:96%;height:100%;background:#86C140;border-radius:2px;"></div></div>
+              <span style="font-size:8px;color:#86C140;width:32px;text-align:right;">96%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:7px;color:rgba(232,237,242,.5);width:40px;flex-shrink:0;">Mfg</span>
+              <div style="flex:1;background:var(--ch3);border-radius:2px;height:8px;overflow:hidden;"><div style="width:91%;height:100%;background:var(--t400);border-radius:2px;"></div></div>
+              <span style="font-size:8px;color:var(--t400);width:32px;text-align:right;">91%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:7px;color:rgba(232,237,242,.5);width:40px;flex-shrink:0;">IT</span>
+              <div style="flex:1;background:var(--ch3);border-radius:2px;height:8px;overflow:hidden;"><div style="width:83%;height:100%;background:#F97316;border-radius:2px;"></div></div>
+              <span style="font-size:8px;color:#F97316;width:32px;text-align:right;">83%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inspection countdown + regulatory feed -->
+        <div style="background:var(--ch2);border:1px solid rgba(229,75,46,.2);border-radius:6px;padding:12px;">
+          <div style="font-size:8px;font-weight:600;color:#fff;margin-bottom:8px;">FDA Inspection Countdown</div>
+          <div style="text-align:center;margin-bottom:10px;">
+            <div style="font-size:32px;font-weight:700;color:var(--fail);line-height:1;">62</div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">days · FDA ORA NJ District</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="display:flex;align-items:center;gap:6px;font-size:7px;">
+              <span style="color:#86C140;">✓</span><span style="color:rgba(232,237,242,.6);">Mock inspection complete</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:7px;">
+              <span style="color:#86C140;">✓</span><span style="color:rgba(232,237,242,.6);">Document index ready</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:7px;">
+              <span style="color:#F97316;">⚠</span><span style="color:rgba(232,237,242,.6);">2 CAPAs need closure</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:7px;">
+              <span style="color:#F97316;">⚠</span><span style="color:rgba(232,237,242,.6);">MES revalidation pending</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quality trend sparklines -->
+        <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:12px;grid-column:span 3;">
+          <div style="font-size:8px;font-weight:600;color:#fff;margin-bottom:10px;">Quality KPIs — 12 Month Trend</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+            <div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-bottom:4px;">Right First Time %</div>
+              <svg viewBox="0 0 100 30" style="width:100%;height:20px;"><polyline points="0,22 10,20 20,18 30,19 40,15 50,14 60,12 70,13 80,10 90,9 100,8" fill="none" stroke="rgba(134,193,64,.6)" stroke-width="1.5"/><polyline points="0,22 10,20 20,18 30,19 40,15 50,14 60,12 70,13 80,10 90,9 100,8 100,30 0,30" fill="rgba(134,193,64,.06)"/></svg>
+              <div style="font-size:10px;font-weight:700;color:#86C140;">96.4% ↑</div>
+            </div>
+            <div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-bottom:4px;">OOS Rate (QC)</div>
+              <svg viewBox="0 0 100 30" style="width:100%;height:20px;"><polyline points="0,10 10,12 20,15 30,11 40,13 50,9 60,8 70,10 80,7 90,6 100,7" fill="none" stroke="rgba(0,160,144,.6)" stroke-width="1.5"/><polyline points="0,10 10,12 20,15 30,11 40,13 50,9 60,8 70,10 80,7 90,6 100,7 100,30 0,30" fill="rgba(0,160,144,.06)"/></svg>
+              <div style="font-size:10px;font-weight:700;color:var(--t400);">0.42% ↓</div>
+            </div>
+            <div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-bottom:4px;">CAPA Closure Rate</div>
+              <svg viewBox="0 0 100 30" style="width:100%;height:20px;"><polyline points="0,18 10,16 20,20 30,14 40,16 50,12 60,10 70,14 80,8 90,7 100,8" fill="none" stroke="rgba(249,115,22,.6)" stroke-width="1.5"/><polyline points="0,18 10,16 20,20 30,14 40,16 50,12 60,10 70,14 80,8 90,7 100,8 100,30 0,30" fill="rgba(249,115,22,.06)"/></svg>
+              <div style="font-size:10px;font-weight:700;color:#F97316;">88% ↑</div>
+            </div>
+            <div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-bottom:4px;">Deviation Rate / batch</div>
+              <svg viewBox="0 0 100 30" style="width:100%;height:20px;"><polyline points="0,14 10,16 20,12 30,18 40,14 50,10 60,12 70,8 80,10 90,7 100,8" fill="none" stroke="rgba(134,193,64,.6)" stroke-width="1.5"/><polyline points="0,14 10,16 20,12 30,18 40,14 50,10 60,12 70,8 80,10 90,7 100,8 100,30 0,30" fill="rgba(134,193,64,.06)"/></svg>
+              <div style="font-size:10px;font-weight:700;color:#86C140;">1.2 ↓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 22: REGULATORY INTELLIGENCE ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Live Intelligence Feed</div>
+  <h2 class="section-title">Regulatory Intelligence — What Changed &amp; What It Means For You</h2>
+  <p class="section-sub">Live feed of FDA warning letters, EMA CHMP opinions, new ICH guidelines, and inspection observations — automatically filtered to your validation scope. PHAROLON tells you which of your systems are affected and what action to take.</p>
+  <div class="app-wrap"><div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div><div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">Regulatory Intelligence · 3 items need action</div></div>
+    <div style="display:flex;height:430px;">
+      <div class="sidebar">
+        <div class="nav-grp">Sources</div>
+        <div class="nav-item active">All Sources</div>
+        <div class="nav-item">FDA Guidance</div>
+        <div class="nav-item">Warning Letters</div>
+        <div class="nav-item">EMA CHMP</div>
+        <div class="nav-item">ICH Updates</div>
+        <div class="nav-item">PIC/S</div>
+        <div class="nav-grp">Filter</div>
+        <div class="nav-item">Affects My Systems <span style="margin-left:auto;background:var(--fail);color:#fff;font-size:7px;padding:1px 5px;border-radius:8px;">3</span></div>
+        <div class="nav-item">GMP</div>
+        <div class="nav-item">Data Integrity</div>
+        <div class="nav-item">Computerised Systems</div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:14px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+
+          <!-- Critical item -->
+          <div style="background:rgba(229,75,46,.06);border:1px solid rgba(229,75,46,.25);border-left:3px solid var(--fail);border-radius:0 6px 6px 0;padding:12px 14px;">
+            <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;">
+              <div style="flex:1;">
+                <div style="display:flex;gap:6px;align-items:center;margin-bottom:4px;">
+                  <span style="font-size:7px;background:rgba(229,75,46,.15);color:var(--fail);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">ACTION REQUIRED</span>
+                  <span style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">FDA · 2026-04-18</span>
+                </div>
+                <div style="font-size:10px;font-weight:600;color:#fff;margin-bottom:4px;">FDA Warning Letter — Data Integrity in Computerised Systems (483 Observation)</div>
+                <div style="font-size:8px;color:rgba(232,237,242,.65);line-height:1.6;">Firm cited for audit trail not capturing all user actions in their LIMS. Shared login credentials detected. FDA requires CAPA within 30 days.</div>
+              </div>
+            </div>
+            <div style="background:rgba(229,75,46,.08);border-radius:4px;padding:8px 10px;">
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--fail);margin-bottom:4px;">⚠ Affects 3 of your systems</div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;">
+                <span style="font-size:7px;background:var(--ch3);color:rgba(232,237,242,.7);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">LabWare LIMS</span>
+                <span style="font-size:7px;background:var(--ch3);color:rgba(232,237,242,.7);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">Empower 3 CDS</span>
+                <span style="font-size:7px;background:var(--ch3);color:rgba(232,237,242,.7);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">MES PAS-X</span>
+              </div>
+              <div style="font-size:8px;color:rgba(232,237,242,.65);margin-bottom:6px;">PHAROLON audit trail coverage: 100% ✓ — shared login check: verify your user policy is enforced</div>
+              <button style="font-size:7px;background:var(--t600);color:#fff;border:none;padding:4px 12px;border-radius:2px;font-family:'DM Mono',monospace;">Run Compliance Check →</button>
+            </div>
+          </div>
+
+          <!-- Medium item -->
+          <div style="background:var(--ch2);border:1px solid rgba(249,115,22,.2);border-left:3px solid #F97316;border-radius:0 6px 6px 0;padding:12px 14px;">
+            <div style="display:flex;gap:6px;align-items:center;margin-bottom:4px;">
+              <span style="font-size:7px;background:rgba(249,115,22,.12);color:#F97316;padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">REVIEW RECOMMENDED</span>
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">ICH · 2026-03-15</span>
+            </div>
+            <div style="font-size:10px;font-weight:600;color:#fff;margin-bottom:4px;">ICH Q12 Q&amp;A Revision 1 — PACMP Scope Clarification (Dec 2025)</div>
+            <div style="font-size:8px;color:rgba(232,237,242,.65);line-height:1.6;margin-bottom:8px;">Updated guidance expands PACMP eligibility to manufacturing site transfers without non-clinical data requirements. Simplifies regulatory burden for post-approval changes.</div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:#F97316;margin-bottom:4px;">Affects: your PACMP workflows in MES and change control</div>
+            <button style="font-size:7px;background:transparent;color:var(--t400);border:1px solid rgba(0,160,144,.3);padding:4px 12px;border-radius:2px;font-family:'DM Mono',monospace;">View Impact Analysis →</button>
+          </div>
+
+          <!-- Info item -->
+          <div style="background:var(--ch2);border:1px solid var(--ch3);border-left:3px solid var(--t600);border-radius:0 6px 6px 0;padding:12px 14px;">
+            <div style="display:flex;gap:6px;align-items:center;margin-bottom:4px;">
+              <span style="font-size:7px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 7px;border-radius:2px;font-family:'DM Mono',monospace;">FOR AWARENESS</span>
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.35);">EMA · 2026-04-10</span>
+            </div>
+            <div style="font-size:10px;font-weight:600;color:#fff;margin-bottom:4px;">EMA GMP/GDP Inspectors Working Group — AI in GxP Systems Reflection Paper</div>
+            <div style="font-size:8px;color:rgba(232,237,242,.65);line-height:1.6;">EMA published reflection paper on use of AI/ML in GxP-regulated activities. Covers validation approach for AI-assisted decision making. No immediate action required — monitor for final guideline Q4 2026.</div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--pur);margin-top:4px;">✦ PHAROLON AI Copilot already designed to this standard</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 23: CHANGE IMPACT ANALYSER ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Change Management · AI-Powered</div>
+  <h2 class="section-title">Change Impact Analyser</h2>
+  <p class="section-sub">Describe any proposed system change and PHAROLON automatically traces every affected URS, FRS, test script, trained user, validated state, and regulatory commitment. Eliminates missed impacts before they become inspection findings.</p>
+  <div class="app-wrap"><div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div><div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">Change Impact · CR-2026-0142 · OS Upgrade</div></div>
+    <div style="display:flex;height:440px;">
+      <div class="sidebar">
+        <div class="nav-grp">Analysis</div>
+        <div class="nav-item active">Impact Map</div>
+        <div class="nav-item">Affected URS/FRS</div>
+        <div class="nav-item">Retest Scope</div>
+        <div class="nav-item">Affected Users</div>
+        <div class="nav-item">Reg Commitments</div>
+        <div class="nav-grp">Decision</div>
+        <div class="nav-item" style="color:#86C140;">Approve Change</div>
+        <div class="nav-item" style="color:var(--fail);">Reject</div>
+        <div class="nav-item">Defer</div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:14px;">
+
+        <!-- Change description -->
+        <div style="background:var(--ch2);border:1px solid var(--ch3);border-radius:6px;padding:11px 14px;margin-bottom:12px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;">
+            <div style="flex:1;">
+              <div style="font-size:8px;font-family:'DM Mono',monospace;color:var(--t400);margin-bottom:3px;">Proposed Change</div>
+              <div style="font-size:10px;font-weight:600;color:#fff;margin-bottom:4px;">Windows Server 2019 → 2025 upgrade on LIMS application server</div>
+              <div style="font-size:8px;color:rgba(232,237,242,.6);">Infrastructure OS upgrade. LabWare v8.3.2 on WINSVR-QC-01. Requires reboot and service restart.</div>
+            </div>
+            <div style="text-align:center;flex-shrink:0;">
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Risk Score</div>
+              <div style="font-size:22px;font-weight:700;color:#F97316;">Medium</div>
+              <div style="font-size:7px;color:#F97316;">14/25</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI impact analysis results -->
+        <div style="background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);border-radius:6px;padding:10px 12px;margin-bottom:12px;">
+          <div style="font-size:7px;font-family:'DM Mono',monospace;color:var(--pur);margin-bottom:6px;">✦ AI Impact Analysis Complete — 47 items traced</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+            <div style="background:var(--ch2);border-radius:4px;padding:8px;text-align:center;">
+              <div style="font-size:16px;font-weight:700;color:#F97316;">8</div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">URS affected</div>
+            </div>
+            <div style="background:var(--ch2);border-radius:4px;padding:8px;text-align:center;">
+              <div style="font-size:16px;font-weight:700;color:#F97316;">14</div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Tests to rerun</div>
+            </div>
+            <div style="background:var(--ch2);border-radius:4px;padding:8px;text-align:center;">
+              <div style="font-size:16px;font-weight:700;color:var(--t400);">23</div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Users to re-notify</div>
+            </div>
+            <div style="background:var(--ch2);border-radius:4px;padding:8px;text-align:center;">
+              <div style="font-size:16px;font-weight:700;color:#86C140;">0</div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Reg commitments</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Impact items -->
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border:1px solid rgba(249,115,22,.2);border-radius:4px;padding:9px 12px;">
+            <span style="font-size:9px;color:#F97316;flex-shrink:0;">⚠</span>
+            <div style="flex:1;">
+              <div style="font-size:8px;font-weight:600;color:#fff;">OQ-LIMS-004 to OQ-LIMS-011 — Infrastructure tests require rerun</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.5);">Server OS change is a Category 1 infrastructure change per GAMP 5. IQ/OQ tests covering OS compatibility, performance, and audit trail must be re-executed.</div>
+            </div>
+            <button style="font-size:7px;background:var(--t600);color:#fff;border:none;padding:4px 8px;border-radius:2px;font-family:'DM Mono',monospace;flex-shrink:0;">View Scripts</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border:1px solid var(--ch3);border-radius:4px;padding:9px 12px;">
+            <span style="font-size:9px;color:var(--t400);flex-shrink:0;">ℹ</span>
+            <div style="flex:1;">
+              <div style="font-size:8px;font-weight:600;color:#fff;">URS-LIMS-018, 019, 024 — Infrastructure availability requirements</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.5);">Affected URS items specify server uptime and recovery time objectives. Change should be verified against these after upgrade.</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border:1px solid var(--ch3);border-radius:4px;padding:9px 12px;">
+            <span style="font-size:9px;color:#86C140;flex-shrink:0;">✓</span>
+            <div style="flex:1;">
+              <div style="font-size:8px;font-weight:600;color:#fff;">LabWare v8.3.2 is certified for Windows Server 2025 — vendor confirmed</div>
+              <div style="font-size:7px;color:rgba(232,237,242,.5);">Vendor certification retrieved automatically. No application revalidation required — infrastructure qualification only.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ VIEW 24: MULTI-SITE / SUPPLIER PORTAL ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Global Operations</div>
+  <h2 class="section-title">Multi-Site Rollout &amp; Supplier Portal</h2>
+  <p class="section-sub">Manage validation programmes across every global site from one view. External suppliers, CMOs, and CROs get a controlled portal login to submit qualification documents directly into your workflows — no email, no manual intake, full audit trail.</p>
+  <div class="app-wrap"><div class="app-bar"><div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div></div><div class="app-hdr"><svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.28)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6" stroke-linejoin="miter" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.5" stroke-linejoin="miter" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.2" stroke-linejoin="miter" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/></svg><div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div><div style="flex:1;"></div><div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--t400);border:1px solid rgba(0,160,144,.25);padding:3px 10px;border-radius:3px;">Global Validation Programme · 6 Sites</div></div>
+    <div style="display:flex;height:430px;">
+      <div class="sidebar">
+        <div class="nav-grp">Sites</div>
+        <div class="nav-item active">All Sites</div>
+        <div class="nav-item">NJ — HQ <span style="margin-left:auto;font-size:7px;color:#86C140;">●</span></div>
+        <div class="nav-item">Basel — EU <span style="margin-left:auto;font-size:7px;color:#86C140;">●</span></div>
+        <div class="nav-item">Singapore <span style="margin-left:auto;font-size:7px;color:#F97316;">●</span></div>
+        <div class="nav-item">Dublin <span style="margin-left:auto;font-size:7px;color:#86C140;">●</span></div>
+        <div class="nav-item">Mumbai <span style="margin-left:auto;font-size:7px;color:var(--fail);">●</span></div>
+        <div class="nav-item">Osaka <span style="margin-left:auto;font-size:7px;color:#86C140;">●</span></div>
+        <div class="nav-grp">External</div>
+        <div class="nav-item">Supplier Portal</div>
+        <div class="nav-item">CMO Submissions <span style="margin-left:auto;background:#F97316;color:#fff;font-size:7px;padding:1px 5px;border-radius:8px;">4</span></div>
+        <div class="nav-item">CRO Reports</div>
+      </div>
+      <div class="content" style="flex:1;overflow:auto;padding:14px;">
+        <!-- Site progress grid -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">
+          <div style="background:var(--ch2);border:1px solid rgba(134,193,64,.2);border-radius:6px;padding:11px;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+              <span style="width:8px;height:8px;background:#86C140;border-radius:50%;box-shadow:0 0 5px #86C140;flex-shrink:0;"></span>
+              <span style="font-size:9px;font-weight:600;color:#fff;">New Jersey — HQ</span>
+            </div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-bottom:4px;">Validation Progress</div>
+            <div style="background:var(--ch3);border-radius:2px;height:6px;margin-bottom:4px;overflow:hidden;"><div style="width:94%;height:100%;background:#86C140;border-radius:2px;"></div></div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="font-size:7px;color:#86C140;">94% complete</span>
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">48/51 systems</span>
+            </div>
+          </div>
+          <div style="background:var(--ch2);border:1px solid rgba(134,193,64,.2);border-radius:6px;padding:11px;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+              <span style="width:8px;height:8px;background:#86C140;border-radius:50%;box-shadow:0 0 5px #86C140;flex-shrink:0;"></span>
+              <span style="font-size:9px;font-weight:600;color:#fff;">Basel — EU Operations</span>
+            </div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-bottom:4px;">Validation Progress</div>
+            <div style="background:var(--ch3);border-radius:2px;height:6px;margin-bottom:4px;overflow:hidden;"><div style="width:88%;height:100%;background:#86C140;border-radius:2px;"></div></div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="font-size:7px;color:#86C140;">88% complete</span>
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">EMA GDP compliant</span>
+            </div>
+          </div>
+          <div style="background:var(--ch2);border:1px solid rgba(249,115,22,.2);border-radius:6px;padding:11px;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+              <span style="width:8px;height:8px;background:#F97316;border-radius:50%;box-shadow:0 0 5px #F97316;flex-shrink:0;"></span>
+              <span style="font-size:9px;font-weight:600;color:#fff;">Singapore — APAC</span>
+            </div>
+            <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);margin-bottom:4px;">Validation Progress</div>
+            <div style="background:var(--ch3);border-radius:2px;height:6px;margin-bottom:4px;overflow:hidden;"><div style="width:62%;height:100%;background:#F97316;border-radius:2px;"></div></div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="font-size:7px;color:#F97316;">62% · HSA inspection Q3</span>
+              <span style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.3);">On track</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Supplier portal -->
+        <div style="font-size:8px;font-weight:600;color:#fff;margin-bottom:8px;">External Supplier Submissions — Pending Review</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border:1px solid var(--ch3);border-radius:4px;padding:9px 12px;">
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:600;color:#fff;">Covance CRO — Method Validation Report</div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Submitted via portal · 2026-04-22 · MVR-STAB-004</div>
+            </div>
+            <span style="font-size:7px;background:rgba(249,115,22,.1);color:#F97316;padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">Pending QA Review</span>
+            <button style="font-size:7px;background:var(--t600);color:#fff;border:none;padding:4px 10px;border-radius:2px;font-family:'DM Mono',monospace;">Review</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--ch2);border:1px solid var(--ch3);border-radius:4px;padding:9px 12px;">
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:600;color:#fff;">Samsung Biologics CMO — Batch Record Package</div>
+              <div style="font-size:7px;font-family:'DM Mono',monospace;color:rgba(232,237,242,.4);">Submitted via portal · 2026-04-23 · 3 documents</div>
+            </div>
+            <span style="font-size:7px;background:rgba(0,160,144,.1);color:var(--t400);padding:2px 8px;border-radius:2px;font-family:'DM Mono',monospace;">In Review</span>
+            <button style="font-size:7px;background:transparent;color:var(--t400);border:1px solid rgba(0,160,144,.3);padding:4px 10px;border-radius:2px;font-family:'DM Mono',monospace;">Open</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
