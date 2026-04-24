@@ -238,7 +238,8 @@ footer{padding:40px 24px;text-align:center;border-top:1px solid var(--ch3);}
 footer p{font-size:12px;color:var(--text3);}
 footer a{color:var(--g600);text-decoration:none;}
 
-
+@media(max-width:640px){
+  .app-body{height:auto;}
   .sidebar{display:none;}
   .kgrid{grid-template-columns:1fr 1fr;}
   .hero-stats{gap:24px;}
@@ -266,7 +267,69 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 .nav-gh:hover{background:rgba(0,160,144,.08);}
 .wm-shadow{filter:drop-shadow(0 1px 4px rgba(0,0,0,.3));}
 
-/* ── MOBILE NAV (≤768px) ── */
+/* ── MOBILE NAV ── */
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;z-index:110;}
+.nav-burger span{display:block;width:22px;height:2px;background:rgba(0,212,196,.7);border-radius:2px;transition:all .25s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.nav-drawer{display:none;}
+
+@media(max-width:680px){
+  .nav-links{display:none;}
+  .nav-gh{display:none;}
+  .nav-burger{display:flex;}
+
+  .nav-drawer{
+    display:block;
+    position:fixed;top:50px;left:0;right:0;
+    background:rgba(8,8,14,.97);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(0,160,144,.2);
+    padding:0;
+    max-height:0;overflow:hidden;
+    transition:max-height .3s ease, padding .3s ease;
+    z-index:99;
+  }
+  .nav-drawer.open{
+    max-height:320px;
+    padding:16px 0 20px;
+  }
+  .nav-drawer a{
+    display:block;
+    padding:13px 28px;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:rgba(0,212,196,.6);
+    text-decoration:none;
+    border-left:2px solid transparent;
+    transition:all .15s;
+  }
+  .nav-drawer a:hover,
+  .nav-drawer a.active{
+    color:#00D4C4;
+    border-left-color:var(--t400,#00D4C4);
+    background:rgba(0,160,144,.06);
+  }
+  .nav-drawer .drawer-gh{
+    margin:12px 24px 0;
+    display:block;
+    text-align:center;
+    padding:10px;
+    border:1px solid rgba(0,160,144,.3);
+    border-radius:4px;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:1px;
+    color:#00D4C4;
+    text-decoration:none;
+  }
+}
+
+/* ── MOBILE NAV ── */
 .nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;margin-right:-4px;background:none;border:none;z-index:110;min-width:44px;min-height:44px;align-items:center;}
 .nav-burger span{display:block;width:22px;height:2px;background:rgba(0,212,196,.7);border-radius:2px;transition:transform .25s,opacity .25s;transform-origin:center;}
 .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -274,12 +337,705 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 .nav-drawer{position:fixed;top:50px;left:0;right:0;background:rgba(8,8,14,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,160,144,.2);max-height:0;overflow:hidden;transition:max-height .32s cubic-bezier(.4,0,.2,1);z-index:99;}
 .nav-drawer.open{max-height:340px;}
-.nav-drawer-inner{padding:8px 0 20px;}
 .nav-drawer a{display:flex;align-items:center;padding:14px 28px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(0,212,196,.55);text-decoration:none;border-left:2px solid transparent;transition:all .15s;min-height:44px;}
 .nav-drawer a:hover,.nav-drawer a.active{color:#00D4C4;border-left-color:#00D4C4;background:rgba(0,160,144,.06);}
 .nav-drawer .drawer-gh{margin:8px 24px 0;display:flex;align-items:center;justify-content:center;padding:12px;border:1px solid rgba(0,160,144,.3);border-radius:4px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:#00D4C4;text-decoration:none;min-height:44px;}
-@media(max-width:768px){.nav-links{display:none!important;}.nav-gh{display:none!important;}.nav-burger{display:flex!important;}}
-@media(max-width:768px){.sidebar{display:none;}.app-body{height:auto;}.kgrid{grid-template-columns:1fr 1fr;}.feat-grid{grid-template-columns:1fr;}.schema-grid{grid-template-columns:1fr 1fr;}.hero{padding:90px 20px 60px;}.hero-stats{gap:20px;}}
+@media(max-width:768px){
+  .nav-links{display:none!important;}
+  .nav-gh{display:none!important;}
+  .nav-burger{display:flex!important;}
+}
+@media(max-width:768px){.sidebar{display:none;}.app-body{height:auto;}.kgrid{grid-template-columns:1fr 1fr;}.feat-grid{grid-template-columns:1fr;}.hero{padding:90px 20px 60px;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 50%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">P</span>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;background:linear-gradient(180deg,#F5D060,#E2A837 50%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">H</span>
+    <span style="display:inline-flex;align-items:center;width:32px;height:32px;margin:0 -2px;flex-shrink:0;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.6)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass-rot 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.6)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.6)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.6)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.6)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+        </g>
+        <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.18)" stroke-width=".9" stroke-dasharray="3 4"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.16)" stroke-width="1.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:ghost-draw 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="7" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.6" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <circle cx="55" cy="14" r="7" fill="rgba(245,208,96,.1)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;background:linear-gradient(180deg,#F5D060,#E2A837 50%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ROLON</span>
+  </div>
+  <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-sp"></div>
+  <div class="nav-links">
+    <a class="nav-a" href="index.html">Home</a>
+    <a class="nav-a" href="index.html#story">Story</a>
+    <a class="nav-a" href="brand.html">Brand</a>
+    <a class="nav-a active" href="platform-preview.html">Preview</a>
+  </div>
+  <a class="nav-gh" href="https://github.com/tigger2000ttfn/OpenVAL">GitHub →</a>
+</nav>
+<div class="nav-drawer">
+  <a href="index.html">Home</a>
+  <a href="index.html#story">Story</a>
+  <a href="brand.html">Brand</a>
+  <a href="platform-preview.html" class="active">Preview</a>
+  <a class="drawer-gh" href="https://github.com/tigger2000ttfn/OpenVAL">★ GitHub →</a>
+</div>
+
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-badge">Platform Design Preview · 2026</div>
+    <div style="display:flex;align-items:center;justify-content:center;overflow:visible;padding:0 16px 0.14em;flex-wrap:nowrap;">
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,9vw,96px);letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,9vw,96px);letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span>
+    <span style="display:inline-flex;align-items:center;flex-shrink:0;width:clamp(80px,14vw,160px);height:clamp(80px,14vw,160px);margin:0 clamp(-6px,-1vw,-12px);">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <circle cx="55" cy="55" r="43" stroke="rgba(226,168,55,.08)" stroke-width=".6" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass-rot 100s linear infinite;">
+          <line x1="55" y1="5"   x2="55" y2="20"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90"  x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5"  y1="55"  x2="20" y2="55"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55"  x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.22)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.18)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:ghost-draw 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.05)"/>
+        <circle cx="55" cy="14" r="12" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="6.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="3.2" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.4" fill="#fff" opacity=".9"/>
+      </svg>
+    </span>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,9vw,96px);letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+  </div>
+  <p class="hero-sub">Quality intelligence for every regulated industry. One platform. Any validation process.</p>
+  <p class="hero-tagline">pH · The open-source alternative to Kneat, ValGenesis, and SWARE · Free self-hosted CE</p>
+  <div class="hero-btns">
+    <a class="btn-hero btn-primary" href="https://github.com/tigger2000ttfn/OpenVAL">★ GitHub →</a>
+    <a class="btn-hero btn-ghost" href="brand.html">Brand Identity</a>
+    <a class="btn-hero btn-ghost" href="index.html">Platform Story</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">6<span>73</span></div><div class="stat-lbl">Database Tables</div></div>
+    <div class="stat"><div class="stat-num"><span>30</span>+</div><div class="stat-lbl">Disciplines</div></div>
+    <div class="stat"><div class="stat-num"><span>15</span></div><div class="stat-lbl">Schema Parts</div></div>
+    <div class="stat"><div class="stat-num"><span>67</span></div><div class="stat-lbl">Templates</div></div>
+  </div>
+</section>
+
+<!-- ══ VIEW 1: PROTOCOL EXECUTION ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Interface Preview</div>
+  <h2 class="section-title">Protocol Execution</h2>
+  <p class="section-sub">Electronic batch execution with live status, step sign-off, and immutable audit trail.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div>
+      <div class="dot" style="background:#FEBC2E;"></div>
+      <div class="dot" style="background:#28C840;"></div>
+    </div>
+    <div class="app-hdr">
+      <svg class="ph-logo" viewBox="0 0 110 110" fill="none" overflow="visible" style="overflow:visible;">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.45)" stroke-width="1" fill="none"/>
+        <circle cx="55" cy="55" r="43" stroke="rgba(226,168,55,.07)" stroke-width=".6" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass-rot 100s linear infinite;">
+          <line x1="55" y1="5"   x2="55" y2="20"  stroke="rgba(226,168,55,.55)" stroke-width="2"/>
+          <line x1="55" y1="90"  x2="55" y2="105" stroke="rgba(226,168,55,.55)" stroke-width="2"/>
+          <line x1="5"  y1="55"  x2="20" y2="55"  stroke="rgba(226,168,55,.55)" stroke-width="2"/>
+          <line x1="90" y1="55"  x2="105" y2="55" stroke="rgba(226,168,55,.55)" stroke-width="2"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+        </g>
+        <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3 5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.2)" stroke-width="1.8"
+          stroke-linejoin="miter" stroke-miterlimit="30" fill="none"
+          style="stroke-dasharray:268;stroke-dashoffset:268;animation:ghost-draw 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="6.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.4" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.05)"/>
+        <circle cx="55" cy="14" r="11" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="6"  fill="rgba(245,208,96,.17)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="3" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.3" fill="#fff" opacity=".9"/>
+      </svg>
+      <div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div>
+      <div class="site-chip">◈ MATC · Madison</div>
+      <div class="hdr-sp"></div>
+      <div class="notif-btn">🔔<div class="notif-b">3</div></div>
+      <div class="frame-av">ME</div>
+    </div>
+    <div class="app-body">
+      <div class="sidebar">
+        <div class="nav-grp">Validation</div>
+        <div class="nav-item"><span class="nav-ic">⊞</span>Dashboard</div>
+        <div class="nav-item active"><span class="nav-ic">◈</span>Protocols</div>
+        <div class="nav-item"><span class="nav-ic">▶</span>Executions</div>
+        <div class="nav-grp">Quality</div>
+        <div class="nav-item"><span class="nav-ic">✓</span>CAPA<span class="nav-badge">7</span></div>
+        <div class="nav-item"><span class="nav-ic">⚠</span>Deviations</div>
+        <div class="nav-item"><span class="nav-ic">↻</span>Change Control</div>
+        <div class="nav-grp">Documents</div>
+        <div class="nav-item"><span class="nav-ic">⊟</span>Library</div>
+        <div class="nav-item"><span class="nav-ic">◎</span>Pending<span class="nav-badge">4</span></div>
+      </div>
+      <div class="content">
+        <div class="view-title">Protocols</div>
+        <div class="view-sub">LabWare LIMS 8.0 · SAP ERP 2026 · IQ / OQ / PQ validation suite</div>
+        <div class="kgrid">
+          <div class="kc"><div class="kl">Total</div><div class="kv">12</div></div>
+          <div class="kc"><div class="kl">Passed</div><div class="kv" style="color:var(--pass)">7</div></div>
+          <div class="kc"><div class="kl">In Review</div><div class="kv" style="color:var(--t400)">3</div></div>
+          <div class="kc kc-gold"><div class="kl kl-gold">⚠ Action</div><div class="kv" style="color:var(--g400)">2</div></div>
+        </div>
+        <div class="tbl">
+          <div class="tbl-hdr"><span>Ref</span><span>Protocol</span><span>Status</span><span>Due</span></div>
+          <div class="tbl-row"><span class="tbl-ref">IQ-0042</span><span>LabWare LIMS Installation</span><span><span class="sp sp-pass">● PASSED</span></span><span style="font-size:8px;color:var(--text3)">Apr 01</span></div>
+          <div class="tbl-row"><span class="tbl-ref">OQ-0043</span><span>LabWare LIMS Operation</span><span><span class="sp sp-rev">◉ REVIEW</span></span><span style="font-size:8px;color:var(--text3)">Apr 15</span></div>
+          <div class="tbl-row"><span class="tbl-ref">PQ-0044</span><span>LabWare LIMS Performance</span><span><span class="sp sp-gold">⚠ OVERDUE</span></span><span style="font-size:8px;color:var(--g600)">Mar 30</span></div>
+          <div class="tbl-row"><span class="tbl-ref">IQ-0045</span><span>SAP ERP Installation</span><span><span class="sp sp-pass">● PASSED</span></span><span style="font-size:8px;color:var(--text3)">Apr 08</span></div>
+          <div class="tbl-row"><span class="tbl-ref">OQ-0046</span><span>SAP ERP Operation</span><span><span class="sp sp-grey">○ PENDING</span></span><span style="font-size:8px;color:var(--text3)">May 01</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIEW 2: RTM HEAT MAP ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Interface Preview</div>
+  <h2 class="section-title">Requirements Traceability Matrix</h2>
+  <p class="section-sub">Auto-generated RTM maps every requirement to every test case. Live coverage at a glance.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div>
+    </div>
+    <div class="app-hdr">
+      <svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060"/></svg>
+      <div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div>
+      <div class="site-chip">◈ SAP ERP 2026 · RTM</div>
+      <div class="hdr-sp"></div>
+      <div class="notif-btn">🔔<div class="notif-b">3</div></div>
+      <div class="frame-av">ME</div>
+    </div>
+    <div class="app-body">
+      <div class="sidebar">
+        <div class="nav-grp">Validation</div>
+        <div class="nav-item"><span class="nav-ic">⊞</span>Dashboard</div>
+        <div class="nav-item"><span class="nav-ic">◈</span>Protocols</div>
+        <div class="nav-item"><span class="nav-ic">▶</span>Executions</div>
+        <div class="nav-item active"><span class="nav-ic">⊠</span>RTM</div>
+        <div class="nav-grp">Quality</div>
+        <div class="nav-item"><span class="nav-ic">✓</span>CAPA<span class="nav-badge">7</span></div>
+        <div class="nav-item"><span class="nav-ic">⚠</span>Deviations</div>
+        <div class="nav-grp">Reports</div>
+        <div class="nav-item"><span class="nav-ic">⊟</span>Val Package</div>
+      </div>
+      <div class="content">
+        <div class="view-title">Requirements Traceability Matrix</div>
+        <div class="view-sub">SAP ERP 2026 · 24 requirements · 48 test cases · Auto-generated</div>
+
+        <!-- RTM heat map grid -->
+        <div style="display:flex;gap:8px;height:235px;">
+          <!-- Row labels -->
+          <div style="display:flex;flex-direction:column;gap:2px;justify-content:flex-start;padding-top:32px;">
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-001 User auth</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-002 Audit trail</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-003 E-signature</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-004 Role access</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-005 Data export</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-006 Batch records</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-007 Reporting</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-008 Integration</div>
+            <div class="rtm-label" style="height:18px;line-height:18px;">URS-009 Backup/DR</div>
+          </div>
+          <!-- Heat map -->
+          <div style="flex:1;overflow:hidden;">
+            <!-- Column headers -->
+            <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;margin-bottom:2px;height:30px;">
+              <div class="rtm-col-hdr">IQ-TC-001</div><div class="rtm-col-hdr">IQ-TC-002</div><div class="rtm-col-hdr">IQ-TC-003</div><div class="rtm-col-hdr">OQ-TC-001</div><div class="rtm-col-hdr">OQ-TC-002</div><div class="rtm-col-hdr">OQ-TC-003</div><div class="rtm-col-hdr">OQ-TC-004</div><div class="rtm-col-hdr">PQ-TC-001</div><div class="rtm-col-hdr">PQ-TC-002</div><div class="rtm-col-hdr">PQ-TC-003</div><div class="rtm-col-hdr">PQ-TC-004</div><div class="rtm-col-hdr">PQ-TC-005</div>
+            </div>
+            <!-- Rows -->
+            <div style="display:flex;flex-direction:column;gap:2px;">
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-fail">✗</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-na"></div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-pend"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div></div>
+              <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:2px;"><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-na"></div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-pass">✓</div><div class="rtm-cell rtm-na"></div></div>
+            </div>
+            <!-- Coverage bar -->
+            <div style="margin-top:8px;display:flex;align-items:center;gap:8px;">
+              <div style="font-size:8px;color:var(--text3);font-family:'JetBrains Mono',monospace;">Coverage</div>
+              <div class="rtm-coverage-bar" style="flex:1;"><div class="rtm-coverage-fill" style="width:78%;"></div></div>
+              <div style="font-size:8px;color:var(--pass);font-family:'JetBrains Mono',monospace;font-weight:700;">78%</div>
+              <div style="display:flex;gap:6px;font-size:7px;">
+                <span style="color:var(--pass)">■ Pass</span>
+                <span style="color:var(--g400)">■ Pending</span>
+                <span style="color:var(--fail)">■ Fail</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIEW 3: CAPA ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Interface Preview</div>
+  <h2 class="section-title">CAPA Management</h2>
+  <p class="section-sub">Full 21 CFR 211.192 corrective and preventive action lifecycle with effectiveness checks.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div>
+    </div>
+    <div class="app-hdr">
+      <svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060"/></svg>
+      <div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div>
+      <div class="site-chip">◈ Quality · CAPA</div>
+      <div class="hdr-sp"></div>
+      <div class="notif-btn">🔔<div class="notif-b">3</div></div>
+      <div class="frame-av">ME</div>
+    </div>
+    <div class="app-body">
+      <div class="sidebar">
+        <div class="nav-grp">Validation</div>
+        <div class="nav-item"><span class="nav-ic">⊞</span>Dashboard</div>
+        <div class="nav-item"><span class="nav-ic">◈</span>Protocols</div>
+        <div class="nav-grp">Quality</div>
+        <div class="nav-item active"><span class="nav-ic">✓</span>CAPA<span class="nav-badge">7</span></div>
+        <div class="nav-item"><span class="nav-ic">⚠</span>Deviations</div>
+        <div class="nav-item"><span class="nav-ic">↻</span>Change Control</div>
+        <div class="nav-item"><span class="nav-ic">◉</span>NCE</div>
+        <div class="nav-grp">Reports</div>
+        <div class="nav-item"><span class="nav-ic">⊟</span>Inspection Ready</div>
+      </div>
+      <div class="content">
+        <div class="view-title">CAPA Register</div>
+        <div class="view-sub">7 open · 2 overdue · 1 effectiveness check due</div>
+        <div class="kgrid" style="grid-template-columns:repeat(4,1fr);">
+          <div class="kc"><div class="kl">Open</div><div class="kv">7</div></div>
+          <div class="kc kc-gold"><div class="kl kl-gold">Overdue</div><div class="kv" style="color:var(--fail)">2</div></div>
+          <div class="kc"><div class="kl">Closed 30d</div><div class="kv" style="color:var(--pass)">4</div></div>
+          <div class="kc"><div class="kl">Effectiveness</div><div class="kv" style="color:var(--g400)">1</div></div>
+        </div>
+        <div class="tbl">
+          <table class="capa-table" style="width:100%;border-collapse:collapse;">
+            <tr><th class="capa-hdr">CAPA ID</th><th class="capa-hdr">Description</th><th class="capa-hdr">Priority</th><th class="capa-hdr">Owner</th><th class="capa-hdr">Due</th><th class="capa-hdr">Status</th></tr>
+            <tr class="capa-row"><td><span class="capa-id">CAPA-0019</span></td><td style="font-size:9px;">Audit trail gap — LIMS upgrade</td><td><span class="sp sp-fail">● CRITICAL</span></td><td style="font-size:9px;">J. Chen</td><td style="font-size:8px;color:var(--fail);">Mar 15 <span class="overdue-tag">⚠ 40d</span></td><td><span class="sp sp-gold">⚠ OPEN</span></td></tr>
+            <tr class="capa-row"><td><span class="capa-id">CAPA-0020</span></td><td style="font-size:9px;">SOB deviation — Batch 2024-041</td><td><span class="sp sp-gold">● MAJOR</span></td><td style="font-size:9px;">M. Park</td><td style="font-size:8px;color:var(--fail);">Mar 30 <span class="overdue-tag">⚠ 25d</span></td><td><span class="sp sp-gold">⚠ OPEN</span></td></tr>
+            <tr class="capa-row"><td><span class="capa-id">CAPA-0021</span></td><td style="font-size:9px;">SOP update — cleaning validation</td><td><span class="sp sp-rev">● MINOR</span></td><td style="font-size:9px;">S. Patel</td><td style="font-size:8px;color:var(--text3);">Apr 30</td><td><span class="sp sp-rev">◉ IN PROGRESS</span></td></tr>
+            <tr class="capa-row"><td><span class="capa-id">CAPA-0022</span></td><td style="font-size:9px;">Effectiveness check — CAPA-0015</td><td><span class="sp sp-pur">● EFF.CHK</span></td><td style="font-size:9px;">QA Lead</td><td style="font-size:8px;color:var(--g600);">Apr 25</td><td><span class="sp sp-pur">◎ EFF. DUE</span></td></tr>
+            <tr class="capa-row"><td><span class="capa-id">CAPA-0023</span></td><td style="font-size:9px;">Training gap — new GMP module</td><td><span class="sp sp-rev">● MINOR</span></td><td style="font-size:9px;">T. Wilson</td><td style="font-size:8px;color:var(--text3);">May 15</td><td><span class="sp sp-grey">○ OPEN</span></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIEW 4: SOP VISUALIZER ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Unique Differentiator</div>
+  <h2 class="section-title">SOP Visualizer</h2>
+  <p class="section-sub">AI parses any SOP into an interactive swimlane flowchart. Pharma's first. No other platform does this.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div>
+    </div>
+    <div class="app-hdr">
+      <svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060"/></svg>
+      <div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div>
+      <div class="site-chip">◈ SOP-0142 · CSV Change Control</div>
+      <div class="hdr-sp"></div>
+      <div class="notif-btn">🔔<div class="notif-b">3</div></div>
+      <div class="frame-av">ME</div>
+    </div>
+    <div class="app-body">
+      <div class="sidebar">
+        <div class="nav-grp">Documents</div>
+        <div class="nav-item"><span class="nav-ic">⊟</span>Library</div>
+        <div class="nav-item active"><span class="nav-ic">◎</span>SOP Visualizer</div>
+        <div class="nav-item"><span class="nav-ic">⊞</span>Val Package</div>
+        <div class="nav-grp">Views</div>
+        <div class="nav-item active" style="background:rgba(226,168,55,.07);color:var(--g400);border-right:2px solid var(--g600);"><span class="nav-ic">≡</span>Swimlane</div>
+        <div class="nav-item"><span class="nav-ic">↓</span>Flowchart</div>
+        <div class="nav-item"><span class="nav-ic">◉</span>RACI</div>
+        <div class="nav-item"><span class="nav-ic">⊠</span>Decision Tree</div>
+      </div>
+      <div class="content">
+        <div class="view-title">SOP-0142 · CSV Change Control Process</div>
+        <div class="view-sub">AI-generated · 12 steps · 3 roles · 2 decision points</div>
+        <div class="swim-wrap">
+          <!-- QA Lane -->
+          <div class="swim-lane">
+            <div class="swim-label swim-label-qa">QA</div>
+            <div class="swim-nodes">
+              <div class="sop-node sop-node-gold">Change Request</div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-node sop-node-gold">Impact Assessment</div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-decision"><span>?</span></div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-node sop-node-gold">QA Approval</div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-node sop-node-gold" style="border-color:rgba(134,193,64,.3);color:var(--pass);">Close + Archive</div>
+            </div>
+          </div>
+          <!-- IT Lane -->
+          <div class="swim-lane">
+            <div class="swim-label swim-label-it">IT</div>
+            <div class="swim-nodes" style="padding-left:200px;">
+              <div class="sop-node sop-node-teal">Risk Classification</div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-node sop-node-teal">Val Plan Update</div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-node sop-node-teal">Implement + Test</div>
+            </div>
+          </div>
+          <!-- Business Lane -->
+          <div class="swim-lane">
+            <div class="swim-label swim-label-biz">BIZ</div>
+            <div class="swim-nodes" style="padding-left:48px;">
+              <div class="sop-node sop-node-pur">Business Sign-off</div>
+              <div class="sop-arrow">→</div>
+              <div class="sop-node sop-node-pur">UAT Approval</div>
+              <div style="margin-left:auto;font-size:8px;color:var(--pur);opacity:.5;">← feeds IT lane</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:6px;font-size:8px;color:var(--text3);">
+          <span style="color:var(--g400);">■ QA steps (4)</span>
+          <span style="color:var(--t400);">■ IT steps (3)</span>
+          <span style="color:var(--pur);">■ Business steps (2)</span>
+          <span style="margin-left:auto;color:var(--g500);">⚡ Generated from SOP-0142.pdf in 8s</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIEW 5: DASHBOARD ══ -->
+<section class="section" style="border-top:1px solid var(--ch3);">
+  <div class="section-eyebrow">Interface Preview</div>
+  <h2 class="section-title">Validation Dashboard</h2>
+  <p class="section-sub">Real-time quality intelligence across your entire validation portfolio. Site-wide visibility.</p>
+
+  <div class="app-wrap">
+    <div class="app-bar">
+      <div class="dot" style="background:#FF5F57;"></div><div class="dot" style="background:#FEBC2E;"></div><div class="dot" style="background:#28C840;"></div>
+    </div>
+    <div class="app-hdr">
+      <svg class="ph-logo" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060"/></svg>
+      <div class="ph-wm"><span class="ph-p">p</span><span class="ph-h">H</span></div>
+      <div class="site-chip">◈ MATC Madison · All Systems</div>
+      <div class="hdr-sp"></div>
+      <div class="notif-btn">🔔<div class="notif-b">3</div></div>
+      <div class="frame-av">ME</div>
+    </div>
+    <div class="app-body">
+      <div class="sidebar">
+        <div class="nav-grp">Validation</div>
+        <div class="nav-item active"><span class="nav-ic">⊞</span>Dashboard</div>
+        <div class="nav-item"><span class="nav-ic">◈</span>Protocols</div>
+        <div class="nav-item"><span class="nav-ic">▶</span>Executions</div>
+        <div class="nav-grp">Quality</div>
+        <div class="nav-item"><span class="nav-ic">✓</span>CAPA<span class="nav-badge">7</span></div>
+        <div class="nav-item"><span class="nav-ic">⚠</span>Deviations<span class="nav-badge">3</span></div>
+        <div class="nav-grp">Reports</div>
+        <div class="nav-item"><span class="nav-ic">⊟</span>Inspection Ready</div>
+        <div class="nav-item"><span class="nav-ic">◎</span>Periodic Review</div>
+      </div>
+      <div class="content">
+        <div class="view-title">Validation Dashboard</div>
+        <div class="view-sub">MATC Madison · Apr 2026 · 14 active systems</div>
+        <div class="dash-kpis">
+          <div class="dash-kpi"><div class="dk-label">Active Systems</div><div class="dk-val">14</div><div class="dk-delta dk-up">↑ 2 this quarter</div></div>
+          <div class="dash-kpi dash-kpi-gold"><div class="dk-label">Protocols</div><div class="dk-val" style="color:var(--g400)">38</div><div class="dk-delta" style="color:var(--text3)">12 in progress</div></div>
+          <div class="dash-kpi"><div class="dk-label">Pass Rate</div><div class="dk-val" style="color:var(--pass)">94%</div><div class="dk-delta dk-up">↑ 3% vs Q1</div></div>
+          <div class="dash-kpi"><div class="dk-label">Open CAPA</div><div class="dk-val" style="color:var(--fail)">7</div><div class="dk-delta dk-down">↑ 2 overdue</div></div>
+          <div class="dash-kpi"><div class="dk-label">Periodic Due</div><div class="dk-val" style="color:var(--g400)">3</div><div class="dk-delta" style="color:var(--text3)">next 30 days</div></div>
+        </div>
+        <div class="dash-grid">
+          <div class="dash-card">
+            <div class="dash-card-title">Recent Activity</div>
+            <div class="activity-item"><div class="act-dot" style="background:var(--pass)"></div><div class="act-text">IQ-0042 LabWare LIMS — <strong style="color:var(--pass)">PASSED</strong></div><div class="act-time">2h ago</div></div>
+            <div class="activity-item"><div class="act-dot" style="background:var(--g500)"></div><div class="act-text">CAPA-0021 assigned to S. Patel</div><div class="act-time">4h ago</div></div>
+            <div class="activity-item"><div class="act-dot" style="background:var(--fail)"></div><div class="act-text">PQ-0044 overdue — <strong style="color:var(--fail)">ACTION REQUIRED</strong></div><div class="act-time">1d ago</div></div>
+            <div class="activity-item"><div class="act-dot" style="background:var(--t400)"></div><div class="act-text">SOP-0142 visualized by AI in 8s</div><div class="act-time">1d ago</div></div>
+            <div class="activity-item"><div class="act-dot" style="background:var(--pur)"></div><div class="act-text">CAPA-0015 effectiveness check due</div><div class="act-time">2d ago</div></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-title">Protocol Outcomes — Rolling 90d</div>
+            <div class="sparkline">
+              <div class="spark-bar" style="height:60%;background:var(--pass);opacity:.7;"></div>
+              <div class="spark-bar" style="height:80%;background:var(--pass);opacity:.7;"></div>
+              <div class="spark-bar" style="height:50%;background:var(--pass);opacity:.7;"></div>
+              <div class="spark-bar" style="height:90%;background:var(--pass);opacity:.7;"></div>
+              <div class="spark-bar" style="height:70%;background:var(--pass);opacity:.7;"></div>
+              <div class="spark-bar" style="height:100%;background:var(--pass);"></div>
+              <div class="spark-bar" style="height:85%;background:var(--pass);"></div>
+              <div class="spark-bar" style="height:40%;background:var(--fail);opacity:.8;"></div>
+              <div class="spark-bar" style="height:75%;background:var(--pass);"></div>
+              <div class="spark-bar" style="height:95%;background:var(--pass);"></div>
+              <div class="spark-bar" style="height:60%;background:var(--g500);opacity:.8;"></div>
+              <div class="spark-bar" style="height:80%;background:var(--pass);"></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:6px;font-size:8px;color:var(--text3);">
+              <span style="color:var(--pass)">■ Pass</span>
+              <span style="color:var(--fail)">■ Fail</span>
+              <span style="color:var(--g500)">■ Pending</span>
+              <span style="margin-left:auto;">Q1 → Q2 2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PALETTE ══ -->
+<section class="palette-section">
+  <div class="palette-inner">
+    <div class="section-eyebrow" style="text-align:left;color:var(--t300);">Design System</div>
+    <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:28px;color:#fff;">Teal. Gold. Purple. Not another blue enterprise tool.</h2>
+
+    <!-- Teal family -->
+    <div class="sw-row">
+      <div class="sw" style="background:#002A25;"><span class="sw-label">T950</span><span class="sw-hex">#002A25</span></div>
+      <div class="sw" style="background:#004D45;"><span class="sw-label">T900</span><span class="sw-hex">#004D45</span></div>
+      <div class="sw" style="background:#006B61;"><span class="sw-label">T800</span><span class="sw-hex">#006B61</span></div>
+      <div class="sw sw-main" style="background:#00A090;"><span class="sw-label">T600★</span><span class="sw-hex">#00A090</span></div>
+      <div class="sw" style="background:#00B8A9;"><span class="sw-label">T500</span></div>
+      <div class="sw" style="background:#00D4C4;"><span class="sw-label" style="color:#003830;">T400</span><span class="sw-hex" style="color:rgba(0,56,48,.5);">#00D4C4</span></div>
+      <div class="sw" style="background:#5EEADF;"><span class="sw-label" style="color:#002A25;">T300</span></div>
+    </div>
+
+    <!-- Gold family -->
+    <div class="sw-row">
+      <div class="sw" style="background:#7A5A0A;"><span class="sw-label">G800</span></div>
+      <div class="sw" style="background:#A87E14;"><span class="sw-label">G700</span><span class="sw-hex">#A87E14</span></div>
+      <div class="sw" style="background:#C9981A;"><span class="sw-label">G600</span><span class="sw-hex">#C9981A</span></div>
+      <div class="sw sw-main" style="background:#E2A837;"><span class="sw-label" style="color:#3A2000;">G500★</span><span class="sw-hex" style="color:rgba(58,32,0,.6);">#E2A837</span></div>
+      <div class="sw" style="background:#F0C040;"><span class="sw-label" style="color:#3A2000;">G400</span><span class="sw-hex" style="color:rgba(58,32,0,.5);">#F0C040</span></div>
+      <div class="sw" style="background:#F7D56E;"><span class="sw-label" style="color:#7A5A0A;">G300</span></div>
+      <div class="sw" style="background:#FEF9E8;"><span class="sw-label" style="color:#A87E14;">G100</span></div>
+    </div>
+
+    <!-- Purple family -->
+    <div class="sw-row">
+      <div class="sw" style="background:#2E1065;"><span class="sw-label">P950</span></div>
+      <div class="sw" style="background:#4C1D95;"><span class="sw-label">P900</span></div>
+      <div class="sw" style="background:#5B21B6;"><span class="sw-label">P800</span></div>
+      <div class="sw sw-main" style="background:#8B5CF6;"><span class="sw-label">P600★</span><span class="sw-hex">#8B5CF6</span></div>
+      <div class="sw" style="background:#A78BFA;"><span class="sw-label" style="color:#2E1065;">P400</span><span class="sw-hex" style="color:rgba(46,16,101,.6);">#A78BFA</span></div>
+      <div class="sw" style="background:#C4B5FD;"><span class="sw-label" style="color:#4C1D95;">P300</span></div>
+      <div class="sw" style="background:#EDE9FE;"><span class="sw-label" style="color:#5B21B6;">P100</span></div>
+    </div>
+
+    <!-- Semantic / Chrome -->
+    <div class="sw-row" style="margin-top:4px;">
+      <div class="sw sw-main" style="background:#86C140;flex:1.2;"><span class="sw-label">Pass</span><span class="sw-hex">#86C140</span></div>
+      <div class="sw sw-main" style="background:#E54B2E;flex:1.2;"><span class="sw-label">Fail</span><span class="sw-hex">#E54B2E</span></div>
+      <div class="sw" style="background:#F97316;flex:1.2;"><span class="sw-label">Deviation</span><span class="sw-hex">#F97316</span></div>
+      <div class="sw" style="background:#3B82F6;flex:1.2;"><span class="sw-label">Info</span><span class="sw-hex">#3B82F6</span></div>
+      <div class="sw" style="background:#141414;flex:1.2;"><span class="sw-label">Header</span><span class="sw-hex">#141414</span></div>
+      <div class="sw" style="background:#c1c1c1;flex:1.2;"><span class="sw-label" style="color:#333;">Light BG</span><span class="sw-hex" style="color:rgba(0,0,0,.4);">#c1c1c1</span></div>
+    </div>
+
+    <!-- Usage chips -->
+    <div class="accent-row">
+      <div class="accent-chip"><div class="ac-dot" style="background:#00A090;"></div><span class="ac-name" style="color:#00D4C4;">Dark Teal</span><span class="ac-use">Sidebar always · validated state · primary action</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#E2A837;"></div><span class="ac-name" style="color:#F0C040;">Gold</span><span class="ac-use">pH brand · notifications · PHAROLON identity</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#8B5CF6;"></div><span class="ac-name" style="color:#A78BFA;">Purple</span><span class="ac-use">AI features · Enterprise Edition · intelligence layer</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#86C140;"></div><span class="ac-name" style="color:#86C140;">Pass</span><span class="ac-use">Approved · qualified · within spec</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#E54B2E;"></div><span class="ac-name" style="color:#E54B2E;">Fail</span><span class="ac-use">OOS · failed test · deviation open</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<section class="feat-section">
+  <div class="section-eyebrow">Platform</div>
+  <h2 class="section-title">30 validation disciplines. One platform.</h2>
+  <p class="section-sub" style="margin-bottom:40px;">Every discipline pharma needs, built in. Integrate your existing LIMS and MES, or use the native ones.</p>
+  <div class="feat-grid">
+    <div class="feat-card"><div class="feat-icon">◈</div><div class="feat-title">Validation Suite</div><div class="feat-desc">CSV · CSA · Equipment Qualification · CQV · Analytical Instrument · Method Validation · Process Validation · Cleaning · Sterilization · Cold Chain. Full lifecycle from RASC to VSR.</div><span class="feat-tag">CE</span></div>
+    <div class="feat-card"><div class="feat-icon">⊟</div><div class="feat-title">SOP Visualizer</div><div class="feat-desc">AI parses any SOP into interactive swimlane flowcharts in seconds. Pharma's first. No other platform has this. Four views: swimlane, flowchart, RACI, decision tree.</div><span class="feat-tag">CE</span></div>
+    <div class="feat-card"><div class="feat-icon">✓</div><div class="feat-title">Quality Management</div><div class="feat-desc">CAPA · Change Control · Deviations · NCE · OOS/OOT · Complaints · Audit Management · Periodic Review · Inspection Readiness · FDA 483 tracking.</div><span class="feat-tag">CE</span></div>
+    <div class="feat-card"><div class="feat-icon">⊞</div><div class="feat-title">Native LIMS</div><div class="feat-desc">Full laboratory information management — sample registration, chain of custody, test results, specifications, OOS/OOT, stability, CoA generation. Integrates with LabVantage and Sapio.</div><span class="feat-tag feat-tag-ee">EE</span></div>
+    <div class="feat-card"><div class="feat-icon">▶</div><div class="feat-title">Native MES / eBR</div><div class="feat-desc">Electronic batch records, BOM, master batch records, in-process controls, CPP monitoring, bioreactor runs, solid dose, packaging, serialisation, continuous manufacturing. All pharma MFG levels.</div><span class="feat-tag feat-tag-ee">EE</span></div>
+    <div class="feat-card"><div class="feat-icon">◎</div><div class="feat-title">ATMP Suite</div><div class="feat-desc">Chain of Identity · Chain of Custody · Donor eligibility · Patient manufacturing orders · Cell expansion · Cryopreservation · Vector production · Viral clearance tracking.</div><span class="feat-tag feat-tag-ee">EE</span></div>
+  </div>
+</section>
+
+<!-- ══ COMPONENTS ══ -->
+<section class="comp-section">
+  <div class="comp-inner">
+    <div class="section-eyebrow" style="text-align:left;">Design Components</div>
+    <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:24px;">Every component designed for GxP workflows.</h2>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-label">Status Badges</div>
+        <div class="badge-row">
+          <span class="badge" style="background:rgba(134,193,64,.12);color:#86C140;border-color:rgba(134,193,64,.25);">● PASSED</span>
+          <span class="badge" style="background:rgba(229,75,46,.12);color:#E54B2E;border-color:rgba(229,75,46,.25);">✗ FAILED</span>
+          <span class="badge" style="background:rgba(0,160,144,.1);color:#00D4C4;border-color:rgba(0,160,144,.25);">◉ IN REVIEW</span>
+        </div>
+        <div class="badge-row">
+          <span class="badge" style="background:rgba(226,168,55,.1);color:#F0C040;border-color:rgba(226,168,55,.25);">⚠ OVERDUE</span>
+          <span class="badge" style="background:rgba(139,92,246,.12);color:#8B5CF6;border-color:rgba(139,92,246,.25);">◎ AI DRAFT</span>
+          <span class="badge" style="background:rgba(232,237,242,.06);color:#666;border-color:rgba(232,237,242,.1);">○ PENDING</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">Electronic Signatures</div>
+        <div class="sig-block"><div class="sig-av" style="background:linear-gradient(135deg,var(--pass),#5A9A2A);">ME</div><div><div class="sig-name" style="color:var(--pass);">Michael Escamilla</div><div class="sig-role">APPROVED · QA Manager · Apr 23 2026 09:14 UTC</div></div><div class="sig-check">✅</div></div>
+        <div class="sig-block"><div class="sig-av" style="background:linear-gradient(135deg,var(--t600),var(--t900));">JC</div><div><div class="sig-name">Jane Chen</div><div class="sig-role">REVIEWED · Validation Eng · Apr 23 2026 08:52 UTC</div></div><div class="sig-check">✅</div></div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">RTM Coverage Cell</div>
+        <div class="rtm-mini" style="margin-bottom:8px;">
+          <div class="rtm-mini-cell" style="background:rgba(134,193,64,.25);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(134,193,64,.25);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(232,237,242,.04);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(226,168,55,.15);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(134,193,64,.25);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(229,75,46,.2);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(232,237,242,.04);"></div>
+          <div class="rtm-mini-cell" style="background:rgba(134,193,64,.25);"></div>
+        </div>
+        <div style="font-size:9px;color:var(--text3);">Auto-generated from URS → IQ/OQ/PQ test cases. Updates live as execution completes.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-label">Gold Buttons — Primary Actions</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
+          <button class="btn-hero btn-primary" style="font-size:11px;padding:9px 18px;border-radius:6px;">Approve &amp; Sign →</button>
+          <button class="btn-hero btn-ghost" style="font-size:11px;padding:9px 18px;border-radius:6px;">Request Review</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPLIANCE ══ -->
+<section class="comp-table-section">
+  <div class="comp-table-inner">
+    <div class="section-eyebrow">Regulatory</div>
+    <h2 class="section-title">Built for auditors. Not just compliance checkboxes.</h2>
+    <p class="section-sub" style="margin-bottom:32px;">PHAROLON's architecture enforces ALCOA+ by design — not by configuration. Every write goes through the audit trail engine.</p>
+    <table class="reg-table">
+      <thead><tr><th>Framework</th><th>CE</th><th>EE</th><th>Coverage</th></tr></thead>
+      <tbody>
+        <tr><td>21 CFR Part 11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Audit trail · E-signatures · Access controls · System validation</td></tr>
+        <tr><td>FDA CSA 2025</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Dual CSV/CSA mode · Intended use scoping · Unscripted testing</td></tr>
+        <tr><td>EU GMP Annex 11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Audit trail · E-signatures · Periodic review · DR</td></tr>
+        <tr><td>EU GMP Annex 1 (2022)</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>CCS · APS · PUPSIT · Continuous EM</td></tr>
+        <tr><td>GAMP 5 (2nd Ed.)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Software category · Risk-based approach · Scalable validation</td></tr>
+        <tr><td>ICH Q2/Q8–Q13</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>QbD · Risk management · Lifecycle · Continuous manufacturing</td></tr>
+        <tr><td>FDA QMSR (21 CFR 820)</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Design History File · Design controls · ISO 13485</td></tr>
+        <tr><td>PIC/S PI 041-1 (2021)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Data integrity governance · Audit log review · ALCOA+</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══ SCHEMA ══ -->
+<section class="schema-section">
+  <div class="schema-inner">
+    <div class="section-eyebrow" style="text-align:left;">Database</div>
+    <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:8px;">673 tables. Everything and the kitchen sink.</h2>
+    <p style="font-size:14px;color:var(--text2);margin-bottom:28px;">PostgreSQL 15+ · Oracle 19c/21c/23ai · MySQL 8.0+. UUID PKs. UTC timestamps. SHA-256 audit chain. No hard deletes.</p>
+    <div class="schema-grid">
+      <div class="schema-row"><span class="schema-part">Part 1</span><span class="schema-name">Core — auth, audit, systems, protocols, CAPA</span><span class="schema-count">130</span></div>
+      <div class="schema-row"><span class="schema-part">Part 3</span><span class="schema-name">Quality — OOS/OOT, EM, stability, batch, SPC</span><span class="schema-count">31</span></div>
+      <div class="schema-row"><span class="schema-part">Part 5</span><span class="schema-name">Validation workflows, plans, state machines</span><span class="schema-count">33</span></div>
+      <div class="schema-row"><span class="schema-part">Part 7</span><span class="schema-name">Disciplines — cleaning, cold chain, CQV, sterilisation</span><span class="schema-count">37</span></div>
+      <div class="schema-row"><span class="schema-part">Part 8</span><span class="schema-name">Document system, block model, val packages</span><span class="schema-count">20</span></div>
+      <div class="schema-row"><span class="schema-part">Part 9</span><span class="schema-name">Platform — workspaces, training, eBR, AI registry</span><span class="schema-count">91</span></div>
+      <div class="schema-row"><span class="schema-part">Part 11</span><span class="schema-name">QMSR DHF, Annex 1, ATMP COI, DCS, GDP, PI 041-1</span><span class="schema-count">45</span></div>
+      <div class="schema-row"><span class="schema-part">Part 12</span><span class="schema-name">Native LIMS — samples, tests, CoA, stability, micro</span><span class="schema-count">72</span></div>
+      <div class="schema-row"><span class="schema-part">Part 13</span><span class="schema-name">Native MES — eBR, bioreactor, solid dose, serialisation</span><span class="schema-count">70</span></div>
+      <div class="schema-row" style="border-color:rgba(226,168,55,.3);"><span class="schema-part" style="color:#fff;">TOTAL</span><span class="schema-name" style="color:#fff;font-weight:600;">15 parts · all regulated disciplines</span><span class="schema-count" style="color:var(--g400);font-size:14px;">673</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="cta-section">
+  <h2 class="cta-title">The lighthouse for every regulated industry.</h2>
+  <p class="cta-sub">Free Community Edition. Self-hosted. Ships with its own validation package VP-001 to VP-015.</p>
+  <div class="cta-btns">
+    <a class="btn-hero btn-primary" href="https://github.com/tigger2000ttfn/OpenVAL">★ View on GitHub</a>
+    <a class="btn-hero btn-ghost" href="brand.html">Brand Identity</a>
+    <a class="btn-hero btn-ghost" href="index.html">Platform Story</a>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">
+    <svg width="24" height="24" viewBox="0 0 110 110" fill="none"><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="9" fill="none"/><circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.3)" stroke-width=".75" fill="none"/><line x1="55" y1="5" x2="55" y2="17" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="55" y1="93" x2="55" y2="105" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="5" y1="55" x2="17" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="93" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/><line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/><polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/><circle cx="55" cy="14" r="2.5" fill="#F5D060"/></svg>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:17px;display:flex;align-items:baseline;"><span style="display:inline-block;transform:translateY(0.12em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">p</span><span style="background:linear-gradient(180deg,#F5D060,#E2A837 45%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">H</span></span>
+  </div>
+  <p>PHAROLON · Quality Intelligence for Regulated Industries · <a href="https://github.com/tigger2000ttfn/OpenVAL">GitHub</a> · <a href="brand.html">Brand</a> · <a href="index.html">Story</a></p>
+</footer>
+
+<script>
+(function(){
+  var burger = document.querySelector('.nav-burger');
+  var drawer = document.querySelector('.nav-drawer');
+  if(!burger||!drawer)return;
+  burger.addEventListener('click',function(){
+    burger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+  drawer.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      burger.classList.remove('open');
+      drawer.classList.remove('open');
+    });
+  });
+})();
+</script>
 <script>
 (function(){
   var b=document.querySelector('.nav-burger');

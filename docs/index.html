@@ -163,7 +163,8 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
 .ft-link{font-size:9px;color:rgba(0,212,196,.4);text-decoration:none;letter-spacing:.5px;}
 .ft-link:hover{color:var(--t300);}
 
-
+@media(max-width:620px){
+  .feat-grid{grid-template-columns:1fr;}
   .meaning-grid{grid-template-columns:1fr;}
   .lockup-grid{grid-template-columns:1fr;}
   .price-grid{grid-template-columns:1fr;}
@@ -193,7 +194,69 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
 }
 .wm-shadow{filter:drop-shadow(0 1px 4px rgba(0,0,0,.3));}
 
-/* ── MOBILE NAV (≤768px) ── */
+/* ── MOBILE NAV ── */
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;z-index:110;}
+.nav-burger span{display:block;width:22px;height:2px;background:rgba(0,212,196,.7);border-radius:2px;transition:all .25s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.nav-drawer{display:none;}
+
+@media(max-width:680px){
+  .nav-links{display:none;}
+  .nav-gh{display:none;}
+  .nav-burger{display:flex;}
+
+  .nav-drawer{
+    display:block;
+    position:fixed;top:50px;left:0;right:0;
+    background:rgba(8,8,14,.97);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(0,160,144,.2);
+    padding:0;
+    max-height:0;overflow:hidden;
+    transition:max-height .3s ease, padding .3s ease;
+    z-index:99;
+  }
+  .nav-drawer.open{
+    max-height:320px;
+    padding:16px 0 20px;
+  }
+  .nav-drawer a{
+    display:block;
+    padding:13px 28px;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:rgba(0,212,196,.6);
+    text-decoration:none;
+    border-left:2px solid transparent;
+    transition:all .15s;
+  }
+  .nav-drawer a:hover,
+  .nav-drawer a.active{
+    color:#00D4C4;
+    border-left-color:var(--t400,#00D4C4);
+    background:rgba(0,160,144,.06);
+  }
+  .nav-drawer .drawer-gh{
+    margin:12px 24px 0;
+    display:block;
+    text-align:center;
+    padding:10px;
+    border:1px solid rgba(0,160,144,.3);
+    border-radius:4px;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:1px;
+    color:#00D4C4;
+    text-decoration:none;
+  }
+}
+
+/* ── MOBILE NAV ── */
 .nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;margin-right:-4px;background:none;border:none;z-index:110;min-width:44px;min-height:44px;align-items:center;}
 .nav-burger span{display:block;width:22px;height:2px;background:rgba(0,212,196,.7);border-radius:2px;transition:transform .25s,opacity .25s;transform-origin:center;}
 .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -201,12 +264,647 @@ footer{padding:72px 28px 40px;border-top:1px solid var(--ink4);text-align:center
 .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 .nav-drawer{position:fixed;top:50px;left:0;right:0;background:rgba(8,8,14,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,160,144,.2);max-height:0;overflow:hidden;transition:max-height .32s cubic-bezier(.4,0,.2,1);z-index:99;}
 .nav-drawer.open{max-height:340px;}
-.nav-drawer-inner{padding:8px 0 20px;}
 .nav-drawer a{display:flex;align-items:center;padding:14px 28px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(0,212,196,.55);text-decoration:none;border-left:2px solid transparent;transition:all .15s;min-height:44px;}
 .nav-drawer a:hover,.nav-drawer a.active{color:#00D4C4;border-left-color:#00D4C4;background:rgba(0,160,144,.06);}
 .nav-drawer .drawer-gh{margin:8px 24px 0;display:flex;align-items:center;justify-content:center;padding:12px;border:1px solid rgba(0,160,144,.3);border-radius:4px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:#00D4C4;text-decoration:none;min-height:44px;}
-@media(max-width:768px){.nav-links{display:none!important;}.nav-gh{display:none!important;}.nav-burger{display:flex!important;}}
-@media(max-width:768px){.feat-grid{grid-template-columns:1fr;}.meaning-grid{grid-template-columns:1fr;}.lockup-grid{grid-template-columns:1fr;}.price-grid{grid-template-columns:1fr;}.hero{padding:90px 20px 60px;}.hero-stats{gap:20px;}.stat-num{font-size:22px;}}
+@media(max-width:768px){
+  .nav-links{display:none!important;}
+  .nav-gh{display:none!important;}
+  .nav-burger{display:flex!important;}
+}
+@media(max-width:768px){.feat-grid{grid-template-columns:1fr;}.meaning-grid{grid-template-columns:1fr;}.price-grid{grid-template-columns:1fr;}.hero{padding:90px 20px 60px;}.hero-stats{gap:20px;}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-lg" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 50%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">P</span>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;background:linear-gradient(180deg,#F5D060,#E2A837 50%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">H</span>
+    <span style="display:inline-flex;align-items:center;width:32px;height:32px;margin:0 -2px;flex-shrink:0;">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.6)" stroke-width="1.2" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass-rot 100s linear infinite;">
+          <line x1="55" y1="5" x2="55" y2="20" stroke="rgba(226,168,55,.6)" stroke-width="2.5"/>
+          <line x1="55" y1="90" x2="55" y2="105" stroke="rgba(226,168,55,.6)" stroke-width="2.5"/>
+          <line x1="5" y1="55" x2="20" y2="55" stroke="rgba(226,168,55,.6)" stroke-width="2.5"/>
+          <line x1="90" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.6)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+        </g>
+        <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.18)" stroke-width=".9" stroke-dasharray="3 4"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.16)" stroke-width="1.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:ghost-draw 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="7" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="4.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.6" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <circle cx="55" cy="14" r="7" fill="rgba(245,208,96,.1)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="2.8" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+      </svg>
+    </span>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:0;background:linear-gradient(180deg,#F5D060,#E2A837 50%,#A87E14);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ROLON</span>
+  </div>
+  <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-sp"></div>
+  <div class="nav-links">
+    <a class="nav-a" href="index.html">Home</a>
+    <a class="nav-a" href="#story">Story</a>
+    <a class="nav-a" href="#platform">Platform</a>
+    <a class="nav-a" href="brand.html">Brand</a>
+    <a class="nav-a" href="platform-preview.html">Preview</a>
+  </div>
+  <a class="nav-gh" href="https://github.com/tigger2000ttfn/OpenVAL">GitHub →</a>
+</nav>
+<div class="nav-drawer">
+  <a href="index.html" class="active">Home</a>
+  <a href="#story">Story</a>
+  <a href="#platform">Platform</a>
+  <a href="brand.html">Brand</a>
+  <a href="platform-preview.html">Preview</a>
+  <a class="drawer-gh" href="https://github.com/tigger2000ttfn/OpenVAL">★ GitHub →</a>
+</div>
+
+<!-- ════════════════════════════════
+     HERO
+════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-ambient"></div>
+
+  <div class="hero-icon"><div class="icon-box">
+    <!--
+      PHAROLON icon — 180px render, 110×110 viewBox
+      overflow="visible" so the beam rays extend beyond the circle
+      All rays and animations originate from the apex point (55,14)
+    -->
+    <svg width="150" height="150" viewBox="0 0 110 110" fill="none" overflow="visible" style="overflow:visible;display:block;">
+          <!-- compass halo band -->
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="11" fill="none"/>
+          <!-- precision ring -->
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.45)" stroke-width="1" fill="none"/>
+          <!-- inner instrument ring -->
+          <circle cx="55" cy="55" r="43" stroke="rgba(226,168,55,.07)" stroke-width=".6" fill="none"/>
+          <!-- rotating ticks -->
+          <g style="transform-origin:55px 55px;animation:compass-rot 100s linear infinite;">
+            <line x1="55" y1="5"   x2="55" y2="20"  stroke="rgba(226,168,55,.55)" stroke-width="2"/>
+            <line x1="55" y1="90"  x2="55" y2="105" stroke="rgba(226,168,55,.55)" stroke-width="2"/>
+            <line x1="5"  y1="55"  x2="20" y2="55"  stroke="rgba(226,168,55,.55)" stroke-width="2"/>
+            <line x1="90" y1="55"  x2="105" y2="55" stroke="rgba(226,168,55,.55)" stroke-width="2"/>
+            <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+            <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+            <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+            <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.25)" stroke-width="1.2"/>
+          </g>
+          <!-- horizon: the sea the lighthouse stands above -->
+          <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.2)" stroke-width="1" stroke-dasharray="3 5"/>
+          <!-- ghost outer pyramid — draws itself in, glowing -->
+          <polygon points="55,7 5,87 105,87"
+            stroke="rgba(240,192,64,.2)" stroke-width="1.8"
+            stroke-linejoin="miter" stroke-miterlimit="30" fill="none"
+            style="stroke-dasharray:268;stroke-dashoffset:268;animation:ghost-draw 11s ease-in-out infinite;"/>
+          <!-- outer △ — gold -->
+          <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="7" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <!-- mid △ — teal -->
+          <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="4" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <!-- inner △ — purple -->
+          <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="2.4" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.05)"/>
+          <!-- apex beacon halo -->
+          <circle cx="55" cy="14" r="13" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+          <circle cx="55" cy="14" r="7"  fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+          <!-- lighthouse flash -->
+          <circle cx="55" cy="14" r="3.2" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+          <circle cx="55" cy="14" r="1.4" fill="#fff" opacity=".9"/>
+        </svg>
+    </div>
+  </div>
+
+  <div class="hor"></div>
+  <div class="kicker">Quality Intelligence Platform · 2026</div>
+
+  <div style="display:flex;align-items:center;justify-content:center;overflow:visible;padding:0 16px 0.14em;flex-wrap:nowrap;margin-bottom:10px;">
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,9vw,100px);letter-spacing:0;line-height:1;display:inline-block;transform:translateY(0.14em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">P</span>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,9vw,100px);letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">H</span>
+    <span style="display:inline-flex;align-items:center;flex-shrink:0;width:clamp(80px,13vw,155px);height:clamp(80px,13vw,155px);margin:0 clamp(-6px,-1vw,-12px);">
+      <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+        <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+        <circle cx="55" cy="55" r="43" stroke="rgba(226,168,55,.08)" stroke-width=".6" fill="none"/>
+        <g style="transform-origin:55px 55px;animation:compass-rot 100s linear infinite;">
+          <line x1="55" y1="5"   x2="55" y2="20"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="55" y1="90"  x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="5"  y1="55"  x2="20" y2="55"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="90" y1="55"  x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+          <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+          <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.28)" stroke-width="1.5"/>
+        </g>
+        <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.22)" stroke-width="1" stroke-dasharray="3.5 4.5"/>
+        <polygon points="55,7 5,87 105,87" stroke="rgba(240,192,64,.18)" stroke-width="1.8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none" style="stroke-dasharray:268;stroke-dashoffset:268;animation:ghost-draw 11s ease-in-out infinite;"/>
+        <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+        <polygon points="55,40 33,82 77,82" fill="rgba(139,92,246,.05)"/>
+        <circle cx="55" cy="14" r="12" fill="rgba(245,208,96,.09)" style="animation:lh-halo 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="6.5" fill="rgba(245,208,96,.18)" style="animation:lh-halo 4.5s ease-in-out infinite;animation-delay:.08s;"/>
+        <circle cx="55" cy="14" r="3.2" fill="#F5D060" style="animation:lh-flash 4.5s ease-in-out infinite;"/>
+        <circle cx="55" cy="14" r="1.4" fill="#fff" opacity=".9"/>
+      </svg>
+    </span>
+    <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,9vw,100px);letter-spacing:0;line-height:1;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;">ROLON</span>
+  </div>
+  <div style="font-size:9px;letter-spacing:3px;color:rgba(0,212,196,.35);margin-bottom:6px;font-family:'DM Mono',monospace;text-transform:uppercase;">potential of Hydrogen</div>
+  <div class="tagline">Quality Intelligence for Regulated Industries</div>
+
+  <div class="chips">
+    <span class="chip">Pharmaceutical</span>
+    <span class="chip">Medical Device</span>
+    <span class="chip">Biotech</span>
+    <span class="chip">Food Safety</span>
+    <span class="chip">Aerospace</span>
+    <span class="chip">Clinical Research</span>
+    <span class="chip">Cell &amp; Gene Therapy</span>
+    <span class="chip">Contract Mfg</span>
+  </div>
+  <div class="ctas">
+    <a class="btn-p" href="https://github.com/tigger2000ttfn/OpenVAL">View on GitHub</a>
+    <a class="btn-s" href="#story">The Story</a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     THE STORY — hidden references
+════════════════════════════════ -->
+<section class="section" id="story">
+<div class="inner">
+  <div class="sec-label">Origin · The Hidden Reference</div>
+
+  <div class="story-pull">
+    Two of the <span class="story-gold">Seven Wonders of the Ancient World</span>
+    — hidden inside a single mark.
+  </div>
+
+  <div class="rule"></div>
+
+  <p class="body-text">
+    The <strong>Pharos of Alexandria</strong> stood for over a thousand years as the tallest man-made structure on Earth. A lighthouse so monumental it became the ancient word for lighthouse in a dozen languages. It didn't guide Greek ships, or Roman ships, or Egyptian ships. It guided <strong>every ship</strong> — through the same dangerous waters, regardless of what they carried or where they were bound.<br/><br/>
+    The name <strong>PHAROLON</strong> carries that lighthouse inside it: <em>PHAROS + LON</em>. The ancient beacon, extended forward. A platform built to last not for one regulatory era, but for every era that follows.<br/><br/>
+    And the icon? Look closer. The pyramid inside the compass ring is no coincidence. The <strong>Great Pyramid of Giza</strong> — another of the Seven Wonders, standing on the same soil as the Pharos — is encoded into the mark. The nested triangles. The ancient stone courses. The apex that catches the light. <strong>Two wonders. One symbol.</strong>
+  </p>
+
+  <div class="meaning-grid">
+    <div class="meaning-card">
+      <div class="mc-icon">🏛</div>
+      <div class="mc-title mc-gold">PHAROS — The Lighthouse</div>
+      <div class="mc-body">The Pharos of Alexandria guided every vessel for over 1,000 years. <strong>PHAROLON</strong> does the same: the fixed reference point that guides any regulated organisation through compliance complexity — regardless of industry, geography, or regulatory framework.</div>
+    </div>
+    <div class="meaning-card">
+      <div class="mc-icon">△</div>
+      <div class="mc-title mc-gold">The Pyramid — Built to Last</div>
+      <div class="mc-body">The nested triangles in the icon reference the <strong>Great Pyramid of Giza</strong> — the only ancient Wonder still standing. Gold outer, teal mid, purple inner: three layers of quality, precision, and integrity, nested inside each other. Enduring. Immutable. Exact.</div>
+    </div>
+    <div class="meaning-card">
+      <div class="mc-icon">◎</div>
+      <div class="mc-title mc-gold">The Compass — Navigate Complexity</div>
+      <div class="mc-body">The compass ring with its cardinal ticks represents <strong>navigation through regulatory complexity</strong>. FDA, EMA, ICH, PIC/S, ISO — every jurisdiction, every framework. PHAROLON is the instrument you navigate by. Precise. Calibrated. Reliable.</div>
+    </div>
+    <div class="meaning-card">
+      <div class="mc-icon">✦</div>
+      <div class="mc-title mc-gold">The Apex Beacon — The Flash</div>
+      <div class="mc-body">The apex beacon flashes like a real lighthouse: triple-flash, then dark. The <strong>dashed horizon line</strong> beneath the pyramid is the sea — the regulatory danger the lighthouse stands above. The ghost pyramid that draws itself in — the form that only appears when you look closely enough.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════════════════
+     PLATFORM
+════════════════════════════════ -->
+<section class="section" id="platform">
+<div class="inner">
+  <div class="sec-label">The Platform</div>
+  <div class="feat-grid">
+    <div class="feat">
+      <div class="feat-label">Validation Suite</div>
+      <div class="feat-title">Every Discipline</div>
+      <div class="feat-body">CSV · CSA · Equipment Qualification · CQV · Analytical Instrument · Method Validation · Process Validation · Cleaning · Sterilization · Cold Chain. 30+ disciplines in a single platform.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-label">Document Intelligence</div>
+      <div class="feat-title">SOP Visualizer</div>
+      <div class="feat-body">AI parses any SOP into interactive swimlane flowcharts. Pharma's first AI-powered process map generator — from document to diagram in seconds. 67 protocol templates included.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-label">Quality Management</div>
+      <div class="feat-title">Complete QMS</div>
+      <div class="feat-body">CAPA · Change Control · Deviations · OOS/OOT · Complaints · Audit Management · Periodic Review · Inspection Readiness. FDA 483 tracking built in.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-label">Architecture</div>
+      <div class="feat-title">418 Tables. Zero Compromise.</div>
+      <div class="feat-body">SHA-256 immutable audit chain. Re-authentication e-signatures. VPD row-level security. PostgreSQL 15+, Oracle 19c/21c/23ai, MySQL 8.0. Full ALCOA+ by architecture.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-label">Self-Hosted</div>
+      <div class="feat-title">Your Data. Always.</div>
+      <div class="feat-body">No cloud mandate. No per-user fees. No audit trail in someone else's hands. Install on Ubuntu 22.04, RHEL 9, or any supported Linux. Ships with its own validation package VP-001 to VP-015.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-label">Enterprise Edition</div>
+      <div class="feat-title">ATMP · DCS · GCP</div>
+      <div class="feat-body">ATMP Chain of Identity and Custody. DCS/SCADA instrument loop calibration. GCP clinical trial system validation. ICH Q12/Q13 lifecycle management. Jira, Veeva, SAML/SSO integrations.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════════════════
+     COMPLIANCE
+════════════════════════════════ -->
+<section class="section" id="compliance">
+<div class="inner">
+  <div class="sec-label">Regulatory Coverage</div>
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th style="font-family:'Inter',sans-serif;font-weight:600;font-size:9px;color:rgba(0,212,196,.5);">Framework</th>
+        <th>CE</th>
+        <th>EE</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">21 CFR Part 11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Audit trail, e-signatures, access controls, system validation</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">FDA CSA Final Guidance 2025</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Dual CSV/CSA mode, intended use scoping, unscripted testing</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">EU GMP Annex 11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Audit trail, e-signatures, periodic review, disaster recovery</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">EU GMP Annex 15</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Qualification, validation lifecycle, ongoing verification</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">EU GMP Annex 1 (2022)</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>CCS, APS, PUPSIT document types, continuous EM</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">GAMP 5 (2nd Ed.)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Software category classification, risk-based approach</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">ICH Q2/Q8/Q9/Q10/Q11</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Quality by design, risk management, pharmaceutical development</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">ICH Q12/Q13</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Lifecycle management, post-approval changes, continuous manufacturing</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">FDA QMSR (21 CFR 820)</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Design History File, design controls, ISO 13485 alignment</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">PIC/S PI 041-1 (2021)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Data integrity governance, audit log review, ALCOA+</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">MHRA GxP Data Integrity</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Static and dynamic records, metadata, original data</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">ATMP / GTP</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Chain of Identity, Chain of Custody, donor eligibility</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">ICH E6(R3) GCP</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Clinical trial system validation, EDC, CTMS, eTMF</td></tr>
+      <tr><td>EU GDP / WHO GDP</td><td><span class="cx">—</span></td><td><span class="ck">✓</span></td><td>Temperature lane qualification, excursion management</td></tr>
+      <tr><td style="font-family:'Inter',sans-serif;font-weight:600;font-size:11px;color:#fff;">Oracle 19c/21c/23ai</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td>Full VPD, DBMS_CRYPTO, Wallet, native JSON, ADW</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ════════════════════════════════
+     LOGO LOCKUP SHOWCASE
+════════════════════════════════ -->
+<section class="section">
+<div class="inner">
+  <div class="sec-label">Logo System</div>
+
+  <!-- Icon-as-A feature showcase -->
+  <div style="text-align:center;margin-bottom:12px;">
+    <div style="font-size:8px;letter-spacing:1px;color:rgba(226,168,55,.18);text-transform:uppercase;margin-bottom:20px;">The pyramid as the A</div>
+    <div class="wm-a" style="justify-content:center;">
+      <span class="ch ch-p" style="font-size:clamp(24px,8vw,80px);">P</span>
+      <span class="ch"      style="font-size:clamp(24px,8vw,80px);">H</span>
+      <span style="display:inline-flex;align-items:center;width:clamp(120px,17vw,170px);height:clamp(120px,17vw,170px);margin:0 clamp(-10px,-1.5vw,-14px);flex-shrink:0;">
+        <svg style="display:block;width:100%;height:100%;overflow:visible;" viewBox="0 0 110 110" fill="none" overflow="visible">
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.07)" stroke-width="11" fill="none"/>
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.65)" stroke-width="1.2" fill="none"/>
+          <circle cx="55" cy="55" r="43" stroke="rgba(226,168,55,.1)"  stroke-width=".7" fill="none"/>
+          <g style="transform-origin:55px 55px;animation:compass 100s linear infinite;">
+            <line x1="55" y1="5"   x2="55" y2="20"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="55" y1="90"  x2="55" y2="105" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="5"  y1="55"  x2="20" y2="55"  stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="90" y1="55"  x2="105" y2="55" stroke="rgba(226,168,55,.65)" stroke-width="2.5"/>
+            <line x1="89.6" y1="20.4" x2="85" y2="25" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="20.4" y1="20.4" x2="25" y2="25" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="89.6" y1="89.6" x2="85" y2="85" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="20.4" y1="89.6" x2="25" y2="85" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+          </g>
+          <line x1="8" y1="82" x2="102" y2="82" stroke="rgba(226,168,55,.25)" stroke-width="1.2" stroke-dasharray="3.5 4.5"/>
+          <polygon style="stroke-dasharray:268;stroke-dashoffset:268;animation:draw-ghost 11s ease-in-out infinite;" filter="url(#glow)" points="55,7 5,87 105,87" stroke="rgba(240,192,64,.22)" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,14  11,82  99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27  22,82  88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40  33,82  77,82" stroke="#8B5CF6" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40  33,82  77,82" fill="rgba(139,92,246,.06)"/>
+          <circle style="animation:lh-halo 4.5s ease-in-out infinite;" cx="55" cy="14" r="12" fill="rgba(245,208,96,.09)" filter="url(#glow-lg)"/>
+          <circle style="animation:lh-halo 4.5s ease-in-out infinite;" cx="55" cy="14" r="6"  fill="rgba(245,208,96,.18)" filter="url(#glow)"/>
+          <circle style="animation:lh-flash 4.5s ease-in-out infinite;" cx="55" cy="14" r="3.5" fill="#F5D060"/>
+          <circle cx="55" cy="14" r="1.5" fill="#fff" opacity=".9"/>
+        </svg>
+      </span>
+      <span class="ch" style="font-size:clamp(24px,8vw,80px);">ROLON</span>
+    </div>
+  </div>
+
+  <!-- Background lockup grid -->
+  <div class="lockup-grid" style="margin-top:40px;">
+    <div class="lk-cell bg-ink">
+      <div class="lk-h">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none">
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/>
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.18)" stroke-width=".75" fill="none"/>
+          <line x1="55" y1="5"  x2="55" y2="18" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+          <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+          <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+          <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+          <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.1)" stroke-width=".75" stroke-dasharray="3 5"/>
+          <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <circle class="lh-core" cx="55" cy="14" r="2.3" fill="#F5D060"/>
+        </svg>
+        <div class="lk-sep lk-sep-dk"></div>
+        <div class="wm"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+    <div class="lk-cell bg-teal">
+      <div class="lk-h">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none">
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.06)" stroke-width="10" fill="none"/>
+          <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.22)" stroke-width=".75" fill="none"/>
+          <line x1="55" y1="5"  x2="55" y2="18" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
+          <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
+          <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
+          <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.35)" stroke-width="1.5"/>
+          <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.14)" stroke-width=".75" stroke-dasharray="3 5"/>
+          <polygon points="55,14 11,82 99,82" stroke="#E2A837" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27 22,82 88,82" stroke="#00C4B4" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" stroke="#A78BFA" stroke-width="3.2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <circle class="lh-core" cx="55" cy="14" r="2.3" fill="#F5D060"/>
+        </svg>
+        <div class="lk-sep lk-sep-dk"></div>
+        <div class="wm"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+    <div class="lk-cell bg-mid">
+      <div class="lk-h">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none">
+          <circle cx="55" cy="55" r="50" stroke="rgba(100,75,10,.06)" stroke-width="10" fill="none"/>
+          <circle cx="55" cy="55" r="50" stroke="rgba(120,90,10,.2)"  stroke-width=".75" fill="none"/>
+          <line x1="55" y1="5"  x2="55" y2="18" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/>
+          <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/>
+          <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/>
+          <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(120,90,10,.3)" stroke-width="1.5"/>
+          <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(120,90,10,.13)" stroke-width=".75" stroke-dasharray="3 5"/>
+          <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="5.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27 22,82 88,82" stroke="#006B61" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" stroke="#5B21B6" stroke-width="3.2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <circle cx="55" cy="14" r="2.3" fill="#E2A837"/>
+        </svg>
+        <div class="lk-sep lk-sep-lt"></div>
+        <div class="wm wm-dk"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+    <div class="lk-cell bg-white">
+      <div class="lk-h">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none">
+          <circle cx="55" cy="55" r="50" stroke="rgba(100,75,10,.05)" stroke-width="10" fill="none"/>
+          <circle cx="55" cy="55" r="50" stroke="rgba(120,90,10,.16)" stroke-width=".75" fill="none"/>
+          <line x1="55" y1="5"  x2="55" y2="18" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/>
+          <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/>
+          <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/>
+          <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(120,90,10,.24)" stroke-width="1.5"/>
+          <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(120,90,10,.1)" stroke-width=".75" stroke-dasharray="3 5"/>
+          <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,27 22,82 88,82" stroke="#007A6E" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <polygon points="55,40 33,82 77,82" stroke="#6D28D9" stroke-width="3.2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          <circle cx="55" cy="14" r="2.3" fill="#C9981A"/>
+        </svg>
+        <div class="lk-sep lk-sep-lt"></div>
+        <div class="wm wm-dk"><span class="ch ch-p" style="font-size:36px;">P</span><span class="ch" style="font-size:36px;">HAROLON</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- App icon family -->
+  <div style="margin-top:48px;">
+    <div style="font-size:8px;letter-spacing:1px;color:rgba(226,168,55,.18);text-transform:uppercase;text-align:center;margin-bottom:28px;">App Icon Family</div>
+    <div class="icon-row">
+      <div class="ico-item">
+        <div class="app-ico" style="width:88px;height:88px;">
+          <svg width="60" height="60" viewBox="0 0 110 110" fill="none">
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/>
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.2)" stroke-width=".75" fill="none"/>
+            <line x1="55" y1="5"  x2="55" y2="18" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
+            <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
+            <line x1="5"  y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
+            <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.32)" stroke-width="1.5"/>
+            <line x1="10" y1="82" x2="100" y2="82" stroke="rgba(226,168,55,.12)" stroke-width=".75" stroke-dasharray="3 5"/>
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <circle cx="55" cy="14" r="7" fill="rgba(245,208,96,.09)" filter="url(#glow-lg)"/>
+            <circle class="lh-core" cx="55" cy="14" r="2.8" fill="#F5D060"/>
+            <circle cx="55" cy="14" r="1.2" fill="#fff" opacity=".9"/>
+          </svg>
+        </div>
+        <div class="ico-sz">1024</div>
+      </div>
+      <div class="ico-item">
+        <div class="app-ico" style="width:64px;height:64px;">
+          <svg width="44" height="44" viewBox="0 0 110 110" fill="none">
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.05)" stroke-width="10" fill="none"/>
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.18)" stroke-width=".75" fill="none"/>
+            <line x1="55" y1="5" x2="55" y2="18" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="55" y1="92" x2="55" y2="105" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="5" y1="55" x2="18" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <line x1="92" y1="55" x2="105" y2="55" stroke="rgba(226,168,55,.3)" stroke-width="1.5"/>
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="8" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <circle class="lh-core" cx="55" cy="14" r="2.8" fill="#F5D060"/>
+          </svg>
+        </div>
+        <div class="ico-sz">512</div>
+      </div>
+      <div class="ico-item">
+        <div class="app-ico" style="width:46px;height:46px;">
+          <svg width="30" height="30" viewBox="0 0 110 110" fill="none">
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.04)" stroke-width="10" fill="none"/>
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.16)" stroke-width="1" fill="none"/>
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="7"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <circle cx="55" cy="14" r="3" fill="#F5D060"/>
+          </svg>
+        </div>
+        <div class="ico-sz">256</div>
+      </div>
+      <div class="ico-item">
+        <div class="app-ico" style="width:34px;height:34px;">
+          <svg width="22" height="22" viewBox="0 0 110 110" fill="none">
+            <circle cx="55" cy="55" r="50" stroke="rgba(226,168,55,.14)" stroke-width="1" fill="none"/>
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="9"   stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="5.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,40 33,82 77,82" stroke="#8B5CF6" stroke-width="3.2" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          </svg>
+        </div>
+        <div class="ico-sz">64</div>
+      </div>
+      <div class="ico-item">
+        <div class="app-ico" style="width:24px;height:24px;">
+          <svg width="16" height="16" viewBox="0 0 110 110" fill="none">
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+            <polygon points="55,27 22,82 88,82" stroke="#00A090" stroke-width="7.5" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          </svg>
+        </div>
+        <div class="ico-sz">32</div>
+      </div>
+      <div class="ico-item">
+        <div class="app-ico" style="width:18px;height:18px;">
+          <svg width="12" height="12" viewBox="0 0 110 110" fill="none">
+            <polygon points="55,14 11,82 99,82" stroke="#C9981A" stroke-width="18" stroke-linejoin="miter" stroke-miterlimit="30" fill="none"/>
+          </svg>
+        </div>
+        <div class="ico-sz">16</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════════════════
+     PRICING
+════════════════════════════════ -->
+<section class="section" id="pricing">
+<div class="inner">
+  <div class="sec-label">Pricing</div>
+  <div class="price-grid">
+    <div class="price-card">
+      <div class="price-tier" style="color:rgba(0,212,196,.7);">Community Edition</div>
+      <div class="price-amt price-amt-free">Free</div>
+      <div class="price-sub">Forever. AGPL-3.0. Self-hosted.</div>
+      <ul class="price-features">
+        <li>Full validation lifecycle</li>
+        <li>E-signatures + immutable audit trail</li>
+        <li>CAPA, change control, deviations</li>
+        <li>Controlled documents + 67 templates</li>
+        <li>SOP Visualizer + Package Visualizer</li>
+        <li>RTM auto-generation</li>
+        <li>Periodic review workflows</li>
+        <li>Validation package VP-001–VP-015</li>
+        <li>PostgreSQL, Oracle, MySQL</li>
+        <li>Bare metal installer included</li>
+      </ul>
+      <a class="price-cta price-cta-ce" href="https://github.com/tigger2000ttfn/OpenVAL">Get Started on GitHub</a>
+    </div>
+    <div class="price-card">
+      <div class="price-tier" style="color:rgba(0,212,196,.55);">Professional</div>
+      <div class="price-amt" style="font-family:'Inter',sans-serif;font-size:32px;font-weight:700;color:#fff;padding-top:6px;letter-spacing:-.5px;">TBD</div>
+      <div class="price-sub">Per site/month. Hosted or self-hosted.</div>
+      <ul class="price-features">
+        <li>Everything in Community</li>
+        <li>Module Marketplace access</li>
+        <li>OOS / OOT management</li>
+        <li>Complaints + stability studies</li>
+        <li>Electronic logbooks</li>
+        <li>Cleaning &amp; cold chain validation</li>
+        <li>Priority email support</li>
+        <li>Quarterly regulatory updates</li>
+        <li>Up to 25 users</li>
+        <li>Standard SSO (SAML)</li>
+      </ul>
+      <a class="price-cta price-cta-ce" href="https://github.com/tigger2000ttfn/OpenVAL/discussions">Join Waitlist</a>
+    </div>
+    <div class="price-card" style="border-top:2px solid rgba(0,160,144,.3);">
+      <div class="price-tier" style="color:rgba(0,212,196,.8);font-weight:700;">Business</div>
+      <div class="price-amt" style="font-family:'Inter',sans-serif;font-size:32px;font-weight:700;color:#fff;padding-top:6px;letter-spacing:-.5px;">TBD</div>
+      <div class="price-sub">Multi-site. Unlimited users.</div>
+      <ul class="price-features">
+        <li>Everything in Professional</li>
+        <li>Full Module Marketplace</li>
+        <li>DCS/SCADA + historian</li>
+        <li>CSA mode (software assurance)</li>
+        <li>Sterilization validation</li>
+        <li>CQV + process validation</li>
+        <li>Multi-site + tenant isolation</li>
+        <li>Jira · ServiceNow integration</li>
+        <li>Dedicated success manager</li>
+        <li>SLA-backed support</li>
+      </ul>
+      <a class="price-cta price-cta-ce" href="https://github.com/tigger2000ttfn/OpenVAL/discussions">Join Waitlist</a>
+    </div>
+    <div class="price-card price-gold">
+      <div class="price-tier" style="background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Enterprise Edition</div>
+      <div class="price-amt" style="color:rgba(226,168,55,.6);font-size:32px;padding-top:8px;">Contact Us</div>
+      <div class="price-sub">Commercial licence. Site, enterprise, SaaS.</div>
+      <ul class="price-features">
+        <li>Everything in CE</li>
+        <li>OOS/OOT · Complaints · EM · Stability</li>
+        <li>Electronic logbooks + drawings</li>
+        <li>Cleaning, cold chain, CQV, process val</li>
+        <li>Sterilization + CSA mode</li>
+        <li>ATMP Chain of Identity / Custody</li>
+        <li>DCS/SCADA calibration + historian</li>
+        <li>GCP clinical system validation</li>
+        <li>AI assistance + audit anomaly detection</li>
+        <li>SAML/SSO · Jira · Veeva · ServiceNow</li>
+        <li>Multi-site + tenant isolation</li>
+        <li>Priority support + validation services</li>
+      </ul>
+      <a class="price-cta price-cta-ee" href="https://github.com/tigger2000ttfn/OpenVAL/discussions">Enquire →</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════════════════
+     FOOTER
+════════════════════════════════ -->
+<footer>
+  <div class="ft-name">PHAROLON</div>
+  <div class="ft-tagline">
+    Quality Intelligence for Regulated Industries<br/>
+    <span style="color:rgba(226,168,55,.12);">Two ancient wonders. One mark. Built to last.</span>
+  </div>
+  <div class="ft-links">
+    <a class="ft-link" href="https://github.com/tigger2000ttfn/OpenVAL">GitHub</a>
+    <a class="ft-link" href="#story">The Story</a>
+    <a class="ft-link" href="#platform">Platform</a>
+    <a class="ft-link" href="#compliance">Compliance</a>
+    <a class="ft-link" href="#pricing">Pricing</a>
+  </div>
+  <div style="margin-top:32px;font-size:8px;color:rgba(226,168,55,.1);letter-spacing:.5px;">
+    PHAROLON Community Edition · AGPL-3.0 · © 2026
+  </div>
+</footer>
+
+<script>
+(function(){
+  var burger = document.querySelector('.nav-burger');
+  var drawer = document.querySelector('.nav-drawer');
+  if(!burger||!drawer)return;
+  burger.addEventListener('click',function(){
+    burger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+  drawer.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      burger.classList.remove('open');
+      drawer.classList.remove('open');
+    });
+  });
+})();
+</script>
 <script>
 (function(){
   var b=document.querySelector('.nav-burger');
