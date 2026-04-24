@@ -202,7 +202,7 @@ to{transform:rotate(360deg);}}
   .hero{padding:90px 20px 60px;}
 }
 </style>
-<meta name="pharolon:build" content="f729fc6"/><meta name="pharolon:built-at" content="2026-04-24T02:53:17Z"/></head>
+<meta name="pharolon:build" content="168f5dc"/><meta name="pharolon:built-at" content="2026-04-24T02:54:21Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -1203,23 +1203,7 @@ document.fonts.load("800 1em Syne").then(function() {
 var box = document.getElementById("ph-box");
 if (box) { box.style.opacity = "0"; box.style.transition = "opacity .3s"; }
 </script>
-<script>
-(function(){
-  var burger = document.querySelector('.nav-burger');
-  var drawer = document.querySelector('.nav-drawer');
-  if(!burger||!drawer)return;
-  burger.addEventListener('click',function(){
-    burger.classList.toggle('open');
-    drawer.classList.toggle('open');
-  });
-  drawer.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){
-      burger.classList.remove('open');
-      drawer.classList.remove('open');
-    });
-  });
-})();
-</script>
+
 <script>
 (function(){
   var b=document.querySelector('.nav-burger');
