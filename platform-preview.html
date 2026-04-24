@@ -156,7 +156,23 @@ body{background:var(--dk);font-family:'Inter',system-ui,sans-serif;color:var(--t
 .view-tab{flex:1;text-align:center;padding:7px 8px;border-radius:6px;font-size:10px;font-weight:500;color:var(--text3);cursor:pointer;transition:all .15s;}
 .view-tab.active{background:rgba(226,168,55,.12);color:var(--g400);border:1px solid rgba(226,168,55,.2);}
 
-/* ── PALETTE ── */
+
+/* ── PALETTE SECTION ── */
+.palette-section{padding:72px 24px;background:var(--t950);border-top:1px solid rgba(0,160,144,.2);}
+.palette-inner{max-width:1100px;margin:0 auto;}
+.sw-row{display:flex;gap:4px;margin-bottom:4px;}
+.sw{flex:1;height:56px;border-radius:6px;display:flex;flex-direction:column;justify-content:flex-end;padding:6px 8px;transition:transform .15s;}
+.sw:hover{transform:translateY(-3px);}
+.sw-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.75);}
+.sw-hex{font-size:7px;color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;margin-top:1px;}
+.sw-main{outline:2px solid rgba(255,255,255,.5);outline-offset:3px;}
+.accent-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+.accent-chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:9px 14px;}
+.ac-dot{width:18px;height:18px;border-radius:50%;flex-shrink:0;}
+.ac-name{font-size:11px;font-weight:600;}
+.ac-use{font-size:9px;color:rgba(232,237,242,.4);margin-left:4px;}
+
+/* ── OLD PALETTE (unused) ── */
 .pal-section{padding:72px 24px;max-width:1100px;margin:0 auto;border-top:1px solid var(--ch3);}
 .pal-row{display:flex;gap:4px;margin-bottom:4px;}
 .swatch{flex:1;height:52px;border-radius:4px;display:flex;flex-direction:column;justify-content:flex-end;padding:5px 7px;}
@@ -239,7 +255,7 @@ footer a{color:var(--g600);text-decoration:none;}
 @keyframes compass-rot{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 @keyframes ghost-draw{0%{stroke-dashoffset:268;opacity:0;}12%{opacity:.14;}72%{opacity:.08;stroke-dashoffset:0;}88%{opacity:0;stroke-dashoffset:0;}100%{stroke-dashoffset:268;opacity:0;}}
 </style>
-<meta name="pharolon:build" content="a7f26f2"/><meta name="pharolon:built-at" content="2026-04-24T01:05:07Z"/></head>
+<meta name="pharolon:build" content="bce6763"/><meta name="pharolon:built-at" content="2026-04-24T01:07:02Z"/></head>
 <body>
 
 <!-- ══ HERO ══ -->
@@ -660,26 +676,59 @@ footer a{color:var(--g600);text-decoration:none;}
 <!-- ══ PALETTE ══ -->
 <section class="palette-section">
   <div class="palette-inner">
-    <div class="section-eyebrow" style="text-align:left;">Design System</div>
-    <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:28px;">Teal + Gold. Not another blue enterprise tool.</h2>
+    <div class="section-eyebrow" style="text-align:left;color:var(--t300);">Design System</div>
+    <h2 class="section-title" style="text-align:left;font-size:28px;margin-bottom:28px;color:#fff;">Teal. Gold. Purple. Not another blue enterprise tool.</h2>
+
+    <!-- Teal family -->
     <div class="sw-row">
-      <div class="sw" style="background:#002A25;"><span class="sw-label">950</span><span class="sw-hex">#002A25</span></div>
-      <div class="sw" style="background:#004D45;"><span class="sw-label">900</span><span class="sw-hex">#004D45</span></div>
-      <div class="sw" style="background:#006B61;"><span class="sw-label">800</span></div>
-      <div class="sw sw-main" style="background:#00A090;"><span class="sw-label">600★</span><span class="sw-hex">#00A090</span></div>
-      <div class="sw" style="background:#00B8A9;"><span class="sw-label">500</span></div>
-      <div class="sw" style="background:#00D4C4;"><span class="sw-label" style="color:#002A25;">400</span></div>
-      <div class="sw" style="width:12px;flex:0;background:transparent;"></div>
-      <div class="sw" style="background:#C9981A;"><span class="sw-label">G600</span></div>
-      <div class="sw sw-main" style="background:#E2A837;"><span class="sw-label" style="color:#3A2000;">G★</span><span class="sw-hex" style="color:rgba(0,0,0,.5);">#E2A837</span></div>
-      <div class="sw" style="background:#F0C040;"><span class="sw-label" style="color:#3A2000;">G400</span></div>
+      <div class="sw" style="background:#002A25;"><span class="sw-label">T950</span><span class="sw-hex">#002A25</span></div>
+      <div class="sw" style="background:#004D45;"><span class="sw-label">T900</span><span class="sw-hex">#004D45</span></div>
+      <div class="sw" style="background:#006B61;"><span class="sw-label">T800</span><span class="sw-hex">#006B61</span></div>
+      <div class="sw sw-main" style="background:#00A090;"><span class="sw-label">T600★</span><span class="sw-hex">#00A090</span></div>
+      <div class="sw" style="background:#00B8A9;"><span class="sw-label">T500</span></div>
+      <div class="sw" style="background:#00D4C4;"><span class="sw-label" style="color:#003830;">T400</span><span class="sw-hex" style="color:rgba(0,56,48,.5);">#00D4C4</span></div>
+      <div class="sw" style="background:#5EEADF;"><span class="sw-label" style="color:#002A25;">T300</span></div>
     </div>
+
+    <!-- Gold family -->
+    <div class="sw-row">
+      <div class="sw" style="background:#7A5A0A;"><span class="sw-label">G800</span></div>
+      <div class="sw" style="background:#A87E14;"><span class="sw-label">G700</span><span class="sw-hex">#A87E14</span></div>
+      <div class="sw" style="background:#C9981A;"><span class="sw-label">G600</span><span class="sw-hex">#C9981A</span></div>
+      <div class="sw sw-main" style="background:#E2A837;"><span class="sw-label" style="color:#3A2000;">G500★</span><span class="sw-hex" style="color:rgba(58,32,0,.6);">#E2A837</span></div>
+      <div class="sw" style="background:#F0C040;"><span class="sw-label" style="color:#3A2000;">G400</span><span class="sw-hex" style="color:rgba(58,32,0,.5);">#F0C040</span></div>
+      <div class="sw" style="background:#F7D56E;"><span class="sw-label" style="color:#7A5A0A;">G300</span></div>
+      <div class="sw" style="background:#FEF9E8;"><span class="sw-label" style="color:#A87E14;">G100</span></div>
+    </div>
+
+    <!-- Purple family -->
+    <div class="sw-row">
+      <div class="sw" style="background:#2E1065;"><span class="sw-label">P950</span></div>
+      <div class="sw" style="background:#4C1D95;"><span class="sw-label">P900</span></div>
+      <div class="sw" style="background:#5B21B6;"><span class="sw-label">P800</span></div>
+      <div class="sw sw-main" style="background:#8B5CF6;"><span class="sw-label">P600★</span><span class="sw-hex">#8B5CF6</span></div>
+      <div class="sw" style="background:#A78BFA;"><span class="sw-label" style="color:#2E1065;">P400</span><span class="sw-hex" style="color:rgba(46,16,101,.6);">#A78BFA</span></div>
+      <div class="sw" style="background:#C4B5FD;"><span class="sw-label" style="color:#4C1D95;">P300</span></div>
+      <div class="sw" style="background:#EDE9FE;"><span class="sw-label" style="color:#5B21B6;">P100</span></div>
+    </div>
+
+    <!-- Semantic / Chrome -->
+    <div class="sw-row" style="margin-top:4px;">
+      <div class="sw sw-main" style="background:#86C140;flex:1.2;"><span class="sw-label">Pass</span><span class="sw-hex">#86C140</span></div>
+      <div class="sw sw-main" style="background:#E54B2E;flex:1.2;"><span class="sw-label">Fail</span><span class="sw-hex">#E54B2E</span></div>
+      <div class="sw" style="background:#F97316;flex:1.2;"><span class="sw-label">Deviation</span><span class="sw-hex">#F97316</span></div>
+      <div class="sw" style="background:#3B82F6;flex:1.2;"><span class="sw-label">Info</span><span class="sw-hex">#3B82F6</span></div>
+      <div class="sw" style="background:#141414;flex:1.2;"><span class="sw-label">Header</span><span class="sw-hex">#141414</span></div>
+      <div class="sw" style="background:#c1c1c1;flex:1.2;"><span class="sw-label" style="color:#333;">Light BG</span><span class="sw-hex" style="color:rgba(0,0,0,.4);">#c1c1c1</span></div>
+    </div>
+
+    <!-- Usage chips -->
     <div class="accent-row">
-      <div class="accent-chip"><div class="ac-dot" style="background:#86C140;"></div><span class="ac-name" style="color:#86C140;">Pass</span><span class="ac-use">#86C140 — warm lime green</span></div>
-      <div class="accent-chip"><div class="ac-dot" style="background:#E54B2E;"></div><span class="ac-name" style="color:#E54B2E;">Fail</span><span class="ac-use">#E54B2E — warm coral red</span></div>
-      <div class="accent-chip"><div class="ac-dot" style="background:#F97316;"></div><span class="ac-name" style="color:#F97316;">Deviation</span><span class="ac-use">#F97316 — orange</span></div>
-      <div class="accent-chip"><div class="ac-dot" style="background:#8B5CF6;"></div><span class="ac-name" style="color:#A78BFA;">AI / EE</span><span class="ac-use">#8B5CF6 — purple</span></div>
-      <div class="accent-chip"><div class="ac-dot" style="background:#3B82F6;"></div><span class="ac-name" style="color:#60A5FA;">Info</span><span class="ac-use">#3B82F6 — blue</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#00A090;"></div><span class="ac-name" style="color:#00D4C4;">Dark Teal</span><span class="ac-use">Sidebar always · validated state · primary action</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#E2A837;"></div><span class="ac-name" style="color:#F0C040;">Gold</span><span class="ac-use">pH brand · notifications · PHAROLON identity</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#8B5CF6;"></div><span class="ac-name" style="color:#A78BFA;">Purple</span><span class="ac-use">AI features · Enterprise Edition · intelligence layer</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#86C140;"></div><span class="ac-name" style="color:#86C140;">Pass</span><span class="ac-use">Approved · qualified · within spec</span></div>
+      <div class="accent-chip"><div class="ac-dot" style="background:#E54B2E;"></div><span class="ac-name" style="color:#E54B2E;">Fail</span><span class="ac-use">OOS · failed test · deviation open</span></div>
     </div>
   </div>
 </section>
