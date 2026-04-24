@@ -202,7 +202,7 @@ to{transform:rotate(360deg);}}
   .hero{padding:90px 20px 60px;}
 }
 </style>
-<meta name="pharolon:build" content="5a33729"/><meta name="pharolon:built-at" content="2026-04-24T03:15:32Z"/></head>
+<meta name="pharolon:build" content="73ff166"/><meta name="pharolon:built-at" content="2026-04-24T03:17:55Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -394,15 +394,18 @@ to{transform:rotate(360deg);}}
       {apex:{x:140,y:92},bl:{x:98,y:196}, br:{x:182,y:196},col:[139,92,246]}
     ];
 
-    // Dense band: particle every 2.5px along edge, N rows perpendicular
-    function denseBand(p1,p2,rowOffsets){
+    // Dense band: particle every 3.5px, trim corners to avoid overlap
+    function denseBand(p1,p2,rowOffsets,trimS,trimE){
       var dx=p2.x-p1.x,dy=p2.y-p1.y;
       var len=Math.sqrt(dx*dx+dy*dy);
       var ux=dx/len,uy=dy/len;
       var nx=-uy,ny=ux;
-      var pts=[],step=2.5,count=Math.floor(len/step);
+      var pts=[],step=3.5;
+      var tStart=(trimS||0)/len, tEnd=1-(trimE||0)/len;
+      var count=Math.floor(len/step);
       for(var i=0;i<=count;i++){
         var t=i/count;
+        if(t<tStart||t>tEnd) continue; // skip corner overlap zones
         var bx=p1.x+dx*t,by=p1.y+dy*t;
         rowOffsets.forEach(function(off){
           pts.push({ox:bx+nx*off, oy:by+ny*off, t:t});
@@ -416,15 +419,16 @@ to{transform:rotate(360deg);}}
     var particles=[];
 
     tris.forEach(function(tri,ti){
-      // Row offsets — thick bands, all on inner side to nest properly
-      var rows=ti===0?[0,2,4,6,8,10]:ti===1?[0,2,4,6,8]:ti===2?[0,2,4,6]:[];
+      // Row offsets — thicker bands on inner side
+      var rows=ti===0?[0,2,4,6,8,10,12]:ti===1?[0,2,4,6,8,10]:ti===2?[0,2,4,6,8]:[];
+      // trim: [startPx, endPx] — clip corners to avoid particle overlap
       var edges=[
-        [tri.apex,tri.bl],
-        [tri.apex,tri.br],
-        [tri.bl,tri.br]
+        {p1:tri.apex,p2:tri.bl, ts:4,te:6},
+        {p1:tri.apex,p2:tri.br, ts:4,te:6},
+        {p1:tri.bl,  p2:tri.br, ts:6,te:6}
       ];
       edges.forEach(function(e,ei){
-        var pts=denseBand(e[0],e[1],rows);
+        var pts=denseBand(e.p1,e.p2,rows,e.ts,e.te);
         pts.forEach(function(pt,pi){
           // Spawn outside box in random direction
           var angle=Math.random()*Math.PI*2;
@@ -475,8 +479,8 @@ to{transform:rotate(360deg);}}
       var h=ctx.createRadialGradient(ax,ay,0,ax,ay,65+I*35);
       h.addColorStop(0,'rgba(255,248,180,'+(I*.7)+')');h.addColorStop(.25,'rgba(240,192,64,'+(I*.4)+')');
       h.addColorStop(.7,'rgba(226,168,55,'+(I*.07)+')');h.addColorStop(1,'rgba(226,168,55,0)');
-      ctx.beginPath();ctx.arc(ax,ay,65+I*35,0,Math.PI*2);ctx.fillStyle=h;ctx.fill();
-      var sL=100+I*90;
+      ctx.beginPath();ctx.arc(ax,ay,45+I*25,0,Math.PI*2);ctx.fillStyle=h;ctx.fill();
+      var sL=70+I*60;
       var sg=ctx.createLinearGradient(ax-sL,ay,ax+sL,ay);
       sg.addColorStop(0,'rgba(255,255,255,0)');sg.addColorStop(.3,'rgba(255,248,200,'+(I*.28)+')');
       sg.addColorStop(.5,'rgba(255,255,255,'+(I*.75)+')');sg.addColorStop(.7,'rgba(255,248,200,'+(I*.28)+')');
