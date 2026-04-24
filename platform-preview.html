@@ -266,8 +266,70 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 .nav-gh{font-size:9px;letter-spacing:.5px;color:var(--t400,#00D4C4);border:1px solid rgba(0,160,144,.35);border-radius:3px;padding:5px 14px;text-decoration:none;transition:all .15s;}
 .nav-gh:hover{background:rgba(0,160,144,.08);}
 .wm-shadow{filter:drop-shadow(0 1px 4px rgba(0,0,0,.3));}
+
+/* ── MOBILE NAV ── */
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;z-index:110;}
+.nav-burger span{display:block;width:22px;height:2px;background:rgba(0,212,196,.7);border-radius:2px;transition:all .25s;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.nav-drawer{display:none;}
+
+@media(max-width:680px){
+  .nav-links{display:none;}
+  .nav-gh{display:none;}
+  .nav-burger{display:flex;}
+
+  .nav-drawer{
+    display:block;
+    position:fixed;top:50px;left:0;right:0;
+    background:rgba(8,8,14,.97);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(0,160,144,.2);
+    padding:0;
+    max-height:0;overflow:hidden;
+    transition:max-height .3s ease, padding .3s ease;
+    z-index:99;
+  }
+  .nav-drawer.open{
+    max-height:320px;
+    padding:16px 0 20px;
+  }
+  .nav-drawer a{
+    display:block;
+    padding:13px 28px;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:rgba(0,212,196,.6);
+    text-decoration:none;
+    border-left:2px solid transparent;
+    transition:all .15s;
+  }
+  .nav-drawer a:hover,
+  .nav-drawer a.active{
+    color:#00D4C4;
+    border-left-color:var(--t400,#00D4C4);
+    background:rgba(0,160,144,.06);
+  }
+  .nav-drawer .drawer-gh{
+    margin:12px 24px 0;
+    display:block;
+    text-align:center;
+    padding:10px;
+    border:1px solid rgba(0,160,144,.3);
+    border-radius:4px;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:1px;
+    color:#00D4C4;
+    text-decoration:none;
+  }
+}
 </style>
-<meta name="pharolon:build" content="7a9758a"/><meta name="pharolon:built-at" content="2026-04-24T02:23:20Z"/></head>
+<meta name="pharolon:build" content="3b9d8fe"/><meta name="pharolon:built-at" content="2026-04-24T02:24:21Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -931,5 +993,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
   <p>PHAROLON · Quality Intelligence for Regulated Industries · <a href="https://github.com/tigger2000ttfn/OpenVAL">GitHub</a> · <a href="brand.html">Brand</a> · <a href="index.html">Story</a></p>
 </footer>
 
+<script>
+(function(){
+  var burger = document.querySelector('.nav-burger');
+  var drawer = document.querySelector('.nav-drawer');
+  if(!burger||!drawer)return;
+  burger.addEventListener('click',function(){
+    burger.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+  drawer.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      burger.classList.remove('open');
+      drawer.classList.remove('open');
+    });
+  });
+})();
+</script>
 </body>
 </html>
