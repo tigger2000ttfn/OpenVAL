@@ -114,12 +114,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:50px;background:rgba(
 .wm-shadow{filter:drop-shadow(0 1px 4px rgba(0,0,0,.3));}
 
 /* pH Acronym Display — fresh class */
+.ph-acro {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 96px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  background: linear-gradient(180deg, #F5D060, #E2A837 45%, #B8820E 85%, #8A5F08);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-
-50%{opacity:.25;}}
-100%{left:calc(100% + 80px);}}
-to{transform:rotate(360deg);}}
-50%{opacity:.9;box-shadow:0 0 12px 5px rgba(167,139,250,.5);}}
+@keyframes pur-pulse{0%,100%{opacity:.1;}50%{opacity:.25;}}
+@keyframes pur-sweep{0%{left:-80px;}100%{left:calc(100% + 80px);}}
+@keyframes pur-orbit{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes apex-dot{0%,100%{opacity:.3;box-shadow:0 0 6px 2px rgba(167,139,250,.3);}50%{opacity:.9;box-shadow:0 0 12px 5px rgba(167,139,250,.5);}}
 
 /* ── MOBILE NAV ── */
 .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;z-index:110;}
@@ -183,7 +193,7 @@ to{transform:rotate(360deg);}}
   }
 }
 </style>
-<meta name="pharolon:build" content="480c028"/><meta name="pharolon:built-at" content="2026-04-24T02:28:01Z"/></head>
+<meta name="pharolon:build" content="1842f9e"/><meta name="pharolon:built-at" content="2026-04-24T02:29:34Z"/></head>
 <body>
 <nav>
   <div class="nav-wm" style="display:inline-flex;align-items:center;overflow:visible;line-height:1;padding-bottom:3px;gap:0;">
@@ -342,20 +352,45 @@ to{transform:rotate(360deg);}}
 <section class="section">
   <div class="sec-label">The Acronym — pH</div>
   <div style="display:flex;justify-content:center;padding:40px 0;">
-    <div style="width:280px;height:280px;background:linear-gradient(145deg,#1A1A1A,#0A0A0A);border-radius:40px;border:1px solid rgba(0,160,144,.2);box-shadow:0 0 0 1px rgba(255,255,255,.04),0 24px 64px rgba(0,0,0,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:-40px;right:-40px;width:130px;height:130px;background:radial-gradient(circle,rgba(0,160,144,.14),transparent 65%);pointer-events:none;"></div>
-      <div style="position:absolute;bottom:-40px;left:-40px;width:120px;height:120px;background:radial-gradient(circle,rgba(0,160,144,.09),transparent 65%);pointer-events:none;"></div>
+    <div style="
+      width:280px;height:280px;
+      background:linear-gradient(145deg,#1A1A1A,#0A0A0A);
+      border-radius:40px;
+      border:1px solid rgba(0,160,144,.2);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:14px;position:relative;overflow:hidden;
+    ">
+      <!-- shimmer layers -->
+      <div style="position:absolute;inset:-20px;border-radius:50%;opacity:.35;
+        background:conic-gradient(from 0deg,transparent 0%,rgba(139,92,246,.1) 20%,rgba(167,139,250,.2) 30%,transparent 45%,rgba(139,92,246,.07) 65%,rgba(167,139,250,.15) 75%,transparent 90%);
+        animation:pur-orbit 9s linear infinite;pointer-events:none;"></div>
+
+      <div style="position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+        width:200px;height:200px;border-radius:50%;pointer-events:none;
+        background:radial-gradient(circle,rgba(167,139,250,.2) 0%,rgba(139,92,246,.06) 40%,transparent 70%);
+        animation:pur-pulse 4s ease-in-out infinite;"></div>
+
+      <div style="position:absolute;inset:0;overflow:hidden;border-radius:40px;pointer-events:none;">
+        <div style="position:absolute;top:0;bottom:0;width:50px;
+          background:linear-gradient(90deg,transparent,rgba(167,139,250,.15),transparent);
+          animation:pur-sweep 3.5s ease-in-out infinite;"></div>
+        <div style="position:absolute;top:0;bottom:0;width:30px;
+          background:linear-gradient(90deg,transparent,rgba(167,139,250,.09),transparent);
+          animation:pur-sweep 3.5s ease-in-out infinite;animation-delay:1.8s;"></div>
+      </div>
+
+      <div style="position:absolute;bottom:20px;right:20px;
+        width:6px;height:6px;border-radius:50%;background:#A78BFA;pointer-events:none;z-index:5;
+        animation:apex-dot 4s ease-in-out infinite;"></div>
+
+      <!-- pH text — lowercase p, uppercase H, chemistry notation -->
       <div style="position:relative;z-index:1;display:flex;align-items:baseline;gap:0;">
         <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:96px;line-height:1;letter-spacing:-0.02em;display:inline-block;transform:translateY(0.12em);background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">p</span><span style="font-family:'Syne',sans-serif;font-weight:800;font-size:96px;line-height:1;letter-spacing:-0.02em;background:linear-gradient(180deg,#F5D060,#E2A837 45%,#B8820E 85%,#8A5F08);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">H</span>
       </div>
-      <div style="position:relative;z-index:1;text-align:center;">
-        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(0,212,196,.5);text-transform:uppercase;margin-bottom:4px;">potential of Hydrogen</div>
-        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;color:rgba(255,255,255,.2);">PHAROLON · The Acronym</div>
-      </div>
+      <span style="position:relative;z-index:10;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(0,212,196,.45);text-transform:uppercase;">The beacon for validation</span>
     </div>
   </div>
-  <div style="text-align:center;margin-top:8px;font-family:'DM Mono',monospace;font-size:9px;color:rgba(226,168,55,.3);letter-spacing:1px;">Never PH. Never Ph. Always pH.</div>
-
+  <div style="text-align:center;font-family:'DM Mono',monospace;font-size:9px;color:rgba(226,168,55,.3);letter-spacing:1px;">The acronym within the name · Always rendered pH in text</div>
 </section>
 
 <!-- ── ICON-AS-A ── -->
